@@ -69,13 +69,25 @@ export default function ProjectDetailPage({ slug }: { slug: string }) {
 
       <Header project={project} />
 
-      <ClickableCover
-        cover={project.cover}
-        title={project.title}
-        onOpen={() => setLightboxIndex(0)}
-      />
-
-      <Description description={project.description} />
+      {project.coverBelowDescription ? (
+        <>
+          <Description description={project.description} />
+          <ClickableCover
+            cover={project.cover}
+            title={project.title}
+            onOpen={() => setLightboxIndex(0)}
+          />
+        </>
+      ) : (
+        <>
+          <ClickableCover
+            cover={project.cover}
+            title={project.title}
+            onOpen={() => setLightboxIndex(0)}
+          />
+          <Description description={project.description} />
+        </>
+      )}
 
       {project.video && (
         <ClickableVideo

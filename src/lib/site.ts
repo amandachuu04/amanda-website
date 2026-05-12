@@ -436,6 +436,7 @@ export type ProjectPage = {
     poster?: string;
     caption?: string;
   };
+  coverBelowDescription?: boolean;
 };
 
 export const projectPages: Record<string, ProjectPage> = {
@@ -499,6 +500,7 @@ export const projectPages: Record<string, ProjectPage> = {
       "Makefile",
       "Command Line Interface",
     ],
+    coverBelowDescription: true,
   },
 };
 
