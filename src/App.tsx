@@ -11,8 +11,9 @@ import Contact from "./sections/Contact";
 import Footer from "./sections/Footer";
 import ProjectsPage from "./sections/ProjectsPage";
 import WorkDetailPage from "./sections/WorkDetailPage";
+import ProjectDetailPage from "./sections/ProjectDetailPage";
 import { useRoute } from "./lib/route";
-import { getCaseStudy } from "./lib/site";
+import { getCaseStudy, getProjectPage } from "./lib/site";
 
 const DEFAULT_TITLE = "Amanda Chu | Portfolio";
 
@@ -23,7 +24,10 @@ export default function App() {
     if (route.name === "projects") {
       document.title = "Projects";
     } else if (route.name === "work") {
-      document.title = getCaseStudy(route.slug)?.title ?? DEFAULT_TITLE;
+      document.title =
+        getCaseStudy(route.slug)?.title ??
+        getProjectPage(route.slug)?.title ??
+        DEFAULT_TITLE;
     } else {
       document.title = DEFAULT_TITLE;
     }
@@ -55,7 +59,11 @@ export default function App() {
       ) : route.name === "work" ? (
         <>
           <main id="main">
-            <WorkDetailPage slug={route.slug} />
+            {getCaseStudy(route.slug) ? (
+              <WorkDetailPage slug={route.slug} />
+            ) : (
+              <ProjectDetailPage slug={route.slug} />
+            )}
           </main>
           <Footer />
         </>

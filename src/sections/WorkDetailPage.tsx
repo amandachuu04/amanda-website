@@ -60,7 +60,7 @@ export default function WorkDetailPage({ slug }: { slug: string }) {
       />
 
       {/* COMPACT LEFT-ALIGNED HEADER */}
-      <header className="relative mx-auto w-full max-w-[1200px] px-6 pt-28 sm:px-10 sm:pt-32 lg:px-14">
+      <header className="relative mx-auto w-full max-w-[1500px] px-6 pt-28 sm:px-10 sm:pt-32 lg:px-14 xl:px-24">
         <a
           href={projectsHref()}
           className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.22em] text-taupe-400 transition-colors hover:text-taupe-500"
@@ -121,7 +121,7 @@ export default function WorkDetailPage({ slug }: { slug: string }) {
       </header>
 
       {/* MAIN — two column with sticky TOC */}
-      <div className="relative mx-auto mt-20 w-full max-w-[1200px] px-6 sm:px-10 lg:px-14">
+      <div className="relative mx-auto mt-20 w-full max-w-[1500px] px-6 sm:px-10 lg:px-14 xl:px-24">
         <div className="grid gap-12 lg:grid-cols-[220px_1fr] lg:gap-20">
           <aside className="hidden lg:block">
             <div className="sticky top-28">
@@ -366,7 +366,7 @@ function GallerySection({
         className="pointer-events-none absolute -right-20 bottom-10 h-80 w-80 rounded-full bg-blush-400/10 blur-3xl"
       />
 
-      <div className="relative mx-auto w-full max-w-[1300px] px-6 sm:px-10 lg:px-14">
+      <div className="relative mx-auto w-full max-w-[1500px] px-6 sm:px-10 lg:px-14 xl:px-24">
         <div className="flex items-baseline gap-4">
           <span
             aria-hidden

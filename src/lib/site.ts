@@ -82,6 +82,7 @@ export const projects: Project[] = [
     kind: "Design & Programming",
     category: "both",
     meta: "Apr 21 – Apr 30, 2025 · HTML, CSS",
+    slug: "linking-narratives",
     swatch: "from-blush-300/70 to-blush-100",
     emoji: "❀",
     image: "/linking-narratives.png",
@@ -410,6 +411,71 @@ caseStudies.magtracker = {
 
 export function getCaseStudy(slug: string): CaseStudy | undefined {
   return caseStudies[slug];
+}
+
+export type ProjectPage = {
+  slug: string;
+  title: string;
+  tagline: string;
+  cover: string;
+  meta: {
+    role: string;
+    timeline: string;
+    duration: string;
+    tools: string;
+  };
+  externalLink?: {
+    href: string;
+    label: string;
+  };
+  description: string[];
+  skills: string[];
+  video?: {
+    src: string;
+    poster?: string;
+    caption?: string;
+  };
+};
+
+export const projectPages: Record<string, ProjectPage> = {
+  "linking-narratives": {
+    slug: "linking-narratives",
+    title: "Linking Narratives",
+    tagline:
+      "A multi page, cloud themed web presentation of “Sweet Dreams” lyrics. Each page lifts a single line off a soft cloud background, and a highlighted word in that line is the link that carries you to the next page.",
+    cover: "/linking-narratives.png",
+    meta: {
+      role: "Solo, Design & Front end",
+      timeline: "Apr 21 to Apr 30, 2025",
+      duration: "~1 week",
+      tools: "HTML, CSS, Adobe XD, Google Fonts",
+    },
+    externalLink: {
+      href: "https://github.com/amandachuu04/Linked-Narratives",
+      label: "View on GitHub",
+    },
+    description: [
+      "Linking Narratives is a short, multi page web experience that turns the lyrics of “Sweet Dreams” by J Hope and Miguel into a guided narrative. Rather than dropping the full song on one screen, each line lives on its own page, set against a fixed full screen cloud illustration that gives the line its own atmosphere.",
+      "I sketched the structure in Adobe XD before building, then paired soft serif and script Google Fonts to feel dreamlike rather than literal. The site is hand coded across eleven HTML pages with two shared stylesheets, and each page links to the next through a single highlighted word. The chosen word doubles as both navigation and a small piece of poetry, hinting at where the next line takes you.",
+    ],
+    skills: [
+      "Web Design",
+      "Front end Development",
+      "Typography",
+      "HTML",
+      "CSS",
+      "Multi page Navigation",
+    ],
+    video: {
+      src: "/linking-narratives/demo.mp4",
+      poster: "/linking-narratives.png",
+      caption: "Walking through the eleven pages",
+    },
+  },
+};
+
+export function getProjectPage(slug: string): ProjectPage | undefined {
+  return projectPages[slug];
 }
 
 export type Experience = {
