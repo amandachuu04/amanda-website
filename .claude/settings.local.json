@@ -1,0 +1,40 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npm create *)",
+      "Bash(cp \"/Users/amandachu/Desktop/TcAJr0lfwRr2aTyfXx23GzfYOw.avif\" \"/Users/amandachu/Desktop/AC/Fun Projects/Portfolio/public/avatar.avif\")",
+      "Bash(cp \"/Users/amandachu/Desktop/Amanda Chu Resume.pdf\" \"/Users/amandachu/Desktop/AC/Fun Projects/Portfolio/public/Amanda-Chu-Resume.pdf\")",
+      "Bash(npm install *)",
+      "Bash(npm run *)",
+      "Bash(kill %1)",
+      "Bash(pkill -f \"vite\")",
+      "mcp__Claude_Preview__preview_start",
+      "Bash(cp \"/Users/amandachu/Desktop/floraflow.avif\" \"/Users/amandachu/Desktop/AC/Fun Projects/Portfolio/public/floraflow.avif\")",
+      "Bash(cp \"/Users/amandachu/Desktop/magtracker.avif\" \"/Users/amandachu/Desktop/AC/Fun Projects/Portfolio/public/magtracker.avif\")",
+      "Bash(cp \"/Users/amandachu/Desktop/linking narratives.png\" \"/Users/amandachu/Desktop/AC/Fun Projects/Portfolio/public/linking-narratives.png\")",
+      "Bash(cp \"/Users/amandachu/Desktop/dungeon cube caesar.png\" \"/Users/amandachu/Desktop/AC/Fun Projects/Portfolio/public/dungeon-cube-caesar.png\")",
+      "WebFetch(domain:amandachu.framer.website)",
+      "Bash(ls -la \"/Users/amandachu/Desktop/\" | grep -i \"\\\\.avif\" )",
+      "Bash(find /Users/amandachu -maxdepth 4 -iname \"name logo design*\" -o -iname \"hierarchy ad*\" -o -iname \"federico*menu*\" -o -iname \"*cake recipe*\" -o -iname \"banana bread*\" -o -iname \"grade management*\" -o -iname \"modular grid*\" -o -iname \"lane management*\" 2>/dev/null)",
+      "Bash(cp \"Name logo design.avif\" public/name-logo-design.avif)",
+      "Bash(cp \"Hierarchy ad.avif\" public/hierarchy-ad.avif)",
+      "Bash(cp \"federico's menu.avif\" public/federicos-menu.avif)",
+      "Bash(cp \"Charco cake recipe.avif\" public/choco-cake-recipe.avif)",
+      "Bash(cp \"Banana bread recipe.avif\" public/banana-bread-recipe.avif)",
+      "Bash(curl -s \"https://amandachu.framer.website/work/floraflow\" -L --max-time 15)",
+      "Bash(curl -s \"https://amandachu.framer.website/work/floraflow\" -L --max-time 15 -o /tmp/floraflow.html)",
+      "Read(//tmp/**)",
+      "Bash(python3)",
+      "Bash(grep -oE 'background-image[^;]*url\\\\\\([^\\)]+\\\\\\)' /tmp/floraflow.html | head -20)",
+      "Bash(awk '!seen[$0]++')",
+      "Bash(grep -oE '.{80}Xa3qrLo0B3grgEIlsupd4HF9RxA[^\"]{0,200}' /tmp/floraflow.html)",
+      "Bash(grep -oE '.{80}Ropi7zDF6DO1DvSbK8OHGgeJoA[^\"]{0,200}' /tmp/floraflow.html)",
+      "Bash(curl -sL \"https://framerusercontent.com/assets/ZdiL35YfvA166gPAU5FyMZyI.mp4\" -o \"/Users/amandachu/Desktop/AC/Fun Projects/Portfolio/public/floraflow/demo.mp4\" --max-time 60)",
+      "Bash(gh auth *)",
+      "Bash(git init *)",
+      "Bash(git remote *)",
+      "Bash(git config *)",
+      "Bash(git add *)"
+    ]
+  }
+}

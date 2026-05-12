@@ -1,0 +1,92 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --blush: #f8c8c8;
+    --taupe: #8b6f5c;
+    --cream: #fffaf5;
+    --ink: #2a211c;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  html,
+  body,
+  #root {
+    height: 100%;
+  }
+
+  body {
+    @apply bg-cream-100 text-ink font-sans antialiased;
+    font-feature-settings: "ss01", "cv11";
+  }
+
+  ::selection {
+    background: #f8c8c8;
+    color: #2a211c;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--taupe);
+    outline-offset: 3px;
+    border-radius: 4px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.001ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.001ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+}
+
+@layer components {
+  .pill {
+    @apply inline-flex items-center gap-2 rounded-pill border border-taupe-200/60 bg-cream-50/80 px-4 py-2 text-sm font-medium text-taupe-500 backdrop-blur;
+  }
+
+  .btn-primary {
+    @apply inline-flex items-center justify-center gap-2 rounded-pill bg-taupe-400 px-6 py-3 text-sm font-semibold text-cream-100 shadow-soft transition-all hover:bg-taupe-500 hover:-translate-y-0.5 active:translate-y-0;
+  }
+
+  .btn-secondary {
+    @apply inline-flex items-center justify-center gap-2 rounded-pill border border-taupe-300/60 bg-transparent px-6 py-3 text-sm font-semibold text-taupe-500 transition-all hover:bg-blush-100 hover:border-taupe-400/70;
+  }
+
+  .section-eyebrow {
+    @apply inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.18em] text-taupe-400;
+  }
+
+  .squiggle::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: -0.15em;
+    height: 0.45em;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 80 12'><path d='M0 6 Q 10 0 20 6 T 40 6 T 60 6 T 80 6' fill='none' stroke='%23F8C8C8' stroke-width='3' stroke-linecap='round'/></svg>");
+    background-repeat: repeat-x;
+    background-size: 80px 12px;
+    pointer-events: none;
+  }
+
+  .grain {
+    background-image: radial-gradient(circle at 1px 1px, rgba(139, 111, 92, 0.08) 1px, transparent 0);
+    background-size: 22px 22px;
+  }
+
+  .grid-paper {
+    background-image:
+      linear-gradient(to right, rgba(139, 111, 92, 0.06) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(139, 111, 92, 0.06) 1px, transparent 1px);
+    background-size: 48px 48px;
+  }
+}

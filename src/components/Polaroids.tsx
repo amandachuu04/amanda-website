@@ -1,0 +1,260 @@
+import { useEffect, useRef } from "react";
+import {
+  motion,
+  useMotionValue,
+  useReducedMotion,
+  useSpring,
+  useTransform,
+} from "framer-motion";
+import { site } from "../lib/site";
+
+type Polaroid = {
+  id: string;
+  label: string;
+  caption?: string;
+  rot: number;
+  /** percent of container */
+  x: number;
+  y: number;
+  /** parallax intensity, 0 = static, 1 = max */
+  depth: number;
+  width: number;
+  /** kind decides what fills the "photo" area */
+  kind: "avatar" | "boba" | "image";
+  /** for kind === "image" */
+  image?: string;
+};
+
+const POLAROIDS: Polaroid[] = [
+  {
+    id: "me",
+    label: "hi, that's me ☻",
+    rot: -7,
+    x: 2,
+    y: 6,
+    depth: 0.4,
+    width: 200,
+    kind: "avatar",
+  },
+  {
+    id: "floraflow",
+    label: "FloraFlow",
+    caption: "'25",
+    rot: 6,
+    x: 55,
+    y: 2,
+    depth: 0.9,
+    width: 180,
+    kind: "image",
+    image: "/floraflow.avif",
+  },
+  {
+    id: "linking",
+    label: "Linking Narratives",
+    caption: "'25",
+    rot: -9,
+    x: 58,
+    y: 50,
+    depth: 0.55,
+    width: 190,
+    kind: "image",
+    image: "/linking-narratives.png",
+  },
+  {
+    id: "magtracker",
+    label: "MagTracker",
+    caption: "'25",
+    rot: 8,
+    x: 6,
+    y: 56,
+    depth: 0.75,
+    width: 200,
+    kind: "image",
+    image: "/magtracker.avif",
+  },
+];
+
+/** Shrink width on narrow viewports while capping at the design width. */
+function responsiveWidth(w: number): string {
+  return `min(${w}px, calc(${Math.round(w * 0.45)}px + ${(w * 0.1).toFixed(1)}vw))`;
+}
+
+function PhotoFill({ kind, image }: { kind: Polaroid["kind"]; image?: string }) {
+  if (kind === "avatar") {
+    return (
+      <img
+        src={site.avatar}
+        alt=""
+        aria-hidden
+        className="h-full w-full object-cover object-top"
+      />
+    );
+  }
+  if (kind === "image" && image) {
+    return (
+      <img
+        src={image}
+        alt=""
+        aria-hidden
+        className="h-full w-full object-cover"
+      />
+    );
+  }
+  // boba
+  return (
+    <div
+      className="relative flex h-full w-full items-end justify-center pb-3"
+      style={{
+        background:
+          "linear-gradient(180deg, #FDF3EA 0%, #FBDADA 60%, #F8C8C8 100%)",
+      }}
+    >
+      <span className="text-6xl drop-shadow-sm">🧋</span>
+      <span aria-hidden className="absolute left-3 top-3 text-xl text-taupe-300">
+        ✦
+      </span>
+    </div>
+  );
+}
+
+function Tape({ side }: { side: "left" | "right" }) {
+  const rot = side === "left" ? -12 : 14;
+  const pos = side === "left" ? "left-3" : "right-3";
+  return (
+    <span
+      aria-hidden
+      className={`absolute top-[-10px] ${pos} h-5 w-14 rounded-[2px]`}
+      style={{
+        background:
+          "linear-gradient(180deg, rgba(252, 220, 220, 0.65), rgba(252, 220, 220, 0.45))",
+        transform: `rotate(${rot}deg)`,
+        boxShadow: "0 1px 2px rgba(139,111,92,0.15)",
+      }}
+    />
+  );
+}
+
+export default function Polaroids() {
+  const reduce = useReducedMotion();
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  const mx = useMotionValue(0);
+  const my = useMotionValue(0);
+  const smx = useSpring(mx, { stiffness: 120, damping: 22, mass: 0.7 });
+  const smy = useSpring(my, { stiffness: 120, damping: 22, mass: 0.7 });
+
+  useEffect(() => {
+    if (reduce) return;
+    const el = containerRef.current;
+    if (!el) return;
+    const onMove = (e: PointerEvent) => {
+      const rect = el.getBoundingClientRect();
+      const nx = (e.clientX - rect.left) / rect.width - 0.5;
+      const ny = (e.clientY - rect.top) / rect.height - 0.5;
+      mx.set(nx);
+      my.set(ny);
+    };
+    const onLeave = () => {
+      mx.set(0);
+      my.set(0);
+    };
+    el.addEventListener("pointermove", onMove);
+    el.addEventListener("pointerleave", onLeave);
+    return () => {
+      el.removeEventListener("pointermove", onMove);
+      el.removeEventListener("pointerleave", onLeave);
+    };
+  }, [mx, my, reduce]);
+
+  return (
+    <div
+      ref={containerRef}
+      className="relative h-[clamp(420px,58vh,600px)] w-full select-none"
+      aria-hidden
+    >
+      {POLAROIDS.map((p, i) => (
+        <PolaroidItem key={p.id} p={p} index={i} smx={smx} smy={smy} reduce={reduce ?? false} />
+      ))}
+    </div>
+  );
+}
+
+function PolaroidItem({
+  p,
+  index,
+  smx,
+  smy,
+  reduce,
+}: {
+  p: Polaroid;
+  index: number;
+  smx: ReturnType<typeof useSpring>;
+  smy: ReturnType<typeof useSpring>;
+  reduce: boolean;
+}) {
+  // parallax: closer (higher depth) moves more
+  const tx = useTransform(smx, (v) => v * 40 * p.depth);
+  const ty = useTransform(smy, (v) => v * 28 * p.depth);
+  const tr = useTransform(smx, (v) => p.rot + v * 3 * p.depth);
+
+  return (
+    <motion.figure
+      className="absolute"
+      style={{
+        left: `${p.x}%`,
+        top: `${p.y}%`,
+        width: responsiveWidth(p.width),
+        x: reduce ? 0 : tx,
+        y: reduce ? 0 : ty,
+        rotate: reduce ? p.rot : tr,
+        zIndex: Math.round(p.depth * 10) + index,
+      }}
+      initial={{ opacity: 0, y: 18, scale: 0.9 }}
+      animate={{ opacity: 1, y: 0, scale: 1 }}
+      transition={{ duration: 0.7, delay: 0.15 + index * 0.12, ease: "easeOut" }}
+      whileHover={reduce ? undefined : { scale: 1.04, zIndex: 50 }}
+    >
+      {/* gentle idle float */}
+      <motion.div
+        animate={
+          reduce
+            ? undefined
+            : { y: [0, -6, 0], rotate: [0, p.rot * 0.05, 0] }
+        }
+        transition={{
+          duration: 6 + index,
+          repeat: Infinity,
+          ease: "easeInOut",
+          delay: index * 0.3,
+        }}
+        className="relative rounded-[6px] bg-cream-50 pb-10 pt-3 shadow-soft"
+        style={{
+          boxShadow:
+            "0 18px 40px -18px rgba(139, 111, 92, 0.35), 0 4px 10px -4px rgba(139, 111, 92, 0.18)",
+          padding: "12px 12px 44px 12px",
+        }}
+      >
+        <Tape side={index % 2 === 0 ? "left" : "right"} />
+        <div
+          className="relative overflow-hidden rounded-[2px]"
+          style={{ aspectRatio: "1 / 1" }}
+        >
+          <PhotoFill kind={p.kind} image={p.image} />
+        </div>
+        <figcaption className="absolute inset-x-0 bottom-2 px-3 text-center">
+          <span
+            className="font-display text-sm text-taupe-500"
+            style={{ fontStyle: "italic" }}
+          >
+            {p.label}
+          </span>
+          {p.caption && (
+            <span className="ml-1.5 text-[10px] uppercase tracking-[0.18em] text-taupe-300">
+              {p.caption}
+            </span>
+          )}
+        </figcaption>
+      </motion.div>
+    </motion.figure>
+  );
+}
