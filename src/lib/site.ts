@@ -483,7 +483,7 @@ export const projectPages: Record<string, ProjectPage> = {
       role: "Solo, C Development",
       timeline: "Oct 3 to Oct 17, 2024",
       duration: "~2 weeks",
-      tools: "C, Makefile, GCC",
+      tools: "C, Makefile",
     },
     externalLink: {
       href: "https://github.com/amandachuu04/Dungeon-Cube-Caesar",
@@ -491,12 +491,10 @@ export const projectPages: Record<string, ProjectPage> = {
     },
     description: [
       "Dungeon Cube Caesar is a turn based command line game written in C that pairs a familiar word reveal mechanic with a small cryptographic twist at the end. Each round a random five letter lowercase word is generated, two dice are rolled, and the cumulative total moves each player further along the hidden word. The first player to uncover the entire word loses, and the losing player's word is then encrypted using a Caesar cipher with a shift derived from their total roll modulo 26.",
-      "The program is built around a seeded random number generator so games are reproducible, validated player names of two to eight characters, and flexible dice input that accepts formats like \"3x3\" or \"2 x 5\". I split the logic into small, testable pieces — word generation, turn handling, input parsing, and the Caesar cipher — and used a Makefile to compile the project with GCC into a single executable that runs from either interactive input or a redirected input file.",
+      "The program is built around a seeded random number generator so games are reproducible, validated player names of two to eight characters, and flexible dice input that accepts formats like \"3x3\" or \"2 x 5\". I split the logic into small, testable pieces such as word generation, turn handling, input parsing, and the Caesar cipher, then used a Makefile to compile the project into a single executable that runs from either interactive input or a redirected input file.",
     ],
     skills: [
       "C Programming",
-      "Game Logic",
-      "Caesar Cipher",
       "Input Validation",
       "Makefile",
       "Command Line Interface",
