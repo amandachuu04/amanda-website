@@ -12,9 +12,22 @@ import Footer from "./sections/Footer";
 import ProjectsPage from "./sections/ProjectsPage";
 import WorkDetailPage from "./sections/WorkDetailPage";
 import { useRoute } from "./lib/route";
+import { getCaseStudy } from "./lib/site";
+
+const DEFAULT_TITLE = "Amanda Chu | Portfolio";
 
 export default function App() {
   const route = useRoute();
+
+  useEffect(() => {
+    if (route.name === "projects") {
+      document.title = "Projects";
+    } else if (route.name === "work") {
+      document.title = getCaseStudy(route.slug)?.title ?? DEFAULT_TITLE;
+    } else {
+      document.title = DEFAULT_TITLE;
+    }
+  }, [route]);
 
   useEffect(() => {
     if (route.name === "home") {
