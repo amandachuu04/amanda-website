@@ -298,7 +298,7 @@ export const caseStudies: Record<string, CaseStudy> = {
     galleryNote:
       "Companion app with quick session setup, task chunking, and purpose specific modes paired with the lamp.",
     featuredNote:
-      "A soft flower silhouette that doubles as the lamp's glowing aperture.",
+      "A flower-inspired mark that represents the lamp’s soft light and calming focus experience.",
     gallery: [
       { src: "/floraflow/02.png", caption: "Brand mark", aspect: "square" },
       { src: "/floraflow/03.png", aspect: "phone" },
@@ -389,7 +389,7 @@ caseStudies.magtracker = {
   galleryNote:
     "A sage green identity, a companion app for tracking and sharing items, and physical prototypes attached to a water bottle and backpack.",
   featuredNote:
-    "An MTO mark built from four tiles — a bag, the letters M and T, and a location pin — for the modular tracker system.",
+    "A visual mark that brings together a bag, the letters M and T, and a location pin for the tracker system.",
   gallery: [
     { src: "/magtracker/01-brand.webp", caption: "Brand mark", aspect: "square" },
     { src: "/magtracker/02-login.webp", caption: "Sign in", aspect: "phone" },

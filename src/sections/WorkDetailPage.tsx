@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { motion } from "framer-motion";
-import { getCaseStudy, projects, type GalleryItem } from "../lib/site";
-import { projectsHref, workHref } from "../lib/route";
+import { getCaseStudy, type GalleryItem } from "../lib/site";
+import { projectsHref } from "../lib/route";
 
 export default function WorkDetailPage({ slug }: { slug: string }) {
   const study = getCaseStudy(slug);
@@ -40,12 +40,6 @@ export default function WorkDetailPage({ slug }: { slug: string }) {
     () => study.sections.map((s) => slugify(s.heading)),
     [study]
   );
-
-  const currentIdx = projects.findIndex((p) => p.slug === slug);
-  const nextWithSlug = projects
-    .slice(currentIdx + 1)
-    .concat(projects.slice(0, currentIdx))
-    .find((p) => p.slug);
 
   const scrollToId = useCallback((id: string) => {
     const el = document.getElementById(id);
@@ -195,39 +189,6 @@ export default function WorkDetailPage({ slug }: { slug: string }) {
           onOpen={setLightboxIndex}
         />
       )}
-
-      {/* CLOSER */}
-      <section className="relative pt-16">
-        <div className="mx-auto w-full max-w-[1200px] px-6 sm:px-10 lg:px-14">
-          <div className="flex flex-col items-start justify-between gap-6 rounded-3xl border border-taupe-200/60 bg-cream-50/60 p-8 sm:flex-row sm:items-center sm:p-10">
-            <div>
-              <p className="text-xs font-semibold uppercase tracking-[0.22em] text-taupe-400">
-                Up next
-              </p>
-              <p className="mt-2 font-display text-2xl text-ink">
-                {nextWithSlug?.title ?? "More projects"}
-              </p>
-            </div>
-            <div className="flex flex-wrap gap-3">
-              <a
-                href={projectsHref()}
-                className="inline-flex items-center gap-2 rounded-pill border border-taupe-300/60 px-5 py-2.5 text-sm font-semibold text-taupe-500 transition-colors hover:bg-blush-100"
-              >
-                <span aria-hidden>←</span> All projects
-              </a>
-              {nextWithSlug?.slug && (
-                <a
-                  href={workHref(nextWithSlug.slug)}
-                  className="inline-flex items-center gap-2 rounded-pill bg-taupe-500 px-5 py-2.5 text-sm font-semibold text-cream-50 transition-colors hover:bg-taupe-400"
-                >
-                  Next case study
-                  <span aria-hidden>→</span>
-                </a>
-              )}
-            </div>
-          </div>
-        </div>
-      </section>
 
       {lightboxIndex !== null && (
         <Lightbox
@@ -621,13 +582,13 @@ function Lightbox({
         </button>
       </div>
 
-      <div
-        className="relative flex min-h-0 flex-1 items-center justify-center px-16 pb-4 sm:px-20"
-        onClick={(e) => e.stopPropagation()}
-      >
+      <div className="relative flex min-h-0 flex-1 items-center justify-center px-16 pb-4 sm:px-20">
         <button
           type="button"
-          onClick={() => onChange((index - 1 + items.length) % items.length)}
+          onClick={(e) => {
+            e.stopPropagation();
+            onChange((index - 1 + items.length) % items.length);
+          }}
           aria-label="Previous"
           className="absolute left-4 top-1/2 z-10 grid h-12 w-12 -translate-y-1/2 place-items-center rounded-full border border-cream-50/20 text-cream-50 transition-colors hover:bg-cream-50/10 sm:left-8"
         >
@@ -642,19 +603,24 @@ function Lightbox({
             controls
             autoPlay
             playsInline
+            onClick={(e) => e.stopPropagation()}
             className="h-auto max-h-full w-auto max-w-full rounded-xl"
           />
         ) : (
           <img
             src={item.src}
             alt={item.caption ?? "Expanded design"}
+            onClick={(e) => e.stopPropagation()}
             className="h-auto max-h-full w-auto max-w-full rounded-xl object-contain"
           />
         )}
 
         <button
           type="button"
-          onClick={() => onChange((index + 1) % items.length)}
+          onClick={(e) => {
+            e.stopPropagation();
+            onChange((index + 1) % items.length);
+          }}
           aria-label="Next"
           className="absolute right-4 top-1/2 z-10 grid h-12 w-12 -translate-y-1/2 place-items-center rounded-full border border-cream-50/20 text-cream-50 transition-colors hover:bg-cream-50/10 sm:right-8"
         >
