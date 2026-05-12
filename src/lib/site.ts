@@ -72,6 +72,7 @@ export const projects: Project[] = [
     kind: "Design — UX & Branding Lead",
     category: "design",
     meta: "Sept – Dec 2025 · Adobe Illustrator, Figma",
+    slug: "magtracker",
     swatch: "from-taupe-100 to-blush-100",
     emoji: "✦",
     image: "/magtracker.avif",
@@ -213,6 +214,10 @@ export type CaseStudy = {
     duration: string;
     tools: string;
   };
+  externalLink?: {
+    href: string;
+    label: string;
+  };
   intro: string;
   sections: Array<{
     label: string;
@@ -224,6 +229,7 @@ export type CaseStudy = {
   gallery: GalleryItem[];
   galleryHeading?: string;
   galleryNote?: string;
+  featuredNote?: string;
 };
 
 export const caseStudies: Record<string, CaseStudy> = {
@@ -238,6 +244,10 @@ export const caseStudies: Record<string, CaseStudy> = {
       timeline: "Sept to Dec 2025",
       duration: "~3 months",
       tools: "Figma",
+    },
+    externalLink: {
+      href: "https://www.figma.com/design/2srYhqZXTtBmfCCGurQyTg/FloraFlow?node-id=0-1&t=X9ELOtpU3mPIlj2U-1",
+      label: "View website",
     },
     intro:
       "FloraFlow is a calming, screen free focus system designed to help students stay productive without digital distractions. It pairs an ambient, flower inspired lamp with a minimal companion app that allows users to plan focus sessions and then step away from their screens.",
@@ -287,6 +297,8 @@ export const caseStudies: Record<string, CaseStudy> = {
     galleryHeading: "Final screens",
     galleryNote:
       "Companion app with quick session setup, task chunking, and purpose specific modes paired with the lamp.",
+    featuredNote:
+      "A soft flower silhouette that doubles as the lamp's glowing aperture.",
     gallery: [
       { src: "/floraflow/02.png", caption: "Brand mark", aspect: "square" },
       { src: "/floraflow/03.png", aspect: "phone" },
@@ -304,6 +316,96 @@ export const caseStudies: Record<string, CaseStudy> = {
       },
     ],
   },
+};
+
+caseStudies.magtracker = {
+  slug: "magtracker",
+  title: "MagTracker",
+  tagline:
+    "A straightforward, organized method for locating misplaced items without depending on heavy GPS tracking devices.",
+  cover: "/magtracker.avif",
+  meta: {
+    role: "UX & Branding Lead",
+    timeline: "Sept to Dec 2025",
+    duration: "~3 months",
+    tools: "Adobe Illustrator, Figma",
+  },
+  externalLink: {
+    href: "https://www.figma.com/design/cnOMtYLPY2KLgRpUscTexD/Group-Design-Sprints?t=X9ELOtpU3mPIlj2U-1",
+    label: "View website",
+  },
+  intro:
+    "MagTracker reimagines item tracking as a lightweight, low-cost system built around QR codes and modular attachments, so families and students can label everyday belongings without buying a GPS tracker for every item.",
+  sections: [
+    {
+      label: "01 / Empathize",
+      heading: "People lose everyday things, often.",
+      body:
+        "Research showed that individuals regularly misplace everyday objects like water bottles, wallets, and backpacks. Many existing tracking solutions feel expensive, bulky, or unreliable, especially when attachments fall off or require constant battery maintenance. There is a clear gap between needing to keep tabs on everyday items and the heavy, GPS first solutions on the market.",
+    },
+    {
+      label: "02 / Define",
+      heading: "A simpler way to keep track of things.",
+      body:
+        "The core challenge was creating a simple and affordable way to keep track of everyday belongings while maintaining ease of use and flexibility. The goal was a tracker that is light enough to live on anything, durable enough to survive daily use, and cheap enough that you do not think twice about putting one on every backpack or water bottle.",
+    },
+    {
+      label: "03 / Ideate",
+      heading: "Key features",
+      body:
+        "Instead of GPS, MagTracker relies on a QR based identification system that works without batteries or pairing. Multiple form factors let people pick the attachment that best fits their item, and a companion app handles permission based sharing if a stranger scans a found item.",
+      bullets: [
+        "Multiple tracker formats including sticker, clip, keychain ready hole, and magnet.",
+        "QR based tracking without GPS hardware or batteries.",
+        "Durable body with a protective cover that shields the QR code from scratches and weather.",
+        "Secure companion app with permission based sharing capabilities.",
+        "Minimal, lifestyle friendly design that blends into everyday objects.",
+        "Budget friendly alternative to traditional GPS trackers.",
+      ],
+    },
+    {
+      label: "04 / Audience",
+      heading: "Target market",
+      body:
+        "MagTracker is designed for students, young professionals, and individuals aged 20 to 25 who often juggle busy schedules and frequently misplace small daily items. The system also fits families who need an affordable labeling solution for kids' belongings such as backpacks, lunchboxes, and water bottles, without the cost of buying a separate GPS tracker for every item.",
+    },
+    {
+      label: "05 / Test",
+      heading: "Prototype durability",
+      body:
+        "Physical prototypes underwent durability evaluation. The magnet and clip attachments remained secure during normal daily activities, including commuting and carrying items in bags or pockets. Testing confirmed that low cost form factors could survive everyday wear without compromising the QR code or the attachment integrity, validating the core hardware direction before any further investment.",
+    },
+  ],
+  skills: [
+    "UX Research",
+    "User Personas",
+    "Journey Mapping",
+    "Branding",
+    "Team Collaboration",
+    "Design Thinking",
+    "Prototyping",
+  ],
+  galleryHeading: "Brand and product",
+  galleryNote:
+    "A sage green identity, a companion app for tracking and sharing items, and physical prototypes attached to a water bottle and backpack.",
+  featuredNote:
+    "An MTO mark built from four tiles — a bag, the letters M and T, and a location pin — for the modular tracker system.",
+  gallery: [
+    { src: "/magtracker/01-brand.webp", caption: "Brand mark", aspect: "square" },
+    { src: "/magtracker/02-login.webp", caption: "Sign in", aspect: "phone" },
+    { src: "/magtracker/03-home.webp", caption: "Home — tracked items", aspect: "phone" },
+    { src: "/magtracker/04-shared.webp", caption: "Shared devices", aspect: "phone" },
+    { src: "/magtracker/05-profile.webp", caption: "Profile & settings", aspect: "phone" },
+    { src: "/magtracker/06-scanner.webp", caption: "QR scanner", aspect: "phone" },
+    { src: "/magtracker/07-bottle.webp", caption: "Prototype — water bottle", aspect: "phone" },
+    { src: "/magtracker/08-backpack.webp", caption: "Prototype — backpack", aspect: "phone" },
+    {
+      kind: "video",
+      src: "/magtracker/demo.mp4",
+      caption: "Prototype in use",
+      aspect: "wide",
+    },
+  ],
 };
 
 export function getCaseStudy(slug: string): CaseStudy | undefined {

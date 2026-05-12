@@ -87,6 +87,43 @@ export default function WorkDetailPage({ slug }: { slug: string }) {
           <MetaRow label="Timeline" value={study.meta.timeline} />
           <MetaRow label="Toolkit" value={study.meta.tools} />
         </dl>
+
+        {study.skills.length > 0 && (
+          <div className="mt-8">
+            <p className="text-[0.68rem] font-semibold uppercase tracking-[0.22em] text-taupe-400">
+              Skills applied
+            </p>
+            <ul className="mt-3 flex flex-wrap gap-2">
+              {study.skills.map((s) => (
+                <li
+                  key={s}
+                  className="rounded-pill border border-taupe-200/70 bg-cream-50 px-3.5 py-1.5 text-xs font-medium text-taupe-500"
+                >
+                  {s}
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
+
+        {study.externalLink && (
+          <div className="mt-10">
+            <a
+              href={study.externalLink.href}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group inline-flex items-center gap-2 rounded-pill bg-ink px-6 py-3 text-sm font-semibold text-cream-50 transition-colors hover:bg-taupe-500"
+            >
+              {study.externalLink.label}
+              <span
+                aria-hidden
+                className="transition-transform group-hover:translate-x-1"
+              >
+                →
+              </span>
+            </a>
+          </div>
+        )}
       </header>
 
       {/* MAIN — two column with sticky TOC */}
@@ -112,30 +149,20 @@ export default function WorkDetailPage({ slug }: { slug: string }) {
                     </button>
                   </li>
                 ))}
-                <li>
-                  <button
-                    type="button"
-                    onClick={() => scrollToId("toolkit")}
-                    className="group flex w-full items-baseline gap-3 text-left transition-colors hover:text-ink"
-                  >
-                    <span className="font-mono text-[0.7rem] tracking-wider text-taupe-400 group-hover:text-blush-500">
-                      06
-                    </span>
-                    <span className="leading-snug">Toolkit</span>
-                  </button>
-                </li>
-                <li>
-                  <button
-                    type="button"
-                    onClick={() => scrollToId("final-screens")}
-                    className="group flex w-full items-baseline gap-3 text-left transition-colors hover:text-ink"
-                  >
-                    <span className="font-mono text-[0.7rem] tracking-wider text-taupe-400 group-hover:text-blush-500">
-                      07
-                    </span>
-                    <span className="leading-snug">Final screens</span>
-                  </button>
-                </li>
+                {study.gallery.length > 0 && (
+                  <li>
+                    <button
+                      type="button"
+                      onClick={() => scrollToId("final-screens")}
+                      className="group flex w-full items-baseline gap-3 text-left transition-colors hover:text-ink"
+                    >
+                      <span className="font-mono text-[0.7rem] tracking-wider text-taupe-400 group-hover:text-blush-500">
+                        {String(study.sections.length + 1).padStart(2, "0")}
+                      </span>
+                      <span className="leading-snug">Final screens</span>
+                    </button>
+                  </li>
+                )}
               </ol>
             </div>
           </aside>
@@ -153,19 +180,18 @@ export default function WorkDetailPage({ slug }: { slug: string }) {
                 isResearch={s.heading.toLowerCase().includes("survey")}
               />
             ))}
-
-            <ToolkitBlock skills={study.skills} tools={study.meta.tools} />
           </div>
         </div>
       </div>
 
-      {/* GALLERY — section 7 */}
       {study.gallery.length > 0 && (
         <GallerySection
           heading={study.galleryHeading ?? "Final screens"}
           note={study.galleryNote}
           items={study.gallery}
           title={study.title}
+          number={study.sections.length + 1}
+          featuredNote={study.featuredNote}
           onOpen={setLightboxIndex}
         />
       )}
@@ -312,68 +338,21 @@ function SectionBlock({
   );
 }
 
-function ToolkitBlock({ skills, tools }: { skills: string[]; tools: string }) {
-  return (
-    <motion.section
-      id="toolkit"
-      initial={{ opacity: 0, y: 18 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, amount: 0.15 }}
-      transition={{ duration: 0.55 }}
-      className="relative scroll-mt-28"
-    >
-      <div className="flex items-baseline gap-4">
-        <span
-          aria-hidden
-          className="font-display text-5xl font-medium leading-none text-blush-300 sm:text-6xl"
-        >
-          06
-        </span>
-        <span className="text-[0.7rem] font-semibold uppercase tracking-[0.28em] text-taupe-400">
-          Toolkit
-        </span>
-      </div>
-
-      <div className="mt-6 grid gap-10 sm:grid-cols-[200px_1fr] sm:gap-14">
-        <div>
-          <p className="text-[0.7rem] font-semibold uppercase tracking-[0.22em] text-taupe-400">
-            Designed in
-          </p>
-          <p className="mt-2 font-display text-3xl text-ink">{tools}</p>
-        </div>
-        <div>
-          <p className="text-[0.7rem] font-semibold uppercase tracking-[0.22em] text-taupe-400">
-            Skills applied
-          </p>
-          <ul className="mt-3 flex flex-wrap gap-x-3 gap-y-2 font-display text-xl text-ink sm:text-2xl">
-            {skills.map((s, i) => (
-              <li key={s} className="flex items-center gap-3">
-                <span>{s}</span>
-                {i < skills.length - 1 && (
-                  <span aria-hidden className="text-blush-400">
-                    ✦
-                  </span>
-                )}
-              </li>
-            ))}
-          </ul>
-        </div>
-      </div>
-    </motion.section>
-  );
-}
-
 function GallerySection({
   heading,
   note,
   items,
   title,
+  number,
+  featuredNote,
   onOpen,
 }: {
   heading: string;
   note?: string;
   items: GalleryItem[];
   title: string;
+  number: number;
+  featuredNote?: string;
   onOpen: (i: number) => void;
 }) {
   const scrollerRef = useRef<HTMLDivElement>(null);
@@ -432,7 +411,7 @@ function GallerySection({
             aria-hidden
             className="font-display text-5xl font-medium leading-none text-blush-300 sm:text-6xl"
           >
-            07
+            {String(number).padStart(2, "0")}
           </span>
           <span className="text-[0.7rem] font-semibold uppercase tracking-[0.28em] text-cream-50/60">
             Final screens
@@ -468,10 +447,11 @@ function GallerySection({
               <p className="mt-2 font-display text-2xl sm:text-3xl">
                 {featured.caption ?? "Brand mark"}
               </p>
-              <p className="mt-2 max-w-sm text-sm text-cream-50/60">
-                A soft flower silhouette that doubles as the lamp&rsquo;s
-                glowing aperture.
-              </p>
+              {featuredNote && (
+                <p className="mt-2 max-w-sm text-sm text-cream-50/60">
+                  {featuredNote}
+                </p>
+              )}
             </div>
           </button>
         )}
