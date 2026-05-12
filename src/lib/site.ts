@@ -457,8 +457,8 @@ export const projectPages: Record<string, ProjectPage> = {
       label: "View on GitHub",
     },
     description: [
-      "Linking Narratives is a short, multi page web experience that turns the lyrics of “Sweet Dreams” by J Hope and Miguel into a guided narrative. Rather than dropping the full song on one screen, each line lives on its own page, set against a fixed full screen cloud illustration that gives the line its own atmosphere.",
-      "I sketched the structure in Adobe XD before building, then paired soft serif and script Google Fonts to feel dreamlike rather than literal. The site is hand coded across eleven HTML pages with two shared stylesheets, and each page links to the next through a single highlighted word. The chosen word doubles as both navigation and a small piece of poetry, hinting at where the next line takes you.",
+      "Linking Narratives is a short, multi-page web experience that transforms the lyrics of “Sweet Dreams” by J-Hope and Miguel into a guided narrative. Instead of placing the full song on one screen, each lyric line lives on its own page, paired with a fixed full-screen cloud illustration that gives every moment its own atmosphere.",
+      "I first sketched the structure in Adobe XD before developing the site with HTML and CSS. To create a soft, dreamlike feeling, I paired serif and script Google Fonts rather than using visuals that felt too literal. The final experience spans eleven HTML pages with two shared stylesheets. Each page moves to the next through one highlighted word, turning navigation into part of the storytelling. The selected word acts as both a link and a small poetic clue, gently hinting at where the next line will lead.",
     ],
     skills: [
       "Web Design",
@@ -491,8 +491,8 @@ export const projectPages: Record<string, ProjectPage> = {
       label: "View on GitHub",
     },
     description: [
-      "Dungeon Cube Caesar is a turn based command line game written in C that pairs a familiar word reveal mechanic with a small cryptographic twist at the end. Each round a random five letter lowercase word is generated, two dice are rolled, and the cumulative total moves each player further along the hidden word. The first player to uncover the entire word loses, and the losing player's word is then encrypted using a Caesar cipher with a shift derived from their total roll modulo 26.",
-      "The program is built around a seeded random number generator so games are reproducible, validated player names of two to eight characters, and flexible dice input that accepts formats like \"3x3\" or \"2 x 5\". I split the logic into small, testable pieces such as word generation, turn handling, input parsing, and the Caesar cipher, then used a Makefile to compile the project into a single executable that runs from either interactive input or a redirected input file.",
+      "Dungeon Cube Caesar is a turn-based command-line game written in C where players race against a hidden five-letter word. In each round, a random lowercase word is generated, two dice are rolled, and the cumulative total moves each player further through their own hidden word. The first player to reveal the full word loses, and their word is then encrypted using a Caesar cipher with a shift based on their total roll modulo 26.",
+      "The program uses a seeded random number generator so games can be reproduced consistently. It also includes validated player names between two and eight characters, flexible dice input that accepts formats like 3x3 or 2 x 5, and organized logic for word generation, turn handling, input parsing, and encryption. I structured the project into smaller, testable functions and used a Makefile to compile everything into a single executable that can run through interactive input or a redirected input file.",
     ],
     skills: [
       "C Programming",
