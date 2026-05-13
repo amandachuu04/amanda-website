@@ -450,7 +450,7 @@ export const projectPages: Record<string, ProjectPage> = {
       role: "Solo, Design & Front end",
       timeline: "Apr 21 to Apr 30, 2025",
       duration: "~1 week",
-      tools: "HTML, CSS, Adobe XD, Google Fonts",
+      tools: "HTML, CSS, Adobe XD",
     },
     externalLink: {
       href: "https://github.com/amandachuu04/Linked-Narratives",
@@ -473,6 +473,7 @@ export const projectPages: Record<string, ProjectPage> = {
       poster: "/linking-narratives.png",
       caption: "Walking through the eleven pages",
     },
+    coverBelowDescription: true,
   },
   "dungeon-cube-caesar": {
     slug: "dungeon-cube-caesar",
