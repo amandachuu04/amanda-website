@@ -304,12 +304,12 @@ export const caseStudies: Record<string, CaseStudy> = {
       "A flower-inspired mark that represents the lamp’s soft light and calming focus experience.",
     gallery: [
       { src: "/floraflow/02.png", caption: "Brand mark", aspect: "square" },
-      { src: "/floraflow/03.png", aspect: "phone" },
-      { src: "/floraflow/04.png", aspect: "phone" },
-      { src: "/floraflow/05.png", aspect: "phone" },
-      { src: "/floraflow/06.png", aspect: "phone" },
-      { src: "/floraflow/07.png", aspect: "phone" },
-      { src: "/floraflow/08.png", aspect: "phone" },
+      { src: "/floraflow/03.png", caption: "Sign in", aspect: "phone" },
+      { src: "/floraflow/04.png", caption: "Daily schedule", aspect: "phone" },
+      { src: "/floraflow/05.png", caption: "Weekly schedule", aspect: "phone" },
+      { src: "/floraflow/06.png", caption: "Monthly calendar", aspect: "phone" },
+      { src: "/floraflow/07.png", caption: "QR scanner", aspect: "phone" },
+      { src: "/floraflow/08.png", caption: "Profile and settings", aspect: "phone" },
       {
         kind: "video",
         src: "/floraflow/demo.mp4",
