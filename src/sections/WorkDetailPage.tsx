@@ -263,7 +263,7 @@ function SectionBlock({
         {heading}
       </h2>
 
-      <p className="mt-6 max-w-2xl text-base leading-relaxed text-taupe-500 sm:text-[1.05rem] sm:leading-[1.75]">
+      <p className="mt-6 text-base leading-relaxed text-taupe-500 sm:text-[1.05rem] sm:leading-[1.75]">
         {body}
       </p>
 
