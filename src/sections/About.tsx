@@ -87,7 +87,7 @@ export default function About() {
             <Fact label="Focus" value="UX · Web Dev" />
             <Fact label="School" value="George Mason" />
             <Fact label="Languages" value="EN · 粵 · 中" />
-            <Fact label="Likes" value="Design + Boba" />
+            <Fact label="Likes" value="Boba, Concerts, Shopping, Music" />
           </dl>
         </div>
       </div>
