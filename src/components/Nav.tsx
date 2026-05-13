@@ -101,7 +101,7 @@ export default function Nav() {
                     <a
                       onClick={() => setOpen(false)}
                       href={`#${l.id}`}
-                      className="block rounded-2xl px-4 py-3 text-base font-medium text-taupe-500 hover:bg-blush-100 hover:text-ink"
+                      className="block rounded-2xl px-4 py-3 text-center text-base font-medium text-taupe-500 hover:bg-blush-100 hover:text-ink"
                     >
                       {l.label}
                     </a>
