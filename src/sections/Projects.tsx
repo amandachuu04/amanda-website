@@ -19,7 +19,7 @@ export default function Projects() {
                 <span className="italic text-taupe-500">made lately</span>
               </>
             }
-            intro="A small selection from class, internships, and side projects. More on the way."
+            intro="A growing collection of my latest projects. More on the way."
           />
           <a
             href="#/projects"

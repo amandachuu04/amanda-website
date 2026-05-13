@@ -18,7 +18,7 @@ export default function Tools() {
               <span className="italic text-taupe-500">work with</span>
             </>
           }
-          intro="A working toolkit, equal parts code editors and design canvases."
+          intro="The tools I use to design, develop, and refine digital experiences."
         />
 
         <div className="mt-14 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
