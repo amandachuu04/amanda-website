@@ -18,9 +18,21 @@ export default function ProjectDetailPage({ slug }: { slug: string }) {
 
   const lightboxItems = useMemo<LightboxItem[]>(() => {
     if (!project) return [];
-    const items: LightboxItem[] = [
-      { kind: "image", src: project.cover, alt: `${project.title} cover` },
-    ];
+    const items: LightboxItem[] = [];
+    if (project.iterations) {
+      for (const it of project.iterations) {
+        for (const img of it.images) {
+          items.push({
+            kind: "image",
+            src: img.src,
+            alt: img.caption ?? `${project.title} — ${it.heading ?? it.label}`,
+            caption: img.caption,
+          });
+        }
+      }
+    } else {
+      items.push({ kind: "image", src: project.cover, alt: `${project.title} cover` });
+    }
     if (project.video) {
       items.push({
         kind: "video",
@@ -30,6 +42,25 @@ export default function ProjectDetailPage({ slug }: { slug: string }) {
       });
     }
     return items;
+  }, [project]);
+
+  const iterationFirstIndex = useMemo<number[]>(() => {
+    if (!project?.iterations) return [];
+    const result: number[] = [];
+    let running = 0;
+    for (const it of project.iterations) {
+      result.push(running);
+      running += it.images.length;
+    }
+    return result;
+  }, [project]);
+
+  const videoLightboxIndex = useMemo(() => {
+    if (!project?.video) return -1;
+    if (project.iterations) {
+      return project.iterations.reduce((sum, it) => sum + it.images.length, 0);
+    }
+    return 1;
   }, [project]);
 
   if (!project) {
@@ -69,30 +100,27 @@ export default function ProjectDetailPage({ slug }: { slug: string }) {
 
       <Header project={project} />
 
-      {project.coverBelowDescription ? (
-        <>
-          <Description description={project.description} />
-          <ClickableCover
-            cover={project.cover}
-            title={project.title}
-            onOpen={() => setLightboxIndex(0)}
-          />
-        </>
+      <Description description={project.description} />
+
+      {project.iterations ? (
+        <IterationsSection
+          iterations={project.iterations}
+          onOpen={(itIdx, imgIdx) =>
+            setLightboxIndex(iterationFirstIndex[itIdx] + imgIdx)
+          }
+        />
       ) : (
-        <>
-          <ClickableCover
-            cover={project.cover}
-            title={project.title}
-            onOpen={() => setLightboxIndex(0)}
-          />
-          <Description description={project.description} />
-        </>
+        <ClickableCover
+          cover={project.cover}
+          title={project.title}
+          onOpen={() => setLightboxIndex(0)}
+        />
       )}
 
       {project.video && (
         <ClickableVideo
           video={project.video}
-          onOpen={() => setLightboxIndex(1)}
+          onOpen={() => setLightboxIndex(videoLightboxIndex)}
         />
       )}
 
@@ -201,6 +229,64 @@ function ClickableCover({
         />
       </button>
     </motion.figure>
+  );
+}
+
+function IterationsSection({
+  iterations,
+  onOpen,
+}: {
+  iterations: NonNullable<ProjectPage["iterations"]>;
+  onOpen: (iterationIndex: number, imageIndex: number) => void;
+}) {
+  return (
+    <div className="relative mx-auto mt-20 flex w-full max-w-[1500px] flex-col gap-20 px-6 sm:mt-24 sm:gap-24 sm:px-10 lg:px-14 xl:px-24">
+      {iterations.map((it, i) => (
+        <motion.section
+          key={`${it.label}-${i}`}
+          initial={{ opacity: 0, y: 24 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.15 }}
+          transition={{ duration: 0.6 }}
+        >
+          <p className="text-[0.7rem] font-semibold uppercase tracking-[0.28em] text-taupe-400">
+            {it.label}
+          </p>
+          {it.heading && (
+            <h2 className="mt-3 font-display text-[clamp(1.5rem,3.5vw,2.25rem)] font-medium leading-tight tracking-[-0.01em] text-ink">
+              {it.heading}
+            </h2>
+          )}
+          <div
+            className={`mt-8 grid gap-6 sm:gap-8 ${
+              it.images.length > 1 ? "sm:grid-cols-2" : "grid-cols-1"
+            }`}
+          >
+            {it.images.map((img, j) => (
+              <figure key={img.src}>
+                <button
+                  type="button"
+                  onClick={() => onOpen(i, j)}
+                  aria-label={`Expand ${it.heading ?? it.label} image ${j + 1}`}
+                  className="group block w-full overflow-hidden rounded-[1.5rem] bg-cream-50 shadow-card transition-transform hover:scale-[1.005]"
+                >
+                  <img
+                    src={img.src}
+                    alt={img.caption ?? `${it.heading ?? it.label} ${j + 1}`}
+                    className="block h-auto w-full object-cover transition-transform duration-500 group-hover:scale-[1.02]"
+                  />
+                </button>
+                {img.caption && (
+                  <figcaption className="mt-3 text-[0.7rem] uppercase tracking-[0.22em] text-taupe-400">
+                    {img.caption}
+                  </figcaption>
+                )}
+              </figure>
+            ))}
+          </div>
+        </motion.section>
+      ))}
+    </div>
   );
 }
 

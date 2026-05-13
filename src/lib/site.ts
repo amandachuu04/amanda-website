@@ -112,6 +112,7 @@ export const projects: Project[] = [
     kind: "Design",
     category: "design",
     meta: "Apr 8 – Apr 22, 2024 · Adobe Illustrator",
+    slug: "name-logo-design",
     swatch: "from-blush-200 to-blush-100",
     emoji: "✱",
     image: "/name-logo-design.avif",
@@ -437,7 +438,11 @@ export type ProjectPage = {
     poster?: string;
     caption?: string;
   };
-  coverBelowDescription?: boolean;
+  iterations?: Array<{
+    label: string;
+    heading?: string;
+    images: Array<{ src: string; caption?: string }>;
+  }>;
 };
 
 export const projectPages: Record<string, ProjectPage> = {
@@ -474,7 +479,60 @@ export const projectPages: Record<string, ProjectPage> = {
       poster: "/linking-narratives.png",
       caption: "Walking through the eleven pages",
     },
-    coverBelowDescription: true,
+  },
+  "name-logo-design": {
+    slug: "name-logo-design",
+    title: "Name Logo Design",
+    tagline:
+      "A typography-based logo exploration using different fonts, name and initial designs, simple styles, shapes, and minimal illustrations to create a final personal logo.",
+    cover: "/name-logo-design.avif",
+    meta: {
+      role: "Solo, Typographic Design",
+      timeline: "Apr 8 to Apr 22, 2024",
+      duration: "~2 weeks",
+      tools: "Adobe Illustrator",
+    },
+    description: [
+      "This Name Logo Design is a typography-based design focused on creating a logo using only my name. The goal was to explore how type, spacing, contrast, layout, and minimal visual elements can turn a simple name into a more polished personal identity. Each design was created with clear margins and consistent spacing, while keeping illustrations simple so the typography remained the main focus.",
+      "The exploration included full-name and initial-based logo designs using Helvetica, Baskerville, and other fonts. Different uppercase and lowercase combinations, gray value contrasts, colors, shapes, and minimal illustrations were tested to create a variety of visual directions. Through this process, the strongest design ideas were refined into a final logo that felt intentional, balanced, and personal.",
+    ],
+    skills: [
+      "Typography",
+      "Logo Design",
+      "Layout",
+      "Visual Hierarchy",
+      "Adobe Illustrator",
+    ],
+    iterations: [
+      {
+        label: "Iteration 01",
+        heading: "Helvetica and Baskerville",
+        images: [
+          { src: "/name-logo-design/img-1.avif" },
+          { src: "/name-logo-design/img-2.avif" },
+        ],
+      },
+      {
+        label: "Iteration 02",
+        heading: "Full name designs",
+        images: [
+          { src: "/name-logo-design/img-3.avif" },
+          { src: "/name-logo-design/img-4.avif" },
+          { src: "/name-logo-design/img-5.avif" },
+          { src: "/name-logo-design/img-6.avif" },
+        ],
+      },
+      {
+        label: "Iteration 03",
+        heading: "Initials logo designs",
+        images: [{ src: "/name-logo-design/img-7.avif" }],
+      },
+      {
+        label: "Iteration 04",
+        heading: "Final design",
+        images: [{ src: "/name-logo-design.avif" }],
+      },
+    ],
   },
   "dungeon-cube-caesar": {
     slug: "dungeon-cube-caesar",
@@ -502,7 +560,6 @@ export const projectPages: Record<string, ProjectPage> = {
       "Makefile",
       "Command Line Interface",
     ],
-    coverBelowDescription: true,
   },
 };
 
