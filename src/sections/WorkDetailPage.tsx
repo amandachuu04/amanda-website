@@ -268,7 +268,12 @@ function SectionBlock({
       </p>
 
       {bullets && (
-        <ul className="mt-10 grid gap-4 sm:grid-cols-2">
+        <ul
+          className="mt-10 grid gap-4 sm:grid-flow-col sm:grid-cols-2"
+          style={{
+            gridTemplateRows: `repeat(${Math.ceil(bullets.length / 2)}, auto)`,
+          }}
+        >
           {bullets.map((b, i) => (
             <li
               key={b}
