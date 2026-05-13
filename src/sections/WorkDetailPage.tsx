@@ -71,7 +71,7 @@ export default function WorkDetailPage({ slug }: { slug: string }) {
         <h1 className="mt-10 font-display text-[clamp(2.5rem,7vw,5.5rem)] font-medium leading-[1.02] tracking-[-0.02em] text-ink">
           {study.title}
         </h1>
-        <p className="mt-6 max-w-2xl text-lg leading-relaxed text-taupe-500 sm:text-xl">
+        <p className="mt-6 text-lg leading-relaxed text-taupe-500 sm:text-xl">
           {study.tagline}
         </p>
 
