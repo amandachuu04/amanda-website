@@ -38,7 +38,7 @@ const POLAROIDS: Polaroid[] = [
   },
   {
     id: "design",
-    label: "design side",
+    label: "design",
     rot: 6,
     x: 55,
     y: 2,
@@ -49,7 +49,7 @@ const POLAROIDS: Polaroid[] = [
   },
   {
     id: "uxui",
-    label: "ux + ui",
+    label: "implementation",
     rot: -9,
     x: 58,
     y: 50,
