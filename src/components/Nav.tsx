@@ -40,11 +40,13 @@ export default function Nav() {
             href="#hero"
             className="flex items-center gap-2 whitespace-nowrap rounded-pill px-3 py-1.5 font-display text-lg font-semibold text-ink"
           >
-            <span
-              aria-hidden
-              className="inline-block h-2.5 w-2.5 rounded-full bg-blush-300"
-            />
             {site.name}
+            <img
+              src="/amanda-chu-logo.png"
+              alt=""
+              aria-hidden
+              className="h-6 w-auto sm:h-7"
+            />
           </a>
 
           <ul className="hidden items-center gap-1 lg:flex">
