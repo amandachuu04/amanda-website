@@ -257,13 +257,11 @@ export const caseStudies: Record<string, CaseStudy> = {
       timeline: "Sept to Dec 2025",
       duration: "3 months",
       tools: "Figma",
-      variations: "",
       fonts: "",
-      size: "",
     },
     externalLink: {
       href: "https://www.figma.com/design/2srYhqZXTtBmfCCGurQyTg/FloraFlow?node-id=0-1&t=X9ELOtpU3mPIlj2U-1",
-      label: "View website",
+      label: "View Prototype",
     },
     intro:
       "FloraFlow is a calming, screen free focus system designed to help students stay productive without digital distractions. It pairs an ambient, flower inspired lamp with a minimal companion app that allows users to plan focus sessions and then step away from their screens.",
@@ -346,13 +344,11 @@ caseStudies.magtracker = {
     timeline: "Sept to Dec 2025",
     duration: "3 months",
     tools: "Adobe Illustrator, Figma",
-    variations: "",
     fonts: "",
-    size: "",
   },
   externalLink: {
     href: "https://www.figma.com/design/cnOMtYLPY2KLgRpUscTexD/Group-Design-Sprints?t=X9ELOtpU3mPIlj2U-1",
-    label: "View website",
+    label: "View Prototype",
   },
   intro:
     "MagTracker reimagines item tracking as a lightweight, low-cost system built around QR codes and modular attachments, so families and students can label everyday belongings without buying a GPS tracker for every item.",
