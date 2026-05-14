@@ -559,7 +559,7 @@ export const projectPages: Record<string, ProjectPage> = {
     slug: "dungeon-cube-caesar",
     title: "Dungeon Cube Caesar",
     tagline:
-      "A C program that implements a two player game where a random five letter word is generated and two dice are rolled each round. Players reveal letters based on dice rolls, and whoever uncovers the entire word first loses, triggering a Caesar cipher encryption of that word.",
+      "A C program that implements a player-versus-computer game where a random five-letter word is generated and two dice are rolled each round. The player and computer bot reveal letters based on dice rolls, and whoever uncovers the entire word first loses, triggering a Caesar cipher encryption of that word.",
     cover: "/dungeon-cube-caesar.png",
     category: "programming",
     meta: {
@@ -574,7 +574,7 @@ export const projectPages: Record<string, ProjectPage> = {
       label: "View on GitHub",
     },
     description: [
-      "Dungeon Cube Caesar is a turn-based command-line game written in C where players race against a hidden five-letter word. In each round, a random lowercase word is generated, two dice are rolled, and the cumulative total moves each player further through their own hidden word. The first player to reveal the full word loses, and their word is then encrypted using a Caesar cipher with a shift based on their total roll modulo 26.",
+      "Dungeon Cube Caesar is a turn-based command-line game written in C where the player competes against a computer bot to avoid revealing a hidden five-letter word. In each round, a random lowercase word is generated, two dice are rolled, and the cumulative total moves both the player and the bot further through their own hidden word. Whoever reveals the full word first loses, and their word is then encrypted using a Caesar cipher with a shift based on their total roll modulo 26.",
       "The program uses a seeded random number generator so games can be reproduced consistently. It also includes validated player names between two and eight characters, flexible dice input that accepts formats like 3x3 or 2 x 5, and organized logic for word generation, turn handling, input parsing, and encryption. I structured the project into smaller, testable functions and used a Makefile to compile everything into a single executable that can run through interactive input or a redirected input file.",
     ],
     skills: [
