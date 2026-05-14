@@ -75,12 +75,22 @@ export default function WorkDetailPage({ slug }: { slug: string }) {
           {study.tagline}
         </p>
 
-        <dl className="mt-10 grid grid-cols-2 gap-x-8 gap-y-6 border-t border-taupe-200/60 pt-8 sm:grid-cols-4">
-          <MetaRow label="Role" value={study.meta.role} />
-          <MetaRow label="Duration" value={study.meta.duration} />
-          <MetaRow label="Timeline" value={study.meta.timeline} />
-          <MetaRow label="Toolkit" value={study.meta.tools} />
-        </dl>
+        {study.category === "programming" ? (
+          <dl className="mt-10 grid w-full grid-cols-3 gap-x-8 gap-y-6 border-t border-taupe-200/60 pt-8">
+            <MetaRow label="Language" value={study.meta.language ?? study.meta.tools} />
+            <MetaRow label="Duration" value={study.meta.duration} />
+            <MetaRow label="Timeline" value={study.meta.timeline} />
+          </dl>
+        ) : (
+          <dl className="mt-10 grid w-full grid-cols-2 gap-x-8 gap-y-6 border-t border-taupe-200/60 pt-8 sm:grid-cols-3 lg:grid-cols-6">
+            <MetaRow label="Variation(s)" value={study.meta.variations} />
+            <MetaRow label="Font(s)" value={study.meta.fonts} />
+            <MetaRow label="Size" value={study.meta.size} />
+            <MetaRow label="Duration" value={study.meta.duration} />
+            <MetaRow label="Timeline" value={study.meta.timeline} />
+            <MetaRow label="Tool(s)" value={study.meta.tools} />
+          </dl>
+        )}
 
         {study.skills.length > 0 && (
           <div className="mt-8">
@@ -202,13 +212,13 @@ export default function WorkDetailPage({ slug }: { slug: string }) {
   );
 }
 
-function MetaRow({ label, value }: { label: string; value: string }) {
+function MetaRow({ label, value }: { label: string; value?: string }) {
   return (
     <div>
       <dt className="text-[0.68rem] font-semibold uppercase tracking-[0.22em] text-taupe-400">
         {label}
       </dt>
-      <dd className="mt-1.5 text-[0.95rem] text-ink">{value}</dd>
+      <dd className="mt-1.5 text-[0.95rem] text-ink">{value || " "}</dd>
     </div>
   );
 }

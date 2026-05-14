@@ -215,11 +215,16 @@ export type CaseStudy = {
   title: string;
   tagline: string;
   cover: string;
+  category?: ProjectCategory;
   meta: {
     role: string;
     timeline: string;
     duration: string;
     tools: string;
+    variations?: string;
+    fonts?: string;
+    size?: string;
+    language?: string;
   };
   externalLink?: {
     href: string;
@@ -246,11 +251,15 @@ export const caseStudies: Record<string, CaseStudy> = {
     tagline:
       "A calming, screen free focus system that pairs an ambient flower inspired lamp with a minimal companion app, letting students plan a session and then step away from the screen.",
     cover: "/floraflow/01-cover.jpg",
+    category: "design",
     meta: {
       role: "Solo, UX/UI & Branding",
       timeline: "Sept to Dec 2025",
-      duration: "~3 months",
+      duration: "3 months",
       tools: "Figma",
+      variations: "",
+      fonts: "",
+      size: "",
     },
     externalLink: {
       href: "https://www.figma.com/design/2srYhqZXTtBmfCCGurQyTg/FloraFlow?node-id=0-1&t=X9ELOtpU3mPIlj2U-1",
@@ -331,11 +340,15 @@ caseStudies.magtracker = {
   tagline:
     "A straightforward, organized method for locating misplaced items without depending on heavy GPS tracking devices.",
   cover: "/magtracker.avif",
+  category: "design",
   meta: {
     role: "UX & Branding Lead",
     timeline: "Sept to Dec 2025",
-    duration: "~3 months",
+    duration: "3 months",
     tools: "Adobe Illustrator, Figma",
+    variations: "",
+    fonts: "",
+    size: "",
   },
   externalLink: {
     href: "https://www.figma.com/design/cnOMtYLPY2KLgRpUscTexD/Group-Design-Sprints?t=X9ELOtpU3mPIlj2U-1",
@@ -424,11 +437,16 @@ export type ProjectPage = {
   title: string;
   tagline: string;
   cover: string;
+  category?: ProjectCategory;
   meta: {
     role: string;
     timeline: string;
     duration: string;
     tools: string;
+    variations?: string;
+    fonts?: string;
+    size?: string;
+    language?: string;
   };
   externalLink?: {
     href: string;
@@ -455,11 +473,13 @@ export const projectPages: Record<string, ProjectPage> = {
     tagline:
       "A multi page, cloud themed web presentation of “Sweet Dreams” lyrics. Each page lifts a single line off a soft cloud background, and a highlighted word in that line is the link that carries you to the next page.",
     cover: "/linking-narratives.png",
+    category: "both",
     meta: {
       role: "Solo, Design & Front end",
       timeline: "Apr 21 to Apr 30, 2025",
-      duration: "~1 week",
+      duration: "1 week",
       tools: "HTML, CSS, Adobe XD",
+      language: "HTML, CSS",
     },
     externalLink: {
       href: "https://github.com/amandachuu04/Linked-Narratives",
@@ -489,11 +509,15 @@ export const projectPages: Record<string, ProjectPage> = {
     tagline:
       "A typography-based logo exploration using different fonts, name and initial designs, simple styles, shapes, and minimal illustrations to create a final personal logo.",
     cover: "/name-logo-design.avif",
+    category: "design",
     meta: {
       role: "Solo, Typographic Design",
       timeline: "Apr 8 to Apr 22, 2024",
-      duration: "~2 weeks",
+      duration: "2 weeks",
       tools: "Adobe Illustrator",
+      variations: "4",
+      fonts: "Helvetica, Baskerville",
+      size: "",
     },
     description: [
       "This Name Logo Design is a typography-based design focused on creating a logo using only my name. The goal was to explore how type, spacing, contrast, layout, and minimal visual elements can turn a simple name into a more polished personal identity. Each design was created with clear margins and consistent spacing, while keeping illustrations simple so the typography remained the main focus.",
@@ -543,11 +567,13 @@ export const projectPages: Record<string, ProjectPage> = {
     tagline:
       "A C program that implements a two player game where a random five letter word is generated and two dice are rolled each round. Players reveal letters based on dice rolls, and whoever uncovers the entire word first loses, triggering a Caesar cipher encryption of that word.",
     cover: "/dungeon-cube-caesar.png",
+    category: "programming",
     meta: {
       role: "Solo, C Development",
       timeline: "Oct 3 to Oct 17, 2024",
-      duration: "~2 weeks",
+      duration: "2 weeks",
       tools: "C, Makefile",
+      language: "C",
     },
     externalLink: {
       href: "https://github.com/amandachuu04/Dungeon-Cube-Caesar",
@@ -570,11 +596,13 @@ export const projectPages: Record<string, ProjectPage> = {
     tagline:
       "A Python module for simulating simple parking lane operations: checking lane status, parking cars, retrieving cars, verifying car presence, and generating the sequence of moves needed to bring a specific car to the front.",
     cover: "/lane-scheduling-system.avif",
+    category: "programming",
     meta: {
       role: "Solo, Python Development",
       timeline: "Nov 6 to Nov 20, 2023",
-      duration: "~2 weeks",
+      duration: "2 weeks",
       tools: "Python",
+      language: "Python",
     },
     externalLink: {
       href: "https://github.com/amandachuu04/Parking-Lot",
@@ -598,11 +626,15 @@ export const projectPages: Record<string, ProjectPage> = {
     tagline:
       "Menu Design that explores two typography-focused layouts for a fictional restaurant: one in black and white and one in blue and cream. Both versions are built around clear visual hierarchy, consistent paragraph and character styles, and generous margins to create a clean, readable dining experience.",
     cover: "/federicos-menu.avif",
+    category: "design",
     meta: {
       role: "Solo, Print & Typographic Design",
       timeline: "Mar 11 to Mar 25, 2024",
-      duration: "~2 weeks",
+      duration: "2 weeks",
       tools: "Adobe InDesign, Adobe Photoshop",
+      variations: "2",
+      fonts: "American Typewriter, KoHo, Lust, Sarabun",
+      size: "",
     },
     description: [
       "Federico’s Menu is a print menu project centered on hierarchy, typography, and readability. Two menu designs were created for the same restaurant: one in black and white and one in blue and cream. Each version was designed to feel visually distinct while still using consistent paragraph styles, character styles, and margins of at least 0.75 inches on every side.",
@@ -651,11 +683,13 @@ export const projectPages: Record<string, ProjectPage> = {
     tagline:
       "A Java based grade processing toolkit that computes a student's total weighted score with category drops and averaging, assigns a final letter grade, and supports both interactive and batch driver programs.",
     cover: "/grade-management-system.avif",
+    category: "programming",
     meta: {
       role: "Solo, Java Development",
       timeline: "Apr 8 to Apr 22, 2024",
-      duration: "~2 weeks",
+      duration: "2 weeks",
       tools: "Java",
+      language: "Java",
     },
     externalLink: {
       href: "https://github.com/amandachuu04/Student-Grades-Calculator",

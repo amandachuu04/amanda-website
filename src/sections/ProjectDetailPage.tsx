@@ -153,12 +153,22 @@ function Header({ project }: { project: ProjectPage }) {
         {project.tagline}
       </p>
 
-      <dl className="mt-10 grid grid-cols-2 gap-x-8 gap-y-6 border-t border-taupe-200/60 pt-8 sm:grid-cols-4">
-        <MetaRow label="Role" value={project.meta.role} />
-        <MetaRow label="Duration" value={project.meta.duration} />
-        <MetaRow label="Timeline" value={project.meta.timeline} />
-        <MetaRow label="Toolkit" value={project.meta.tools} />
-      </dl>
+      {project.category === "design" ? (
+        <dl className="mt-10 grid w-full grid-cols-2 gap-x-8 gap-y-6 border-t border-taupe-200/60 pt-8 sm:grid-cols-3 lg:grid-cols-6">
+          <MetaRow label="Variation(s)" value={project.meta.variations} />
+          <MetaRow label="Font(s)" value={project.meta.fonts} />
+          <MetaRow label="Size" value={project.meta.size} />
+          <MetaRow label="Duration" value={project.meta.duration} />
+          <MetaRow label="Timeline" value={project.meta.timeline} />
+          <MetaRow label="Tool(s)" value={project.meta.tools} />
+        </dl>
+      ) : (
+        <dl className="mt-10 grid w-full grid-cols-3 gap-x-8 gap-y-6 border-t border-taupe-200/60 pt-8">
+          <MetaRow label="Language" value={project.meta.language ?? project.meta.tools} />
+          <MetaRow label="Duration" value={project.meta.duration} />
+          <MetaRow label="Timeline" value={project.meta.timeline} />
+        </dl>
+      )}
 
       {project.skills.length > 0 && (
         <div className="mt-8">
@@ -351,13 +361,13 @@ function ClickableVideo({
   );
 }
 
-function MetaRow({ label, value }: { label: string; value: string }) {
+function MetaRow({ label, value }: { label: string; value?: string }) {
   return (
     <div>
       <dt className="text-[0.68rem] font-semibold uppercase tracking-[0.22em] text-taupe-400">
         {label}
       </dt>
-      <dd className="mt-1.5 text-[0.95rem] text-ink">{value}</dd>
+      <dd className="mt-1.5 text-[0.95rem] text-ink">{value || " "}</dd>
     </div>
   );
 }
