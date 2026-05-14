@@ -143,6 +143,7 @@ export const projects: Project[] = [
     kind: "Design",
     category: "design",
     meta: "Feb 19 – Feb 26, 2024 · Adobe InDesign",
+    slug: "banana-bread-recipe",
     swatch: "from-cream-200 to-blush-100",
     emoji: "◓",
     image: "/banana-bread-recipe.avif",
@@ -667,6 +668,69 @@ export const projectPages: Record<string, ProjectPage> = {
         label: "Blue and cream",
         heading: "Final design",
         images: [{ src: "/federicos-menu.avif" }],
+      },
+    ],
+  },
+  "banana-bread-recipe": {
+    slug: "banana-bread-recipe",
+    title: "Banana Bread Recipe",
+    tagline:
+      "A print recipe design that explores one banana chocolate chip bread recipe through three text only layouts with different color and type pairings, with the strongest direction expanded into a full spread that pairs the recipe with banana bread imagery.",
+    cover: "/banana-bread-recipe.avif",
+    category: "design",
+    meta: {
+      role: "Solo, Print & Typographic Design",
+      timeline: "February 19 – February 26, 2024",
+      duration: "1 week",
+      tools: "Adobe InDesign",
+      variations: "Black & White, Yellow & Brown, Brown & Black",
+      fonts: "Marion & Calibri, Superclarendon & Avenir Next, Arial Narrow & Helvetica Neue",
+      size: '8" x 11.5" and 16" x 11.5"',
+    },
+    description: [
+      "Banana Bread Recipe is a print design project focused on hierarchy, typography, and grid layout. I turned a single banana chocolate chip bread recipe into three text only layouts built on a 12 column grid, two colors, and one inch margins on every side. Each version kept the same content but explored different color palettes and type pairings to see how small typographic choices can shift the overall mood and tone of a layout.",
+      "The three variations included Black and White with Marion and Calibri, Yellow and Brown with Superclarendon and Avenir Next, and Brown and Black with Arial Narrow and Helvetica Neue. Across all three layouts, I focused on careful kerning, no hyphenations, and consistent paragraph and character styles so the ingredients, directions, and headings stay easy to scan. The strongest direction was then developed into a final 16 by 11.5 inch spread that paired the recipe with banana bread imagery, creating a more editorial, photo driven layout while keeping the typography clean and intentional.",
+    ],
+    skills: [
+      "Typography",
+      "Layout & Hierarchy",
+      "Grid Systems",
+      "Paragraph & Character Styles",
+      "Print Design",
+    ],
+    iterations: [
+      {
+        label: "Iteration 01",
+        heading: "Text only layout, design 01",
+        images: [{ src: "/banana-bread-recipe/img-design-1.png" }],
+      },
+      {
+        label: "Iteration 02",
+        heading: "Text only layout, design 02",
+        images: [{ src: "/banana-bread-recipe/img-design-2.png" }],
+      },
+      {
+        label: "Iteration 03",
+        heading: "Text only layout, design 03",
+        images: [{ src: "/banana-bread-recipe/img-design-3.png" }],
+      },
+      {
+        label: "Iteration 04",
+        heading: "Image side of spread",
+        images: [{ src: "/banana-bread-recipe/img-image-side.png" }],
+      },
+      {
+        label: "Iteration 05",
+        heading: "Final spread",
+        images: [{ src: "/banana-bread-recipe/img-final-spread.png" }],
+      },
+      {
+        label: "Iteration 06",
+        heading: "In print",
+        images: [
+          { src: "/banana-bread-recipe/img-in-print-1.png" },
+          { src: "/banana-bread-recipe/img-in-print-2.png" },
+        ],
       },
     ],
   },
