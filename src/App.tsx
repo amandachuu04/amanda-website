@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import Nav from "./components/Nav";
+import BackToTop from "./components/BackToTop";
 import Hero from "./sections/Hero";
 import About from "./sections/About";
 import Projects from "./sections/Projects";
@@ -52,6 +53,7 @@ export default function App() {
   return (
     <div className="relative min-h-screen overflow-x-clip bg-cream-100">
       <Nav />
+      <BackToTop />
       {route.name === "projects" ? (
         <main id="main">
           <ProjectsPage initialSlug={route.slug} />

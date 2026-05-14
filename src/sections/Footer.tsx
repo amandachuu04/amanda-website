@@ -10,9 +10,6 @@ export default function Footer() {
         </p>
 
         <div className="flex items-center gap-5 text-sm">
-          <a href="#hero" className="rounded-pill px-3 py-1.5 hover:bg-cream-100/10">
-            Back to top ↑
-          </a>
           <button
             type="button"
             onClick={() => setPet((p) => p + 1)}
