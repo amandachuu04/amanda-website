@@ -159,6 +159,7 @@ export const projects: Project[] = [
     kind: "Programming",
     category: "programming",
     meta: "Nov 6 – Nov 20, 2023 · Python",
+    slug: "lane-scheduling-system",
     swatch: "from-cream-200 to-taupe-100",
     emoji: "⌘",
     image: "/lane-scheduling-system.avif",
@@ -560,6 +561,34 @@ export const projectPages: Record<string, ProjectPage> = {
       "Input Validation",
       "Makefile",
       "Command Line Interface",
+    ],
+  },
+  "lane-scheduling-system": {
+    slug: "lane-scheduling-system",
+    title: "Lane Scheduling System",
+    tagline:
+      "A Python module for simulating simple parking lane operations: checking lane status, parking cars, retrieving cars, verifying car presence, and generating the sequence of moves needed to bring a specific car to the front.",
+    cover: "/lane-scheduling-system.avif",
+    meta: {
+      role: "Solo, Python Development",
+      timeline: "Nov 6 to Nov 20, 2023",
+      duration: "~2 weeks",
+      tools: "Python",
+    },
+    externalLink: {
+      href: "https://github.com/amandachuu04/Parking-Lot",
+      label: "View on GitHub",
+    },
+    description: [
+      "Lane Scheduling System is a Python module that models a small parking lane and the everyday operations a lane manager might need: checking whether a lane is empty or full, parking a car at the back, retrieving the car at the front, verifying whether a specific car sits in the lane, and generating the exact sequence of moves needed to bring a target car to the front. The goal was to translate a real world queue style problem into clean, reusable functions that read top to bottom.",
+      "Each operation is broken into a small helper so the logic stays readable and easy to reason about. The retrieval routine produces a step by step list of car movements rather than just a final state, which makes it possible to replay what happened to the lane during a request. The module is paired with a driver that runs through sample lane scenarios and prints the results, so the behavior of every function can be observed end to end without writing a custom test harness.",
+    ],
+    skills: [
+      "Python",
+      "Algorithms",
+      "Data Structures",
+      "Modular Programming",
+      "Simulation",
     ],
   },
   "grade-management-system": {
