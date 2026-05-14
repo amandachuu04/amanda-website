@@ -523,7 +523,6 @@ export const projectPages: Record<string, ProjectPage> = {
       "Logo Design",
       "Layout",
       "Visual Hierarchy",
-      "Adobe Illustrator",
     ],
     iterations: [
       {
@@ -640,8 +639,6 @@ export const projectPages: Record<string, ProjectPage> = {
       "Layout & Hierarchy",
       "Paragraph & Character Styles",
       "Print Design",
-      "Adobe InDesign",
-      "Adobe Photoshop",
     ],
     iterations: [
       {
