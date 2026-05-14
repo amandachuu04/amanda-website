@@ -257,7 +257,7 @@ export const caseStudies: Record<string, CaseStudy> = {
       timeline: "Sept to Dec 2025",
       duration: "3 months",
       tools: "Figma",
-      fonts: "",
+      fonts: "Fraunces",
     },
     externalLink: {
       href: "https://www.figma.com/design/2srYhqZXTtBmfCCGurQyTg/FloraFlow?node-id=0-1&t=X9ELOtpU3mPIlj2U-1",
@@ -344,7 +344,7 @@ caseStudies.magtracker = {
     timeline: "Sept to Dec 2025",
     duration: "3 months",
     tools: "Adobe Illustrator, Figma",
-    fonts: "",
+    fonts: "ATF Franklin Gothic",
   },
   externalLink: {
     href: "https://www.figma.com/design/cnOMtYLPY2KLgRpUscTexD/Group-Design-Sprints?t=X9ELOtpU3mPIlj2U-1",
@@ -512,8 +512,8 @@ export const projectPages: Record<string, ProjectPage> = {
       duration: "2 weeks",
       tools: "Adobe Illustrator",
       variations: "4",
-      fonts: "Helvetica, Baskerville",
-      size: "",
+      fonts: "Helvetica, Baskerville, Snell Roundhand, PT Sans Narrow, Bickham Script Pro 3, Optima, New Kansas, Ma Shan Zheng Regular, Maku, Noto Serif SC, Montserrat, Charm, Memphis, Impact, Bodoni 72 Smallcaps Book",
+      size: '8.5" x 11" (5 designs per)',
     },
     description: [
       "This Name Logo Design is a typography-based design focused on creating a logo using only my name. The goal was to explore how type, spacing, contrast, layout, and minimal visual elements can turn a simple name into a more polished personal identity. Each design was created with clear margins and consistent spacing, while keeping illustrations simple so the typography remained the main focus.",
@@ -628,9 +628,9 @@ export const projectPages: Record<string, ProjectPage> = {
       timeline: "Mar 11 to Mar 25, 2024",
       duration: "2 weeks",
       tools: "Adobe InDesign, Adobe Photoshop",
-      variations: "2",
-      fonts: "American Typewriter, KoHo, Lust, Sarabun",
-      size: "",
+      variations: "Black & White, Blue & Cream",
+      fonts: "American Typewriter & KoHo, Lust & Sarabun",
+      size: '17" x 11" and 5.706" x 11"',
     },
     description: [
       "Federico’s Menu is a print menu project centered on hierarchy, typography, and readability. Two menu designs were created for the same restaurant: one in black and white and one in blue and cream. Each version was designed to feel visually distinct while still using consistent paragraph styles, character styles, and margins of at least 0.75 inches on every side.",
