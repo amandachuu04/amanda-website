@@ -36,7 +36,26 @@
       "Bash(git config *)",
       "Bash(git add *)",
       "Bash(npx tsc *)",
-      "Bash(git commit -m ' *)"
+      "Bash(git commit -m ' *)",
+      "Bash(git commit -m 'Add Federico'\\\\''s Menu project page *)",
+      "Bash(git -C \"/Users/amandachu/Desktop/AC/Fun Projects/Portfolio\" fetch origin main)",
+      "Bash(git -C \"/Users/amandachu/Desktop/AC/Fun Projects/Portfolio\" status -sb)",
+      "Bash(git -C \"/Users/amandachu/Desktop/AC/Fun Projects/Portfolio\" stash push -m \"auto-stash for ff main\" -- .claude/settings.local.json)",
+      "Bash(git -C \"/Users/amandachu/Desktop/AC/Fun Projects/Portfolio\" merge --ff-only origin/main)",
+      "Bash(git -C \"/Users/amandachu/Desktop/AC/Fun Projects/Portfolio\" stash pop)",
+      "Bash(git -C \"/Users/amandachu/Desktop/AC/Fun Projects/Portfolio\" checkout --ours .claude/settings.local.json)",
+      "Bash(cat \"/Users/amandachu/Desktop/AC/Fun Projects/Portfolio/.claude/settings.local.json\")",
+      "Bash(git -C \"/Users/amandachu/Desktop/AC/Fun Projects/Portfolio\" add .claude/settings.local.json)",
+      "Bash(git -C \"/Users/amandachu/Desktop/AC/Fun Projects/Portfolio\" stash drop)",
+      "Bash(grep -c \"federicos-menu\" \"/Users/amandachu/Desktop/AC/Fun Projects/Portfolio/src/lib/site.ts\")",
+      "Bash(touch \"/Users/amandachu/Desktop/AC/Fun Projects/Portfolio/src/lib/site.ts\")",
+      "Bash(curl -s \"http://localhost:5173/src/lib/site.ts\")",
+      "Bash(curl -s \"http://localhost:5173/src/lib/site.ts?t=$\\(date +%s\\)\")",
+      "Bash(mkdir -p \"/Users/amandachu/Desktop/AC/Fun Projects/Portfolio/public/federicos-menu\")",
+      "Bash(cp \"/Users/amandachu/Desktop/5SMuU16gruBui1EZLuYMfIY2LuE.avif\" \"/Users/amandachu/Desktop/AC/Fun Projects/Portfolio/public/federicos-menu/01-brand.avif\")",
+      "Bash(cp \"/Users/amandachu/Desktop/wucyJxHqL0qjLCTZMK6iEdrAYM.avif\" \"/Users/amandachu/Desktop/AC/Fun Projects/Portfolio/public/federicos-menu/02-spread.avif\")",
+      "Bash(cp \"/Users/amandachu/Desktop/LkqULwIjYfkUXgA241gss4BKcZ0.avif\" \"/Users/amandachu/Desktop/AC/Fun Projects/Portfolio/public/federicos-menu/03-desserts.avif\")",
+      "Bash(mkdir -p \"/Users/amandachu/Desktop/AC/Fun Projects/Portfolio/.claude/worktrees/romantic-tesla-096ba6/public/federicos-menu\" && cp \"/Users/amandachu/Desktop/AC/Fun Projects/Portfolio/public/federicos-menu/\"*.avif \"/Users/amandachu/Desktop/AC/Fun Projects/Portfolio/.claude/worktrees/romantic-tesla-096ba6/public/federicos-menu/\" && ls \"/Users/amandachu/Desktop/AC/Fun Projects/Portfolio/.claude/worktrees/romantic-tesla-096ba6/public/federicos-menu/\")"
     ]
   }
 }

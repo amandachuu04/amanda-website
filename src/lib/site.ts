@@ -596,7 +596,7 @@ export const projectPages: Record<string, ProjectPage> = {
     slug: "federicos-menu",
     title: "Federico's Menu",
     tagline:
-      "Two typography forward menu designs for the same restaurant, one in black and white and one in blue and cream, built around clear hierarchy, careful paragraph and character styles, and generous margins.",
+      "Menu Design that explores two typography-focused layouts for a fictional restaurant: one in black and white and one in blue and cream. Both versions are built around clear visual hierarchy, consistent paragraph and character styles, and generous margins to create a clean, readable dining experience.",
     cover: "/federicos-menu.avif",
     meta: {
       role: "Solo, Print & Typographic Design",
@@ -605,8 +605,8 @@ export const projectPages: Record<string, ProjectPage> = {
       tools: "Adobe InDesign, Adobe Photoshop",
     },
     description: [
-      "Federico's Menu is a print menu project built around a single guiding rule: hierarchy and beautiful typography come first. The brief asked for two complete menu designs for the same restaurant, one in black and white and one in blue and cream, that each had to read clearly through consistent paragraph styles, character styles, and margins of at least 0.75 inches on every side.",
-      "The black and white version pairs American Typewriter with KoHo to balance a warm editorial feel with a clean, modern body face, while the color version uses Lust and Sarabun for a softer, more elegant tone. Both menus were laid out in Adobe InDesign at 17 by 11 inches and 5.706 by 11 inches, with imagery prepared in Adobe Photoshop. Across both versions the goal was the same: keep the typography legible, the spacing intentional, and the hierarchy easy to scan from across a table.",
+      "Federico’s Menu is a print menu project centered on hierarchy, typography, and readability. Two menu designs were created for the same restaurant: one in black and white and one in blue and cream. Each version was designed to feel visually distinct while still using consistent paragraph styles, character styles, and margins of at least 0.75 inches on every side.",
+      "The black-and-white version pairs American Typewriter with KoHo to create a warm editorial feel with a clean, modern body typeface. The blue-and-cream version uses Lust and Sarabun for a softer and more elegant tone. Both menus were designed in Adobe InDesign, with supporting imagery prepared in Adobe Photoshop. Across both versions, the goal was to keep the typography legible, the spacing intentional, and the hierarchy easy to scan from across a table.",
     ],
     skills: [
       "Typography",
@@ -615,6 +615,26 @@ export const projectPages: Record<string, ProjectPage> = {
       "Print Design",
       "Adobe InDesign",
       "Adobe Photoshop",
+    ],
+    iterations: [
+      {
+        label: "Final 01",
+        heading: "Front and dessert panels",
+        images: [
+          { src: "/federicos-menu/01-brand.avif" },
+          { src: "/federicos-menu/03-desserts.avif" },
+        ],
+      },
+      {
+        label: "Final 02",
+        heading: "Interior menu spread",
+        images: [{ src: "/federicos-menu/02-spread.avif" }],
+      },
+      {
+        label: "Final 03",
+        heading: "Photographed layout",
+        images: [{ src: "/federicos-menu.avif" }],
+      },
     ],
   },
   "grade-management-system": {
