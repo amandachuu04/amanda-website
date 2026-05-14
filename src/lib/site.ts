@@ -608,8 +608,8 @@ export const projectPages: Record<string, ProjectPage> = {
       label: "View on GitHub",
     },
     description: [
-      "Grade Management System is a Java toolkit that computes a student's overall grade from a set of category weighted scores. It handles category level averaging, drops the lowest scores where the policy allows, and converts the final weighted total into a letter grade. The goal was to model a realistic gradebook workflow that could run end to end, from raw category scores all the way to a clean, readable final result.",
-      "The project ships with two driver programs. GradeChecker is interactive and walks a single student's scores through the calculator, while GradeChecker2 pairs with a Gradebook class to load a full class of students and report the minimum, maximum, median, and average across the group. The logic is split into smaller helper methods for input parsing, validation, weighted score calculation, and letter grade assignment so each piece can be reasoned about and tested on its own.",
+      "Grade Management System is a Java-based grade calculator that computes a student’s overall course grade from weighted category scores. It handles category averages, drops the lowest scores when the grading policy allows, and converts the final weighted total into a letter grade. The goal was to model a realistic gradebook workflow that takes raw scores and turns them into a clear final result.",
+      "The system supports both individual and full-class grade checking. GradeChecker walks through one student’s scores interactively, while GradeChecker2 works with a Gradebook class to load a class of students and report the minimum, maximum, median, and average across the group. I organized the logic into smaller helper methods for input parsing, validation, weighted score calculation, and letter grade assignment so each part of the program could be easier to understand, test, and maintain.",
     ],
     skills: [
       "Java",
