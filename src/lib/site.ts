@@ -789,6 +789,11 @@ export const projectPages: Record<string, ProjectPage> = {
       },
       {
         label: "Iteration 06",
+        heading: "Book mockup",
+        images: [{ src: "/choco-cake-recipe/img-mockup.jpg" }],
+      },
+      {
+        label: "Iteration 07",
         heading: "In print",
         images: [{ src: "/choco-cake-recipe/img-2.png" }],
       },
