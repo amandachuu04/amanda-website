@@ -123,6 +123,7 @@ export const projects: Project[] = [
     kind: "Design",
     category: "design",
     meta: "Mar 11 – Mar 25, 2024 · Adobe InDesign, Adobe Photoshop",
+    slug: "federicos-menu",
     swatch: "from-cream-200 to-blush-200",
     emoji: "❖",
     image: "/federicos-menu.avif",
@@ -589,6 +590,31 @@ export const projectPages: Record<string, ProjectPage> = {
       "Data Structures",
       "Modular Programming",
       "Simulation",
+    ],
+  },
+  "federicos-menu": {
+    slug: "federicos-menu",
+    title: "Federico's Menu",
+    tagline:
+      "Two typography forward menu designs for the same restaurant, one in black and white and one in blue and cream, built around clear hierarchy, careful paragraph and character styles, and generous margins.",
+    cover: "/federicos-menu.avif",
+    meta: {
+      role: "Solo, Print & Typographic Design",
+      timeline: "Mar 11 to Mar 25, 2024",
+      duration: "~2 weeks",
+      tools: "Adobe InDesign, Adobe Photoshop",
+    },
+    description: [
+      "Federico's Menu is a print menu project built around a single guiding rule: hierarchy and beautiful typography come first. The brief asked for two complete menu designs for the same restaurant, one in black and white and one in blue and cream, that each had to read clearly through consistent paragraph styles, character styles, and margins of at least 0.75 inches on every side.",
+      "The black and white version pairs American Typewriter with KoHo to balance a warm editorial feel with a clean, modern body face, while the color version uses Lust and Sarabun for a softer, more elegant tone. Both menus were laid out in Adobe InDesign at 17 by 11 inches and 5.706 by 11 inches, with imagery prepared in Adobe Photoshop. Across both versions the goal was the same: keep the typography legible, the spacing intentional, and the hierarchy easy to scan from across a table.",
+    ],
+    skills: [
+      "Typography",
+      "Layout & Hierarchy",
+      "Paragraph & Character Styles",
+      "Print Design",
+      "Adobe InDesign",
+      "Adobe Photoshop",
     ],
   },
   "grade-management-system": {

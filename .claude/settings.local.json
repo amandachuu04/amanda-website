@@ -34,7 +34,9 @@
       "Bash(git init *)",
       "Bash(git remote *)",
       "Bash(git config *)",
-      "Bash(git add *)"
+      "Bash(git add *)",
+      "Bash(npx tsc *)",
+      "Bash(git commit -m ' *)"
     ]
   }
 }
