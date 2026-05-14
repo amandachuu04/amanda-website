@@ -626,8 +626,8 @@ export const projectPages: Record<string, ProjectPage> = {
         label: "Blue and cream",
         heading: "Interior and exterior designs",
         images: [
-          { src: "/federicos-menu/05-interior.webp" },
           { src: "/federicos-menu/02-spread.avif" },
+          { src: "/federicos-menu/05-interior.webp" },
         ],
       },
       {
