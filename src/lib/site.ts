@@ -624,6 +624,14 @@ export const projectPages: Record<string, ProjectPage> = {
       },
       {
         label: "Blue and cream",
+        heading: "Interior and exterior designs",
+        images: [
+          { src: "/federicos-menu/05-interior.webp" },
+          { src: "/federicos-menu/02-spread.avif" },
+        ],
+      },
+      {
+        label: "Blue and cream",
         heading: "Front and dessert panels",
         images: [
           { src: "/federicos-menu/01-brand.avif" },
@@ -632,12 +640,7 @@ export const projectPages: Record<string, ProjectPage> = {
       },
       {
         label: "Blue and cream",
-        heading: "Interior menu spread",
-        images: [{ src: "/federicos-menu/02-spread.avif" }],
-      },
-      {
-        label: "Blue and cream",
-        heading: "Photographed layout",
+        heading: "Final design",
         images: [{ src: "/federicos-menu.avif" }],
       },
     ],
