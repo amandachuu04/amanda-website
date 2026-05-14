@@ -254,7 +254,7 @@ export const caseStudies: Record<string, CaseStudy> = {
     category: "design",
     meta: {
       role: "Solo, UX/UI & Branding",
-      timeline: "Sept to Dec 2025",
+      timeline: "September – December 2025",
       duration: "3 months",
       tools: "Figma",
       fonts: "Fraunces",
@@ -341,7 +341,7 @@ caseStudies.magtracker = {
   category: "design",
   meta: {
     role: "UX & Branding Lead",
-    timeline: "Sept to Dec 2025",
+    timeline: "September – December 2025",
     duration: "3 months",
     tools: "Adobe Illustrator, Figma",
     fonts: "ATF Franklin Gothic",
@@ -472,7 +472,7 @@ export const projectPages: Record<string, ProjectPage> = {
     category: "both",
     meta: {
       role: "Solo, Design & Front end",
-      timeline: "Apr 21 to Apr 30, 2025",
+      timeline: "April 21 – April 30, 2025",
       duration: "1 week",
       tools: "HTML, CSS, Adobe XD",
       language: "HTML, CSS",
@@ -508,7 +508,7 @@ export const projectPages: Record<string, ProjectPage> = {
     category: "design",
     meta: {
       role: "Solo, Typographic Design",
-      timeline: "Apr 8 to Apr 22, 2024",
+      timeline: "April 8 – April 22, 2024",
       duration: "2 weeks",
       tools: "Adobe Illustrator",
       fonts: "Helvetica, Baskerville, Snell Roundhand, PT Sans Narrow, Bickham Script Pro 3, Optima, New Kansas, Ma Shan Zheng Regular, Maku, Noto Serif SC, Montserrat, Charm, Memphis, Impact, Bodoni 72 Smallcaps Book",
@@ -564,7 +564,7 @@ export const projectPages: Record<string, ProjectPage> = {
     category: "programming",
     meta: {
       role: "Solo, C Development",
-      timeline: "Oct 3 to Oct 17, 2024",
+      timeline: "October 3 – October 17, 2024",
       duration: "2 weeks",
       tools: "C, Makefile",
       language: "C",
@@ -593,7 +593,7 @@ export const projectPages: Record<string, ProjectPage> = {
     category: "programming",
     meta: {
       role: "Solo, Python Development",
-      timeline: "Nov 6 to Nov 20, 2023",
+      timeline: "November 6 – November 20, 2023",
       duration: "2 weeks",
       tools: "Python",
       language: "Python",
@@ -623,7 +623,7 @@ export const projectPages: Record<string, ProjectPage> = {
     category: "design",
     meta: {
       role: "Solo, Print & Typographic Design",
-      timeline: "Mar 11 to Mar 25, 2024",
+      timeline: "March 11 – March 25, 2024",
       duration: "2 weeks",
       tools: "Adobe InDesign, Adobe Photoshop",
       variations: "Black & White, Blue & Cream",
@@ -678,7 +678,7 @@ export const projectPages: Record<string, ProjectPage> = {
     category: "programming",
     meta: {
       role: "Solo, Java Development",
-      timeline: "Apr 8 to Apr 22, 2024",
+      timeline: "April 8 – April 22, 2024",
       duration: "2 weeks",
       tools: "Java",
       language: "Java",
