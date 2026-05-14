@@ -511,7 +511,6 @@ export const projectPages: Record<string, ProjectPage> = {
       timeline: "Apr 8 to Apr 22, 2024",
       duration: "2 weeks",
       tools: "Adobe Illustrator",
-      variations: "4",
       fonts: "Helvetica, Baskerville, Snell Roundhand, PT Sans Narrow, Bickham Script Pro 3, Optima, New Kansas, Ma Shan Zheng Regular, Maku, Noto Serif SC, Montserrat, Charm, Memphis, Impact, Bodoni 72 Smallcaps Book",
       size: '8.5" x 11" (5 designs per)',
     },

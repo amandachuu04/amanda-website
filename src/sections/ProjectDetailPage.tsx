@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState } from "react";
 import { motion } from "framer-motion";
 import { getProjectPage, type ProjectPage } from "../lib/site";
+type ProjectMeta = ProjectPage["meta"];
 import { projectsHref } from "../lib/route";
 
 type LightboxItem =
@@ -154,14 +155,7 @@ function Header({ project }: { project: ProjectPage }) {
       </p>
 
       {project.category === "design" ? (
-        <dl className="mt-10 grid w-full grid-cols-2 gap-x-8 gap-y-6 border-t border-taupe-200/60 pt-8 sm:grid-cols-3 lg:grid-cols-6">
-          <MetaRow label="Variation(s)" value={project.meta.variations} />
-          <MetaRow label="Font(s)" value={project.meta.fonts} />
-          <MetaRow label="Size" value={project.meta.size} />
-          <MetaRow label="Duration" value={project.meta.duration} />
-          <MetaRow label="Timeline" value={project.meta.timeline} />
-          <MetaRow label="Tool(s)" value={project.meta.tools} />
-        </dl>
+        <DesignMetaGrid meta={project.meta} />
       ) : (
         <dl className="mt-10 grid w-full grid-cols-3 gap-x-8 gap-y-6 border-t border-taupe-200/60 pt-8">
           <MetaRow label="Language" value={project.meta.language ?? project.meta.tools} />
@@ -358,6 +352,34 @@ function ClickableVideo({
         </figcaption>
       )}
     </motion.figure>
+  );
+}
+
+function DesignMetaGrid({ meta }: { meta: ProjectMeta }) {
+  const fields: Array<{ label: string; value?: string }> = [];
+  if (meta.variations !== undefined) fields.push({ label: "Variation(s)", value: meta.variations });
+  if (meta.fonts !== undefined) fields.push({ label: "Font(s)", value: meta.fonts });
+  if (meta.size !== undefined) fields.push({ label: "Size", value: meta.size });
+  fields.push({ label: "Duration", value: meta.duration });
+  fields.push({ label: "Timeline", value: meta.timeline });
+  fields.push({ label: "Tool(s)", value: meta.tools });
+
+  const colsByCount: Record<number, string> = {
+    3: "grid-cols-3",
+    4: "grid-cols-2 sm:grid-cols-4",
+    5: "grid-cols-2 sm:grid-cols-3 lg:grid-cols-5",
+    6: "grid-cols-2 sm:grid-cols-3 lg:grid-cols-6",
+  };
+  const cols = colsByCount[fields.length] ?? "grid-cols-2 sm:grid-cols-3";
+
+  return (
+    <dl
+      className={`mt-10 grid w-full gap-x-8 gap-y-6 border-t border-taupe-200/60 pt-8 ${cols}`}
+    >
+      {fields.map((f) => (
+        <MetaRow key={f.label} label={f.label} value={f.value} />
+      ))}
+    </dl>
   );
 }
 
