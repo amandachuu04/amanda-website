@@ -41,7 +41,7 @@ export default function ProjectFolder({
       onMouseLeave={() => setHovered(false)}
       onFocus={() => setHovered(true)}
       onBlur={() => setHovered(false)}
-      className={`group relative mx-auto flex w-full max-w-[280px] flex-col items-center rounded-3xl border bg-cream-50 px-6 pb-7 pt-10 text-center shadow-card transition-all sm:max-w-none sm:px-8 sm:pb-8 sm:pt-12 ${
+      className={`group relative mx-auto flex w-full max-w-[280px] flex-col items-center rounded-3xl border bg-cream-50 px-6 pb-7 pt-10 text-center shadow-card transition-all sm:max-w-[320px] sm:px-8 sm:pb-8 sm:pt-12 lg:max-w-none ${
         active
           ? "border-blush-300 shadow-soft"
           : "border-taupe-200/40 hover:-translate-y-1 hover:shadow-soft"
