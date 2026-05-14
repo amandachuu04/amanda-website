@@ -700,21 +700,31 @@ export const projectPages: Record<string, ProjectPage> = {
     iterations: [
       {
         label: "Iteration 01",
-        heading: "Text only layout",
-        images: [{ src: "/choco-cake-recipe/img-3.png" }],
+        heading: "Text only layout, design 01",
+        images: [{ src: "/choco-cake-recipe/img-design-1.jpg" }],
       },
       {
         label: "Iteration 02",
-        heading: "Final spread",
-        images: [{ src: "/choco-cake-recipe/img-1.png" }],
+        heading: "Text only layout, design 02",
+        images: [{ src: "/choco-cake-recipe/img-design-2.jpg" }],
       },
       {
         label: "Iteration 03",
+        heading: "Text only layout, design 03",
+        images: [{ src: "/choco-cake-recipe/img-3.png" }],
+      },
+      {
+        label: "Iteration 04",
         heading: "Image side of spread",
         images: [{ src: "/choco-cake-recipe/img-4.png" }],
       },
       {
-        label: "Iteration 04",
+        label: "Iteration 05",
+        heading: "Final spread",
+        images: [{ src: "/choco-cake-recipe/img-1.png" }],
+      },
+      {
+        label: "Iteration 06",
         heading: "In print",
         images: [{ src: "/choco-cake-recipe/img-2.png" }],
       },
