@@ -103,6 +103,7 @@ export const projects: Project[] = [
     kind: "Programming",
     category: "programming",
     meta: "Apr 8 – Apr 22, 2024 · Java",
+    slug: "grade-management-system",
     swatch: "from-taupe-100 to-cream-200",
     emoji: "◈",
     image: "/grade-management-system.avif",
@@ -559,6 +560,35 @@ export const projectPages: Record<string, ProjectPage> = {
       "Input Validation",
       "Makefile",
       "Command Line Interface",
+    ],
+  },
+  "grade-management-system": {
+    slug: "grade-management-system",
+    title: "Grade Management System",
+    tagline:
+      "A Java based grade processing toolkit that computes a student's total weighted score with category drops and averaging, assigns a final letter grade, and supports both interactive and batch driver programs.",
+    cover: "/grade-management-system.avif",
+    meta: {
+      role: "Solo, Java Development",
+      timeline: "Apr 8 to Apr 22, 2024",
+      duration: "~2 weeks",
+      tools: "Java",
+    },
+    externalLink: {
+      href: "https://github.com/amandachuu04/Student-Grades-Calculator",
+      label: "View on GitHub",
+    },
+    description: [
+      "Grade Management System is a Java toolkit that computes a student's overall grade from a set of category weighted scores. It handles category level averaging, drops the lowest scores where the policy allows, and converts the final weighted total into a letter grade. The goal was to model a realistic gradebook workflow that could run end to end, from raw category scores all the way to a clean, readable final result.",
+      "The project ships with two driver programs. GradeChecker is interactive and walks a single student's scores through the calculator, while GradeChecker2 pairs with a Gradebook class to load a full class of students and report the minimum, maximum, median, and average across the group. The logic is split into smaller helper methods for input parsing, validation, weighted score calculation, and letter grade assignment so each piece can be reasoned about and tested on its own.",
+    ],
+    skills: [
+      "Java",
+      "Object Oriented Programming",
+      "Data Aggregation",
+      "Input Validation",
+      "Command Line Interface",
+      "Algorithms",
     ],
   },
 };
