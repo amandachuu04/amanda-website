@@ -618,7 +618,12 @@ export const projectPages: Record<string, ProjectPage> = {
     ],
     iterations: [
       {
-        label: "Final 01",
+        label: "Black and white",
+        heading: "Menu spread",
+        images: [{ src: "/federicos-menu/04-bw-spread.jpg" }],
+      },
+      {
+        label: "Blue and cream",
         heading: "Front and dessert panels",
         images: [
           { src: "/federicos-menu/01-brand.avif" },
@@ -626,12 +631,12 @@ export const projectPages: Record<string, ProjectPage> = {
         ],
       },
       {
-        label: "Final 02",
+        label: "Blue and cream",
         heading: "Interior menu spread",
         images: [{ src: "/federicos-menu/02-spread.avif" }],
       },
       {
-        label: "Final 03",
+        label: "Blue and cream",
         heading: "Photographed layout",
         images: [{ src: "/federicos-menu.avif" }],
       },
