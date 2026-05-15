@@ -635,7 +635,7 @@ export const projectPages: Record<string, ProjectPage> = {
       size: '17" x 11" and 5.706" x 11"',
     },
     description: [
-      "Federico’s Menu is a print menu project centered on hierarchy, typography, and readability. Two menu designs were created for the same restaurant: one in black and white and one in blue and cream. Each version was designed to feel visually distinct while still using consistent paragraph styles, character styles, and margins of at least 0.75 inches on every side.",
+      "Federico’s Menu is a menu layout design centered on hierarchy, typography, and readability. Two menu designs were created for the same restaurant: one in black and white and one in blue and cream. Each version was designed to feel visually distinct while still using consistent paragraph styles, character styles, and margins of at least 0.75 inches on every side.",
       "The black-and-white version pairs American Typewriter with KoHo to create a warm editorial feel with a clean, modern body typeface. The blue-and-cream version uses Lust and Sarabun for a softer and more elegant tone. Both menus were designed in Adobe InDesign, with supporting imagery prepared in Adobe Photoshop. Across both versions, the goal was to keep the typography legible, the spacing intentional, and the hierarchy easy to scan from across a table.",
     ],
     skills: [
@@ -690,7 +690,7 @@ export const projectPages: Record<string, ProjectPage> = {
       size: '8" x 11.5" and 16" x 11.5"',
     },
     description: [
-      "Banana Bread Recipe is a print design project focused on hierarchy, typography, and grid layout. I turned a single banana chocolate chip bread recipe into three text only layouts built on a 12 column grid, two colors, and one inch margins on every side. Each version kept the same content but explored different color palettes and type pairings to see how small typographic choices can shift the overall mood and tone of a layout.",
+      "Banana Bread Recipe is a recipe layout design focused on hierarchy, typography, and grid layout. I turned a single banana chocolate chip bread recipe into three text only layouts built on a 12 column grid, two colors, and one inch margins on every side. Each version kept the same content but explored different color palettes and type pairings to see how small typographic choices can shift the overall mood and tone of a layout.",
       "The three variations included Black and White with Marion and Calibri, Yellow and Brown with Superclarendon and Avenir Next, and Brown and Black with Arial Narrow and Helvetica Neue. Across all three layouts, I focused on careful kerning, no hyphenations, and consistent paragraph and character styles so the ingredients, directions, and headings stay easy to scan. The strongest direction was then developed into a final 16 by 11.5 inch spread that paired the recipe with banana bread imagery, creating a more editorial, photo driven layout while keeping the typography clean and intentional.",
     ],
     skills: [
@@ -753,7 +753,7 @@ export const projectPages: Record<string, ProjectPage> = {
       size: '8.5" x 11" and 17" x 11"',
     },
     description: [
-      "Choco Cake Recipe is a print design project centered on hierarchy, typography, and grid layout. I transformed a single chocolate cake recipe into three text-only layouts using a 12-column grid, two colors, and one-inch margins on every side. Each version kept the same content but explored different color palettes and type pairings to show how small typographic choices can shift the mood and tone of a design.",
+      "Choco Cake Recipe is a recipe layout design centered on hierarchy, typography, and grid layout. I transformed a single chocolate cake recipe into three text-only layouts using a 12-column grid, two colors, and one-inch margins on every side. Each version kept the same content but explored different color palettes and type pairings to show how small typographic choices can shift the mood and tone of a design.",
       "The three variations included Black and White with Vidaloka and Roboto, Light Brown and Black with Monarcha and Montserrat, and Dark Brown and Black with Ohno Blazeface and Montserrat. Across all three layouts, I focused on careful kerning, no hyphenations, and consistent paragraph and character styles to keep the ingredients, instructions, and headings readable. The strongest direction was then developed into a final 17 by 11 inch spread that paired the recipe with chocolate cake imagery, creating a more editorial, photo-driven layout while still keeping the typography clean and intentional.",
     ],
     skills: [
