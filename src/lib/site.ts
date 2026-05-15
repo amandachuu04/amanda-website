@@ -812,7 +812,6 @@ export const projectPages: Record<string, ProjectPage> = {
       timeline: "February 12 – February 19, 2024",
       duration: "1 week",
       tools: "Adobe InDesign",
-      variations: "8 versions",
       fonts: "Helvetica, Avenir, Avenir Next, Avenir Next Condensed",
       size: '7" x 4"',
     },
@@ -828,14 +827,6 @@ export const projectPages: Record<string, ProjectPage> = {
       "Print Design",
     ],
     iterations: [
-      {
-        label: "Mockup",
-        heading: "Final composition in print",
-        images: [
-          { src: "/hierarchy-ad/01-mockup-a.png" },
-          { src: "/hierarchy-ad/02-mockup-b.png" },
-        ],
-      },
       {
         label: "Version 01",
         heading: "Control, Helvetica at 12pt rag right",
@@ -875,6 +866,14 @@ export const projectPages: Record<string, ProjectPage> = {
         label: "Version 08",
         heading: "Final layered hierarchy",
         images: [{ src: "/hierarchy-ad/10-v8.png" }],
+      },
+      {
+        label: "Mockup",
+        heading: "Final composition in print",
+        images: [
+          { src: "/hierarchy-ad/01-mockup-a.png" },
+          { src: "/hierarchy-ad/02-mockup-b.png" },
+        ],
       },
     ],
   },
