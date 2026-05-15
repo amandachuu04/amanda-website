@@ -817,7 +817,7 @@ export const projectPages: Record<string, ProjectPage> = {
       size: '7" x 4"',
     },
     description: [
-      "Hierarchy AD is a print design project focused on understanding how typographic hierarchy is built from the ground up. Using a single event ad for Conversation with ART, on ART, I created eight versions of the same composition and changed only one element at a time so that each typographic variable could be observed in isolation. The goal was to see how subtle decisions in size, style, alignment, weight, case, and color shape the way a reader moves through information.",
+      "Hierarchy AD is a card layout design focused on understanding how typographic hierarchy is built from the ground up. Using a single event ad for Conversation with ART, on ART, I created eight versions of the same composition and changed only one element at a time so that each typographic variable could be observed in isolation. The goal was to see how subtle decisions in size, style, alignment, weight, case, and color shape the way a reader moves through information.",
       "The first version uses Helvetica Neue at 12pt with rag right alignment as a neutral control. Each version after that adjusts a single variable, exploring different type sizes, serif versus sans serif styles, alignments and spacing, weights, letter case options, and color treatments. The final composition layers multiple decisions together to create an intentional hierarchy with clear contrast, considered organization, and a strong sense of importance, all within the same 7 by 4 inch print format.",
     ],
     skills: [
