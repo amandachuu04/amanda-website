@@ -805,7 +805,7 @@ export const projectPages: Record<string, ProjectPage> = {
     title: "Hierarchy AD",
     tagline:
       "A typographic hierarchy exploration that uses one event ad and isolates typographic variables one at a time to show how size, style, alignment, weight, case, and color shift importance and readability.",
-    cover: "/hierarchy-ad/01-mockup-a.png",
+    cover: "/hierarchy-ad/01-mockup-a.avif",
     category: "design",
     meta: {
       role: "Solo, Print & Typographic Design",
@@ -871,7 +871,7 @@ export const projectPages: Record<string, ProjectPage> = {
         label: "Mockup",
         heading: "Final composition in print",
         images: [
-          { src: "/hierarchy-ad/01-mockup-a.png" },
+          { src: "/hierarchy-ad/01-mockup-a.avif" },
           { src: "/hierarchy-ad/02-mockup-b.png" },
         ],
       },
