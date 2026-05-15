@@ -882,11 +882,11 @@ export const projectPages: Record<string, ProjectPage> = {
     slug: "modular-grid",
     title: "Modular Grid",
     tagline:
-      "A print design exploration that uses a 10 by 10 grid with 1 by 1 unit measurements, treating squares of varying heights like notes in a classical music piece to study hierarchy, alignment, and spatial composition.",
+      "A poster design exploration that uses a 10 by 10 grid with 1 by 1 unit measurements, treating squares of varying heights like notes in a classical music piece to study hierarchy, alignment, and spatial composition.",
     cover: "/modular-grid.avif",
     category: "design",
     meta: {
-      role: "Solo, Print & Grid Design",
+      role: "Solo, Poster & Grid Design",
       timeline: "February 8 – March 1, 2023",
       duration: "3 weeks (1 week per variation)",
       tools: "Adobe Illustrator, Adobe Photoshop",
@@ -894,7 +894,7 @@ export const projectPages: Record<string, ProjectPage> = {
       size: '8" x 11.5"',
     },
     description: [
-      "Modular Grid is a print design exploration that uses a 10 by 10 grid with 1 by 1 unit measurements as its foundation. The composition works like a piece of classical music, with squares of varying heights showing how visual rhythm and flow can move across a structured grid. Type elements live inside the same grid, so hierarchy, alignment, and spacing all share the same underlying system.",
+      "Modular Grid is a poster design exploration that uses a 10 by 10 grid with 1 by 1 unit measurements as its foundation. The composition works like a piece of classical music, with squares of varying heights showing how visual rhythm and flow can move across a structured grid. Type elements live inside the same grid, so hierarchy, alignment, and spacing all share the same underlying system.",
       "The project produced three variations of the same composition: a black and white version, a two color version, and an image based version. Each variation was built on an 8 by 11.5 inch format and used the same grid logic, which made it possible to compare how color, value, and imagery shift the feeling of an identical layout. The goal was to learn how a modular grid can stay consistent while still producing visibly different outcomes depending on the visual treatment.",
     ],
     skills: [
@@ -903,7 +903,29 @@ export const projectPages: Record<string, ProjectPage> = {
       "Visual Hierarchy",
       "Layout",
       "Composition",
-      "Print Design",
+      "Poster Design",
+    ],
+    iterations: [
+      {
+        label: "Variation 01",
+        heading: "Black and white",
+        images: [{ src: "/modular-grid/01-bw.avif" }],
+      },
+      {
+        label: "Variation 02",
+        heading: "Two color",
+        images: [{ src: "/modular-grid/02-purple.avif" }],
+      },
+      {
+        label: "Variation 03",
+        heading: "Image based",
+        images: [{ src: "/modular-grid/03-mountain.avif" }],
+      },
+      {
+        label: "Mockup",
+        heading: "Three variations on display",
+        images: [{ src: "/modular-grid.avif" }],
+      },
     ],
   },
   "grade-management-system": {
