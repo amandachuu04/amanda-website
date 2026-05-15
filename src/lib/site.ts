@@ -153,6 +153,7 @@ export const projects: Project[] = [
     kind: "Design",
     category: "design",
     meta: "Feb 12 – Feb 19, 2024 · Adobe InDesign",
+    slug: "hierarchy-ad",
     swatch: "from-blush-200 to-taupe-100",
     emoji: "▣",
     image: "/hierarchy-ad.avif",
@@ -796,6 +797,84 @@ export const projectPages: Record<string, ProjectPage> = {
         label: "Iteration 07",
         heading: "In print",
         images: [{ src: "/choco-cake-recipe/img-2.png" }],
+      },
+    ],
+  },
+  "hierarchy-ad": {
+    slug: "hierarchy-ad",
+    title: "Hierarchy AD",
+    tagline:
+      "A typographic hierarchy exploration that uses one event ad and isolates typographic variables one at a time to show how size, style, alignment, weight, case, and color shift importance and readability.",
+    cover: "/hierarchy-ad/01-mockup-a.png",
+    category: "design",
+    meta: {
+      role: "Solo, Print & Typographic Design",
+      timeline: "February 12 – February 19, 2024",
+      duration: "1 week",
+      tools: "Adobe InDesign",
+      variations: "8 versions",
+      fonts: "Helvetica, Avenir, Avenir Next, Avenir Next Condensed",
+      size: '7" x 4"',
+    },
+    description: [
+      "Hierarchy AD is a print design project focused on understanding how typographic hierarchy is built from the ground up. Using a single event ad for Conversation with ART, on ART, I created eight versions of the same composition and changed only one element at a time so that each typographic variable could be observed in isolation. The goal was to see how subtle decisions in size, style, alignment, weight, case, and color shape the way a reader moves through information.",
+      "The first version uses Helvetica Neue at 12pt with rag right alignment as a neutral control. Each version after that adjusts a single variable, exploring different type sizes, serif versus sans serif styles, alignments and spacing, weights, letter case options, and color treatments. The final composition layers multiple decisions together to create an intentional hierarchy with clear contrast, considered organization, and a strong sense of importance, all within the same 7 by 4 inch print format.",
+    ],
+    skills: [
+      "Typography",
+      "Visual Hierarchy",
+      "Layout",
+      "Paragraph & Character Styles",
+      "Print Design",
+    ],
+    iterations: [
+      {
+        label: "Mockup",
+        heading: "Final composition in print",
+        images: [
+          { src: "/hierarchy-ad/01-mockup-a.png" },
+          { src: "/hierarchy-ad/02-mockup-b.png" },
+        ],
+      },
+      {
+        label: "Version 01",
+        heading: "Control, Helvetica at 12pt rag right",
+        images: [{ src: "/hierarchy-ad/03-v1.png" }],
+      },
+      {
+        label: "Version 02",
+        heading: "Type size variation",
+        images: [{ src: "/hierarchy-ad/04-v2.png" }],
+      },
+      {
+        label: "Version 03",
+        heading: "Avenir family, type style change",
+        images: [{ src: "/hierarchy-ad/05-v3.png" }],
+      },
+      {
+        label: "Version 04",
+        heading: "Alignment and spacing",
+        images: [{ src: "/hierarchy-ad/06-v4.png" }],
+      },
+      {
+        label: "Version 05",
+        heading: "Weight variations",
+        images: [{ src: "/hierarchy-ad/07-v5.png" }],
+      },
+      {
+        label: "Version 06",
+        heading: "Letter case",
+        images: [{ src: "/hierarchy-ad/08-v6.png" }],
+      },
+      {
+        label: "Version 07",
+        heading: "Color applied",
+        images: [{ src: "/hierarchy-ad/09-v7.png" }],
+      },
+      {
+        label: "Version 08",
+        heading: "Final layered hierarchy",
+        images: [{ src: "/hierarchy-ad/10-v8.png" }],
       },
     ],
   },
