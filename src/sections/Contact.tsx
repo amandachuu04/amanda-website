@@ -69,8 +69,7 @@ export default function Contact() {
             <span className="italic text-taupe-500">talk.</span>
           </h2>
           <p className="mt-5 max-w-md text-base text-taupe-500 sm:text-lg">
-            Open to internships, freelance design, and collaborative projects. The
-            inbox is always tidy.
+            Open to internships, freelance design, and collaborative projects.
           </p>
 
           <dl className="mt-10 space-y-5 text-sm">
