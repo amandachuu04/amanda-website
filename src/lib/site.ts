@@ -57,6 +57,7 @@ export const projects: Project[] = [
     meta: "Feb – May 2026 · Figma",
     swatch: "from-cream-200 to-taupe-100",
     emoji: "✧",
+    image: "/nextrip.png",
   },
   {
     title: "FloraFlow",
