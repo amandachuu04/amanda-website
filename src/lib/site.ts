@@ -49,6 +49,7 @@ export const projects: Project[] = [
     meta: "Feb – May 2026 · Figma, HTML, CSS, JavaScript",
     swatch: "from-blush-200 to-cream-200",
     emoji: "❦",
+    image: "/paws-and-care.jpg",
   },
   {
     title: "NexTrip",
