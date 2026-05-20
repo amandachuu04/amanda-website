@@ -3,6 +3,8 @@ import { motion } from "framer-motion";
 import LocalClock from "../components/LocalClock";
 import { site } from "../lib/site";
 
+const WEB3FORMS_ACCESS_KEY = "8deecd1c-a55c-486d-80d2-fc6dbb91ee66";
+
 type Status = "idle" | "sending" | "success" | "error";
 
 export default function Contact() {
@@ -17,23 +19,23 @@ export default function Contact() {
     setStatus("sending");
     setErrorMessage("");
     try {
-      const res = await fetch(`https://formsubmit.co/ajax/${site.email}`, {
+      const res = await fetch("https://api.web3forms.com/submit", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
           Accept: "application/json",
         },
         body: JSON.stringify({
+          access_key: WEB3FORMS_ACCESS_KEY,
+          subject: `Hello from ${name || "your portfolio"}`,
+          from_name: name || "Portfolio contact form",
           name,
           email,
           message,
-          _subject: `Hello from ${name || "your portfolio"}`,
-          _template: "table",
-          _captcha: "false",
         }),
       });
       const data = await res.json().catch(() => ({}));
-      if (!res.ok || data.success === "false") {
+      if (!res.ok || !data.success) {
         throw new Error(data.message || "Something went wrong. Please try again.");
       }
       setStatus("success");
