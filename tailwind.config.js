@@ -57,10 +57,19 @@ export default {
           "0%, 100%": { transform: "rotate(-2deg)" },
           "50%": { transform: "rotate(2deg)" },
         },
+        "gradient-pan": {
+          "0%, 100%": { backgroundPosition: "0% 0%" },
+          "50%": { backgroundPosition: "100% 100%" },
+        },
+        "gradient-spin": {
+          to: { transform: "translate(-50%, -50%) rotate(360deg)" },
+        },
       },
       animation: {
         "blob-drift": "blob-drift 14s ease-in-out infinite",
         wiggle: "wiggle 2.4s ease-in-out infinite",
+        "gradient-pan": "gradient-pan 16s ease-in-out infinite",
+        "gradient-spin": "gradient-spin 42s linear infinite",
       },
     },
   },

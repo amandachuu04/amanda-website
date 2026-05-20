@@ -83,6 +83,19 @@
     background-size: 22px 22px;
   }
 
+  .hero-gradient {
+    background-image: linear-gradient(
+      115deg,
+      #fffaf5 0%,
+      #fdeded 20%,
+      #fbdada 38%,
+      #f4eee8 56%,
+      #f8c8c8 76%,
+      #fffdf9 100%
+    );
+    background-size: 220% 220%;
+  }
+
   .grid-paper {
     background-image:
       linear-gradient(to right, rgba(139, 111, 92, 0.06) 1px, transparent 1px),

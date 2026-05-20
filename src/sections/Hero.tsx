@@ -9,6 +9,15 @@ export default function Hero() {
       id="hero"
       className="relative isolate min-h-[100svh] w-full overflow-hidden bg-cream-100 pt-28 sm:pt-32"
     >
+      <div className="hero-gradient absolute inset-0 animate-gradient-pan" aria-hidden />
+      <div
+        aria-hidden
+        className="pointer-events-none absolute left-1/2 top-1/2 h-[150vmax] w-[150vmax] animate-gradient-spin rounded-full opacity-40 blur-3xl"
+        style={{
+          background:
+            "conic-gradient(from 0deg, #F8C8C8, #FDF3EA, #FBDADA, #E5D8CC, #FDEDED, #F8C8C8)",
+        }}
+      />
       <Blobs />
       <div className="absolute inset-0 grain opacity-70" aria-hidden />
 
