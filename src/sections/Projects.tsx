@@ -34,14 +34,18 @@ export default function Projects() {
 
         <div className="mt-14 grid grid-cols-1 gap-6 md:grid-cols-2 xl:gap-8">
           {projects.slice(0, 4).map((p, i) => {
-            // each card flies in from its own corner of the 2-column grid
-            const fromX = (i % 2 === 0 ? -1 : 1) * 72;
-            const fromY = (i < 2 ? -1 : 1) * 64;
+            // 0: from top, 1: from right, 2: from left, 3: from bottom
+            const from = [
+              { x: 0, y: -80 },
+              { x: 80, y: 0 },
+              { x: -80, y: 0 },
+              { x: 0, y: 80 },
+            ][i];
             return (
             <motion.a
               key={p.title}
               href={p.slug ? workHref(p.slug) : p.href ?? "#"}
-              initial={{ opacity: 0, x: fromX, y: fromY }}
+              initial={{ opacity: 0, x: from.x, y: from.y }}
               whileInView={{ opacity: 1, x: 0, y: 0 }}
               viewport={{ once: true, margin: "-80px" }}
               transition={{ type: "spring", stiffness: 80, damping: 15, mass: 0.8, delay: 0.08 * i }}
