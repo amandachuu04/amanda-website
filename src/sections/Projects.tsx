@@ -33,15 +33,19 @@ export default function Projects() {
         </div>
 
         <div className="mt-14 grid grid-cols-1 gap-6 md:grid-cols-2 xl:gap-8">
-          {projects.slice(0, 4).map((p, i) => (
+          {projects.slice(0, 4).map((p, i) => {
+            // each card flies in from its own corner of the 2-column grid
+            const fromX = (i % 2 === 0 ? -1 : 1) * 72;
+            const fromY = (i < 2 ? -1 : 1) * 64;
+            return (
             <motion.a
               key={p.title}
               href={p.slug ? workHref(p.slug) : p.href ?? "#"}
-              initial={{ opacity: 0, y: 24 }}
-              whileInView={{ opacity: 1, y: 0 }}
+              initial={{ opacity: 0, x: fromX, y: fromY }}
+              whileInView={{ opacity: 1, x: 0, y: 0 }}
               viewport={{ once: true, margin: "-80px" }}
-              transition={{ duration: 0.5, delay: 0.05 * i }}
-              whileHover={{ y: -6 }}
+              transition={{ type: "spring", stiffness: 80, damping: 15, mass: 0.8, delay: 0.08 * i }}
+              whileHover={{ y: -6, transition: { duration: 0.25 } }}
               className="group relative flex flex-col overflow-hidden rounded-3xl bg-cream-50 p-3 shadow-card transition-shadow hover:shadow-soft"
             >
               <div
@@ -94,7 +98,8 @@ export default function Projects() {
                 </div>
               </div>
             </motion.a>
-          ))}
+            );
+          })}
         </div>
       </div>
     </section>
