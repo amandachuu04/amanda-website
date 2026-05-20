@@ -1,6 +1,7 @@
 import { useEffect, useRef } from "react";
 import {
   motion,
+  useMotionTemplate,
   useMotionValue,
   useReducedMotion,
   useSpring,
@@ -167,6 +168,7 @@ export default function Polaroids() {
     <div
       ref={containerRef}
       className="relative h-[clamp(420px,58vh,600px)] w-full select-none"
+      style={{ perspective: "1000px", perspectiveOrigin: "50% 42%" }}
       aria-hidden
     >
       {POLAROIDS.map((p, i) => (
@@ -194,6 +196,22 @@ function PolaroidItem({
   const ty = useTransform(smy, (v) => v * 28 * p.depth);
   const tr = useTransform(smx, (v) => p.rot + v * 3 * p.depth);
 
+  // 3-D perspective tilt: cards lean toward the cursor
+  const rotateY = useTransform(smx, (v) => v * 30 * p.depth);
+  const rotateX = useTransform(smy, (v) => -v * 22 * p.depth);
+  // each card rests on its own depth plane (closer = pushed toward viewer)
+  const restZ = (p.depth - 0.55) * 130;
+
+  // drop shadow slides opposite the tilt so the card feels lifted
+  const shadowX = useTransform(smx, (v) => -v * 46 * p.depth);
+  const shadowY = useTransform(smy, (v) => 20 - v * 34 * p.depth);
+  const boxShadow = useMotionTemplate`${shadowX}px ${shadowY}px 46px -16px rgba(139, 111, 92, 0.42), 0 4px 12px -6px rgba(139, 111, 92, 0.2)`;
+
+  // glare highlight tracks the cursor across the photo
+  const shineX = useTransform(smx, (v) => `${50 + v * 80}%`);
+  const shineY = useTransform(smy, (v) => `${50 + v * 80}%`);
+  const shine = useMotionTemplate`radial-gradient(circle at ${shineX} ${shineY}, rgba(255, 255, 255, 0.55), rgba(255, 255, 255, 0) 58%)`;
+
   return (
     <motion.figure
       className="absolute"
@@ -201,15 +219,19 @@ function PolaroidItem({
         left: `${p.x}%`,
         top: `${p.y}%`,
         width: responsiveWidth(p.width),
+        transformStyle: "preserve-3d",
         x: reduce ? 0 : tx,
         y: reduce ? 0 : ty,
+        z: reduce ? 0 : restZ,
         rotate: reduce ? p.rot : tr,
+        rotateX: reduce ? 0 : rotateX,
+        rotateY: reduce ? 0 : rotateY,
         zIndex: Math.round(p.depth * 10) + index,
       }}
       initial={{ opacity: 0, y: 18, scale: 0.9 }}
       animate={{ opacity: 1, y: 0, scale: 1 }}
       transition={{ duration: 0.7, delay: 0.15 + index * 0.12, ease: "easeOut" }}
-      whileHover={reduce ? undefined : { scale: 1.04, zIndex: 50 }}
+      whileHover={reduce ? undefined : { scale: 1.06, zIndex: 50 }}
     >
       {/* gentle idle float */}
       <motion.div
@@ -226,8 +248,9 @@ function PolaroidItem({
         }}
         className="relative rounded-[6px] bg-cream-50 pb-10 pt-3 shadow-soft"
         style={{
-          boxShadow:
-            "0 18px 40px -18px rgba(139, 111, 92, 0.35), 0 4px 10px -4px rgba(139, 111, 92, 0.18)",
+          boxShadow: reduce
+            ? "0 18px 40px -18px rgba(139, 111, 92, 0.35), 0 4px 10px -4px rgba(139, 111, 92, 0.18)"
+            : boxShadow,
           padding: "12px 12px 44px 12px",
         }}
       >
@@ -237,6 +260,13 @@ function PolaroidItem({
           style={{ aspectRatio: "1 / 1" }}
         >
           <PhotoFill kind={p.kind} image={p.image} />
+          {!reduce && (
+            <motion.span
+              aria-hidden
+              className="pointer-events-none absolute inset-0"
+              style={{ background: shine, mixBlendMode: "soft-light" }}
+            />
+          )}
         </div>
         <figcaption className="absolute inset-x-0 bottom-2 px-3 text-center">
           <span
