@@ -27,9 +27,9 @@ export default function WorkDetailPage({ slug }: { slug: string }) {
           </p>
           <a
             href={projectsHref()}
-            className="mt-8 inline-flex items-center gap-2 rounded-pill border border-taupe-300/60 px-5 py-2.5 text-sm font-semibold text-taupe-500 transition-colors hover:bg-blush-100"
+            className="group mt-8 inline-flex items-center gap-2 rounded-pill border border-taupe-300/60 px-5 py-2.5 text-sm font-semibold text-taupe-500 transition-colors hover:bg-blush-100"
           >
-            <span aria-hidden>←</span> Browse all projects
+            <span aria-hidden className="inline-block transition-transform duration-300 group-hover:-translate-x-1">←</span> Browse all projects
           </a>
         </div>
       </section>
@@ -61,65 +61,114 @@ export default function WorkDetailPage({ slug }: { slug: string }) {
 
       {/* COMPACT LEFT-ALIGNED HEADER */}
       <header className="relative mx-auto w-full max-w-[1500px] px-6 pt-28 sm:px-10 sm:pt-32 lg:px-14 xl:px-24">
-        <a
+        <motion.a
           href={projectsHref()}
+          initial={{ opacity: 0, x: -8 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.5 }}
           className="group inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.22em] text-taupe-400 transition-colors hover:text-taupe-500"
         >
           <span aria-hidden className="inline-block transition-transform duration-300 group-hover:-translate-x-1">←</span> All projects
-        </a>
+        </motion.a>
 
-        <h1 className="mt-10 font-display text-[clamp(2.5rem,7vw,5.5rem)] font-medium leading-[1.02] tracking-[-0.02em] text-ink">
+        <motion.h1
+          initial={{ opacity: 0, y: 18 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.7, delay: 0.05 }}
+          className="mt-10 font-display text-[clamp(2.5rem,7vw,5.5rem)] font-medium leading-[1.02] tracking-[-0.02em] text-ink"
+        >
           {study.title}
-        </h1>
-        <p className="mt-6 text-lg leading-relaxed text-taupe-500 sm:text-xl">
+        </motion.h1>
+        <motion.p
+          initial={{ opacity: 0, y: 12 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.15 }}
+          className="mt-6 text-lg leading-relaxed text-taupe-500 sm:text-xl"
+        >
           {study.tagline}
-        </p>
+        </motion.p>
 
         {study.category === "programming" ? (
-          <dl className="mt-10 grid w-full grid-cols-3 gap-x-8 gap-y-6 border-t border-taupe-200/60 pt-8">
+          <motion.dl
+            initial="hidden"
+            animate="show"
+            variants={{
+              hidden: {},
+              show: { transition: { staggerChildren: 0.05, delayChildren: 0.25 } },
+            }}
+            className="mt-10 grid w-full grid-cols-3 gap-x-8 gap-y-6 border-t border-taupe-200/60 pt-8"
+          >
             <MetaRow label="Language" value={study.meta.language ?? study.meta.tools} />
             <MetaRow label="Duration" value={study.meta.duration} />
             <MetaRow label="Timeline" value={study.meta.timeline} />
-          </dl>
+          </motion.dl>
         ) : (
           <DesignMetaGrid meta={study.meta} />
         )}
 
         {study.skills.length > 0 && (
-          <div className="mt-8">
+          <motion.div
+            initial={{ opacity: 0, y: 8 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.3 }}
+            className="mt-8"
+          >
             <p className="text-[0.68rem] font-semibold uppercase tracking-[0.22em] text-taupe-400">
               Skills applied
             </p>
-            <ul className="mt-3 flex flex-wrap gap-2">
+            <motion.ul
+              initial="hidden"
+              animate="show"
+              variants={{
+                hidden: {},
+                show: { transition: { staggerChildren: 0.04, delayChildren: 0.35 } },
+              }}
+              className="mt-3 flex flex-wrap gap-2"
+            >
               {study.skills.map((s) => (
-                <li
+                <motion.li
                   key={s}
-                  className="rounded-pill border border-taupe-200/70 bg-cream-50 px-3.5 py-1.5 text-xs font-medium text-taupe-500"
+                  variants={{
+                    hidden: { opacity: 0, y: 6, scale: 0.92 },
+                    show: { opacity: 1, y: 0, scale: 1, transition: { duration: 0.4 } },
+                  }}
+                  whileHover={{ y: -3, scale: 1.04 }}
+                  className="cursor-default rounded-pill border border-taupe-200/70 bg-cream-50 px-3.5 py-1.5 text-xs font-medium text-taupe-500 transition-colors hover:border-blush-300/70 hover:text-ink"
                 >
                   {s}
-                </li>
+                </motion.li>
               ))}
-            </ul>
-          </div>
+            </motion.ul>
+          </motion.div>
         )}
 
         {study.externalLink && (
-          <div className="mt-10">
-            <a
+          <motion.div
+            initial={{ opacity: 0, y: 8 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.4 }}
+            className="mt-10"
+          >
+            <motion.a
               href={study.externalLink.href}
               target="_blank"
               rel="noopener noreferrer"
-              className="group inline-flex items-center gap-2 rounded-pill bg-ink px-6 py-3 text-sm font-semibold text-cream-50 transition-colors hover:bg-taupe-500"
+              whileHover={{ y: -2 }}
+              whileTap={{ scale: 0.97 }}
+              transition={{ type: "spring", stiffness: 320, damping: 18 }}
+              className="shimmer group relative inline-flex items-center gap-2 overflow-hidden rounded-pill bg-ink px-6 py-3 text-sm font-semibold text-cream-50 transition-colors hover:bg-taupe-500"
             >
               {study.externalLink.label}
-              <span
-                aria-hidden
-                className="transition-transform group-hover:translate-x-1"
-              >
-                →
+              <span className="inline-flex w-4 overflow-hidden">
+                <span
+                  aria-hidden
+                  className="inline-block transition-transform duration-300 group-hover:translate-x-1"
+                >
+                  →
+                </span>
               </span>
-            </a>
-          </div>
+            </motion.a>
+          </motion.div>
         )}
       </header>
 
@@ -139,10 +188,10 @@ export default function WorkDetailPage({ slug }: { slug: string }) {
                       onClick={() => scrollToId(sectionIds[i])}
                       className="group flex w-full items-baseline gap-3 text-left transition-colors hover:text-ink"
                     >
-                      <span className="font-mono text-[0.7rem] tracking-wider text-taupe-400 group-hover:text-blush-500">
+                      <span className="font-mono text-[0.7rem] tracking-wider text-taupe-400 transition-colors group-hover:text-blush-500">
                         {String(i + 1).padStart(2, "0")}
                       </span>
-                      <span className="leading-snug">{s.heading}</span>
+                      <span className="leading-snug transition-transform duration-300 group-hover:translate-x-1">{s.heading}</span>
                     </button>
                   </li>
                 ))}
@@ -153,10 +202,10 @@ export default function WorkDetailPage({ slug }: { slug: string }) {
                       onClick={() => scrollToId("final-screens")}
                       className="group flex w-full items-baseline gap-3 text-left transition-colors hover:text-ink"
                     >
-                      <span className="font-mono text-[0.7rem] tracking-wider text-taupe-400 group-hover:text-blush-500">
+                      <span className="font-mono text-[0.7rem] tracking-wider text-taupe-400 transition-colors group-hover:text-blush-500">
                         {String(study.sections.length + 1).padStart(2, "0")}
                       </span>
-                      <span className="leading-snug">Final screens</span>
+                      <span className="leading-snug transition-transform duration-300 group-hover:translate-x-1">Final screens</span>
                     </button>
                   </li>
                 )}
@@ -223,24 +272,35 @@ function DesignMetaGrid({ meta }: { meta: CaseStudy["meta"] }) {
   const cols = colsByCount[fields.length] ?? "grid-cols-2 sm:grid-cols-3";
 
   return (
-    <dl
+    <motion.dl
+      initial="hidden"
+      animate="show"
+      variants={{
+        hidden: {},
+        show: { transition: { staggerChildren: 0.05, delayChildren: 0.25 } },
+      }}
       className={`mt-10 grid w-full gap-x-8 gap-y-6 border-t border-taupe-200/60 pt-8 ${cols}`}
     >
       {fields.map((f) => (
         <MetaRow key={f.label} label={f.label} value={f.value} />
       ))}
-    </dl>
+    </motion.dl>
   );
 }
 
 function MetaRow({ label, value }: { label: string; value?: string }) {
   return (
-    <div>
+    <motion.div
+      variants={{
+        hidden: { opacity: 0, y: 8 },
+        show: { opacity: 1, y: 0, transition: { duration: 0.4 } },
+      }}
+    >
       <dt className="text-[0.68rem] font-semibold uppercase tracking-[0.22em] text-taupe-400">
         {label}
       </dt>
       <dd className="mt-1.5 text-[0.95rem] text-ink">{value || " "}</dd>
-    </div>
+    </motion.div>
   );
 }
 
@@ -272,19 +332,30 @@ function SectionBlock({
   return (
     <motion.section
       id={id}
-      initial={{ opacity: 0, y: 18 }}
-      whileInView={{ opacity: 1, y: 0 }}
+      initial="hidden"
+      whileInView="show"
       viewport={{ once: true, amount: 0.15 }}
-      transition={{ duration: 0.55 }}
+      variants={{
+        hidden: { opacity: 0, y: 18 },
+        show: {
+          opacity: 1,
+          y: 0,
+          transition: { duration: 0.55, when: "beforeChildren", staggerChildren: 0.05 },
+        },
+      }}
       className="relative scroll-mt-28"
     >
       <div className="flex items-baseline gap-4">
-        <span
+        <motion.span
           aria-hidden
+          initial={{ opacity: 0, scale: 0.6 }}
+          whileInView={{ opacity: 1, scale: 1 }}
+          viewport={{ once: true, amount: 0.15 }}
+          transition={{ type: "spring", stiffness: 220, damping: 14, delay: 0.1 }}
           className="font-display text-5xl font-medium leading-none text-blush-300 sm:text-6xl"
         >
           {String(index + 1).padStart(2, "0")}
-        </span>
+        </motion.span>
         <span className="text-[0.7rem] font-semibold uppercase tracking-[0.28em] text-taupe-400">
           {label.split("/")[1]?.trim() ?? label}
         </span>
@@ -299,28 +370,47 @@ function SectionBlock({
       </p>
 
       {bullets && (
-        <ul
+        <motion.ul
+          initial="hidden"
+          whileInView="show"
+          viewport={{ once: true, amount: 0.1 }}
+          variants={{
+            hidden: {},
+            show: { transition: { staggerChildren: 0.06, delayChildren: 0.1 } },
+          }}
           className="mt-10 grid gap-4 sm:grid-flow-col sm:grid-cols-2"
           style={{
             gridTemplateRows: `repeat(${Math.ceil(bullets.length / 2)}, auto)`,
           }}
         >
           {bullets.map((b, i) => (
-            <li
+            <motion.li
               key={b}
-              className="relative rounded-2xl border border-taupe-200/50 bg-cream-50 p-5"
+              variants={{
+                hidden: { opacity: 0, y: 12 },
+                show: { opacity: 1, y: 0, transition: { duration: 0.45 } },
+              }}
+              whileHover={{ y: -3 }}
+              transition={{ type: "spring", stiffness: 260, damping: 18 }}
+              className="relative rounded-2xl border border-taupe-200/50 bg-cream-50 p-5 transition-shadow hover:shadow-soft"
             >
               <span className="font-mono text-[0.7rem] tracking-wider text-blush-500">
                 {String(i + 1).padStart(2, "0")}
               </span>
               <p className="mt-2 text-[0.95rem] leading-relaxed text-ink">{b}</p>
-            </li>
+            </motion.li>
           ))}
-        </ul>
+        </motion.ul>
       )}
 
       {callout && (
-        <figure className="mt-10 overflow-hidden rounded-3xl bg-blush-200/70 p-8 sm:p-10">
+        <motion.figure
+          initial={{ opacity: 0, scale: 0.96 }}
+          whileInView={{ opacity: 1, scale: 1 }}
+          viewport={{ once: true, amount: 0.2 }}
+          transition={{ duration: 0.55 }}
+          className="mt-10 overflow-hidden rounded-3xl bg-blush-200/70 p-8 sm:p-10"
+        >
           <blockquote>
             <p className="font-display text-5xl font-medium leading-none text-ink sm:text-7xl">
               {callout.stat}
@@ -329,7 +419,7 @@ function SectionBlock({
               {callout.caption}
             </p>
           </blockquote>
-        </figure>
+        </motion.figure>
       )}
     </motion.section>
   );
@@ -425,16 +515,22 @@ function GallerySection({
 
         {/* Featured brand mark */}
         {featured && featured.kind !== "video" && (
-          <button
+          <motion.button
             type="button"
             onClick={() => onOpen(featuredIdx)}
-            className="mt-14 flex w-full items-center gap-8 rounded-3xl border border-cream-50/10 bg-cream-50/[0.04] p-6 text-left transition-colors hover:bg-cream-50/[0.08] sm:p-10"
+            initial={{ opacity: 0, y: 16 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.2 }}
+            transition={{ duration: 0.6 }}
+            whileHover={{ y: -4 }}
+            whileTap={{ scale: 0.99 }}
+            className="group mt-14 flex w-full items-center gap-8 rounded-3xl border border-cream-50/10 bg-cream-50/[0.04] p-6 text-left transition-colors hover:bg-cream-50/[0.08] sm:p-10"
           >
             <div className="h-24 w-24 flex-shrink-0 overflow-hidden rounded-2xl bg-cream-50 sm:h-32 sm:w-32">
               <img
                 src={featured.src}
                 alt={`${title} brand mark`}
-                className="h-full w-full object-contain p-3"
+                className="h-full w-full object-contain p-3 transition-transform duration-500 group-hover:scale-105"
               />
             </div>
             <div>
@@ -450,7 +546,7 @@ function GallerySection({
                 </p>
               )}
             </div>
-          </button>
+          </motion.button>
         )}
 
         {/* Scrollable strip with controls */}
@@ -458,24 +554,30 @@ function GallerySection({
           <div className="mb-4 flex items-center justify-between text-[0.7rem] uppercase tracking-[0.22em] text-cream-50/60">
             <span>Drag, scroll, or use the arrows</span>
             <div className="flex items-center gap-2">
-              <button
+              <motion.button
                 type="button"
                 onClick={() => scrollBy(-1)}
                 disabled={pos.atStart}
                 aria-label="Scroll previous"
+                whileHover={pos.atStart ? undefined : { x: -3, scale: 1.05 }}
+                whileTap={pos.atStart ? undefined : { scale: 0.9 }}
+                transition={{ type: "spring", stiffness: 320, damping: 18 }}
                 className="grid h-9 w-9 place-items-center rounded-full border border-cream-50/20 transition-colors hover:bg-cream-50/10 disabled:cursor-not-allowed disabled:opacity-30"
               >
                 <span aria-hidden>←</span>
-              </button>
-              <button
+              </motion.button>
+              <motion.button
                 type="button"
                 onClick={() => scrollBy(1)}
                 disabled={pos.atEnd}
                 aria-label="Scroll next"
+                whileHover={pos.atEnd ? undefined : { x: 3, scale: 1.05 }}
+                whileTap={pos.atEnd ? undefined : { scale: 0.9 }}
+                transition={{ type: "spring", stiffness: 320, damping: 18 }}
                 className="grid h-9 w-9 place-items-center rounded-full border border-cream-50/20 transition-colors hover:bg-cream-50/10 disabled:cursor-not-allowed disabled:opacity-30"
               >
                 <span aria-hidden>→</span>
-              </button>
+              </motion.button>
             </div>
           </div>
 
@@ -519,12 +621,13 @@ function GalleryThumb({
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, amount: 0.1 }}
       transition={{ duration: 0.5 }}
+      whileHover={{ y: -4 }}
       className={`group relative flex-shrink-0 snap-center ${widthClass}`}
     >
       <button
         type="button"
         onClick={onClick}
-        className={`relative block w-full overflow-hidden rounded-[2rem] ring-1 ring-cream-50/10 transition-transform hover:scale-[1.02] ${aspectClass} ${
+        className={`relative block w-full overflow-hidden rounded-[2rem] ring-1 ring-cream-50/10 transition-transform duration-300 hover:scale-[1.02] hover:ring-cream-50/30 ${aspectClass} ${
           isVideo ? "bg-ink" : "bg-gradient-to-br from-blush-200 to-cream-200"
         }`}
       >
@@ -535,14 +638,18 @@ function GalleryThumb({
               muted
               playsInline
               preload="metadata"
-              className="absolute inset-0 h-full w-full object-contain"
+              className="absolute inset-0 h-full w-full object-contain transition-transform duration-500 group-hover:scale-105"
             />
             <div className="pointer-events-none absolute inset-0 grid place-items-center bg-ink/15">
-              <span className="grid h-16 w-16 place-items-center rounded-full bg-cream-50/90 text-ink">
+              <motion.span
+                className="grid h-16 w-16 place-items-center rounded-full bg-cream-50/90 text-ink"
+                animate={{ scale: [1, 1.06, 1] }}
+                transition={{ duration: 2.4, repeat: Infinity, ease: "easeInOut" }}
+              >
                 <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" aria-hidden>
                   <path d="M8 5v14l11-7z" />
                 </svg>
-              </span>
+              </motion.span>
             </div>
           </>
         ) : (
@@ -550,7 +657,7 @@ function GalleryThumb({
             src={item.src}
             alt={item.caption ?? `${title} screen`}
             loading="lazy"
-            className="absolute inset-0 h-full w-full object-cover"
+            className="absolute inset-0 h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
           />
         )}
       </button>
@@ -595,44 +702,54 @@ function Lightbox({
   if (!item) return null;
 
   return (
-    <div
+    <motion.div
       role="dialog"
       aria-modal="true"
       onClick={onClose}
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      transition={{ duration: 0.2 }}
       className="fixed inset-0 z-[100] flex flex-col bg-ink/90 backdrop-blur-sm"
     >
       <div className="flex items-center justify-between p-5 text-cream-50">
         <span className="font-mono text-xs tracking-[0.22em] text-cream-50/70">
           {String(index + 1).padStart(2, "0")} / {String(items.length).padStart(2, "0")}
         </span>
-        <button
+        <motion.button
           type="button"
           onClick={(e) => {
             e.stopPropagation();
             onClose();
           }}
           aria-label="Close"
+          whileHover={{ rotate: 90, scale: 1.08 }}
+          whileTap={{ scale: 0.92 }}
+          transition={{ type: "spring", stiffness: 280, damping: 16 }}
           className="grid h-10 w-10 place-items-center rounded-full border border-cream-50/20 transition-colors hover:bg-cream-50/10"
         >
           <span aria-hidden className="text-lg">×</span>
-        </button>
+        </motion.button>
       </div>
 
       <div className="relative flex min-h-0 flex-1 items-center justify-center px-16 pb-4 sm:px-20">
-        <button
+        <motion.button
           type="button"
           onClick={(e) => {
             e.stopPropagation();
             onChange((index - 1 + items.length) % items.length);
           }}
           aria-label="Previous"
+          whileHover={{ x: -3, scale: 1.05 }}
+          whileTap={{ scale: 0.92 }}
+          transition={{ type: "spring", stiffness: 320, damping: 18 }}
           className="absolute left-4 top-1/2 z-10 grid h-12 w-12 -translate-y-1/2 place-items-center rounded-full border border-cream-50/20 text-cream-50 transition-colors hover:bg-cream-50/10 sm:left-8"
         >
           <span aria-hidden>←</span>
-        </button>
+        </motion.button>
 
         {item.kind === "video" ? (
-          <video
+          <motion.video
             key={item.src}
             src={item.src}
             poster={item.poster}
@@ -640,28 +757,38 @@ function Lightbox({
             autoPlay
             playsInline
             onClick={(e) => e.stopPropagation()}
+            initial={{ opacity: 0, scale: 0.96 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.3 }}
             className="h-auto max-h-full w-auto max-w-full rounded-xl"
           />
         ) : (
-          <img
+          <motion.img
+            key={item.src}
             src={item.src}
             alt={item.caption ?? "Expanded design"}
             onClick={(e) => e.stopPropagation()}
+            initial={{ opacity: 0, scale: 0.96 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.3 }}
             className="h-auto max-h-full w-auto max-w-full rounded-xl object-contain"
           />
         )}
 
-        <button
+        <motion.button
           type="button"
           onClick={(e) => {
             e.stopPropagation();
             onChange((index + 1) % items.length);
           }}
           aria-label="Next"
+          whileHover={{ x: 3, scale: 1.05 }}
+          whileTap={{ scale: 0.92 }}
+          transition={{ type: "spring", stiffness: 320, damping: 18 }}
           className="absolute right-4 top-1/2 z-10 grid h-12 w-12 -translate-y-1/2 place-items-center rounded-full border border-cream-50/20 text-cream-50 transition-colors hover:bg-cream-50/10 sm:right-8"
         >
           <span aria-hidden>→</span>
-        </button>
+        </motion.button>
       </div>
 
       {item.caption && (
@@ -669,7 +796,7 @@ function Lightbox({
           {item.caption}
         </p>
       )}
-    </div>
+    </motion.div>
   );
 }
 

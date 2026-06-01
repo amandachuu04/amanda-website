@@ -118,7 +118,7 @@ export default function ProjectFolder({
       </div>
 
       <div className="mt-5 flex flex-col items-center gap-1">
-        <h3 className="font-display text-lg font-medium text-ink sm:text-xl">
+        <h3 className="font-display text-lg font-medium text-ink transition-colors duration-300 group-hover:text-taupe-500 sm:text-xl">
           {folder.label}
         </h3>
         <p className="text-xs text-taupe-400">

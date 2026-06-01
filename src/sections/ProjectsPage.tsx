@@ -53,52 +53,114 @@ export default function ProjectsPage({ initialSlug }: { initialSlug: Slug }) {
       <div className="relative mx-auto w-full max-w-[1500px] px-6 sm:px-10 lg:px-14 xl:px-24">
         <div className="flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between">
           <div className="max-w-3xl">
-            <a
+            <motion.a
               href="#projects"
               onClick={(e) => {
                 e.preventDefault();
                 window.history.pushState({}, "", "#projects");
                 window.dispatchEvent(new HashChangeEvent("hashchange"));
               }}
+              initial={{ opacity: 0, x: -8 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.5 }}
               className="group inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.18em] text-taupe-400 transition-colors hover:text-taupe-500"
             >
               <span aria-hidden className="inline-block transition-transform duration-300 group-hover:-translate-x-1">←</span> Back to home
-            </a>
-            <h1 className="mt-4 font-display text-display-md font-medium text-ink">
+            </motion.a>
+            <motion.h1
+              initial={{ opacity: 0, y: 14 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.05 }}
+              className="mt-4 font-display text-display-md font-medium text-ink"
+            >
               Projects
-            </h1>
-            <p className="mt-4 text-base text-taupe-500 sm:text-lg">
+            </motion.h1>
+            <motion.p
+              initial={{ opacity: 0, y: 8 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.15 }}
+              className="mt-4 text-base text-taupe-500 sm:text-lg"
+            >
               Browse my projects by folder. Hover to preview what&rsquo;s inside,
               then click to explore.
-            </p>
+            </motion.p>
           </div>
-          <p className="text-sm text-taupe-400">
+          <motion.p
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.5, delay: 0.25 }}
+            className="text-sm text-taupe-400"
+          >
             {allProjects.length} project{allProjects.length === 1 ? "" : "s"} total
-          </p>
+          </motion.p>
         </div>
 
-        <div className="mt-12 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4 lg:gap-6">
+        <motion.div
+          initial="hidden"
+          animate="show"
+          variants={{
+            hidden: {},
+            show: { transition: { staggerChildren: 0.06, delayChildren: 0.1 } },
+          }}
+          className="mt-12 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4 lg:gap-6"
+        >
           {projectFolders.map((folder) => (
-            <ProjectFolder
+            <motion.div
               key={folder.slug}
-              folder={folder}
-              previews={projectsForFolder(folder.slug)}
-              active={active === folder.slug}
-              onSelect={onSelect}
-            />
+              variants={{
+                hidden: { opacity: 0, y: 16 },
+                show: { opacity: 1, y: 0, transition: { duration: 0.5, ease: "easeOut" } },
+              }}
+            >
+              <ProjectFolder
+                folder={folder}
+                previews={projectsForFolder(folder.slug)}
+                active={active === folder.slug}
+                onSelect={onSelect}
+              />
+            </motion.div>
           ))}
-        </div>
+        </motion.div>
 
         <div id="filtered-projects" className="mt-20 scroll-mt-32">
           <div className="flex items-baseline justify-between gap-4">
-            <h2 className="font-display text-2xl font-medium text-ink sm:text-3xl">
-              {activeFolder.label}
-            </h2>
-            <span className="text-xs uppercase tracking-[0.18em] text-taupe-400">
-              {list.length} item{list.length === 1 ? "" : "s"}
-            </span>
+            <AnimatePresence mode="wait">
+              <motion.h2
+                key={activeFolder.label}
+                initial={{ opacity: 0, y: 8 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -6 }}
+                transition={{ duration: 0.3 }}
+                className="font-display text-2xl font-medium text-ink sm:text-3xl"
+              >
+                {activeFolder.label}
+              </motion.h2>
+            </AnimatePresence>
+            <AnimatePresence mode="wait">
+              <motion.span
+                key={`${active}-${list.length}`}
+                initial={{ opacity: 0, y: 4 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -4 }}
+                transition={{ duration: 0.25 }}
+                className="text-xs uppercase tracking-[0.18em] text-taupe-400"
+              >
+                {list.length} item{list.length === 1 ? "" : "s"}
+              </motion.span>
+            </AnimatePresence>
           </div>
-          <p className="mt-2 text-sm text-taupe-400">{activeFolder.description}</p>
+          <AnimatePresence mode="wait">
+            <motion.p
+              key={activeFolder.description}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.3 }}
+              className="mt-2 text-sm text-taupe-400"
+            >
+              {activeFolder.description}
+            </motion.p>
+          </AnimatePresence>
 
           <AnimatePresence mode="wait">
             <motion.div

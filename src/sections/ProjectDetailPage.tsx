@@ -79,9 +79,9 @@ export default function ProjectDetailPage({ slug }: { slug: string }) {
           </p>
           <a
             href={projectsHref()}
-            className="mt-8 inline-flex items-center gap-2 rounded-pill border border-taupe-300/60 px-5 py-2.5 text-sm font-semibold text-taupe-500 transition-colors hover:bg-blush-100"
+            className="group mt-8 inline-flex items-center gap-2 rounded-pill border border-taupe-300/60 px-5 py-2.5 text-sm font-semibold text-taupe-500 transition-colors hover:bg-blush-100"
           >
-            <span aria-hidden>←</span> Browse all projects
+            <span aria-hidden className="inline-block transition-transform duration-300 group-hover:-translate-x-1">←</span> Browse all projects
           </a>
         </div>
       </section>
@@ -140,65 +140,114 @@ export default function ProjectDetailPage({ slug }: { slug: string }) {
 function Header({ project }: { project: ProjectPage }) {
   return (
     <header className="relative mx-auto w-full max-w-[1500px] px-6 pt-28 sm:px-10 sm:pt-32 lg:px-14 xl:px-24">
-      <a
+      <motion.a
         href={projectsHref()}
-        className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.22em] text-taupe-400 transition-colors hover:text-taupe-500"
+        initial={{ opacity: 0, x: -8 }}
+        animate={{ opacity: 1, x: 0 }}
+        transition={{ duration: 0.5 }}
+        className="group inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.22em] text-taupe-400 transition-colors hover:text-taupe-500"
       >
-        <span aria-hidden>←</span> All projects
-      </a>
+        <span aria-hidden className="inline-block transition-transform duration-300 group-hover:-translate-x-1">←</span> All projects
+      </motion.a>
 
-      <h1 className="mt-10 font-display text-[clamp(2.5rem,7vw,5.5rem)] font-medium leading-[1.02] tracking-[-0.02em] text-ink">
+      <motion.h1
+        initial={{ opacity: 0, y: 18 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.7, delay: 0.05 }}
+        className="mt-10 font-display text-[clamp(2.5rem,7vw,5.5rem)] font-medium leading-[1.02] tracking-[-0.02em] text-ink"
+      >
         {project.title}
-      </h1>
-      <p className="mt-6 text-lg leading-relaxed text-taupe-500 sm:text-xl">
+      </motion.h1>
+      <motion.p
+        initial={{ opacity: 0, y: 12 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6, delay: 0.15 }}
+        className="mt-6 text-lg leading-relaxed text-taupe-500 sm:text-xl"
+      >
         {project.tagline}
-      </p>
+      </motion.p>
 
       {project.category === "design" ? (
         <DesignMetaGrid meta={project.meta} />
       ) : (
-        <dl className="mt-10 grid w-full grid-cols-3 gap-x-8 gap-y-6 border-t border-taupe-200/60 pt-8">
+        <motion.dl
+          initial="hidden"
+          animate="show"
+          variants={{
+            hidden: {},
+            show: { transition: { staggerChildren: 0.06, delayChildren: 0.25 } },
+          }}
+          className="mt-10 grid w-full grid-cols-3 gap-x-8 gap-y-6 border-t border-taupe-200/60 pt-8"
+        >
           <MetaRow label="Language" value={project.meta.language ?? project.meta.tools} />
           <MetaRow label="Duration" value={project.meta.duration} />
           <MetaRow label="Timeline" value={project.meta.timeline} />
-        </dl>
+        </motion.dl>
       )}
 
       {project.skills.length > 0 && (
-        <div className="mt-8">
+        <motion.div
+          initial={{ opacity: 0, y: 8 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.3 }}
+          className="mt-8"
+        >
           <p className="text-[0.68rem] font-semibold uppercase tracking-[0.22em] text-taupe-400">
             Skills applied
           </p>
-          <ul className="mt-3 flex flex-wrap gap-2">
+          <motion.ul
+            initial="hidden"
+            animate="show"
+            variants={{
+              hidden: {},
+              show: { transition: { staggerChildren: 0.04, delayChildren: 0.35 } },
+            }}
+            className="mt-3 flex flex-wrap gap-2"
+          >
             {project.skills.map((s) => (
-              <li
+              <motion.li
                 key={s}
-                className="rounded-pill border border-taupe-200/70 bg-cream-50 px-3.5 py-1.5 text-xs font-medium text-taupe-500"
+                variants={{
+                  hidden: { opacity: 0, y: 6, scale: 0.92 },
+                  show: { opacity: 1, y: 0, scale: 1, transition: { duration: 0.4 } },
+                }}
+                whileHover={{ y: -3, scale: 1.04 }}
+                className="cursor-default rounded-pill border border-taupe-200/70 bg-cream-50 px-3.5 py-1.5 text-xs font-medium text-taupe-500 transition-colors hover:border-blush-300/70 hover:text-ink"
               >
                 {s}
-              </li>
+              </motion.li>
             ))}
-          </ul>
-        </div>
+          </motion.ul>
+        </motion.div>
       )}
 
       {project.externalLink && (
-        <div className="mt-10">
-          <a
+        <motion.div
+          initial={{ opacity: 0, y: 8 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.4 }}
+          className="mt-10"
+        >
+          <motion.a
             href={project.externalLink.href}
             target="_blank"
             rel="noopener noreferrer"
-            className="group inline-flex items-center gap-2 rounded-pill bg-ink px-6 py-3 text-sm font-semibold text-cream-50 transition-colors hover:bg-taupe-500"
+            whileHover={{ y: -2 }}
+            whileTap={{ scale: 0.97 }}
+            transition={{ type: "spring", stiffness: 320, damping: 18 }}
+            className="shimmer group relative inline-flex items-center gap-2 overflow-hidden rounded-pill bg-ink px-6 py-3 text-sm font-semibold text-cream-50 transition-colors hover:bg-taupe-500"
           >
             {project.externalLink.label}
-            <span
-              aria-hidden
-              className="transition-transform group-hover:translate-x-1"
-            >
-              →
+            <span className="inline-flex w-4 overflow-hidden">
+              <span
+                aria-hidden
+                className="inline-block transition-transform duration-300 group-hover:translate-x-1"
+              >
+                →
+              </span>
             </span>
-          </a>
-        </div>
+          </motion.a>
+        </motion.div>
       )}
     </header>
   );
@@ -220,18 +269,21 @@ function ClickableCover({
       transition={{ duration: 0.6 }}
       className="relative mx-auto mt-16 w-full max-w-[1500px] px-6 sm:mt-20 sm:px-10 lg:px-14 xl:px-24"
     >
-      <button
+      <motion.button
         type="button"
         onClick={onOpen}
         aria-label={`Expand ${title} cover`}
-        className="group block w-full overflow-hidden rounded-[2rem] bg-gradient-to-br from-blush-200 to-cream-200 shadow-card transition-transform hover:scale-[1.005]"
+        whileHover={{ y: -4 }}
+        whileTap={{ scale: 0.99 }}
+        transition={{ type: "spring", stiffness: 260, damping: 20 }}
+        className="group block w-full overflow-hidden rounded-[2rem] bg-gradient-to-br from-blush-200 to-cream-200 shadow-card transition-shadow hover:shadow-soft"
       >
         <img
           src={cover}
           alt={`${title} cover`}
-          className="block h-auto w-full object-cover transition-transform duration-500 group-hover:scale-[1.02]"
+          className="block h-auto w-full object-cover transition-transform duration-500 group-hover:scale-[1.03]"
         />
-      </button>
+      </motion.button>
     </motion.figure>
   );
 }
@@ -268,18 +320,21 @@ function IterationsSection({
           >
             {it.images.map((img, j) => (
               <figure key={img.src}>
-                <button
+                <motion.button
                   type="button"
                   onClick={() => onOpen(i, j)}
                   aria-label={`Expand ${it.heading ?? it.label} image ${j + 1}`}
-                  className="group block w-full overflow-hidden rounded-[1.5rem] bg-cream-50 shadow-card transition-transform hover:scale-[1.005]"
+                  whileHover={{ y: -4 }}
+                  whileTap={{ scale: 0.99 }}
+                  transition={{ type: "spring", stiffness: 260, damping: 20 }}
+                  className="group block w-full overflow-hidden rounded-[1.5rem] bg-cream-50 shadow-card transition-shadow hover:shadow-soft"
                 >
                   <img
                     src={img.src}
                     alt={img.caption ?? `${it.heading ?? it.label} ${j + 1}`}
-                    className="block h-auto w-full object-cover transition-transform duration-500 group-hover:scale-[1.02]"
+                    className="block h-auto w-full object-cover transition-transform duration-500 group-hover:scale-[1.03]"
                   />
-                </button>
+                </motion.button>
                 {img.caption && (
                   <figcaption className="mt-3 text-[0.7rem] uppercase tracking-[0.22em] text-taupe-400">
                     {img.caption}
@@ -296,16 +351,39 @@ function IterationsSection({
 
 function Description({ description }: { description: string[] }) {
   return (
-    <section className="relative mx-auto mt-20 w-full max-w-[1500px] px-6 sm:mt-24 sm:px-10 lg:px-14 xl:px-24">
+    <motion.section
+      initial={{ opacity: 0, y: 16 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: "-80px" }}
+      transition={{ duration: 0.55 }}
+      className="relative mx-auto mt-20 w-full max-w-[1500px] px-6 sm:mt-24 sm:px-10 lg:px-14 xl:px-24"
+    >
       <p className="text-[0.7rem] font-semibold uppercase tracking-[0.28em] text-taupe-400">
         About the project
       </p>
-      <div className="mt-6 flex flex-col gap-6 text-base leading-relaxed text-taupe-500 sm:text-[1.05rem] sm:leading-[1.85]">
+      <motion.div
+        initial="hidden"
+        whileInView="show"
+        viewport={{ once: true, margin: "-60px" }}
+        variants={{
+          hidden: {},
+          show: { transition: { staggerChildren: 0.07, delayChildren: 0.1 } },
+        }}
+        className="mt-6 flex flex-col gap-6 text-base leading-relaxed text-taupe-500 sm:text-[1.05rem] sm:leading-[1.85]"
+      >
         {description.map((p, i) => (
-          <p key={i}>{p}</p>
+          <motion.p
+            key={i}
+            variants={{
+              hidden: { opacity: 0, y: 8 },
+              show: { opacity: 1, y: 0, transition: { duration: 0.5 } },
+            }}
+          >
+            {p}
+          </motion.p>
         ))}
-      </div>
-    </section>
+      </motion.div>
+    </motion.section>
   );
 }
 
@@ -324,11 +402,14 @@ function ClickableVideo({
       transition={{ duration: 0.6 }}
       className="relative mx-auto mt-20 w-full max-w-[1500px] px-6 sm:mt-24 sm:px-10 lg:px-14 xl:px-24"
     >
-      <button
+      <motion.button
         type="button"
         onClick={onOpen}
         aria-label="Expand demo video"
-        className="group relative block w-full overflow-hidden rounded-[2rem] bg-ink shadow-card transition-transform hover:scale-[1.005]"
+        whileHover={{ y: -4 }}
+        whileTap={{ scale: 0.99 }}
+        transition={{ type: "spring", stiffness: 260, damping: 20 }}
+        className="group relative block w-full overflow-hidden rounded-[2rem] bg-ink shadow-card transition-shadow hover:shadow-soft"
       >
         <video
           src={`${video.src}#t=0.1`}
@@ -339,13 +420,21 @@ function ClickableVideo({
           className="block h-auto w-full"
         />
         <div className="pointer-events-none absolute inset-0 grid place-items-center bg-ink/15 transition-colors group-hover:bg-ink/25">
-          <span className="grid h-20 w-20 place-items-center rounded-full bg-cream-50/90 text-ink transition-transform group-hover:scale-110">
+          <motion.span
+            className="grid h-20 w-20 place-items-center rounded-full bg-cream-50/90 text-ink"
+            initial={false}
+            whileHover={{ scale: 1.12 }}
+            animate={{ scale: [1, 1.06, 1] }}
+            transition={{
+              scale: { duration: 2.4, repeat: Infinity, ease: "easeInOut" },
+            }}
+          >
             <svg width="26" height="26" viewBox="0 0 24 24" fill="currentColor" aria-hidden>
               <path d="M8 5v14l11-7z" />
             </svg>
-          </span>
+          </motion.span>
         </div>
-      </button>
+      </motion.button>
       {video.caption && (
         <figcaption className="mt-4 text-[0.7rem] uppercase tracking-[0.22em] text-taupe-400">
           {video.caption}
@@ -373,24 +462,35 @@ function DesignMetaGrid({ meta }: { meta: ProjectMeta }) {
   const cols = colsByCount[fields.length] ?? "grid-cols-2 sm:grid-cols-3";
 
   return (
-    <dl
+    <motion.dl
+      initial="hidden"
+      animate="show"
+      variants={{
+        hidden: {},
+        show: { transition: { staggerChildren: 0.05, delayChildren: 0.25 } },
+      }}
       className={`mt-10 grid w-full gap-x-8 gap-y-6 border-t border-taupe-200/60 pt-8 ${cols}`}
     >
       {fields.map((f) => (
         <MetaRow key={f.label} label={f.label} value={f.value} />
       ))}
-    </dl>
+    </motion.dl>
   );
 }
 
 function MetaRow({ label, value }: { label: string; value?: string }) {
   return (
-    <div>
+    <motion.div
+      variants={{
+        hidden: { opacity: 0, y: 8 },
+        show: { opacity: 1, y: 0, transition: { duration: 0.4 } },
+      }}
+    >
       <dt className="text-[0.68rem] font-semibold uppercase tracking-[0.22em] text-taupe-400">
         {label}
       </dt>
       <dd className="mt-1.5 text-[0.95rem] text-ink">{value || " "}</dd>
-    </div>
+      </motion.div>
   );
 }
 
@@ -432,10 +532,14 @@ function Lightbox({
   const showNav = items.length > 1;
 
   return (
-    <div
+    <motion.div
       role="dialog"
       aria-modal="true"
       onClick={onClose}
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      transition={{ duration: 0.2 }}
       className="fixed inset-0 z-[100] flex flex-col bg-ink/90 backdrop-blur-sm"
     >
       <div className="flex items-center justify-between p-5 text-cream-50">
@@ -443,38 +547,44 @@ function Lightbox({
           {String(index + 1).padStart(2, "0")} /{" "}
           {String(items.length).padStart(2, "0")}
         </span>
-        <button
+        <motion.button
           type="button"
           onClick={(e) => {
             e.stopPropagation();
             onClose();
           }}
           aria-label="Close"
+          whileHover={{ rotate: 90, scale: 1.08 }}
+          whileTap={{ scale: 0.92 }}
+          transition={{ type: "spring", stiffness: 280, damping: 16 }}
           className="grid h-10 w-10 place-items-center rounded-full border border-cream-50/20 transition-colors hover:bg-cream-50/10"
         >
           <span aria-hidden className="text-lg">
             ×
           </span>
-        </button>
+        </motion.button>
       </div>
 
       <div className="relative flex min-h-0 flex-1 items-center justify-center px-16 pb-4 sm:px-20">
         {showNav && (
-          <button
+          <motion.button
             type="button"
             onClick={(e) => {
               e.stopPropagation();
               onChange((index - 1 + items.length) % items.length);
             }}
             aria-label="Previous"
+            whileHover={{ x: -3, scale: 1.05 }}
+            whileTap={{ scale: 0.92 }}
+            transition={{ type: "spring", stiffness: 320, damping: 18 }}
             className="absolute left-4 top-1/2 z-10 grid h-12 w-12 -translate-y-1/2 place-items-center rounded-full border border-cream-50/20 text-cream-50 transition-colors hover:bg-cream-50/10 sm:left-8"
           >
             <span aria-hidden>←</span>
-          </button>
+          </motion.button>
         )}
 
         {item.kind === "video" ? (
-          <video
+          <motion.video
             key={item.src}
             src={item.src}
             poster={item.poster}
@@ -482,29 +592,39 @@ function Lightbox({
             autoPlay
             playsInline
             onClick={(e) => e.stopPropagation()}
+            initial={{ opacity: 0, scale: 0.96 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.3 }}
             className="h-auto max-h-full w-auto max-w-full rounded-xl"
           />
         ) : (
-          <img
+          <motion.img
+            key={item.src}
             src={item.src}
             alt={item.alt}
             onClick={(e) => e.stopPropagation()}
+            initial={{ opacity: 0, scale: 0.96 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.3 }}
             className="h-auto max-h-full w-auto max-w-full rounded-xl object-contain"
           />
         )}
 
         {showNav && (
-          <button
+          <motion.button
             type="button"
             onClick={(e) => {
               e.stopPropagation();
               onChange((index + 1) % items.length);
             }}
             aria-label="Next"
+            whileHover={{ x: 3, scale: 1.05 }}
+            whileTap={{ scale: 0.92 }}
+            transition={{ type: "spring", stiffness: 320, damping: 18 }}
             className="absolute right-4 top-1/2 z-10 grid h-12 w-12 -translate-y-1/2 place-items-center rounded-full border border-cream-50/20 text-cream-50 transition-colors hover:bg-cream-50/10 sm:right-8"
           >
             <span aria-hidden>→</span>
-          </button>
+          </motion.button>
         )}
       </div>
 
@@ -513,6 +633,6 @@ function Lightbox({
           {item.caption}
         </p>
       )}
-    </div>
+    </motion.div>
   );
 }
