@@ -36,10 +36,13 @@ export default function Nav() {
               : "bg-cream-50/55 backdrop-blur"
           }`}
         >
-          <a
+          <motion.a
             href="#hero"
             className="flex items-center gap-2 whitespace-nowrap rounded-pill px-3 py-1.5 font-display text-lg font-semibold text-ink"
             aria-label="Home"
+            whileHover={{ rotate: -6, scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            transition={{ type: "spring", stiffness: 320, damping: 14 }}
           >
             <img
               src="/amanda-chu-logo.png"
@@ -47,14 +50,14 @@ export default function Nav() {
               aria-hidden
               className="h-6 w-auto sm:h-7"
             />
-          </a>
+          </motion.a>
 
           <ul className="hidden items-center gap-1 lg:flex">
             {navLinks.map((l) => (
               <li key={l.id}>
                 <a
                   href={`#${l.id}`}
-                  className="rounded-pill px-4 py-2 text-sm font-medium text-taupe-500 transition-colors hover:bg-blush-100 hover:text-ink"
+                  className="link-underline rounded-pill px-4 py-2 text-sm font-medium text-taupe-500 transition-colors hover:text-ink"
                 >
                   {l.label}
                 </a>
@@ -62,13 +65,16 @@ export default function Nav() {
             ))}
           </ul>
 
-          <a
+          <motion.a
             href={site.cvFile}
             download
-            className="hidden whitespace-nowrap rounded-pill bg-taupe-400 px-4 py-2 text-sm font-semibold text-cream-100 transition-all hover:bg-taupe-500 hover:-translate-y-0.5 lg:inline-flex"
+            whileHover={{ y: -2 }}
+            whileTap={{ y: 0, scale: 0.97 }}
+            transition={{ type: "spring", stiffness: 320, damping: 18 }}
+            className="shimmer relative hidden overflow-hidden whitespace-nowrap rounded-pill bg-taupe-400 px-4 py-2 text-sm font-semibold text-cream-100 transition-colors hover:bg-taupe-500 lg:inline-flex"
           >
             Download CV
-          </a>
+          </motion.a>
 
           <button
             onClick={() => setOpen((v) => !v)}

@@ -27,7 +27,8 @@ export default function Education() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-80px" }}
               transition={{ duration: 0.55, delay: 0.05 * i }}
-              className="group relative overflow-hidden rounded-3xl border border-taupe-200/40 bg-blush-100 p-7 shadow-card sm:p-9"
+              whileHover={{ y: -6 }}
+              className="group relative overflow-hidden rounded-3xl border border-taupe-200/40 bg-blush-100 p-7 shadow-card transition-shadow hover:shadow-soft sm:p-9"
             >
               <span className="section-eyebrow">{e.dates}</span>
               <h3 className="mt-4 font-display text-2xl font-medium text-ink sm:text-3xl">
@@ -42,12 +43,14 @@ export default function Education() {
                   {e.note}
                 </p>
               )}
-              <span
+              <motion.span
                 aria-hidden
-                className="pointer-events-none absolute -right-10 -top-10 font-display text-[10rem] leading-none text-cream-50 opacity-80 transition-transform group-hover:rotate-12"
+                className="pointer-events-none absolute -right-10 -top-10 font-display text-[10rem] leading-none text-cream-50 opacity-80"
+                animate={{ rotate: [0, 8, -4, 0] }}
+                transition={{ duration: 9, repeat: Infinity, ease: "easeInOut", delay: i * 0.4 }}
               >
                 ✦
-              </span>
+              </motion.span>
             </motion.article>
           ))}
         </div>

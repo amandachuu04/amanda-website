@@ -62,27 +62,67 @@ export default function Contact() {
 
       <div className="relative mx-auto grid w-full max-w-[1500px] grid-cols-1 gap-12 px-6 sm:px-10 lg:grid-cols-12 lg:gap-16 lg:px-14 xl:px-24">
         <div className="lg:col-span-5">
-          <span className="section-eyebrow">
-            <span aria-hidden className="inline-block h-1.5 w-6 rounded-full bg-blush-300" />
+          <motion.span
+            initial={{ opacity: 0, x: -10 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true, margin: "-80px" }}
+            transition={{ duration: 0.5 }}
+            className="section-eyebrow"
+          >
+            <motion.span
+              aria-hidden
+              className="inline-block h-1.5 rounded-full bg-blush-300"
+              initial={{ width: 0 }}
+              whileInView={{ width: "1.5rem" }}
+              viewport={{ once: true, margin: "-80px" }}
+              transition={{ duration: 0.6, delay: 0.15, ease: "easeOut" }}
+            />
             Contact
-          </span>
-          <h2 className="mt-4 font-display text-display-md font-medium text-ink">
+          </motion.span>
+          <motion.h2
+            initial={{ opacity: 0, y: 12 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-80px" }}
+            transition={{ duration: 0.6, delay: 0.05 }}
+            className="mt-4 font-display text-display-md font-medium text-ink"
+          >
             Let&apos;s{" "}
             <span className="italic text-taupe-500">talk.</span>
-          </h2>
-          <p className="mt-5 max-w-md text-base text-taupe-500 sm:text-lg">
+          </motion.h2>
+          <motion.p
+            initial={{ opacity: 0, y: 8 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-80px" }}
+            transition={{ duration: 0.6, delay: 0.1 }}
+            className="mt-5 max-w-md text-base text-taupe-500 sm:text-lg"
+          >
             Open to internships, freelance design, and collaborative projects.
-          </p>
+          </motion.p>
 
-          <dl className="mt-10 space-y-5 text-sm">
+          <motion.dl
+            initial="hidden"
+            whileInView="show"
+            viewport={{ once: true, margin: "-80px" }}
+            variants={{
+              hidden: {},
+              show: { transition: { staggerChildren: 0.06, delayChildren: 0.15 } },
+            }}
+            className="mt-10 space-y-5 text-sm"
+          >
             <ContactRow label="Email" value={site.email} href={`mailto:${site.email}`} />
             <ContactRow label="Phone" value={site.phone} href={`tel:${site.phone.replace(/-/g, "")}`} />
             <ContactRow label="GitHub" value="@amandachuu04" href={site.github} />
             <ContactRow label="LinkedIn" value="amandaachu" href={site.linkedin} />
-            <div className="border-t border-taupe-200/50 pt-5 text-sm text-taupe-500">
+            <motion.div
+              variants={{
+                hidden: { opacity: 0, y: 8 },
+                show: { opacity: 1, y: 0, transition: { duration: 0.45 } },
+              }}
+              className="border-t border-taupe-200/50 pt-5 text-sm text-taupe-500"
+            >
               <LocalClock />
-            </div>
-          </dl>
+            </motion.div>
+          </motion.dl>
         </div>
 
         <motion.form
@@ -102,7 +142,7 @@ export default function Contact() {
                   value={name}
                   onChange={(e) => setName(e.target.value)}
                   placeholder="Your name"
-                  className="w-full rounded-2xl border border-taupe-200/60 bg-cream-100 px-4 py-3 text-base text-ink placeholder:text-taupe-300 focus:border-taupe-400 focus:outline-none"
+                  className="input-soft w-full rounded-2xl border border-taupe-200/60 bg-cream-100 px-4 py-3 text-base text-ink placeholder:text-taupe-300 focus:border-taupe-400 focus:outline-none"
                 />
               </Field>
               <Field label="Email" id="email">
@@ -113,7 +153,7 @@ export default function Contact() {
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   placeholder="you@email.com"
-                  className="w-full rounded-2xl border border-taupe-200/60 bg-cream-100 px-4 py-3 text-base text-ink placeholder:text-taupe-300 focus:border-taupe-400 focus:outline-none"
+                  className="input-soft w-full rounded-2xl border border-taupe-200/60 bg-cream-100 px-4 py-3 text-base text-ink placeholder:text-taupe-300 focus:border-taupe-400 focus:outline-none"
                 />
               </Field>
             </div>
@@ -126,7 +166,7 @@ export default function Contact() {
                   value={message}
                   onChange={(e) => setMessage(e.target.value)}
                   placeholder="Tell me about your project, role, or idea…"
-                  className="w-full resize-none rounded-2xl border border-taupe-200/60 bg-cream-100 px-4 py-3 text-base text-ink placeholder:text-taupe-300 focus:border-taupe-400 focus:outline-none"
+                  className="input-soft w-full resize-none rounded-2xl border border-taupe-200/60 bg-cream-100 px-4 py-3 text-base text-ink placeholder:text-taupe-300 focus:border-taupe-400 focus:outline-none"
                 />
               </Field>
             </div>
@@ -150,16 +190,28 @@ export default function Contact() {
                   ? "Sending…"
                   : "Pressing send will deliver your message straight to my inbox."}
               </p>
-              <button
+              <motion.button
                 type="submit"
                 disabled={status === "sending"}
-                className="btn-primary disabled:cursor-not-allowed disabled:opacity-60"
+                whileHover={status === "sending" ? undefined : { y: -2 }}
+                whileTap={status === "sending" ? undefined : { scale: 0.97 }}
+                transition={{ type: "spring", stiffness: 320, damping: 18 }}
+                className="btn-primary shimmer group relative overflow-hidden disabled:cursor-not-allowed disabled:opacity-60"
               >
                 {status === "sending" ? "Sending…" : "Send message"}
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden>
-                  <path d="M5 12h14m0 0-5-5m5 5-5 5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-                </svg>
-              </button>
+                <span className="inline-flex w-4 overflow-hidden">
+                  <svg
+                    width="16"
+                    height="16"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    aria-hidden
+                    className="transition-transform duration-300 group-hover:translate-x-1"
+                  >
+                    <path d="M5 12h14m0 0-5-5m5 5-5 5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                  </svg>
+                </span>
+              </motion.button>
             </div>
           </div>
         </motion.form>
@@ -178,7 +230,13 @@ function ContactRow({
   href: string;
 }) {
   return (
-    <div className="flex items-center gap-6">
+    <motion.div
+      variants={{
+        hidden: { opacity: 0, y: 8 },
+        show: { opacity: 1, y: 0, transition: { duration: 0.45 } },
+      }}
+      className="flex items-center gap-6"
+    >
       <dt className="w-20 text-[10px] font-semibold uppercase tracking-[0.2em] text-taupe-400">
         {label}
       </dt>
@@ -190,13 +248,13 @@ function ContactRow({
           {value}
           <span
             aria-hidden
-            className="opacity-0 transition-all group-hover:translate-x-1 group-hover:opacity-100"
+            className="-translate-x-1 opacity-0 transition-all duration-300 group-hover:translate-x-1 group-hover:opacity-100"
           >
             ↗
           </span>
         </a>
       </dd>
-    </div>
+    </motion.div>
   );
 }
 

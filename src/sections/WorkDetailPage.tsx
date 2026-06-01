@@ -63,9 +63,9 @@ export default function WorkDetailPage({ slug }: { slug: string }) {
       <header className="relative mx-auto w-full max-w-[1500px] px-6 pt-28 sm:px-10 sm:pt-32 lg:px-14 xl:px-24">
         <a
           href={projectsHref()}
-          className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.22em] text-taupe-400 transition-colors hover:text-taupe-500"
+          className="group inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.22em] text-taupe-400 transition-colors hover:text-taupe-500"
         >
-          <span aria-hidden>←</span> All projects
+          <span aria-hidden className="inline-block transition-transform duration-300 group-hover:-translate-x-1">←</span> All projects
         </a>
 
         <h1 className="mt-10 font-display text-[clamp(2.5rem,7vw,5.5rem)] font-medium leading-[1.02] tracking-[-0.02em] text-ink">

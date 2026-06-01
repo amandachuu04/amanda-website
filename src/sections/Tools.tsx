@@ -25,17 +25,36 @@ export default function Tools() {
           {toolGroups.map((g, i) => (
             <motion.div
               key={g.title}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
+              initial="hidden"
+              whileInView="show"
               viewport={{ once: true, margin: "-80px" }}
-              transition={{ duration: 0.5, delay: 0.05 * i }}
-              className="flex flex-col rounded-3xl border border-taupe-200/40 bg-cream-50 p-6 shadow-card"
+              variants={{
+                hidden: { opacity: 0, y: 20 },
+                show: {
+                  opacity: 1,
+                  y: 0,
+                  transition: {
+                    duration: 0.5,
+                    delay: 0.05 * i,
+                    when: "beforeChildren",
+                    staggerChildren: 0.05,
+                  },
+                },
+              }}
+              whileHover={{ y: -5 }}
+              className="flex flex-col rounded-3xl border border-taupe-200/40 bg-cream-50 p-6 shadow-card transition-shadow hover:shadow-soft"
             >
               <p className="section-eyebrow">{g.title}</p>
               <ul className="mt-5 flex flex-col gap-2.5">
                 {g.items.map((item) => (
-                  <li
+                  <motion.li
                     key={item}
+                    variants={{
+                      hidden: { opacity: 0, x: -8 },
+                      show: { opacity: 1, x: 0, transition: { duration: 0.35 } },
+                    }}
+                    whileHover={{ x: 4, color: "#2A211C" }}
+                    transition={{ type: "spring", stiffness: 320, damping: 20 }}
                     className="flex items-center gap-3 text-sm font-medium text-taupe-600"
                   >
                     <span
@@ -43,7 +62,7 @@ export default function Tools() {
                       className="inline-block h-1.5 w-1.5 rounded-full bg-blush-300"
                     />
                     {item}
-                  </li>
+                  </motion.li>
                 ))}
               </ul>
             </motion.div>

@@ -60,9 +60,9 @@ export default function ProjectsPage({ initialSlug }: { initialSlug: Slug }) {
                 window.history.pushState({}, "", "#projects");
                 window.dispatchEvent(new HashChangeEvent("hashchange"));
               }}
-              className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.18em] text-taupe-400 transition-colors hover:text-taupe-500"
+              className="group inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.18em] text-taupe-400 transition-colors hover:text-taupe-500"
             >
-              <span aria-hidden>←</span> Back to home
+              <span aria-hidden className="inline-block transition-transform duration-300 group-hover:-translate-x-1">←</span> Back to home
             </a>
             <h1 className="mt-4 font-display text-display-md font-medium text-ink">
               Projects
@@ -158,7 +158,7 @@ function ProjectCard({ project: p, index }: { project: Project; index: number })
         <span className="absolute left-4 top-4 inline-flex items-center gap-1.5 rounded-pill bg-cream-50/85 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.18em] text-taupe-500 backdrop-blur">
           {p.kind}
         </span>
-        <span className="absolute right-4 top-4 inline-flex items-center justify-center rounded-full bg-cream-50/85 px-2.5 py-2 text-taupe-500 backdrop-blur transition-all group-hover:bg-taupe-400 group-hover:text-cream-50">
+        <span className="absolute right-4 top-4 inline-flex items-center justify-center rounded-full bg-cream-50/85 px-2.5 py-2 text-taupe-500 backdrop-blur transition-all duration-300 group-hover:rotate-45 group-hover:bg-taupe-400 group-hover:text-cream-50">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden>
             <path
               d="M7 17 17 7M9 7h8v8"
@@ -173,7 +173,9 @@ function ProjectCard({ project: p, index }: { project: Project; index: number })
 
       <div className="flex items-end justify-between gap-4 p-4 pt-5">
         <div>
-          <h3 className="font-display text-2xl font-medium text-ink">{p.title}</h3>
+          <h3 className="font-display text-2xl font-medium text-ink transition-colors duration-300 group-hover:text-taupe-500">
+            {p.title}
+          </h3>
           {p.meta && <p className="mt-1 text-xs text-taupe-400">{p.meta}</p>}
         </div>
       </div>

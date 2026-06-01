@@ -23,20 +23,24 @@ export default function About() {
             whileInView={{ opacity: 1, scale: 1, rotate: -3 }}
             viewport={{ once: true, margin: "-120px" }}
             transition={{ duration: 0.7, ease: "easeOut" }}
-            className="relative mx-auto aspect-[4/5] w-full max-w-md"
+            whileHover={{ rotate: 0, scale: 1.02 }}
+            className="group relative mx-auto aspect-[4/5] w-full max-w-md"
           >
             {/* decorative offset card */}
-            <div
+            <motion.div
               aria-hidden
               className="absolute -inset-3 -z-10 rounded-[2.2rem] bg-cream-100 shadow-card"
-              style={{ transform: "rotate(4deg)" }}
+              initial={false}
+              animate={{ rotate: 4 }}
+              whileHover={{ rotate: 6 }}
+              transition={{ type: "spring", stiffness: 120, damping: 16 }}
             />
             <div className="relative h-full w-full overflow-hidden rounded-[2rem] border-2 border-cream-50 bg-cream-100 shadow-soft">
               <img
                 src={site.avatar}
                 alt="Avatar of Amanda Chu"
                 loading="lazy"
-                className="h-full w-full object-cover"
+                className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-[1.04]"
               />
             </div>
           </motion.div>
@@ -50,7 +54,14 @@ export default function About() {
             transition={{ duration: 0.5 }}
             className="section-eyebrow"
           >
-            <span aria-hidden className="inline-block h-1.5 w-6 rounded-full bg-taupe-300" />
+            <motion.span
+              aria-hidden
+              className="inline-block h-1.5 rounded-full bg-taupe-300"
+              initial={{ width: 0 }}
+              whileInView={{ width: "1.5rem" }}
+              viewport={{ once: true, margin: "-100px" }}
+              transition={{ duration: 0.6, delay: 0.15, ease: "easeOut" }}
+            />
             About me
           </motion.span>
 
@@ -81,14 +92,23 @@ export default function About() {
             ))}
           </div>
 
-          <dl className="mt-10 grid grid-cols-2 gap-x-6 gap-y-5 sm:grid-cols-3">
+          <motion.dl
+            className="mt-10 grid grid-cols-2 gap-x-6 gap-y-5 sm:grid-cols-3"
+            initial="hidden"
+            whileInView="show"
+            viewport={{ once: true, margin: "-80px" }}
+            variants={{
+              hidden: {},
+              show: { transition: { staggerChildren: 0.06, delayChildren: 0.1 } },
+            }}
+          >
             <Fact label="Based in" value="Virginia, US" />
             <Fact label="Status" value="Available" dot />
             <Fact label="Focus" value="UX · Web Dev" />
             <Fact label="School" value="George Mason" />
             <Fact label="Languages" value="EN · 粵 · 中" />
             <Fact label="Likes" value="Boba, Concerts, Shopping, Music" />
-          </dl>
+          </motion.dl>
         </div>
       </div>
     </section>
@@ -97,7 +117,15 @@ export default function About() {
 
 function Fact({ label, value, dot }: { label: string; value: string; dot?: boolean }) {
   return (
-    <div className="border-l-2 border-taupe-200/60 pl-4">
+    <motion.div
+      variants={{
+        hidden: { opacity: 0, y: 12 },
+        show: { opacity: 1, y: 0, transition: { duration: 0.45, ease: "easeOut" } },
+      }}
+      whileHover={{ x: 4 }}
+      transition={{ type: "spring", stiffness: 320, damping: 20 }}
+      className="border-l-2 border-taupe-200/60 pl-4 transition-colors hover:border-blush-300"
+    >
       <dt className="text-[10px] font-semibold uppercase tracking-[0.18em] text-taupe-400">
         {label}
       </dt>
@@ -110,6 +138,6 @@ function Fact({ label, value, dot }: { label: string; value: string; dot?: boole
         )}
         {value}
       </dd>
-    </div>
+    </motion.div>
   );
 }

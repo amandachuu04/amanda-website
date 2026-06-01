@@ -21,15 +21,20 @@ export default function Projects() {
             }
             intro="A growing collection of my latest projects. More on the way."
           />
-          <a
+          <motion.a
             href="#/projects"
-            className="group inline-flex items-center gap-2 self-start rounded-pill border border-taupe-300/60 px-5 py-2.5 text-sm font-semibold text-taupe-500 transition-colors hover:bg-blush-100 sm:self-end"
+            whileHover={{ y: -2 }}
+            whileTap={{ scale: 0.97 }}
+            transition={{ type: "spring", stiffness: 320, damping: 18 }}
+            className="group inline-flex items-center gap-2 self-start rounded-pill border border-taupe-300/60 px-5 py-2.5 text-sm font-semibold text-taupe-500 transition-colors hover:border-taupe-400/70 hover:bg-blush-100 sm:self-end"
           >
             View all
-            <span aria-hidden className="transition-transform group-hover:translate-x-1">
-              →
+            <span aria-hidden className="inline-flex w-4 overflow-hidden">
+              <span className="transition-transform duration-300 group-hover:translate-x-1">
+                →
+              </span>
             </span>
-          </a>
+          </motion.a>
         </div>
 
         <div className="mt-14 grid grid-cols-1 gap-6 md:grid-cols-2 xl:gap-8">
@@ -78,7 +83,7 @@ export default function Projects() {
                 <span className="absolute left-4 top-4 inline-flex items-center gap-1.5 rounded-pill bg-cream-50/85 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.18em] text-taupe-500 backdrop-blur">
                   {p.kind}
                 </span>
-                <span className="absolute right-4 top-4 inline-flex items-center justify-center rounded-full bg-cream-50/85 px-2.5 py-2 text-taupe-500 backdrop-blur transition-all group-hover:bg-taupe-400 group-hover:text-cream-50">
+                <span className="absolute right-4 top-4 inline-flex items-center justify-center rounded-full bg-cream-50/85 px-2.5 py-2 text-taupe-500 backdrop-blur transition-all duration-300 group-hover:rotate-45 group-hover:bg-taupe-400 group-hover:text-cream-50">
                   <svg width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden>
                     <path
                       d="M7 17 17 7M9 7h8v8"
@@ -93,7 +98,7 @@ export default function Projects() {
 
               <div className="flex items-end justify-between gap-4 p-4 pt-5">
                 <div>
-                  <h3 className="font-display text-2xl font-medium text-ink">
+                  <h3 className="font-display text-2xl font-medium text-ink transition-colors duration-300 group-hover:text-taupe-500">
                     {p.title}
                   </h3>
                   {p.meta && (

@@ -20,15 +20,31 @@ export default function Hero() {
             transition={{ duration: 0.6 }}
             className="flex flex-wrap items-center gap-3"
           >
-            <span className="pill">
+            <motion.span
+              className="pill cursor-default"
+              whileHover={{ y: -2, scale: 1.04 }}
+              transition={{ type: "spring", stiffness: 320, damping: 18 }}
+            >
               <span className="relative flex h-2 w-2">
                 <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-blush-300 opacity-75" />
                 <span className="relative inline-flex h-2 w-2 rounded-full bg-blush-400" />
               </span>
               Available for work
-            </span>
-            <span className="pill">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden>
+            </motion.span>
+            <motion.span
+              className="pill group cursor-default"
+              whileHover={{ y: -2, scale: 1.04 }}
+              transition={{ type: "spring", stiffness: 320, damping: 18 }}
+            >
+              <motion.svg
+                width="14"
+                height="14"
+                viewBox="0 0 24 24"
+                fill="none"
+                aria-hidden
+                whileHover={{ rotate: -10, scale: 1.15 }}
+                transition={{ type: "spring", stiffness: 260, damping: 12 }}
+              >
                 <path
                   d="M12 22s7-7.58 7-13a7 7 0 1 0-14 0c0 5.42 7 13 7 13Z"
                   stroke="currentColor"
@@ -36,9 +52,9 @@ export default function Hero() {
                   strokeLinejoin="round"
                 />
                 <circle cx="12" cy="9" r="2.5" stroke="currentColor" strokeWidth="2" />
-              </svg>
+              </motion.svg>
               {site.location}
-            </span>
+            </motion.span>
           </motion.div>
 
           <motion.h1
@@ -70,18 +86,29 @@ export default function Hero() {
             transition={{ duration: 0.6, delay: 0.25 }}
             className="mt-9 flex flex-wrap items-center gap-3"
           >
-            <a href={site.cvFile} download className="btn-primary">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden>
+            <a href={site.cvFile} download className="btn-primary shimmer group relative overflow-hidden">
+              <motion.svg
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                aria-hidden
+                className="origin-center"
+                whileHover={{ y: 2 }}
+                transition={{ type: "spring", stiffness: 320, damping: 16 }}
+              >
                 <path d="M12 4v12m0 0 4-4m-4 4-4-4" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
                 <path d="M4 20h16" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
-              </svg>
+              </motion.svg>
               Download CV
             </a>
-            <a href="#contact" className="btn-secondary">
+            <a href="#contact" className="btn-secondary group">
               Let&apos;s talk
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden>
-                <path d="M5 12h14m0 0-5-5m5 5-5 5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-              </svg>
+              <span className="inline-flex w-4 overflow-hidden">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden className="transition-transform duration-300 group-hover:translate-x-1">
+                  <path d="M5 12h14m0 0-5-5m5 5-5 5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                </svg>
+              </span>
             </a>
           </motion.div>
 

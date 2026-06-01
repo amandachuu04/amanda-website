@@ -19,7 +19,14 @@ export default function SectionHeader({
         transition={{ duration: 0.5 }}
         className="section-eyebrow"
       >
-        <span aria-hidden className="inline-block h-1.5 w-6 rounded-full bg-blush-300" />
+        <motion.span
+          aria-hidden
+          className="inline-block h-1.5 rounded-full bg-blush-300"
+          initial={{ width: 0 }}
+          whileInView={{ width: "1.5rem" }}
+          viewport={{ once: true, margin: "-80px" }}
+          transition={{ duration: 0.6, delay: 0.15, ease: "easeOut" }}
+        />
         {eyebrow}
       </motion.span>
       <motion.h2
