@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useState, type MouseEvent as ReactMouseEvent } from "react";
 import { motion } from "framer-motion";
 import { getProjectPage, type ProjectPage } from "../lib/site";
 type ProjectMeta = ProjectPage["meta"];
@@ -506,6 +506,8 @@ function Lightbox({
   onChange: (i: number) => void;
 }) {
   const item = items[index];
+  const [zoomed, setZoomed] = useState(false);
+  const [zoomOrigin, setZoomOrigin] = useState({ x: 50, y: 50 });
 
   useEffect(() => {
     const prev = document.body.style.overflow;
@@ -514,6 +516,11 @@ function Lightbox({
       document.body.style.overflow = prev;
     };
   }, []);
+
+  useEffect(() => {
+    setZoomed(false);
+    setZoomOrigin({ x: 50, y: 50 });
+  }, [index]);
 
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
@@ -526,6 +533,19 @@ function Lightbox({
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
   }, [index, items.length, onChange, onClose]);
+
+  const handleImageClick = (e: ReactMouseEvent<HTMLImageElement>) => {
+    e.stopPropagation();
+    if (zoomed) {
+      setZoomed(false);
+      return;
+    }
+    const rect = e.currentTarget.getBoundingClientRect();
+    const x = ((e.clientX - rect.left) / rect.width) * 100;
+    const y = ((e.clientY - rect.top) / rect.height) * 100;
+    setZoomOrigin({ x, y });
+    setZoomed(true);
+  };
 
   if (!item) return null;
 
@@ -602,10 +622,14 @@ function Lightbox({
             key={item.src}
             src={item.src}
             alt={item.alt}
-            onClick={(e) => e.stopPropagation()}
+            onClick={handleImageClick}
             initial={{ opacity: 0, scale: 0.96 }}
-            animate={{ opacity: 1, scale: 1 }}
+            animate={{ opacity: 1, scale: zoomed ? 2 : 1 }}
             transition={{ duration: 0.3 }}
+            style={{
+              transformOrigin: `${zoomOrigin.x}% ${zoomOrigin.y}%`,
+              cursor: zoomed ? "zoom-out" : "zoom-in",
+            }}
             className="h-auto max-h-full w-auto max-w-full rounded-xl object-contain"
           />
         )}
