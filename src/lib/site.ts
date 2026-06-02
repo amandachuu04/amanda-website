@@ -571,7 +571,7 @@ caseStudies.nextrip = {
         cols: 2,
         frame: "auto",
         items: [
-          { src: "/nextrip/process/logo-page.jpg", alt: "NexTrip logo with airplane and N mark", caption: "Logo mark" },
+          { src: "/nextrip/process/logo-page.png", alt: "NexTrip logo with airplane and N mark", caption: "Logo mark" },
           { src: "/nextrip/process/moodboard.png", alt: "Mood board of travel photography with Poppins type and a neutral palette", caption: "Mood board and palette" },
         ],
       },
