@@ -3,6 +3,7 @@ import { motion } from "framer-motion";
 import {
   getCaseStudy,
   type CaseStudy,
+  type GalleryFlow,
   type GalleryItem,
   type SectionMedia,
   type SectionMediaItem,
@@ -296,6 +297,7 @@ export default function WorkDetailPage({ slug }: { slug: string }) {
           heading={study.galleryHeading ?? "Final screens"}
           note={study.galleryNote}
           items={study.gallery}
+          flows={study.galleryFlows}
           title={study.title}
           number={study.sections.length + 1}
           featuredNote={study.featuredNote}
@@ -771,6 +773,7 @@ function GallerySection({
   heading,
   note,
   items,
+  flows,
   title,
   number,
   featuredNote,
@@ -779,46 +782,26 @@ function GallerySection({
   heading: string;
   note?: string;
   items: GalleryItem[];
+  flows?: GalleryFlow[];
   title: string;
   number: number;
   featuredNote?: string;
   onOpen: (i: number) => void;
 }) {
-  const scrollerRef = useRef<HTMLDivElement>(null);
-  const [pos, setPos] = useState({ atStart: true, atEnd: false });
-
   const featuredIdx = items.findIndex((g) => g.aspect === "square");
-  const rest = items
-    .map((g, i) => ({ g, i }))
-    .filter(({ i }) => i !== featuredIdx);
   const featured = featuredIdx >= 0 ? items[featuredIdx] : null;
 
-  const updateEdges = () => {
-    const el = scrollerRef.current;
-    if (!el) return;
-    setPos({
-      atStart: el.scrollLeft <= 4,
-      atEnd: el.scrollLeft + el.clientWidth >= el.scrollWidth - 4,
-    });
-  };
-
-  useEffect(() => {
-    updateEdges();
-    const el = scrollerRef.current;
-    if (!el) return;
-    el.addEventListener("scroll", updateEdges, { passive: true });
-    window.addEventListener("resize", updateEdges);
-    return () => {
-      el.removeEventListener("scroll", updateEdges);
-      window.removeEventListener("resize", updateEdges);
-    };
-  }, []);
-
-  const scrollBy = (dir: 1 | -1) => {
-    const el = scrollerRef.current;
-    if (!el) return;
-    el.scrollBy({ left: dir * el.clientWidth * 0.7, behavior: "smooth" });
-  };
+  // When flows are provided, render one labeled strip per flow with
+  // running offsets so each thumb opens the correct lightbox index.
+  let runningOffset = 0;
+  const renderedFlows =
+    flows && flows.length > 0
+      ? flows.map((flow) => {
+          const startIndex = runningOffset;
+          runningOffset += flow.items.length;
+          return { ...flow, startIndex };
+        })
+      : null;
 
   return (
     <section
@@ -891,55 +874,135 @@ function GallerySection({
           </motion.button>
         )}
 
-        {/* Scrollable strip with controls */}
-        <div className="relative mt-12">
-          <div className="mb-4 flex items-center justify-between text-[0.7rem] uppercase tracking-[0.22em] text-cream-50/60">
-            <span>Drag, scroll, or use the arrows</span>
-            <div className="flex items-center gap-2">
-              <motion.button
-                type="button"
-                onClick={() => scrollBy(-1)}
-                disabled={pos.atStart}
-                aria-label="Scroll previous"
-                whileHover={pos.atStart ? undefined : { x: -3, scale: 1.05 }}
-                whileTap={pos.atStart ? undefined : { scale: 0.9 }}
-                transition={{ type: "spring", stiffness: 320, damping: 18 }}
-                className="grid h-9 w-9 place-items-center rounded-full border border-cream-50/20 transition-colors hover:bg-cream-50/10 disabled:cursor-not-allowed disabled:opacity-30"
-              >
-                <span aria-hidden>←</span>
-              </motion.button>
-              <motion.button
-                type="button"
-                onClick={() => scrollBy(1)}
-                disabled={pos.atEnd}
-                aria-label="Scroll next"
-                whileHover={pos.atEnd ? undefined : { x: 3, scale: 1.05 }}
-                whileTap={pos.atEnd ? undefined : { scale: 0.9 }}
-                transition={{ type: "spring", stiffness: 320, damping: 18 }}
-                className="grid h-9 w-9 place-items-center rounded-full border border-cream-50/20 transition-colors hover:bg-cream-50/10 disabled:cursor-not-allowed disabled:opacity-30"
-              >
-                <span aria-hidden>→</span>
-              </motion.button>
-            </div>
-          </div>
-
-          <div
-            ref={scrollerRef}
-            className="flex snap-x snap-mandatory gap-5 overflow-x-auto pb-6"
-            style={{ scrollbarColor: "rgba(253,237,237,0.3) transparent" }}
-          >
-            {rest.map(({ g, i }) => (
-              <GalleryThumb
-                key={g.src}
-                item={g}
+        {renderedFlows ? (
+          <div className="mt-12 space-y-14">
+            {renderedFlows.map((flow) => (
+              <GalleryStrip
+                key={flow.label}
+                label={flow.label}
+                items={flow.items}
                 title={title}
-                onClick={() => onOpen(i)}
+                onOpen={(localIndex) => onOpen(flow.startIndex + localIndex)}
               />
             ))}
           </div>
-        </div>
+        ) : (
+          <div className="mt-12">
+            <GalleryStrip
+              items={items
+                .map((g, i) => ({ g, i }))
+                .filter(({ i }) => i !== featuredIdx)
+                .map(({ g }) => g)}
+              indexMap={items
+                .map((_, i) => i)
+                .filter((i) => i !== featuredIdx)}
+              title={title}
+              onOpen={onOpen}
+            />
+          </div>
+        )}
       </div>
     </section>
+  );
+}
+
+function GalleryStrip({
+  label,
+  items,
+  indexMap,
+  title,
+  onOpen,
+}: {
+  label?: string;
+  items: GalleryItem[];
+  indexMap?: number[];
+  title: string;
+  onOpen: (i: number) => void;
+}) {
+  const scrollerRef = useRef<HTMLDivElement>(null);
+  const [pos, setPos] = useState({ atStart: true, atEnd: false });
+
+  const updateEdges = () => {
+    const el = scrollerRef.current;
+    if (!el) return;
+    setPos({
+      atStart: el.scrollLeft <= 4,
+      atEnd: el.scrollLeft + el.clientWidth >= el.scrollWidth - 4,
+    });
+  };
+
+  useEffect(() => {
+    updateEdges();
+    const el = scrollerRef.current;
+    if (!el) return;
+    el.addEventListener("scroll", updateEdges, { passive: true });
+    window.addEventListener("resize", updateEdges);
+    return () => {
+      el.removeEventListener("scroll", updateEdges);
+      window.removeEventListener("resize", updateEdges);
+    };
+  }, []);
+
+  const scrollBy = (dir: 1 | -1) => {
+    const el = scrollerRef.current;
+    if (!el) return;
+    el.scrollBy({ left: dir * el.clientWidth * 0.7, behavior: "smooth" });
+  };
+
+  return (
+    <div className="relative">
+      <div className="mb-4 flex items-center justify-between gap-4 text-[0.7rem] uppercase tracking-[0.22em] text-cream-50/60">
+        <span className="flex items-center gap-3">
+          {label && (
+            <span className="font-semibold tracking-[0.28em] text-cream-50">
+              {label}
+            </span>
+          )}
+          <span className="hidden sm:inline">Drag, scroll, or use the arrows</span>
+        </span>
+        <div className="flex items-center gap-2">
+          <motion.button
+            type="button"
+            onClick={() => scrollBy(-1)}
+            disabled={pos.atStart}
+            aria-label="Scroll previous"
+            whileHover={pos.atStart ? undefined : { x: -3, scale: 1.05 }}
+            whileTap={pos.atStart ? undefined : { scale: 0.9 }}
+            transition={{ type: "spring", stiffness: 320, damping: 18 }}
+            className="grid h-9 w-9 place-items-center rounded-full border border-cream-50/20 transition-colors hover:bg-cream-50/10 disabled:cursor-not-allowed disabled:opacity-30"
+          >
+            <span aria-hidden>←</span>
+          </motion.button>
+          <motion.button
+            type="button"
+            onClick={() => scrollBy(1)}
+            disabled={pos.atEnd}
+            aria-label="Scroll next"
+            whileHover={pos.atEnd ? undefined : { x: 3, scale: 1.05 }}
+            whileTap={pos.atEnd ? undefined : { scale: 0.9 }}
+            transition={{ type: "spring", stiffness: 320, damping: 18 }}
+            className="grid h-9 w-9 place-items-center rounded-full border border-cream-50/20 transition-colors hover:bg-cream-50/10 disabled:cursor-not-allowed disabled:opacity-30"
+          >
+            <span aria-hidden>→</span>
+          </motion.button>
+        </div>
+      </div>
+
+      <div
+        ref={scrollerRef}
+        className="flex snap-x snap-mandatory gap-5 overflow-x-auto pb-6"
+        style={{ scrollbarColor: "rgba(253,237,237,0.3) transparent" }}
+      >
+        {items.map((g, i) => (
+          <GalleryThumb
+            key={`${g.src}-${i}`}
+            item={g}
+            title={title}
+            onClick={() => onOpen(indexMap ? indexMap[i] : i)}
+          />
+        ))}
+      </div>
+    </div>
   );
 }
 

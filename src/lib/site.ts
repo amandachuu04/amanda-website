@@ -253,6 +253,11 @@ export type CaseStudySection = {
   mediaPlacement?: "after" | "after-bullets";
 };
 
+export type GalleryFlow = {
+  label: string;
+  items: GalleryItem[];
+};
+
 export type CaseStudy = {
   slug: string;
   title: string;
@@ -277,6 +282,7 @@ export type CaseStudy = {
   sections: CaseStudySection[];
   skills: string[];
   gallery: GalleryItem[];
+  galleryFlows?: GalleryFlow[];
   galleryHeading?: string;
   galleryNote?: string;
   featuredNote?: string;
@@ -745,28 +751,63 @@ caseStudies.nextrip = {
   galleryHeading: "Final screens",
   galleryNote:
     "A new user signs in, answers a short onboarding questionnaire, and lands on a curated Sydney trip with daily itinerary, place details, and map view. A returning user picks up right where they left off.",
+  galleryFlows: [
+    {
+      label: "New user flow",
+      items: [
+        { src: "/nextrip/final/new-login.png", caption: "Login", aspect: "phone" },
+        { src: "/nextrip/final/new-create-account.png", caption: "Create account", aspect: "phone" },
+        { src: "/nextrip/final/new-q1-answer.png", caption: "Q1, selected", aspect: "phone" },
+        { src: "/nextrip/final/new-q2-answer.png", caption: "Q2, selected", aspect: "phone" },
+        { src: "/nextrip/final/new-q3-answer.png", caption: "Q3, selected", aspect: "phone" },
+        { src: "/nextrip/final/new-q4-answer.png", caption: "Q4, selected", aspect: "phone" },
+        { src: "/nextrip/final/new-q5-answer-3.png", caption: "Q5, full selection", aspect: "phone" },
+        { src: "/nextrip/final/new-home.png", caption: "Home", aspect: "phone" },
+        { src: "/nextrip/final/new-search.png", caption: "Search", aspect: "phone" },
+        { src: "/nextrip/final/new-trip.png", caption: "Trip", aspect: "phone" },
+        { src: "/nextrip/final/new-account.png", caption: "Account", aspect: "phone" },
+        { src: "/nextrip/final/new-daily-itinerary.png", caption: "Daily itinerary", aspect: "phone" },
+        { src: "/nextrip/final/new-sydney-opera-house.png", caption: "Sydney Opera House detail", aspect: "phone" },
+        { src: "/nextrip/final/new-map-view.png", caption: "Map view", aspect: "phone" },
+      ],
+    },
+    {
+      label: "Returning user flow",
+      items: [
+        { src: "/nextrip/final/returning-login.png", caption: "Login", aspect: "phone" },
+        { src: "/nextrip/final/returning-home.png", caption: "Home", aspect: "phone" },
+        { src: "/nextrip/final/returning-search.png", caption: "Search", aspect: "phone" },
+        { src: "/nextrip/final/returning-trip.png", caption: "Trip", aspect: "phone" },
+        { src: "/nextrip/final/new-account.png", caption: "Account", aspect: "phone" },
+        { src: "/nextrip/final/returning-daily-itinerary.png", caption: "Daily itinerary", aspect: "phone" },
+        { src: "/nextrip/final/new-sydney-opera-house.png", caption: "Sydney Opera House detail", aspect: "phone" },
+        { src: "/nextrip/final/returning-map-view.png", caption: "Map view", aspect: "phone" },
+      ],
+    },
+  ],
   gallery: [
     { src: "/nextrip/final/new-login.png", caption: "Login", aspect: "phone" },
     { src: "/nextrip/final/new-create-account.png", caption: "Create account", aspect: "phone" },
-    { src: "/nextrip/final/new-q1.png", caption: "Q1, destinations", aspect: "phone" },
-    { src: "/nextrip/final/new-q2-answer.png", caption: "Q2, trip length selected", aspect: "phone" },
-    { src: "/nextrip/final/new-q3-answer.png", caption: "Q3, budget selected", aspect: "phone" },
-    { src: "/nextrip/final/new-q4-answer.png", caption: "Q4, transportation selected", aspect: "phone" },
-    { src: "/nextrip/final/new-q5-answer-3.png", caption: "Q5, activities selected", aspect: "phone" },
-    { src: "/nextrip/final/new-home.png", caption: "Home, new user", aspect: "phone" },
+    { src: "/nextrip/final/new-q1-answer.png", caption: "Q1, selected", aspect: "phone" },
+    { src: "/nextrip/final/new-q2-answer.png", caption: "Q2, selected", aspect: "phone" },
+    { src: "/nextrip/final/new-q3-answer.png", caption: "Q3, selected", aspect: "phone" },
+    { src: "/nextrip/final/new-q4-answer.png", caption: "Q4, selected", aspect: "phone" },
+    { src: "/nextrip/final/new-q5-answer-3.png", caption: "Q5, full selection", aspect: "phone" },
+    { src: "/nextrip/final/new-home.png", caption: "Home", aspect: "phone" },
     { src: "/nextrip/final/new-search.png", caption: "Search", aspect: "phone" },
-    { src: "/nextrip/final/new-trip.png", caption: "Trip overview", aspect: "phone" },
+    { src: "/nextrip/final/new-trip.png", caption: "Trip", aspect: "phone" },
+    { src: "/nextrip/final/new-account.png", caption: "Account", aspect: "phone" },
     { src: "/nextrip/final/new-daily-itinerary.png", caption: "Daily itinerary", aspect: "phone" },
-    { src: "/nextrip/final/new-daily-itinerary-2.png", caption: "Daily itinerary, day 2", aspect: "phone" },
     { src: "/nextrip/final/new-sydney-opera-house.png", caption: "Sydney Opera House detail", aspect: "phone" },
     { src: "/nextrip/final/new-map-view.png", caption: "Map view", aspect: "phone" },
+    { src: "/nextrip/final/returning-login.png", caption: "Login", aspect: "phone" },
+    { src: "/nextrip/final/returning-home.png", caption: "Home", aspect: "phone" },
+    { src: "/nextrip/final/returning-search.png", caption: "Search", aspect: "phone" },
+    { src: "/nextrip/final/returning-trip.png", caption: "Trip", aspect: "phone" },
     { src: "/nextrip/final/new-account.png", caption: "Account", aspect: "phone" },
-    { src: "/nextrip/final/returning-login.png", caption: "Login, returning", aspect: "phone" },
-    { src: "/nextrip/final/returning-home.png", caption: "Home, returning user", aspect: "phone" },
-    { src: "/nextrip/final/returning-search.png", caption: "Search, returning", aspect: "phone" },
-    { src: "/nextrip/final/returning-trip.png", caption: "Trip page with multiple trips", aspect: "phone" },
-    { src: "/nextrip/final/returning-daily-itinerary.png", caption: "Daily itinerary, returning", aspect: "phone" },
-    { src: "/nextrip/final/returning-map-view.png", caption: "Map view, returning", aspect: "phone" },
+    { src: "/nextrip/final/returning-daily-itinerary.png", caption: "Daily itinerary", aspect: "phone" },
+    { src: "/nextrip/final/new-sydney-opera-house.png", caption: "Sydney Opera House detail", aspect: "phone" },
+    { src: "/nextrip/final/returning-map-view.png", caption: "Map view", aspect: "phone" },
   ],
 };
 
