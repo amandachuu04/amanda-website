@@ -221,17 +221,19 @@ export type SectionMediaItem =
   | { kind?: "image"; src: string; alt?: string; caption?: string }
   | { kind: "video"; src: string; poster?: string; caption?: string };
 
+export type SectionMediaFrame = "phone" | "iphone" | "wide" | "square" | "auto";
+
 export type SectionMedia =
   | {
       layout: "single";
-      frame?: "phone" | "wide" | "square" | "auto";
+      frame?: SectionMediaFrame;
       tone?: "light" | "dark";
       item: SectionMediaItem;
     }
   | {
       layout: "grid";
       cols?: 2 | 3 | 4;
-      frame?: "phone" | "wide" | "square" | "auto";
+      frame?: SectionMediaFrame;
       tone?: "light" | "dark";
       items: SectionMediaItem[];
     }
@@ -707,8 +709,7 @@ caseStudies.nextrip = {
         "The final prototype walks a brand new user through sign up, account creation, and the full onboarding questionnaire, then drops them into the Home screen with a Sydney trip ready to go. From there, they can dive into the daily itinerary with each activity broken down by time and cost, tap into a Sydney Opera House detail page, switch to the map view to see every stop pinned on a real map, and pop into the account page to manage trips, preferences, and payment methods.",
       media: {
         layout: "single",
-        frame: "wide",
-        tone: "dark",
+        frame: "iphone",
         item: {
           kind: "video",
           src: "/nextrip/new-user-flow.mp4",
@@ -724,8 +725,7 @@ caseStudies.nextrip = {
         "For a returning user, the experience starts with their saved login on the dark welcome screen and lands straight on the home screen with their existing Sydney trip on top and curated plans like Hawaii Coastal Getaway and Paris and Rome Escape ready to explore. The Trip page now shows multiple upcoming and past trips, including a South Korea, Japan, and Vietnam multi country itinerary, so the app grows with the traveler instead of restarting every time.",
       media: {
         layout: "single",
-        frame: "wide",
-        tone: "dark",
+        frame: "iphone",
         item: {
           kind: "video",
           src: "/nextrip/returning-user-flow.mp4",

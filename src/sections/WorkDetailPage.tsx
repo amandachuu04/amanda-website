@@ -568,10 +568,14 @@ function MediaTile({
   onOpen,
 }: {
   item: SectionMediaItem;
-  frame: "phone" | "wide" | "square" | "auto";
+  frame: "phone" | "iphone" | "wide" | "square" | "auto";
   tone: "light" | "dark";
   onOpen: () => void;
 }) {
+  if (frame === "iphone") {
+    return <IPhoneFrame item={item} onOpen={onOpen} />;
+  }
+
   const isVideo = item.kind === "video";
   const aspectClass =
     frame === "phone"
@@ -628,6 +632,92 @@ function MediaTile({
       </motion.button>
       {item.caption && (
         <figcaption className="mt-3 text-[0.7rem] uppercase tracking-[0.22em] text-taupe-400">
+          {item.caption}
+        </figcaption>
+      )}
+    </figure>
+  );
+}
+
+function IPhoneFrame({
+  item,
+  onOpen,
+}: {
+  item: SectionMediaItem;
+  onOpen: () => void;
+}) {
+  const isVideo = item.kind === "video";
+
+  return (
+    <figure className="group flex flex-col items-center">
+      <motion.button
+        type="button"
+        onClick={onOpen}
+        aria-label={isVideo ? "Play video" : item.alt ?? item.caption ?? "Expand image"}
+        whileHover={{ y: -4 }}
+        whileTap={{ scale: 0.99 }}
+        transition={{ type: "spring", stiffness: 260, damping: 20 }}
+        className="relative block w-[min(280px,72vw)] sm:w-[min(320px,52vw)] md:w-[min(340px,38vw)] lg:w-[320px]"
+      >
+        {/* Outer bezel */}
+        <div className="relative rounded-[2.6rem] bg-ink p-[10px] shadow-[0_30px_60px_-15px_rgba(31,28,28,0.45),0_0_0_1px_rgba(255,255,255,0.05)_inset] sm:rounded-[3rem] sm:p-[12px]">
+          {/* Side buttons */}
+          <span
+            aria-hidden
+            className="pointer-events-none absolute -left-[2px] top-[88px] h-10 w-[3px] rounded-l-sm bg-taupe-500/60 sm:top-[110px] sm:h-14"
+          />
+          <span
+            aria-hidden
+            className="pointer-events-none absolute -left-[2px] top-[148px] h-16 w-[3px] rounded-l-sm bg-taupe-500/60 sm:top-[180px] sm:h-20"
+          />
+          <span
+            aria-hidden
+            className="pointer-events-none absolute -right-[2px] top-[124px] h-20 w-[3px] rounded-r-sm bg-taupe-500/60 sm:top-[150px] sm:h-24"
+          />
+
+          {/* Screen */}
+          <div className="relative aspect-[1320/2868] w-full overflow-hidden rounded-[2.1rem] bg-ink sm:rounded-[2.5rem]">
+            {isVideo ? (
+              <>
+                <video
+                  src={`${item.src}#t=0.1`}
+                  poster={item.poster}
+                  muted
+                  playsInline
+                  preload="metadata"
+                  className="absolute inset-0 h-full w-full object-cover"
+                />
+                <div className="pointer-events-none absolute inset-0 grid place-items-center bg-ink/10 transition-colors group-hover:bg-ink/25">
+                  <motion.span
+                    className="grid h-16 w-16 place-items-center rounded-full bg-cream-50/90 text-ink shadow-soft"
+                    animate={{ scale: [1, 1.06, 1] }}
+                    transition={{ duration: 2.4, repeat: Infinity, ease: "easeInOut" }}
+                  >
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" aria-hidden>
+                      <path d="M8 5v14l11-7z" />
+                    </svg>
+                  </motion.span>
+                </div>
+              </>
+            ) : (
+              <img
+                src={item.src}
+                alt={item.alt ?? item.caption ?? "Project image"}
+                loading="lazy"
+                className="absolute inset-0 h-full w-full object-cover"
+              />
+            )}
+
+            {/* Dynamic Island */}
+            <span
+              aria-hidden
+              className="pointer-events-none absolute left-1/2 top-[10px] z-10 h-[22px] w-[88px] -translate-x-1/2 rounded-full bg-ink sm:top-[14px] sm:h-[26px] sm:w-[104px]"
+            />
+          </div>
+        </div>
+      </motion.button>
+      {item.caption && (
+        <figcaption className="mt-4 text-[0.7rem] uppercase tracking-[0.22em] text-taupe-400">
           {item.caption}
         </figcaption>
       )}
