@@ -249,6 +249,7 @@ export type CaseStudySection = {
   body: string;
   bullets?: string[];
   media?: SectionMedia;
+  extraMedia?: SectionMedia;
   mediaPlacement?: "after" | "after-bullets";
 };
 
@@ -521,6 +522,15 @@ caseStudies.nextrip = {
           { src: "/nextrip/process/persona-2.png", alt: "Persona 2, Adriana Becerra, college student and substitute teacher", caption: "Adriana, college student" },
           { src: "/nextrip/process/persona-3.png", alt: "Persona 3, Lexy Wade, college student tutoring and babysitting", caption: "Lexy, college student" },
         ],
+      },
+      extraMedia: {
+        layout: "single",
+        frame: "wide",
+        item: {
+          src: "/nextrip/process/survey-results.png",
+          alt: "Survey results infographic, 21 respondents over February to March 2026, covering demographics, planning habits, frustrations, app preferences, and ideal travel planning experience",
+          caption: "Survey results, 21 respondents",
+        },
       },
     },
     {

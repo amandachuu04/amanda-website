@@ -28,7 +28,9 @@ export default function WorkDetailPage({ slug }: { slug: string }) {
     let running = 0;
     for (const section of study.sections) {
       indexes.push(running);
-      running += countSectionMediaItems(section.media);
+      running +=
+        countSectionMediaItems(section.media) +
+        countSectionMediaItems(section.extraMedia);
     }
     return indexes;
   }, [study]);
@@ -37,7 +39,10 @@ export default function WorkDetailPage({ slug }: { slug: string }) {
     if (!study) return [];
     const entries: LightboxEntry[] = [];
     for (const section of study.sections) {
-      const items = flattenSectionMedia(section.media);
+      const items = [
+        ...flattenSectionMedia(section.media),
+        ...flattenSectionMedia(section.extraMedia),
+      ];
       for (const item of items) {
         entries.push(sectionItemToEntry(item));
       }
@@ -55,7 +60,10 @@ export default function WorkDetailPage({ slug }: { slug: string }) {
   const galleryStartIndex = useMemo(() => {
     if (!study) return 0;
     return study.sections.reduce(
-      (sum, s) => sum + countSectionMediaItems(s.media),
+      (sum, s) =>
+        sum +
+        countSectionMediaItems(s.media) +
+        countSectionMediaItems(s.extraMedia),
       0
     );
   }, [study]);
@@ -272,6 +280,7 @@ export default function WorkDetailPage({ slug }: { slug: string }) {
                 body={s.body}
                 bullets={s.bullets}
                 media={s.media}
+                extraMedia={s.extraMedia}
                 isResearch={s.heading.toLowerCase().includes("survey")}
                 onOpenMedia={(localIndex) =>
                   setLightboxIndex(sectionMediaStartIndex[i] + localIndex)
@@ -383,6 +392,7 @@ function SectionBlock({
   body,
   bullets,
   media,
+  extraMedia,
   isResearch,
   onOpenMedia,
 }: {
@@ -393,9 +403,11 @@ function SectionBlock({
   body: string;
   bullets?: string[];
   media?: SectionMedia;
+  extraMedia?: SectionMedia;
   isResearch: boolean;
   onOpenMedia: (localIndex: number) => void;
 }) {
+  const mediaCount = countSectionMediaItems(media);
   const callout = isResearch
     ? {
         stat: "20 to 30 min",
@@ -498,6 +510,12 @@ function SectionBlock({
       )}
 
       {media && <SectionMediaBlock media={media} onOpen={onOpenMedia} />}
+      {extraMedia && (
+        <SectionMediaBlock
+          media={extraMedia}
+          onOpen={(localIndex) => onOpenMedia(mediaCount + localIndex)}
+        />
+      )}
     </motion.section>
   );
 }
