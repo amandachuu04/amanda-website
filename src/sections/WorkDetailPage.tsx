@@ -1,7 +1,17 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { motion } from "framer-motion";
-import { getCaseStudy, type CaseStudy, type GalleryItem } from "../lib/site";
+import {
+  getCaseStudy,
+  type CaseStudy,
+  type GalleryItem,
+  type SectionMedia,
+  type SectionMediaItem,
+} from "../lib/site";
 import { projectsHref } from "../lib/route";
+
+type LightboxEntry =
+  | { kind: "image"; src: string; caption?: string }
+  | { kind: "video"; src: string; poster?: string; caption?: string };
 
 export default function WorkDetailPage({ slug }: { slug: string }) {
   const study = getCaseStudy(slug);
@@ -11,6 +21,44 @@ export default function WorkDetailPage({ slug }: { slug: string }) {
   }, [slug]);
 
   const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
+
+  const sectionMediaStartIndex = useMemo<number[]>(() => {
+    if (!study) return [];
+    const indexes: number[] = [];
+    let running = 0;
+    for (const section of study.sections) {
+      indexes.push(running);
+      running += countSectionMediaItems(section.media);
+    }
+    return indexes;
+  }, [study]);
+
+  const lightboxItems = useMemo<LightboxEntry[]>(() => {
+    if (!study) return [];
+    const entries: LightboxEntry[] = [];
+    for (const section of study.sections) {
+      const items = flattenSectionMedia(section.media);
+      for (const item of items) {
+        entries.push(sectionItemToEntry(item));
+      }
+    }
+    for (const g of study.gallery) {
+      if (g.kind === "video") {
+        entries.push({ kind: "video", src: g.src, poster: g.poster, caption: g.caption });
+      } else {
+        entries.push({ kind: "image", src: g.src, caption: g.caption });
+      }
+    }
+    return entries;
+  }, [study]);
+
+  const galleryStartIndex = useMemo(() => {
+    if (!study) return 0;
+    return study.sections.reduce(
+      (sum, s) => sum + countSectionMediaItems(s.media),
+      0
+    );
+  }, [study]);
 
   if (!study) {
     return (
@@ -223,7 +271,11 @@ export default function WorkDetailPage({ slug }: { slug: string }) {
                 heading={s.heading}
                 body={s.body}
                 bullets={s.bullets}
+                media={s.media}
                 isResearch={s.heading.toLowerCase().includes("survey")}
+                onOpenMedia={(localIndex) =>
+                  setLightboxIndex(sectionMediaStartIndex[i] + localIndex)
+                }
               />
             ))}
           </div>
@@ -238,13 +290,13 @@ export default function WorkDetailPage({ slug }: { slug: string }) {
           title={study.title}
           number={study.sections.length + 1}
           featuredNote={study.featuredNote}
-          onOpen={setLightboxIndex}
+          onOpen={(localIndex) => setLightboxIndex(galleryStartIndex + localIndex)}
         />
       )}
 
       {lightboxIndex !== null && (
         <Lightbox
-          items={study.gallery}
+          items={lightboxItems}
           index={lightboxIndex}
           onClose={() => setLightboxIndex(null)}
           onChange={setLightboxIndex}
@@ -252,6 +304,25 @@ export default function WorkDetailPage({ slug }: { slug: string }) {
       )}
     </article>
   );
+}
+
+function countSectionMediaItems(media?: SectionMedia): number {
+  if (!media) return 0;
+  if (media.layout === "single") return 1;
+  return media.items.length;
+}
+
+function flattenSectionMedia(media?: SectionMedia): SectionMediaItem[] {
+  if (!media) return [];
+  if (media.layout === "single") return [media.item];
+  return media.items;
+}
+
+function sectionItemToEntry(item: SectionMediaItem): LightboxEntry {
+  if (item.kind === "video") {
+    return { kind: "video", src: item.src, poster: item.poster, caption: item.caption };
+  }
+  return { kind: "image", src: item.src, caption: item.caption };
 }
 
 function DesignMetaGrid({ meta }: { meta: CaseStudy["meta"] }) {
@@ -311,7 +382,9 @@ function SectionBlock({
   heading,
   body,
   bullets,
+  media,
   isResearch,
+  onOpenMedia,
 }: {
   id: string;
   index: number;
@@ -319,7 +392,9 @@ function SectionBlock({
   heading: string;
   body: string;
   bullets?: string[];
+  media?: SectionMedia;
   isResearch: boolean;
+  onOpenMedia: (localIndex: number) => void;
 }) {
   const callout = isResearch
     ? {
@@ -421,7 +496,142 @@ function SectionBlock({
           </blockquote>
         </motion.figure>
       )}
+
+      {media && <SectionMediaBlock media={media} onOpen={onOpenMedia} />}
     </motion.section>
+  );
+}
+
+function SectionMediaBlock({
+  media,
+  onOpen,
+}: {
+  media: SectionMedia;
+  onOpen: (localIndex: number) => void;
+}) {
+  if (media.layout === "single") {
+    return (
+      <div className="mt-10">
+        <MediaTile
+          item={media.item}
+          frame={media.frame ?? "auto"}
+          tone={media.tone ?? "light"}
+          onOpen={() => onOpen(0)}
+        />
+      </div>
+    );
+  }
+
+  if (media.layout === "phones") {
+    return (
+      <div className="mt-10 grid grid-cols-2 gap-4 sm:grid-cols-3 sm:gap-5 lg:grid-cols-4 lg:gap-6">
+        {media.items.map((item, i) => (
+          <MediaTile
+            key={`${item.src}-${i}`}
+            item={item}
+            frame="phone"
+            tone={media.tone ?? "light"}
+            onOpen={() => onOpen(i)}
+          />
+        ))}
+      </div>
+    );
+  }
+
+  const cols = media.cols ?? 2;
+  const colsClass =
+    cols === 4
+      ? "grid-cols-1 sm:grid-cols-2 lg:grid-cols-4"
+      : cols === 3
+      ? "grid-cols-1 sm:grid-cols-3"
+      : "grid-cols-1 sm:grid-cols-2";
+
+  return (
+    <div className={`mt-10 grid gap-5 sm:gap-6 ${colsClass}`}>
+      {media.items.map((item, i) => (
+        <MediaTile
+          key={`${item.src}-${i}`}
+          item={item}
+          frame={media.frame ?? "auto"}
+          tone={media.tone ?? "light"}
+          onOpen={() => onOpen(i)}
+        />
+      ))}
+    </div>
+  );
+}
+
+function MediaTile({
+  item,
+  frame,
+  tone,
+  onOpen,
+}: {
+  item: SectionMediaItem;
+  frame: "phone" | "wide" | "square" | "auto";
+  tone: "light" | "dark";
+  onOpen: () => void;
+}) {
+  const isVideo = item.kind === "video";
+  const aspectClass =
+    frame === "phone"
+      ? "aspect-[9/19]"
+      : frame === "square"
+      ? "aspect-square"
+      : frame === "wide"
+      ? "aspect-[16/9]"
+      : "";
+  const bgClass = tone === "dark" ? "bg-ink" : "bg-cream-50";
+  const fitClass = frame === "phone" ? "object-cover" : "object-contain";
+
+  return (
+    <figure className="group flex flex-col">
+      <motion.button
+        type="button"
+        onClick={onOpen}
+        aria-label={isVideo ? "Play video" : item.alt ?? item.caption ?? "Expand image"}
+        whileHover={{ y: -3 }}
+        whileTap={{ scale: 0.99 }}
+        transition={{ type: "spring", stiffness: 260, damping: 20 }}
+        className={`relative block w-full overflow-hidden rounded-2xl ring-1 ring-taupe-200/60 shadow-card transition-shadow hover:shadow-soft ${bgClass} ${aspectClass}`}
+      >
+        {isVideo ? (
+          <>
+            <video
+              src={`${item.src}#t=0.1`}
+              poster={item.poster}
+              muted
+              playsInline
+              preload="metadata"
+              className={`${aspectClass ? "absolute inset-0 h-full w-full" : "block h-auto w-full"} ${fitClass} transition-transform duration-500 group-hover:scale-[1.02]`}
+            />
+            <div className="pointer-events-none absolute inset-0 grid place-items-center bg-ink/15 transition-colors group-hover:bg-ink/25">
+              <motion.span
+                className="grid h-16 w-16 place-items-center rounded-full bg-cream-50/90 text-ink"
+                animate={{ scale: [1, 1.06, 1] }}
+                transition={{ duration: 2.4, repeat: Infinity, ease: "easeInOut" }}
+              >
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" aria-hidden>
+                  <path d="M8 5v14l11-7z" />
+                </svg>
+              </motion.span>
+            </div>
+          </>
+        ) : (
+          <img
+            src={item.src}
+            alt={item.alt ?? item.caption ?? "Project image"}
+            loading="lazy"
+            className={`${aspectClass ? "absolute inset-0 h-full w-full" : "block h-auto w-full"} ${fitClass} transition-transform duration-500 group-hover:scale-[1.02]`}
+          />
+        )}
+      </motion.button>
+      {item.caption && (
+        <figcaption className="mt-3 text-[0.7rem] uppercase tracking-[0.22em] text-taupe-400">
+          {item.caption}
+        </figcaption>
+      )}
+    </figure>
   );
 }
 
@@ -674,7 +884,7 @@ function Lightbox({
   onClose,
   onChange,
 }: {
-  items: GalleryItem[];
+  items: LightboxEntry[];
   index: number;
   onClose: () => void;
   onChange: (i: number) => void;

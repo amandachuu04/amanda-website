@@ -56,6 +56,7 @@ export const projects: Project[] = [
     kind: "Design",
     category: "design",
     meta: "Feb – May 2026 · Figma",
+    slug: "nextrip",
     swatch: "from-cream-200 to-taupe-100",
     emoji: "✧",
     image: "/nextrip.png",
@@ -216,6 +217,39 @@ export type GalleryItem =
   | { kind?: "image"; src: string; caption?: string; aspect?: "phone" | "wide" | "square" }
   | { kind: "video"; src: string; poster?: string; caption?: string; aspect?: "phone" | "wide" | "square" };
 
+export type SectionMediaItem =
+  | { kind?: "image"; src: string; alt?: string; caption?: string }
+  | { kind: "video"; src: string; poster?: string; caption?: string };
+
+export type SectionMedia =
+  | {
+      layout: "single";
+      frame?: "phone" | "wide" | "square" | "auto";
+      tone?: "light" | "dark";
+      item: SectionMediaItem;
+    }
+  | {
+      layout: "grid";
+      cols?: 2 | 3 | 4;
+      frame?: "phone" | "wide" | "square" | "auto";
+      tone?: "light" | "dark";
+      items: SectionMediaItem[];
+    }
+  | {
+      layout: "phones";
+      tone?: "light" | "dark";
+      items: SectionMediaItem[];
+    };
+
+export type CaseStudySection = {
+  label: string;
+  heading: string;
+  body: string;
+  bullets?: string[];
+  media?: SectionMedia;
+  mediaPlacement?: "after" | "after-bullets";
+};
+
 export type CaseStudy = {
   slug: string;
   title: string;
@@ -237,12 +271,7 @@ export type CaseStudy = {
     label: string;
   };
   intro: string;
-  sections: Array<{
-    label: string;
-    heading: string;
-    body: string;
-    bullets?: string[];
-  }>;
+  sections: CaseStudySection[];
   skills: string[];
   gallery: GalleryItem[];
   galleryHeading?: string;
@@ -427,6 +456,320 @@ caseStudies.magtracker = {
       caption: "Prototype in use",
       aspect: "wide",
     },
+  ],
+};
+
+caseStudies.nextrip = {
+  slug: "nextrip",
+  title: "NexTrip",
+  tagline:
+    "Less Planning. More Exploring. A travel planning app that builds personalized trip itineraries from destination, budget, and trip length, then organizes everything into a calm, customizable daily schedule.",
+  cover: "/nextrip.png",
+  category: "design",
+  meta: {
+    role: "Solo, UX/UI & Branding",
+    timeline: "February – May 2026",
+    duration: "3 months",
+    tools: "Figma",
+    fonts: "Poppins",
+  },
+  externalLink: {
+    href: "https://www.figma.com/design/n9CzGzqkLOh2IZbqsRhJxs/NexTrip?node-id=0-1&t=X9ELOtpU3mPIlj2U-1",
+    label: "View Prototype",
+  },
+  intro:
+    "NexTrip is a travel planning app that helps users quickly create personalized trip itineraries based on destination, budget, and trip length. It provides activity recommendations and organizes them into a customizable daily schedule to make planning easier and less stressful.",
+  sections: [
+    {
+      label: "01 / About",
+      heading: "Less planning. More exploring.",
+      body:
+        "NexTrip simplifies the travel planning process by creating personalized itineraries based on the length of the trip, budget, schedule, and travel preferences. The app helps users easily organize their plans with smart suggestions and customizable schedules, making trip planning feel easier, more organized, and far less stressful.",
+    },
+    {
+      label: "02 / Problem",
+      heading: "Planning a detailed trip can feel overwhelming.",
+      body:
+        "Planning a detailed organized trip itinerary is a challenge for travelers planning multi day or multi country trips because the planning process can feel overwhelming, especially when visiting locations they have never been to before and are unfamiliar with transportation, activities, costs, and local logistics.",
+    },
+    {
+      label: "03 / User Goals",
+      heading: "What travelers actually want.",
+      body:
+        "I synthesized goals from interviews and survey responses into five clear user needs that guided every later design decision, from onboarding to itinerary editing.",
+      bullets: [
+        "Organize activities, meals, transportation, and housing without switching between multiple apps or websites.",
+        "Get guidance and structure so planning feels less overwhelming, especially when local transportation, customs, or costs are unfamiliar.",
+        "Adjust start times, return times, pacing, and activity types to fit a personal travel style.",
+        "Control spending by setting budget limits and seeing how activities and transportation choices affect costs.",
+        "Modify itineraries when plans change, without having to rebuild the entire trip.",
+      ],
+    },
+    {
+      label: "04 / Research",
+      heading: "Interviews and an affinity diagram.",
+      body:
+        "I interviewed a mix of single travelers, working professionals, and college students balancing part time jobs and school. Across every conversation, the same friction kept surfacing: planning takes too long, group schedules are hard to align, online recommendations feel endless, and prices vary so much that budgeting alone becomes its own task. I clustered every quote into an affinity diagram to surface the deeper themes behind the noise.",
+      bullets: [
+        "Flawed planning tools that scatter information across Expedia, Google, TripAdvisor, calendars, and messages.",
+        "Information overload from too many tabs, options, and sources that are hard to compare.",
+        "Budget challenges around finding affordable hotels and flights and keeping spending in check.",
+        "Group coordination problems caused by different schedules, budgets, and destination preferences.",
+        "Organization difficulties from tracking bookings across emails, screenshots, and notes.",
+        "A clear desire for a centralized travel planner with reviews, recommendations, and shareable itineraries.",
+      ],
+      media: {
+        layout: "single",
+        frame: "wide",
+        item: {
+          src: "/nextrip/process/affinity-diagram.jpg",
+          alt: "Affinity diagram clustering interview quotes into six themes",
+          caption: "Affinity diagram of interview quotes",
+        },
+      },
+    },
+    {
+      label: "05 / Personas",
+      heading: "Three travelers, three planning styles.",
+      body:
+        "I built three personas to represent the most common travel styles surfaced in research: a young software engineer who travels solo or with friends, a college student juggling friend trips with a busy school and work schedule, and a college student who balances tutoring, babysitting, and travel with her boyfriend. Each one carries a different mix of background, goals, needs, and frustrations that the app needs to support.",
+      media: {
+        layout: "grid",
+        cols: 3,
+        frame: "auto",
+        items: [
+          { src: "/nextrip/process/persona-1.png", alt: "Persona 1, Abdullah Ali, software engineer", caption: "Abdullah, software engineer" },
+          { src: "/nextrip/process/persona-2.png", alt: "Persona 2, Adriana Becerra, college student and substitute teacher", caption: "Adriana, college student" },
+          { src: "/nextrip/process/persona-3.png", alt: "Persona 3, Lexy Wade, college student tutoring and babysitting", caption: "Lexy, college student" },
+        ],
+      },
+    },
+    {
+      label: "06 / Competitive Analysis",
+      heading: "Where existing apps fall short.",
+      body:
+        "I studied three popular travel planning apps to understand where the category already feels strong and where it leaves gaps. Roamy leans on AI generated day plans pulled from saved travel videos but feels lighter on real booking. Expedia is a powerhouse for booking flights, hotels, and cars but feels more transactional than calming. Wanderlog is great for detailed itineraries and group travel but the interface can feel busy for users who just want a simple plan. NexTrip sits in the middle, focused on calm, guided personalization for budget conscious travelers.",
+      media: {
+        layout: "single",
+        frame: "wide",
+        item: {
+          src: "/nextrip/process/competitive-analysis.png",
+          alt: "Competitive analysis of Roamy, Expedia, and Wanderlog",
+          caption: "Competitive analysis",
+        },
+      },
+    },
+    {
+      label: "07 / Brand",
+      heading: "A logo that takes off, type that reads anywhere.",
+      body:
+        "The NexTrip mark uses a bold letter N integrated with an airplane taking off to symbolize travel, movement, and the start of a new journey. The plane crossing through the letter creates a sense of forward motion, while the clean black silhouette keeps the mark feeling simple and stress free. The system pairs the mark with Poppins across Bold, SemiBold, and Regular weights, plus a restrained black, white, and gray palette so the brand can stay in the background and let trip imagery lead.",
+      media: {
+        layout: "grid",
+        cols: 2,
+        frame: "auto",
+        items: [
+          { src: "/nextrip/process/logo-page.jpg", alt: "NexTrip logo with airplane and N mark", caption: "Logo mark" },
+          { src: "/nextrip/process/moodboard.png", alt: "Mood board of travel photography with Poppins type and a neutral palette", caption: "Mood board and palette" },
+        ],
+      },
+    },
+    {
+      label: "08 / Content Strategy",
+      heading: "Why, what, who, how, when, where.",
+      body:
+        "Before any screens, I mapped the content strategy across the six classic questions. The why is to simplify travel planning and reduce overwhelm by guiding users step by step. The what is personalized itineraries, recommendations, budgets, schedules, and travel tips. The audience is students, young professionals, and budget conscious travelers who want convenience and personalization. The how is delivered through onboarding, auto generated plans, and visual layouts like timelines and cards, in a clear and friendly tone. The when covers before, during, and after planning, plus real time support during the trip. The where is a mobile app surface that spans onboarding, trip details, and notifications.",
+    },
+    {
+      label: "09 / Storyboard",
+      heading: "Meet Mila, our representative traveler.",
+      body:
+        "To translate the persona work into a real planning moment, I sketched a six panel storyboard following Mila, a 23 year old young professional who loves traveling with friends but feels overwhelmed when she tries to plan. We watch her search across too many websites, compare too many options, struggle to coordinate with friends, and finally land on NexTrip, which pulls her preferences, schedule, and budget into one place so she can spend less time planning and more time enjoying the trip.",
+      media: {
+        layout: "single",
+        frame: "wide",
+        item: {
+          src: "/nextrip/process/storyboard-pdf.jpg",
+          alt: "Six panel storyboard following Mila from overwhelm to a happy trip",
+          caption: "Storyboard, six panels",
+        },
+      },
+    },
+    {
+      label: "10 / MVP",
+      heading: "Plotting features by impact and surprise.",
+      body:
+        "I plotted potential features on an Expected versus Unexpected and High Impact versus Low Impact grid to figure out the minimum viable product. Expected, high impact features became the core MVP: an onboarding questionnaire, auto generated itineraries based on user inputs, edit and customize controls, time and budget aware recommendations, and a daily breakdown view. Unexpected, high impact ideas like AI route optimization and collaborative trip planning were noted as future expansions, while lower impact ideas like social feeds and messaging were intentionally left out for now.",
+      media: {
+        layout: "single",
+        frame: "wide",
+        item: {
+          src: "/nextrip/process/mvp.jpg",
+          alt: "Two by two MVP matrix of features by impact and expectation",
+          caption: "MVP matrix",
+        },
+      },
+    },
+    {
+      label: "11 / Architecture",
+      heading: "Sitemap and user flow.",
+      body:
+        "The sitemap covers both a new user path from sign up through the onboarding questionnaire into the main app, and a returning user path that lands straight on the welcome screen. From there, every user can move between Homepage, Search, Trip Page, and Account Page, with trip details, settings, and billing branching off each one. The user flow then zooms into the onboarding sequence: where do you want to go, how long is your trip, what is your budget, preferred transportation, and which activities interest you, before landing on a curated daily itinerary.",
+      media: {
+        layout: "grid",
+        cols: 2,
+        frame: "auto",
+        items: [
+          { src: "/nextrip/process/sitemap.jpg", alt: "Sitemap covering new and returning user paths", caption: "Sitemap" },
+          { src: "/nextrip/process/user-flow.jpg", alt: "User flow from welcome screen through onboarding to itinerary", caption: "User flow" },
+        ],
+      },
+    },
+    {
+      label: "12 / Low Fidelity",
+      heading: "Rough sketches first.",
+      body:
+        "Before any pixel work, I sketched the core screens on paper to lock in the page level structure: a clean login, a home screen with a planned trip and curated plans, a search page split into Places, Activities, and Transport, a card based trip page, and an account page with grouped settings. These low fidelity wireframes set the navigation logic and the proportion of each screen before any visuals were involved.",
+      media: {
+        layout: "single",
+        frame: "wide",
+        item: {
+          src: "/nextrip/process/low-fidelity.png",
+          alt: "Hand drawn low fidelity wireframes for login, home, search, trip, and account",
+          caption: "Low fidelity wireframes",
+        },
+      },
+    },
+    {
+      label: "13 / Wireframes",
+      heading: "Mid fidelity in Figma.",
+      body:
+        "Next, I rebuilt the sketches in Figma as clean black and white wireframes. Every onboarding question, including destination, trip length, budget, transportation, and activities, got both an empty and a selected state so the visual logic stayed consistent end to end. The main app screens were standardized around the same bottom navigation pattern with Home, Search, Trip, and Account.",
+      media: {
+        layout: "phones",
+        items: [
+          { src: "/nextrip/wireframes/login.png", caption: "Login" },
+          { src: "/nextrip/wireframes/create-account.png", caption: "Create account" },
+          { src: "/nextrip/wireframes/q1.png", caption: "Q1, destinations" },
+          { src: "/nextrip/wireframes/q1-answer.png", caption: "Q1, selected" },
+          { src: "/nextrip/wireframes/q2.png", caption: "Q2, trip length" },
+          { src: "/nextrip/wireframes/q2-answer.png", caption: "Q2, selected" },
+          { src: "/nextrip/wireframes/q3.png", caption: "Q3, budget" },
+          { src: "/nextrip/wireframes/q3-answer.png", caption: "Q3, selected" },
+          { src: "/nextrip/wireframes/q4.png", caption: "Q4, transportation" },
+          { src: "/nextrip/wireframes/q4-answer.png", caption: "Q4, selected" },
+          { src: "/nextrip/wireframes/q5.png", caption: "Q5, activities" },
+          { src: "/nextrip/wireframes/q5-answer-1.png", caption: "Q5, partial selection" },
+          { src: "/nextrip/wireframes/q5-answer-2.png", caption: "Q5, more selected" },
+          { src: "/nextrip/wireframes/q5-answer-3.png", caption: "Q5, full selection" },
+          { src: "/nextrip/wireframes/home.png", caption: "Home" },
+          { src: "/nextrip/wireframes/search.png", caption: "Search" },
+          { src: "/nextrip/wireframes/trip.png", caption: "Trip" },
+          { src: "/nextrip/wireframes/daily-itinerary.png", caption: "Daily itinerary" },
+          { src: "/nextrip/wireframes/account.png", caption: "Account" },
+        ],
+      },
+    },
+    {
+      label: "14 / High Fidelity",
+      heading: "Polished black and white screens.",
+      body:
+        "The high fidelity pass kept the wireframe layouts but introduced real photography for destinations and activities, a dark login screen with the NexTrip mark, and refined typography in Poppins. The onboarding flow gained selection states, the home screen pulled in a hero trip card with countdown copy, and the daily itinerary view now displays each activity with its time, duration, transportation icon, and estimated cost in a calm vertical timeline.",
+      media: {
+        layout: "phones",
+        items: [
+          { src: "/nextrip/high-fidelity/login.png", caption: "Login" },
+          { src: "/nextrip/high-fidelity/create-account.png", caption: "Create account" },
+          { src: "/nextrip/high-fidelity/q1.png", caption: "Q1, destinations" },
+          { src: "/nextrip/high-fidelity/q1-answer.png", caption: "Q1, selected" },
+          { src: "/nextrip/high-fidelity/q2.png", caption: "Q2, trip length" },
+          { src: "/nextrip/high-fidelity/q2-answer.png", caption: "Q2, selected" },
+          { src: "/nextrip/high-fidelity/q3.png", caption: "Q3, budget" },
+          { src: "/nextrip/high-fidelity/q3-answer.png", caption: "Q3, selected" },
+          { src: "/nextrip/high-fidelity/q4.png", caption: "Q4, transportation" },
+          { src: "/nextrip/high-fidelity/q4-answer.png", caption: "Q4, selected" },
+          { src: "/nextrip/high-fidelity/q5.png", caption: "Q5, activities" },
+          { src: "/nextrip/high-fidelity/q5-answer-1.png", caption: "Q5, partial selection" },
+          { src: "/nextrip/high-fidelity/q5-answer-2.png", caption: "Q5, more selected" },
+          { src: "/nextrip/high-fidelity/q5-answer-3.png", caption: "Q5, full selection" },
+          { src: "/nextrip/high-fidelity/home.png", caption: "Home" },
+          { src: "/nextrip/high-fidelity/search.png", caption: "Search" },
+          { src: "/nextrip/high-fidelity/trip.png", caption: "Trip" },
+          { src: "/nextrip/high-fidelity/daily-itinerary.png", caption: "Daily itinerary" },
+          { src: "/nextrip/high-fidelity/account.png", caption: "Account" },
+        ],
+      },
+    },
+    {
+      label: "15 / New User Flow",
+      heading: "First trip, end to end.",
+      body:
+        "The final prototype walks a brand new user through sign up, account creation, and the full onboarding questionnaire, then drops them into the Home screen with a Sydney trip ready to go. From there, they can dive into the daily itinerary with each activity broken down by time and cost, tap into a Sydney Opera House detail page, switch to the map view to see every stop pinned on a real map, and pop into the account page to manage trips, preferences, and payment methods.",
+      media: {
+        layout: "single",
+        frame: "wide",
+        tone: "dark",
+        item: {
+          kind: "video",
+          src: "/nextrip/new-user-flow.mp4",
+          poster: "/nextrip/final/new-home.png",
+          caption: "New user flow walkthrough",
+        },
+      },
+    },
+    {
+      label: "16 / Returning User Flow",
+      heading: "Coming back for the next trip.",
+      body:
+        "For a returning user, the experience starts with their saved login on the dark welcome screen and lands straight on the home screen with their existing Sydney trip on top and curated plans like Hawaii Coastal Getaway and Paris and Rome Escape ready to explore. The Trip page now shows multiple upcoming and past trips, including a South Korea, Japan, and Vietnam multi country itinerary, so the app grows with the traveler instead of restarting every time.",
+      media: {
+        layout: "single",
+        frame: "wide",
+        tone: "dark",
+        item: {
+          kind: "video",
+          src: "/nextrip/returning-user-flow.mp4",
+          poster: "/nextrip/final/returning-home.png",
+          caption: "Returning user flow walkthrough",
+        },
+      },
+    },
+  ],
+  skills: [
+    "UX Research",
+    "User Personas",
+    "Journey Mapping",
+    "Information Architecture",
+    "Branding",
+    "Design Thinking",
+    "Prototyping",
+    "Mobile Design",
+  ],
+  galleryHeading: "Final prototypes",
+  galleryNote:
+    "A new user signs in, answers a short onboarding questionnaire, and lands on a curated Sydney trip with daily itinerary, place details, and map view. A returning user picks up right where they left off.",
+  gallery: [
+    { src: "/nextrip/final/new-login.png", caption: "Login", aspect: "phone" },
+    { src: "/nextrip/final/new-create-account.png", caption: "Create account", aspect: "phone" },
+    { src: "/nextrip/final/new-q1.png", caption: "Q1, destinations", aspect: "phone" },
+    { src: "/nextrip/final/new-q2-answer.png", caption: "Q2, trip length selected", aspect: "phone" },
+    { src: "/nextrip/final/new-q3-answer.png", caption: "Q3, budget selected", aspect: "phone" },
+    { src: "/nextrip/final/new-q4-answer.png", caption: "Q4, transportation selected", aspect: "phone" },
+    { src: "/nextrip/final/new-q5-answer-3.png", caption: "Q5, activities selected", aspect: "phone" },
+    { src: "/nextrip/final/new-home.png", caption: "Home, new user", aspect: "phone" },
+    { src: "/nextrip/final/new-search.png", caption: "Search", aspect: "phone" },
+    { src: "/nextrip/final/new-trip.png", caption: "Trip overview", aspect: "phone" },
+    { src: "/nextrip/final/new-daily-itinerary.png", caption: "Daily itinerary", aspect: "phone" },
+    { src: "/nextrip/final/new-daily-itinerary-2.png", caption: "Daily itinerary, day 2", aspect: "phone" },
+    { src: "/nextrip/final/new-sydney-opera-house.png", caption: "Sydney Opera House detail", aspect: "phone" },
+    { src: "/nextrip/final/new-map-view.png", caption: "Map view", aspect: "phone" },
+    { src: "/nextrip/final/new-account.png", caption: "Account", aspect: "phone" },
+    { src: "/nextrip/final/returning-login.png", caption: "Login, returning", aspect: "phone" },
+    { src: "/nextrip/final/returning-home.png", caption: "Home, returning user", aspect: "phone" },
+    { src: "/nextrip/final/returning-search.png", caption: "Search, returning", aspect: "phone" },
+    { src: "/nextrip/final/returning-trip.png", caption: "Trip page with multiple trips", aspect: "phone" },
+    { src: "/nextrip/final/returning-daily-itinerary.png", caption: "Daily itinerary, returning", aspect: "phone" },
+    { src: "/nextrip/final/returning-map-view.png", caption: "Map view, returning", aspect: "phone" },
   ],
 };
 
