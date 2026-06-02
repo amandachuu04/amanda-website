@@ -647,15 +647,21 @@ function IPhoneFrame({
   onOpen: () => void;
 }) {
   const isVideo = item.kind === "video";
+  const [isPlaying, setIsPlaying] = useState(false);
+  const videoRef = useRef<HTMLVideoElement | null>(null);
+
+  const startVideo = () => {
+    const v = videoRef.current;
+    if (!v) return;
+    setIsPlaying(true);
+    v.currentTime = 0;
+    void v.play().catch(() => setIsPlaying(false));
+  };
 
   return (
     <figure className="group flex flex-col items-center">
-      <motion.button
-        type="button"
-        onClick={onOpen}
-        aria-label={isVideo ? "Play video" : item.alt ?? item.caption ?? "Expand image"}
+      <motion.div
         whileHover={{ y: -4 }}
-        whileTap={{ scale: 0.99 }}
         transition={{ type: "spring", stiffness: 260, damping: 20 }}
         className="relative block w-[min(280px,72vw)] sm:w-[min(320px,52vw)] md:w-[min(340px,38vw)] lg:w-[320px]"
       >
@@ -680,42 +686,60 @@ function IPhoneFrame({
             {isVideo ? (
               <>
                 <video
-                  src={`${item.src}#t=0.1`}
+                  ref={videoRef}
+                  src={item.src}
                   poster={item.poster}
-                  muted
                   playsInline
                   preload="metadata"
+                  controls={isPlaying}
+                  onEnded={() => setIsPlaying(false)}
                   className="absolute inset-0 h-full w-full object-cover"
                 />
-                <div className="pointer-events-none absolute inset-0 grid place-items-center bg-ink/10 transition-colors group-hover:bg-ink/25">
-                  <motion.span
-                    className="grid h-16 w-16 place-items-center rounded-full bg-cream-50/90 text-ink shadow-soft"
-                    animate={{ scale: [1, 1.06, 1] }}
-                    transition={{ duration: 2.4, repeat: Infinity, ease: "easeInOut" }}
+                {!isPlaying && (
+                  <motion.button
+                    type="button"
+                    onClick={startVideo}
+                    aria-label="Play video"
+                    whileTap={{ scale: 0.97 }}
+                    className="absolute inset-0 z-20 grid place-items-center bg-ink/10 transition-colors group-hover:bg-ink/25"
                   >
-                    <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" aria-hidden>
-                      <path d="M8 5v14l11-7z" />
-                    </svg>
-                  </motion.span>
-                </div>
+                    <motion.span
+                      className="grid h-16 w-16 place-items-center rounded-full bg-cream-50/90 text-ink shadow-soft"
+                      animate={{ scale: [1, 1.06, 1] }}
+                      transition={{ duration: 2.4, repeat: Infinity, ease: "easeInOut" }}
+                    >
+                      <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" aria-hidden>
+                        <path d="M8 5v14l11-7z" />
+                      </svg>
+                    </motion.span>
+                  </motion.button>
+                )}
               </>
             ) : (
-              <img
-                src={item.src}
-                alt={item.alt ?? item.caption ?? "Project image"}
-                loading="lazy"
-                className="absolute inset-0 h-full w-full object-cover"
-              />
+              <motion.button
+                type="button"
+                onClick={onOpen}
+                aria-label={item.alt ?? item.caption ?? "Expand image"}
+                whileTap={{ scale: 0.99 }}
+                className="absolute inset-0"
+              >
+                <img
+                  src={item.src}
+                  alt={item.alt ?? item.caption ?? "Project image"}
+                  loading="lazy"
+                  className="absolute inset-0 h-full w-full object-cover"
+                />
+              </motion.button>
             )}
 
             {/* Dynamic Island */}
             <span
               aria-hidden
-              className="pointer-events-none absolute left-1/2 top-[10px] z-10 h-[22px] w-[88px] -translate-x-1/2 rounded-full bg-ink sm:top-[14px] sm:h-[26px] sm:w-[104px]"
+              className="pointer-events-none absolute left-1/2 top-[10px] z-30 h-[22px] w-[88px] -translate-x-1/2 rounded-full bg-ink sm:top-[14px] sm:h-[26px] sm:w-[104px]"
             />
           </div>
         </div>
-      </motion.button>
+      </motion.div>
       {item.caption && (
         <figcaption className="mt-4 text-[0.7rem] uppercase tracking-[0.22em] text-taupe-400">
           {item.caption}
