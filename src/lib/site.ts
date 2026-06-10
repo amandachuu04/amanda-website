@@ -499,7 +499,7 @@ caseStudies.nextrip = {
       label: "02 / User Goals",
       heading: "What travelers actually want.",
       body:
-        "I synthesized goals from interviews and survey responses into five clear user needs that guided every later design decision, from onboarding to itinerary editing.",
+        "Through research findings, I identified five key user needs that shaped the design direction, including onboarding, trip planning, and itinerary editing.",
       bullets: [
         "Organize activities, meals, transportation, and housing without switching between multiple apps or websites.",
         "Get guidance and structure so planning feels less overwhelming, especially when local transportation, customs, or costs are unfamiliar.",
@@ -516,9 +516,9 @@ caseStudies.nextrip = {
     },
     {
       label: "04 / Research",
-      heading: "Three personas, twenty one travelers.",
+      heading: "User Personas & Survey Responses",
       body:
-        "I interviewed a mix of single travelers, working professionals, and college students balancing part time jobs and school, then built three personas to represent the most common travel styles surfaced in research: a young software engineer who travels solo or with friends, a college student juggling friend trips with a busy school and work schedule, and a college student who balances tutoring, babysitting, and travel with her boyfriend. Alongside the interviews, I ran a Google Form survey to widen the sample and pressure test the patterns I was hearing. Twenty one travelers responded between February and March 2026, mostly college students aged 18 to 22 who live with family and travel for personal reasons a few times a year. The data confirmed that activities, itinerary scheduling, and budget tracking take the longest to organize, that most respondents rate the planning process at three or higher on the overwhelm scale, and that a strong majority want a single app that combines flights, hotels, activities, and budget into one place. Group coordination came back as the most frustrating part of any trip, with budgeting and accommodation close behind, which gave the rest of the work a clear focus.",
+        "Based on the three user interviews, I created three personas as well as a Google form survey that received 21 responses better understand their shared needs, habits, and frustrations. Each persona reflected a different type of traveler: a young software engineer who plans solo and friend trips, a college student coordinating group travel around school and work, and a college student balancing tutoring, babysitting, and trips with her boyfriend. From the responses, a clear pattern emerged: travelers often felt overwhelmed by organizing activities, building itineraries, managing budgets, and coordinating with others. These insights helped define the project's direction: a single travel planning app where users could manage flights, hotels, activities, budgets, and itinerary changes with less stress.",
       media: {
         layout: "grid",
         cols: 3,
@@ -541,9 +541,9 @@ caseStudies.nextrip = {
     },
     {
       label: "05 / Affinity Diagram",
-      heading: "Clustering interview quotes into themes.",
+      heading: "Grouping interview quotes into themes.",
       body:
-        "Across every interview, the same friction kept surfacing: planning takes too long, group schedules are hard to align, online recommendations feel endless, and prices vary so much that budgeting alone becomes its own task. I clustered every quote into an affinity diagram to surface the deeper themes behind the noise.",
+        "Across the interviews, travelers kept describing the same pain points: trip planning felt time-consuming, group schedules were hard to align, recommendations were overwhelming, and fluctuating prices made budgeting more stressful. I then organized the quotes into an affinity diagram to uncover the main themes and better understand what users needed from a travel planning app.",
       bullets: [
         "Flawed planning tools that scatter information across Expedia, Google, TripAdvisor, calendars, and messages.",
         "Information overload from too many tabs, options, and sources that are hard to compare.",
@@ -566,7 +566,7 @@ caseStudies.nextrip = {
       label: "06 / Competitive Analysis",
       heading: "Where existing apps fall short.",
       body:
-        "I studied three popular travel planning apps to understand where the category already feels strong and where it leaves gaps. Roamy leans on AI generated day plans pulled from saved travel videos but feels lighter on real booking. Expedia is a powerhouse for booking flights, hotels, and cars but feels more transactional than calming. Wanderlog is great for detailed itineraries and group travel but the interface can feel busy for users who just want a simple plan. NexTrip sits in the middle, focused on calm, guided personalization for budget conscious travelers.",
+        "I analyzed three popular travel planning apps to understand what the category already does well and where gaps still exist. Roamy focuses on AI-generated day plans inspired by saved travel videos, but it offers less support for real booking. Expedia is strong for booking flights, hotels, and cars, but the experience feels more transactional than calming. Wanderlog works well for detailed itineraries and group planning, but its interface can feel busy for travelers who want a simpler process. NexTrip sits between these approaches by offering calm, guided personalization for budget-conscious travelers.",
       media: {
         layout: "single",
         frame: "wide",
@@ -579,7 +579,7 @@ caseStudies.nextrip = {
     },
     {
       label: "07 / Brand",
-      heading: "A logo that takes off, type that reads anywhere.",
+      heading: "Logo & Moodboard.",
       body:
         "The NexTrip mark uses a bold letter N integrated with an airplane taking off to symbolize travel, movement, and the start of a new journey. The plane crossing through the letter creates a sense of forward motion, while the clean black silhouette keeps the mark feeling simple and stress free. The system pairs the mark with Poppins across Bold, SemiBold, and Regular weights, plus a restrained black, white, and gray palette so the brand can stay in the background and let trip imagery lead.",
       media: {
@@ -609,9 +609,9 @@ caseStudies.nextrip = {
     },
     {
       label: "09 / Strategy and MVP",
-      heading: "Content strategy and MVP scope.",
+      heading: "Content Strategy & MVP.",
       body:
-        "Before any screens, I mapped the content strategy across the six classic questions. The why is to simplify travel planning and reduce overwhelm by guiding users step by step. The what is personalized itineraries, recommendations, budgets, schedules, and travel tips. The audience is students, young professionals, and budget conscious travelers who want convenience and personalization. The how is delivered through onboarding, auto generated plans, and visual layouts like timelines and cards, in a clear and friendly tone. The when covers before, during, and after planning, plus real time support during the trip. The where is a mobile app surface that spans onboarding, trip details, and notifications. From that foundation, I plotted potential features on an Expected versus Unexpected and High Impact versus Low Impact grid to figure out the minimum viable product. Expected, high impact features became the core MVP: an onboarding questionnaire, auto generated itineraries based on user inputs, edit and customize controls, time and budget aware recommendations, and a daily breakdown view. Unexpected, high impact ideas like AI route optimization and collaborative trip planning were noted as future expansions, while lower impact ideas like social feeds and messaging were intentionally left out for now.",
+        "Before designing screens, I mapped NexTrip's content strategy through the six classic questions: why, what, who, how, when, and where. The goal was to simplify travel planning and reduce overwhelm by guiding users step by step. NexTrip would provide personalized itineraries, recommendations, budgets, schedules, and travel tips for students, young professionals, and budget-conscious travelers who want convenience without losing personalization.\n\nThis strategy shaped how the app would communicate with users: through onboarding, auto-generated plans, visual timelines, cards, and a clear, friendly tone. It also helped define when and where support should appear, from early trip planning to real-time guidance during the trip.\n\nFrom there, I mapped potential features on an impact grid, comparing expected versus unexpected ideas and high-impact versus low-impact value. Expected, high-impact features became the core MVP: an onboarding questionnaire, auto-generated itineraries based on user input, edit and customize controls, time- and budget-aware recommendations, and a daily breakdown view. Unexpected, high-impact ideas like AI route optimization and collaborative planning were saved for future expansion, while lower-impact features like social feeds and in-app messaging were intentionally left out to keep the first version focused.",
       media: {
         layout: "single",
         frame: "wide",
@@ -716,7 +716,7 @@ caseStudies.nextrip = {
       label: "14 / Final Prototypes",
       heading: "End to end walkthroughs for new and returning users.",
       body:
-        "The final prototypes show NexTrip from two angles. A brand new user signs up, creates an account, walks through the full onboarding questionnaire, and lands on the Home screen with a Sydney trip ready to go. From there, they can dive into the daily itinerary with each activity broken down by time and cost, tap into a Sydney Opera House detail page, switch to the map view to see every stop pinned on a real map, and pop into the account page to manage trips, preferences, and payment methods. A returning user starts with their saved login on the dark welcome screen and lands straight on the home screen with their existing Sydney trip on top and curated plans like Hawaii Coastal Getaway and Paris and Rome Escape ready to explore. The Trip page now shows multiple upcoming and past trips, including a South Korea, Japan, and Vietnam multi country itinerary, so the app grows with the traveler instead of restarting every time.",
+        "The final prototypes show NexTrip through two user flows: a brand-new user and a returning user. In the new user flow, the traveler signs up, creates an account, completes the onboarding questionnaire, and lands on the Home screen with a Sydney trip already generated. From there, they can explore a daily itinerary with each activity organized by time and cost, view details for the Sydney Opera House, switch to a map view with every stop pinned, and manage trips, preferences, and payment methods from the account page.\n\nThe returning user flow starts with logging in on the dark welcome screen and takes the traveler directly to the Home screen, where their existing Sydney trip appears first. They can also explore curated plans like Hawaii Coastal Getaway and Paris and Rome Escape. The Trip page now includes multiple upcoming and past trips, including a multi-country itinerary for South Korea, Japan, and Vietnam. This makes NexTrip feel like an app that grows with the traveler over time, instead of starting over with each new trip.",
       media: {
         layout: "grid",
         cols: 2,

@@ -454,9 +454,11 @@ function SectionBlock({
         {heading}
       </h2>
 
-      <p className="mt-6 text-base leading-relaxed text-taupe-500 sm:text-[1.05rem] sm:leading-[1.75]">
-        {body}
-      </p>
+      <div className="mt-6 space-y-5 text-base leading-relaxed text-taupe-500 sm:text-[1.05rem] sm:leading-[1.75]">
+        {body.split("\n\n").map((paragraph, i) => (
+          <p key={i}>{paragraph}</p>
+        ))}
+      </div>
 
       {bullets && (
         <motion.ul
