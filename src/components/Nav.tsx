@@ -40,9 +40,9 @@ export default function Nav() {
             href="#hero"
             className="flex items-center gap-2 whitespace-nowrap rounded-pill px-3 py-1.5 font-display text-lg font-semibold text-ink"
             aria-label="Home"
-            whileHover={{ rotate: -6, scale: 1.05 }}
+            whileHover={{ rotate: [0, -8, 8, -5, 5, 0] }}
             whileTap={{ scale: 0.95 }}
-            transition={{ type: "spring", stiffness: 320, damping: 14 }}
+            transition={{ duration: 0.55, ease: "easeInOut" }}
           >
             <img
               src="/amanda-chu-logo.png"
@@ -57,7 +57,7 @@ export default function Nav() {
               <li key={l.id}>
                 <a
                   href={`#${l.id}`}
-                  className="link-underline rounded-pill px-4 py-2 text-sm font-medium text-taupe-500 transition-colors hover:text-ink"
+                  className="rounded-pill px-4 py-2 text-sm font-medium text-taupe-500 transition-colors duration-300 hover:bg-blush-100 hover:text-ink focus-visible:bg-blush-100 focus-visible:text-ink"
                 >
                   {l.label}
                 </a>

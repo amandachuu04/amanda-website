@@ -90,29 +90,6 @@
     background-size: 48px 48px;
   }
 
-  /* Animated underline that grows from the left on hover/focus. */
-  .link-underline {
-    position: relative;
-  }
-  .link-underline::after {
-    content: "";
-    position: absolute;
-    left: 12px;
-    right: 12px;
-    bottom: 6px;
-    height: 2px;
-    border-radius: 2px;
-    background: currentColor;
-    opacity: 0.65;
-    transform: scaleX(0);
-    transform-origin: left center;
-    transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
-  }
-  .link-underline:hover::after,
-  .link-underline:focus-visible::after {
-    transform: scaleX(1);
-  }
-
   /* Inputs that softly glow on focus. */
   .input-soft {
     transition: border-color 0.2s ease, box-shadow 0.25s ease, background-color 0.2s ease;
