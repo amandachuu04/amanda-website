@@ -312,12 +312,12 @@ export const caseStudies: Record<string, CaseStudy> = {
     sections: [
       {
         label: "01 / Problem",
-        heading: "Screens are the workspace and the distraction.",
+        heading: "Screens are the workspace and the distraction",
         body: "Through research and observation, I found that many students and early career learners struggle to stay focused because they are constantly surrounded by screens. Phones and laptops often become sources of distraction even when users are trying to work. Many existing study tools also keep users stuck on screen with notifications, reminders, or streak based pressure, so instead of reducing distractions, they add more digital noise. This leads to frequent interruptions, difficulty maintaining deep focus, and reliance on tools that require constant interaction.",
       },
       {
         label: "02 / Opportunity",
-        heading: "Plan once. Then look away.",
+        heading: "Plan once. Then look away",
         body: "Students need a calming, screen free way to focus because their study environment is overloaded with digital distractions. Even productivity tools can overwhelm users with notifications and alerts that keep attention tied to their devices. The design opportunity is an ambient device paired with a simple companion app that supports planning upfront and then allows the user to step away from the screen entirely.",
       },
       {
@@ -399,13 +399,13 @@ caseStudies.magtracker = {
   sections: [
     {
       label: "01 / Empathize",
-      heading: "People lose everyday things, often.",
+      heading: "People lose everyday things, often",
       body:
         "Research showed that individuals regularly misplace everyday objects like water bottles, wallets, and backpacks. Many existing tracking solutions feel expensive, bulky, or unreliable, especially when attachments fall off or require constant battery maintenance. There is a clear gap between needing to keep tabs on everyday items and the heavy, GPS first solutions on the market.",
     },
     {
       label: "02 / Define",
-      heading: "A simpler way to keep track of things.",
+      heading: "A simpler way to keep track of things",
       body:
         "The core challenge was creating a simple and affordable way to keep track of everyday belongings while maintaining ease of use and flexibility. The goal was a tracker that is light enough to live on anything, durable enough to survive daily use, and cheap enough that you do not think twice about putting one on every backpack or water bottle.",
     },
@@ -491,13 +491,13 @@ caseStudies.nextrip = {
   sections: [
     {
       label: "01 / Problem",
-      heading: "Planning a detailed trip can feel overwhelming.",
+      heading: "Planning a detailed trip can feel overwhelming",
       body:
         "Planning a detailed organized trip itinerary is a challenge for travelers planning multi day or multi country trips because the planning process can feel overwhelming, especially when visiting locations they have never been to before and are unfamiliar with transportation, activities, costs, and local logistics.",
     },
     {
       label: "02 / User Goals",
-      heading: "What travelers actually want.",
+      heading: "What travelers actually want",
       body:
         "Through research findings, I identified five key user needs that shaped the design direction, including onboarding, trip planning, and itinerary editing.",
       bullets: [
@@ -510,7 +510,7 @@ caseStudies.nextrip = {
     },
     {
       label: "03 / About",
-      heading: "Less planning. More exploring.",
+      heading: "Less planning. More exploring",
       body:
         "NexTrip simplifies the travel planning process by creating personalized itineraries based on the length of the trip, budget, schedule, and travel preferences. The app helps users easily organize their plans with smart suggestions and customizable schedules, making trip planning feel easier, more organized, and far less stressful.",
     },
@@ -541,7 +541,7 @@ caseStudies.nextrip = {
     },
     {
       label: "05 / Affinity Diagram",
-      heading: "Grouping interview quotes into themes.",
+      heading: "Grouping interview quotes into themes",
       body:
         "Across the interviews, travelers kept describing the same pain points: trip planning felt time-consuming, group schedules were hard to align, recommendations were overwhelming, and fluctuating prices made budgeting more stressful. I then organized the quotes into an affinity diagram to uncover the main themes and better understand what users needed from a travel planning app.",
       bullets: [
@@ -564,7 +564,7 @@ caseStudies.nextrip = {
     },
     {
       label: "06 / Competitive Analysis",
-      heading: "Where existing apps fall short.",
+      heading: "Where existing apps fall short",
       body:
         "I analyzed three popular travel planning apps to understand what the category already does well and where gaps still exist. Roamy focuses on AI-generated day plans inspired by saved travel videos, but it offers less support for real booking. Expedia is strong for booking flights, hotels, and cars, but the experience feels more transactional than calming. Wanderlog works well for detailed itineraries and group planning, but its interface can feel busy for travelers who want a simpler process. NexTrip sits between these approaches by offering calm, guided personalization for budget-conscious travelers.",
       media: {
@@ -579,7 +579,7 @@ caseStudies.nextrip = {
     },
     {
       label: "07 / Brand",
-      heading: "Logo & Moodboard.",
+      heading: "Logo & Moodboard",
       body:
         "The NexTrip mark uses a bold letter N integrated with an airplane taking off to symbolize travel, movement, and the start of a new journey. The plane crossing through the letter creates a sense of forward motion, while the clean black silhouette keeps the mark feeling simple and stress free. The system pairs the mark with Poppins across Bold, SemiBold, and Regular weights, plus a restrained black, white, and gray palette so the brand can stay in the background and let trip imagery lead.",
       media: {
@@ -594,7 +594,7 @@ caseStudies.nextrip = {
     },
     {
       label: "08 / Storyboard",
-      heading: "Meet Mila, our representative traveler.",
+      heading: "Meet Mila, our representative traveler",
       body:
         "To translate the persona work into a real planning moment, I sketched a six panel storyboard following Mila, a 23 year old young professional who loves traveling with friends but feels overwhelmed when she tries to plan. We watch her search across too many websites, compare too many options, struggle to coordinate with friends, and finally land on NexTrip, which pulls her preferences, schedule, and budget into one place so she can spend less time planning and more time enjoying the trip.",
       media: {
@@ -609,7 +609,7 @@ caseStudies.nextrip = {
     },
     {
       label: "09 / Strategy and MVP",
-      heading: "Content Strategy & MVP.",
+      heading: "Content Strategy & MVP",
       body:
         "Before designing screens, I mapped NexTrip's content strategy through the six classic questions: why, what, who, how, when, and where. The goal was to simplify travel planning and reduce overwhelm by guiding users step by step. NexTrip would provide personalized itineraries, recommendations, budgets, schedules, and travel tips for students, young professionals, and budget-conscious travelers who want convenience without losing personalization.\n\nThis strategy shaped how the app would communicate with users: through onboarding, auto-generated plans, visual timelines, cards, and a clear, friendly tone. It also helped define when and where support should appear, from early trip planning to real-time guidance during the trip.\n\nFrom there, I mapped potential features on an impact grid, comparing expected versus unexpected ideas and high-impact versus low-impact value. Expected, high-impact features became the core MVP: an onboarding questionnaire, auto-generated itineraries based on user input, edit and customize controls, time- and budget-aware recommendations, and a daily breakdown view. Unexpected, high-impact ideas like AI route optimization and collaborative planning were saved for future expansion, while lower-impact features like social feeds and in-app messaging were intentionally left out to keep the first version focused.",
       media: {
@@ -624,7 +624,7 @@ caseStudies.nextrip = {
     },
     {
       label: "10 / Architecture",
-      heading: "Sitemap and user flow.",
+      heading: "Sitemap and user flow",
       body:
         "The sitemap covers both a new user path from sign up through the onboarding questionnaire into the main app, and a returning user path that lands straight on the welcome screen. From there, every user can move between Homepage, Search, Trip Page, and Account Page, with trip details, settings, and billing branching off each one. The user flow then zooms into the onboarding sequence: where do you want to go, how long is your trip, what is your budget, preferred transportation, and which activities interest you, before landing on a curated daily itinerary.",
       media: {
@@ -639,7 +639,7 @@ caseStudies.nextrip = {
     },
     {
       label: "11 / Low Fidelity",
-      heading: "Rough sketches first.",
+      heading: "Rough sketches first",
       body:
         "Before any pixel work, I sketched the core screens on paper to lock in the page level structure: a clean login, a home screen with a planned trip and curated plans, a search page split into Places, Activities, and Transport, a card based trip page, and an account page with grouped settings. These low fidelity wireframes set the navigation logic and the proportion of each screen before any visuals were involved.",
       media: {
@@ -654,7 +654,7 @@ caseStudies.nextrip = {
     },
     {
       label: "12 / Wireframes",
-      heading: "Mid fidelity in Figma.",
+      heading: "Mid fidelity in Figma",
       body:
         "Next, I rebuilt the sketches in Figma as clean black and white wireframes. Every onboarding question, including destination, trip length, budget, transportation, and activities, got both an empty and a selected state so the visual logic stayed consistent end to end. The main app screens were standardized around the same bottom navigation pattern with Home, Search, Trip, and Account.",
       media: {
@@ -684,7 +684,7 @@ caseStudies.nextrip = {
     },
     {
       label: "13 / High Fidelity",
-      heading: "Polished black and white screens.",
+      heading: "Polished black and white screens",
       body:
         "The high fidelity pass kept the wireframe layouts but introduced real photography for destinations and activities, a dark login screen with the NexTrip mark, and refined typography in Poppins. The onboarding flow gained selection states, the home screen pulled in a hero trip card with countdown copy, and the daily itinerary view now displays each activity with its time, duration, transportation icon, and estimated cost in a calm vertical timeline.",
       media: {
@@ -714,7 +714,7 @@ caseStudies.nextrip = {
     },
     {
       label: "14 / Final Prototypes",
-      heading: "End to end walkthroughs for new and returning users.",
+      heading: "End to end walkthroughs for new and returning users",
       body:
         "The final prototypes show NexTrip through two user flows: a brand-new user and a returning user. In the new user flow, the traveler signs up, creates an account, completes the onboarding questionnaire, and lands on the Home screen with a Sydney trip already generated. From there, they can explore a daily itinerary with each activity organized by time and cost, view details for the Sydney Opera House, switch to a map view with every stop pinned, and manage trips, preferences, and payment methods from the account page.\n\nThe returning user flow starts with logging in on the dark welcome screen and takes the traveler directly to the Home screen, where their existing Sydney trip appears first. They can also explore curated plans like Hawaii Coastal Getaway and Paris and Rome Escape. The Trip page now includes multiple upcoming and past trips, including a multi-country itinerary for South Korea, Japan, and Vietnam. This makes NexTrip feel like an app that grows with the traveler over time, instead of starting over with each new trip.",
       media: {
