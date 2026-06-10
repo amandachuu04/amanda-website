@@ -742,7 +742,6 @@ caseStudies.nextrip = {
     "UX Research",
     "User Personas",
     "Journey Mapping",
-    "Information Architecture",
     "Branding",
     "Design Thinking",
     "Prototyping",
