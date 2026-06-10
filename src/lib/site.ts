@@ -724,13 +724,13 @@ caseStudies.nextrip = {
         items: [
           {
             kind: "video",
-            src: "/nextrip/new-user-flow.mp4",
+            src: "/nextrip/new-user-flow.mov",
             poster: "/nextrip/final/new-home.png",
             caption: "New user",
           },
           {
             kind: "video",
-            src: "/nextrip/returning-user-flow.mp4",
+            src: "/nextrip/returning-user-flow.mov",
             poster: "/nextrip/final/returning-home.png",
             caption: "Returning user",
           },
