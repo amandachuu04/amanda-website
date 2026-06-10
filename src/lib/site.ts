@@ -510,7 +510,7 @@ caseStudies.nextrip = {
     },
     {
       label: "03 / About",
-      heading: "Less planning. More exploring",
+      heading: "Less planning. More exploring.",
       body:
         "NexTrip simplifies the travel planning process by creating personalized itineraries based on the length of the trip, budget, schedule, and travel preferences. The app helps users easily organize their plans with smart suggestions and customizable schedules, making trip planning feel easier, more organized, and far less stressful.",
     },
