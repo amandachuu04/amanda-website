@@ -71,7 +71,7 @@ export default function Nav() {
             whileHover={{ y: -2 }}
             whileTap={{ y: 0, scale: 0.97 }}
             transition={{ type: "spring", stiffness: 320, damping: 18 }}
-            className="shimmer relative hidden overflow-hidden whitespace-nowrap rounded-pill bg-taupe-400 px-4 py-2 text-sm font-semibold text-cream-100 transition-colors hover:bg-taupe-500 lg:inline-flex"
+            className="relative hidden whitespace-nowrap rounded-pill bg-taupe-400 px-4 py-2 text-sm font-semibold text-cream-100 transition-colors hover:bg-taupe-500 lg:inline-flex"
           >
             Download CV
           </motion.a>

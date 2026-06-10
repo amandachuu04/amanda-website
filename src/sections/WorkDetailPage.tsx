@@ -213,7 +213,7 @@ export default function WorkDetailPage({ slug }: { slug: string }) {
               whileHover={{ y: -2 }}
               whileTap={{ scale: 0.97 }}
               transition={{ type: "spring", stiffness: 320, damping: 18 }}
-              className="shimmer group relative inline-flex items-center gap-2 overflow-hidden rounded-pill bg-ink px-6 py-3 text-sm font-semibold text-cream-50 transition-colors hover:bg-taupe-500"
+              className="group relative inline-flex items-center gap-2 rounded-pill bg-ink px-6 py-3 text-sm font-semibold text-cream-50 transition-colors hover:bg-taupe-500"
             >
               {study.externalLink.label}
               <span className="inline-flex w-4 overflow-hidden">

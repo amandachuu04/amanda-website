@@ -86,7 +86,7 @@ export default function Hero() {
             transition={{ duration: 0.6, delay: 0.25 }}
             className="mt-9 flex flex-wrap items-center gap-3"
           >
-            <a href={site.cvFile} download className="btn-primary shimmer group relative overflow-hidden">
+            <a href={site.cvFile} download className="btn-primary group relative">
               <motion.svg
                 width="16"
                 height="16"
