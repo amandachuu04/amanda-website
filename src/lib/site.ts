@@ -483,7 +483,7 @@ caseStudies.nextrip = {
     fonts: "Poppins",
   },
   externalLink: {
-    href: "https://www.figma.com/design/n9CzGzqkLOh2IZbqsRhJxs/NexTrip?node-id=0-1&t=X9ELOtpU3mPIlj2U-1",
+    href: "https://www.figma.com/design/9z6JlO3iF8rleZMzw0fjEz/NexTrip-Final-Prototype?node-id=0-1&t=Wam6IaL09GrLC6qf-1",
     label: "View Prototype",
   },
   intro:
