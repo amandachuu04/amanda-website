@@ -270,7 +270,7 @@ export default function WorkDetailPage({ slug }: { slug: string }) {
             </div>
           </aside>
 
-          <div className="flex flex-col gap-24 sm:gap-28">
+          <div className="flex min-w-0 flex-col gap-24 sm:gap-28">
             {study.sections.map((s, i) => (
               <SectionBlock
                 key={s.heading}
