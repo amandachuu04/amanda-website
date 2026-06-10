@@ -288,22 +288,22 @@ export default function WorkDetailPage({ slug }: { slug: string }) {
                 }
               />
             ))}
+
+            {study.gallery.length > 0 && (
+              <GallerySection
+                heading={study.galleryHeading ?? "Final screens"}
+                note={study.galleryNote}
+                items={study.gallery}
+                flows={study.galleryFlows}
+                title={study.title}
+                number={study.sections.length + 1}
+                featuredNote={study.featuredNote}
+                onOpen={(localIndex) => setLightboxIndex(galleryStartIndex + localIndex)}
+              />
+            )}
           </div>
         </div>
       </div>
-
-      {study.gallery.length > 0 && (
-        <GallerySection
-          heading={study.galleryHeading ?? "Final screens"}
-          note={study.galleryNote}
-          items={study.gallery}
-          flows={study.galleryFlows}
-          title={study.title}
-          number={study.sections.length + 1}
-          featuredNote={study.featuredNote}
-          onOpen={(localIndex) => setLightboxIndex(galleryStartIndex + localIndex)}
-        />
-      )}
 
       {lightboxIndex !== null && (
         <Lightbox
@@ -804,104 +804,90 @@ function GallerySection({
       : null;
 
   return (
-    <section
-      id="final-screens"
-      className="relative mt-24 overflow-hidden bg-ink py-20 text-cream-50 scroll-mt-28 sm:mt-32 sm:py-28"
-    >
-      <div
-        aria-hidden
-        className="pointer-events-none absolute -left-20 top-20 h-72 w-72 rounded-full bg-blush-300/20 blur-3xl"
-      />
-      <div
-        aria-hidden
-        className="pointer-events-none absolute -right-20 bottom-10 h-80 w-80 rounded-full bg-blush-400/10 blur-3xl"
-      />
+    <section id="final-screens" className="relative scroll-mt-28">
+      <div className="flex items-baseline gap-4">
+        <span
+          aria-hidden
+          className="font-display text-5xl font-medium leading-none text-blush-300 sm:text-6xl"
+        >
+          {String(number).padStart(2, "0")}
+        </span>
+        <span className="text-[0.7rem] font-semibold uppercase tracking-[0.28em] text-taupe-400">
+          Final screens
+        </span>
+      </div>
+      <h2 className="mt-6 font-display text-[2rem] font-medium leading-[1.15] text-ink sm:text-[2.6rem]">
+        {heading}
+      </h2>
+      {note && (
+        <p className="mt-6 text-base leading-relaxed text-taupe-500 sm:text-[1.05rem] sm:leading-[1.75]">
+          {note}
+        </p>
+      )}
 
-      <div className="relative mx-auto w-full max-w-[1500px] px-6 sm:px-10 lg:px-14 xl:px-24">
-        <div className="flex items-baseline gap-4">
-          <span
-            aria-hidden
-            className="font-display text-5xl font-medium leading-none text-blush-300 sm:text-6xl"
-          >
-            {String(number).padStart(2, "0")}
-          </span>
-          <span className="text-[0.7rem] font-semibold uppercase tracking-[0.28em] text-cream-50/60">
-            Final screens
-          </span>
-        </div>
-        <h2 className="mt-6 font-display text-4xl font-medium sm:text-6xl">
-          {heading}
-        </h2>
-        {note && (
-          <p className="mt-4 max-w-xl text-base leading-relaxed text-cream-50/70">
-            {note}
-          </p>
-        )}
-
-        {/* Featured brand mark */}
-        {featured && featured.kind !== "video" && (
-          <motion.button
-            type="button"
-            onClick={() => onOpen(featuredIdx)}
-            initial={{ opacity: 0, y: 16 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0.2 }}
-            transition={{ duration: 0.6 }}
-            whileHover={{ y: -4 }}
-            whileTap={{ scale: 0.99 }}
-            className="group mt-14 flex w-full items-center gap-8 rounded-3xl border border-cream-50/10 bg-cream-50/[0.04] p-6 text-left transition-colors hover:bg-cream-50/[0.08] sm:p-10"
-          >
-            <div className="h-24 w-24 flex-shrink-0 overflow-hidden rounded-2xl bg-cream-50 sm:h-32 sm:w-32">
-              <img
-                src={featured.src}
-                alt={`${title} brand mark`}
-                className="h-full w-full object-contain p-3 transition-transform duration-500 group-hover:scale-105"
-              />
-            </div>
-            <div>
-              <p className="text-[0.7rem] font-semibold uppercase tracking-[0.22em] text-cream-50/60">
-                Identity · Click to expand
-              </p>
-              <p className="mt-2 font-display text-2xl sm:text-3xl">
-                {featured.caption ?? "Brand mark"}
-              </p>
-              {featuredNote && (
-                <p className="mt-2 max-w-sm text-sm text-cream-50/60">
-                  {featuredNote}
-                </p>
-              )}
-            </div>
-          </motion.button>
-        )}
-
-        {renderedFlows ? (
-          <div className="mt-12 space-y-14">
-            {renderedFlows.map((flow) => (
-              <GalleryStrip
-                key={flow.label}
-                label={flow.label}
-                items={flow.items}
-                title={title}
-                onOpen={(localIndex) => onOpen(flow.startIndex + localIndex)}
-              />
-            ))}
-          </div>
-        ) : (
-          <div className="mt-12">
-            <GalleryStrip
-              items={items
-                .map((g, i) => ({ g, i }))
-                .filter(({ i }) => i !== featuredIdx)
-                .map(({ g }) => g)}
-              indexMap={items
-                .map((_, i) => i)
-                .filter((i) => i !== featuredIdx)}
-              title={title}
-              onOpen={onOpen}
+      {/* Featured brand mark */}
+      {featured && featured.kind !== "video" && (
+        <motion.button
+          type="button"
+          onClick={() => onOpen(featuredIdx)}
+          initial={{ opacity: 0, y: 16 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.2 }}
+          transition={{ duration: 0.6 }}
+          whileHover={{ y: -4 }}
+          whileTap={{ scale: 0.99 }}
+          className="group mt-10 flex w-full items-center gap-8 rounded-3xl border border-taupe-200/60 bg-cream-50 p-6 text-left transition-shadow hover:shadow-soft sm:p-10"
+        >
+          <div className="h-24 w-24 flex-shrink-0 overflow-hidden rounded-2xl border border-taupe-200/50 bg-cream-50 sm:h-32 sm:w-32">
+            <img
+              src={featured.src}
+              alt={`${title} brand mark`}
+              className="h-full w-full object-contain p-3 transition-transform duration-500 group-hover:scale-105"
             />
           </div>
-        )}
-      </div>
+          <div>
+            <p className="text-[0.7rem] font-semibold uppercase tracking-[0.22em] text-taupe-400">
+              Identity, click to expand
+            </p>
+            <p className="mt-2 font-display text-2xl text-ink sm:text-3xl">
+              {featured.caption ?? "Brand mark"}
+            </p>
+            {featuredNote && (
+              <p className="mt-2 max-w-sm text-sm text-taupe-500">
+                {featuredNote}
+              </p>
+            )}
+          </div>
+        </motion.button>
+      )}
+
+      {renderedFlows ? (
+        <div className="mt-10 space-y-12">
+          {renderedFlows.map((flow) => (
+            <GalleryStrip
+              key={flow.label}
+              label={flow.label}
+              items={flow.items}
+              title={title}
+              onOpen={(localIndex) => onOpen(flow.startIndex + localIndex)}
+            />
+          ))}
+        </div>
+      ) : (
+        <div className="mt-10">
+          <GalleryStrip
+            items={items
+              .map((g, i) => ({ g, i }))
+              .filter(({ i }) => i !== featuredIdx)
+              .map(({ g }) => g)}
+            indexMap={items
+              .map((_, i) => i)
+              .filter((i) => i !== featuredIdx)}
+            title={title}
+            onOpen={onOpen}
+          />
+        </div>
+      )}
     </section>
   );
 }
@@ -951,10 +937,10 @@ function GalleryStrip({
 
   return (
     <div className="relative">
-      <div className="mb-4 flex items-center justify-between gap-4 text-[0.7rem] uppercase tracking-[0.22em] text-cream-50/60">
+      <div className="mb-4 flex items-center justify-between gap-4 text-[0.7rem] uppercase tracking-[0.22em] text-taupe-400">
         <span className="flex items-center gap-3">
           {label && (
-            <span className="font-semibold tracking-[0.28em] text-cream-50">
+            <span className="font-semibold tracking-[0.28em] text-ink">
               {label}
             </span>
           )}
@@ -969,7 +955,7 @@ function GalleryStrip({
             whileHover={pos.atStart ? undefined : { x: -3, scale: 1.05 }}
             whileTap={pos.atStart ? undefined : { scale: 0.9 }}
             transition={{ type: "spring", stiffness: 320, damping: 18 }}
-            className="grid h-9 w-9 place-items-center rounded-full border border-cream-50/20 transition-colors hover:bg-cream-50/10 disabled:cursor-not-allowed disabled:opacity-30"
+            className="grid h-9 w-9 place-items-center rounded-full border border-taupe-200/70 text-taupe-500 transition-colors hover:bg-blush-100 hover:text-ink disabled:cursor-not-allowed disabled:opacity-30"
           >
             <span aria-hidden>←</span>
           </motion.button>
@@ -981,7 +967,7 @@ function GalleryStrip({
             whileHover={pos.atEnd ? undefined : { x: 3, scale: 1.05 }}
             whileTap={pos.atEnd ? undefined : { scale: 0.9 }}
             transition={{ type: "spring", stiffness: 320, damping: 18 }}
-            className="grid h-9 w-9 place-items-center rounded-full border border-cream-50/20 transition-colors hover:bg-cream-50/10 disabled:cursor-not-allowed disabled:opacity-30"
+            className="grid h-9 w-9 place-items-center rounded-full border border-taupe-200/70 text-taupe-500 transition-colors hover:bg-blush-100 hover:text-ink disabled:cursor-not-allowed disabled:opacity-30"
           >
             <span aria-hidden>→</span>
           </motion.button>
@@ -991,7 +977,7 @@ function GalleryStrip({
       <div
         ref={scrollerRef}
         className="flex snap-x snap-mandatory gap-5 overflow-x-auto pb-6"
-        style={{ scrollbarColor: "rgba(253,237,237,0.3) transparent" }}
+        style={{ scrollbarColor: "rgba(139,111,92,0.35) transparent" }}
       >
         {items.map((g, i) => (
           <GalleryThumb
@@ -1032,7 +1018,7 @@ function GalleryThumb({
       <button
         type="button"
         onClick={onClick}
-        className={`relative block w-full overflow-hidden rounded-[2rem] ring-1 ring-cream-50/10 transition-transform duration-300 hover:scale-[1.02] hover:ring-cream-50/30 ${aspectClass} ${
+        className={`relative block w-full overflow-hidden rounded-[2rem] ring-1 ring-taupe-200/60 transition-transform duration-300 hover:scale-[1.02] hover:ring-blush-300/70 ${aspectClass} ${
           isVideo ? "bg-ink" : "bg-gradient-to-br from-blush-200 to-cream-200"
         }`}
       >
@@ -1066,7 +1052,7 @@ function GalleryThumb({
           />
         )}
       </button>
-      <figcaption className="mt-4 text-[0.7rem] uppercase tracking-[0.22em] text-cream-50/60">
+      <figcaption className="mt-4 text-[0.7rem] uppercase tracking-[0.22em] text-taupe-400">
         {item.caption ?? "Tap to expand"}
       </figcaption>
     </motion.figure>
