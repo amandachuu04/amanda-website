@@ -282,7 +282,6 @@ export default function WorkDetailPage({ slug }: { slug: string }) {
                 bullets={s.bullets}
                 media={s.media}
                 extraMedia={s.extraMedia}
-                isResearch={s.heading.toLowerCase().includes("survey")}
                 onOpenMedia={(localIndex) =>
                   setLightboxIndex(sectionMediaStartIndex[i] + localIndex)
                 }
@@ -395,7 +394,6 @@ function SectionBlock({
   bullets,
   media,
   extraMedia,
-  isResearch,
   onOpenMedia,
 }: {
   id: string;
@@ -406,17 +404,9 @@ function SectionBlock({
   bullets?: string[];
   media?: SectionMedia;
   extraMedia?: SectionMedia;
-  isResearch: boolean;
   onOpenMedia: (localIndex: number) => void;
 }) {
   const mediaCount = countSectionMediaItems(media);
-  const callout = isResearch
-    ? {
-        stat: "20 to 30 min",
-        caption:
-          "of focus before phone alerts, messages, or fatigue pull attention away. The single strongest signal from the survey.",
-      }
-    : null;
 
   return (
     <motion.section
@@ -492,25 +482,6 @@ function SectionBlock({
             </motion.li>
           ))}
         </motion.ul>
-      )}
-
-      {callout && (
-        <motion.figure
-          initial={{ opacity: 0, scale: 0.96 }}
-          whileInView={{ opacity: 1, scale: 1 }}
-          viewport={{ once: true, amount: 0.2 }}
-          transition={{ duration: 0.55 }}
-          className="mt-10 overflow-hidden rounded-3xl bg-blush-200/70 p-8 sm:p-10"
-        >
-          <blockquote>
-            <p className="font-display text-5xl font-medium leading-none text-ink sm:text-7xl">
-              {callout.stat}
-            </p>
-            <p className="mt-5 max-w-md text-[0.95rem] leading-relaxed text-taupe-500">
-              {callout.caption}
-            </p>
-          </blockquote>
-        </motion.figure>
       )}
 
       {media && <SectionMediaBlock media={media} onOpen={onOpenMedia} />}
