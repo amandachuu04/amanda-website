@@ -55,6 +55,15 @@ export default function WorkDetailPage({ slug }: { slug: string }) {
         entries.push({ kind: "image", src: g.src, caption: g.caption });
       }
     }
+    for (const section of study.endSections ?? []) {
+      const items = [
+        ...flattenSectionMedia(section.media),
+        ...flattenSectionMedia(section.extraMedia),
+      ];
+      for (const item of items) {
+        entries.push(sectionItemToEntry(item));
+      }
+    }
     return entries;
   }, [study]);
 
@@ -68,6 +77,19 @@ export default function WorkDetailPage({ slug }: { slug: string }) {
       0
     );
   }, [study]);
+
+  const endSectionMediaStartIndex = useMemo<number[]>(() => {
+    if (!study) return [];
+    const indexes: number[] = [];
+    let running = galleryStartIndex + study.gallery.length;
+    for (const section of study.endSections ?? []) {
+      indexes.push(running);
+      running +=
+        countSectionMediaItems(section.media) +
+        countSectionMediaItems(section.extraMedia);
+    }
+    return indexes;
+  }, [study, galleryStartIndex]);
 
   if (!study) {
     return (
@@ -95,6 +117,11 @@ export default function WorkDetailPage({ slug }: { slug: string }) {
 
   const sectionIds = useMemo(
     () => study.sections.map((s) => slugify(s.heading)),
+    [study]
+  );
+
+  const endSectionIds = useMemo(
+    () => (study.endSections ?? []).map((s) => slugify(s.heading)),
     [study]
   );
 
@@ -266,6 +293,26 @@ export default function WorkDetailPage({ slug }: { slug: string }) {
                     </button>
                   </li>
                 )}
+                {(study.endSections ?? []).map((s, i) => {
+                  const number =
+                    study.sections.length + (study.gallery.length > 0 ? 2 : 1) + i;
+                  return (
+                    <li key={s.heading}>
+                      <button
+                        type="button"
+                        onClick={() => scrollToId(endSectionIds[i])}
+                        className="group flex w-full items-baseline gap-3 text-left transition-colors hover:text-ink"
+                      >
+                        <span className="font-mono text-[0.7rem] tracking-wider text-taupe-400 transition-colors group-hover:text-blush-500">
+                          {String(number).padStart(2, "0")}
+                        </span>
+                        <span className="leading-snug transition-transform duration-300 group-hover:translate-x-1">
+                          {s.heading}
+                        </span>
+                      </button>
+                    </li>
+                  );
+                })}
               </ol>
             </div>
           </aside>
@@ -300,6 +347,25 @@ export default function WorkDetailPage({ slug }: { slug: string }) {
                 onOpen={(localIndex) => setLightboxIndex(galleryStartIndex + localIndex)}
               />
             )}
+
+            {(study.endSections ?? []).map((s, i) => (
+              <SectionBlock
+                key={s.heading}
+                id={endSectionIds[i]}
+                index={
+                  study.sections.length + (study.gallery.length > 0 ? 1 : 0) + i
+                }
+                label={s.label}
+                heading={s.heading}
+                body={s.body}
+                bullets={s.bullets}
+                media={s.media}
+                extraMedia={s.extraMedia}
+                onOpenMedia={(localIndex) =>
+                  setLightboxIndex(endSectionMediaStartIndex[i] + localIndex)
+                }
+              />
+            ))}
           </div>
         </div>
       </div>

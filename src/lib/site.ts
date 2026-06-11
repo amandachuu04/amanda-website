@@ -286,6 +286,7 @@ export type CaseStudy = {
   galleryHeading?: string;
   galleryNote?: string;
   featuredNote?: string;
+  endSections?: CaseStudySection[];
 };
 
 export const caseStudies: Record<string, CaseStudy> = {
@@ -736,23 +737,6 @@ caseStudies.nextrip = {
           },
         ],
       },
-      extraMedia: {
-        layout: "grid",
-        cols: 2,
-        frame: "auto",
-        items: [
-          {
-            src: "/nextrip/final/mockup-isometric.webp",
-            alt: "Isometric mockup showing NexTrip screens across login, settings, search, daily itinerary, and Sydney Opera House detail",
-            caption: "Isometric mockup spread",
-          },
-          {
-            src: "/nextrip/final/mockup-flat.webp",
-            alt: "Flat mockup showing Home, Trips, Daily Itinerary, and Sydney Opera House detail side by side",
-            caption: "Flat mockup spread",
-          },
-        ],
-      },
     },
   ],
   skills: [
@@ -824,6 +808,31 @@ caseStudies.nextrip = {
     { src: "/nextrip/final/returning-daily-itinerary.png", caption: "Daily itinerary", aspect: "phone" },
     { src: "/nextrip/final/new-sydney-opera-house.png", caption: "Sydney Opera House detail", aspect: "phone" },
     { src: "/nextrip/final/returning-map-view.png", caption: "Map view", aspect: "phone" },
+  ],
+  endSections: [
+    {
+      label: "16 / Mockup Spreads",
+      heading: "Showcasing NexTrip across isometric and flat layouts",
+      body:
+        "Two presentation spreads pull the final screens together: an isometric arrangement that tilts the devices for a sense of depth and motion, and a flat layout that lines key screens up cleanly so each flow reads in one glance.",
+      media: {
+        layout: "grid",
+        cols: 2,
+        frame: "auto",
+        items: [
+          {
+            src: "/nextrip/final/mockup-isometric.webp",
+            alt: "Isometric mockup showing NexTrip screens across login, settings, search, daily itinerary, and Sydney Opera House detail",
+            caption: "Isometric mockup spread",
+          },
+          {
+            src: "/nextrip/final/mockup-flat.webp",
+            alt: "Flat mockup showing Home, Trips, Daily Itinerary, and Sydney Opera House detail side by side",
+            caption: "Flat mockup spread",
+          },
+        ],
+      },
+    },
   ],
 };
 
