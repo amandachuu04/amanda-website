@@ -736,6 +736,23 @@ caseStudies.nextrip = {
           },
         ],
       },
+      extraMedia: {
+        layout: "grid",
+        cols: 2,
+        frame: "auto",
+        items: [
+          {
+            src: "/nextrip/final/mockup-isometric.webp",
+            alt: "Isometric mockup showing NexTrip screens across login, settings, search, daily itinerary, and Sydney Opera House detail",
+            caption: "Isometric mockup spread",
+          },
+          {
+            src: "/nextrip/final/mockup-flat.webp",
+            alt: "Flat mockup showing Home, Trips, Daily Itinerary, and Sydney Opera House detail side by side",
+            caption: "Flat mockup spread",
+          },
+        ],
+      },
     },
   ],
   skills: [
