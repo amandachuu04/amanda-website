@@ -813,22 +813,21 @@ caseStudies.nextrip = {
     {
       label: "16 / Mockup Spreads",
       heading: "Showcasing NexTrip Mockups",
-      body:
-        "Two presentation spreads pull the final screens together: an isometric arrangement that tilts the devices for a sense of depth and motion, and a flat layout that lines key screens up cleanly so each flow reads in one glance.",
+      body: "",
       media: {
         layout: "grid",
         cols: 2,
         frame: "auto",
         items: [
           {
-            src: "/nextrip/final/mockup-isometric.webp",
-            alt: "Isometric mockup showing NexTrip screens across login, settings, search, daily itinerary, and Sydney Opera House detail",
-            caption: "Isometric mockup spread",
-          },
-          {
             src: "/nextrip/final/mockup-flat.webp",
             alt: "Flat mockup showing Home, Trips, Daily Itinerary, and Sydney Opera House detail side by side",
             caption: "Flat mockup spread",
+          },
+          {
+            src: "/nextrip/final/mockup-isometric.webp",
+            alt: "Isometric mockup showing NexTrip screens across login, settings, search, daily itinerary, and Sydney Opera House detail",
+            caption: "Isometric mockup spread",
           },
         ],
       },
