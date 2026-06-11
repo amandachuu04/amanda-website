@@ -1124,10 +1124,11 @@ function Lightbox({
             onChange((index - 1 + items.length) % items.length);
           }}
           aria-label="Previous"
-          whileHover={{ x: -3, scale: 1.05 }}
-          whileTap={{ scale: 0.92 }}
+          initial={{ x: 0, y: "-50%" }}
+          whileHover={{ x: -3, y: "-50%", scale: 1.05 }}
+          whileTap={{ y: "-50%", scale: 0.92 }}
           transition={{ type: "spring", stiffness: 320, damping: 18 }}
-          className="absolute left-4 top-1/2 z-10 grid h-12 w-12 -translate-y-1/2 place-items-center rounded-full border border-cream-50/20 text-cream-50 transition-colors hover:bg-cream-50/10 sm:left-8"
+          className="absolute left-4 top-1/2 z-10 grid h-12 w-12 place-items-center rounded-full border border-cream-50/20 text-cream-50 transition-colors hover:bg-cream-50/10 sm:left-8"
         >
           <span aria-hidden>←</span>
         </motion.button>
@@ -1170,10 +1171,11 @@ function Lightbox({
             onChange((index + 1) % items.length);
           }}
           aria-label="Next"
-          whileHover={{ x: 3, scale: 1.05 }}
-          whileTap={{ scale: 0.92 }}
+          initial={{ x: 0, y: "-50%" }}
+          whileHover={{ x: 3, y: "-50%", scale: 1.05 }}
+          whileTap={{ y: "-50%", scale: 0.92 }}
           transition={{ type: "spring", stiffness: 320, damping: 18 }}
-          className="absolute right-4 top-1/2 z-10 grid h-12 w-12 -translate-y-1/2 place-items-center rounded-full border border-cream-50/20 text-cream-50 transition-colors hover:bg-cream-50/10 sm:right-8"
+          className="absolute right-4 top-1/2 z-10 grid h-12 w-12 place-items-center rounded-full border border-cream-50/20 text-cream-50 transition-colors hover:bg-cream-50/10 sm:right-8"
         >
           <span aria-hidden>→</span>
         </motion.button>
