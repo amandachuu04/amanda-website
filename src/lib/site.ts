@@ -812,7 +812,7 @@ caseStudies.nextrip = {
   endSections: [
     {
       label: "16 / Mockup Spreads",
-      heading: "Showcasing NexTrip across isometric and flat layouts",
+      heading: "Showcasing NexTrip Mockups",
       body:
         "Two presentation spreads pull the final screens together: an isometric arrangement that tilts the devices for a sense of depth and motion, and a flat layout that lines key screens up cleanly so each flow reads in one glance.",
       media: {
