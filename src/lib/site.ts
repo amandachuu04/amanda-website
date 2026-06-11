@@ -597,7 +597,7 @@ caseStudies.nextrip = {
       label: "08 / Storyboard",
       heading: "Meet Mila, our representative traveler",
       body:
-        "To translate the persona work into a real planning moment, I sketched a six panel storyboard following Mila, a 23 year old young professional who loves traveling with friends but feels overwhelmed when she tries to plan. We watch her search across too many websites, compare too many options, struggle to coordinate with friends, and finally land on NexTrip, which pulls her preferences, schedule, and budget into one place so she can spend less time planning and more time enjoying the trip.",
+        "I sketched a six panel storyboard following Mila, a 23 year old young professional who loves traveling with friends but feels overwhelmed when she tries to plan. We watch her search across too many websites, compare too many options, struggle to coordinate with friends, and finally land on NexTrip, which pulls her preferences, schedule, and budget into one place so she can spend less time planning and more time enjoying the trip.",
       media: {
         layout: "single",
         frame: "wide",
