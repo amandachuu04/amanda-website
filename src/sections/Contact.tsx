@@ -196,7 +196,7 @@ export default function Contact() {
                 whileHover={status === "sending" ? undefined : { y: -2 }}
                 whileTap={status === "sending" ? undefined : { y: 0, scale: 0.97 }}
                 transition={{ type: "spring", stiffness: 320, damping: 18 }}
-                className="btn-primary shimmer group relative overflow-hidden disabled:cursor-not-allowed disabled:opacity-60"
+                className="btn-primary group relative disabled:cursor-not-allowed disabled:opacity-60"
               >
                 {status === "sending" ? "Sending…" : "Send message"}
                 <span className="inline-flex w-4 overflow-hidden">
