@@ -194,7 +194,7 @@ export default function Contact() {
                 type="submit"
                 disabled={status === "sending"}
                 whileHover={status === "sending" ? undefined : { y: -2 }}
-                whileTap={status === "sending" ? undefined : { scale: 0.97 }}
+                whileTap={status === "sending" ? undefined : { y: 0, scale: 0.97 }}
                 transition={{ type: "spring", stiffness: 320, damping: 18 }}
                 className="btn-primary shimmer group relative overflow-hidden disabled:cursor-not-allowed disabled:opacity-60"
               >
