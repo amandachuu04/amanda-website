@@ -1169,7 +1169,7 @@ export const projectPages: Record<string, ProjectPage> = {
       {
         label: "Iteration 05",
         heading: "Final spread",
-        images: [{ src: "/choco-cake-recipe/img-1.png" }],
+        images: [{ src: "/choco-cake-recipe/img-final-spread.jpg" }],
       },
       {
         label: "Iteration 06",
