@@ -510,10 +510,13 @@ function Lightbox({
   const [zoomOrigin, setZoomOrigin] = useState({ x: 50, y: 50 });
 
   useEffect(() => {
-    const prev = document.body.style.overflow;
+    const prevBody = document.body.style.overflow;
+    const prevHtml = document.documentElement.style.overflow;
     document.body.style.overflow = "hidden";
+    document.documentElement.style.overflow = "hidden";
     return () => {
-      document.body.style.overflow = prev;
+      document.body.style.overflow = prevBody;
+      document.documentElement.style.overflow = prevHtml;
     };
   }, []);
 
@@ -585,7 +588,7 @@ function Lightbox({
         </motion.button>
       </div>
 
-      <div className="relative flex min-h-0 flex-1 items-center justify-center px-16 pb-4 sm:px-20">
+      <div className="relative flex min-h-0 flex-1 items-center justify-center overflow-hidden px-16 pb-4 sm:px-20">
         {showNav && (
           <motion.button
             type="button"
@@ -630,6 +633,9 @@ function Lightbox({
             style={{
               transformOrigin: `${zoomOrigin.x}% ${zoomOrigin.y}%`,
               cursor: zoomed ? "zoom-out" : "zoom-in",
+              willChange: "transform",
+              backfaceVisibility: "hidden",
+              WebkitBackfaceVisibility: "hidden",
             }}
             className="h-auto max-h-full w-auto max-w-full rounded-xl object-contain"
           />
