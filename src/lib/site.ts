@@ -47,6 +47,7 @@ export const projects: Project[] = [
     kind: "Design & Programming",
     category: "both",
     meta: "Feb – May 2026 · Figma, HTML, CSS, JavaScript",
+    slug: "paws-and-care",
     swatch: "from-blush-200 to-cream-200",
     emoji: "❦",
     image: "/paws-and-care.jpg",
@@ -874,6 +875,88 @@ export type ProjectPage = {
 };
 
 export const projectPages: Record<string, ProjectPage> = {
+  "paws-and-care": {
+    slug: "paws-and-care",
+    title: "Paws & Care",
+    tagline:
+      "A multi page pet adoption website for a fictional shelter, built from a Figma storyboard and wireframes into a static HTML, CSS, and JavaScript site that lets visitors browse animals, learn about adoption, volunteer, and donate.",
+    cover: "/paws-and-care/mockup.jpg",
+    category: "both",
+    meta: {
+      role: "Solo, Web Design & Front end",
+      timeline: "February – May 2026",
+      duration: "4 months",
+      tools: "Figma, HTML, CSS, JavaScript",
+      language: "HTML, CSS, JavaScript",
+    },
+    description: [
+      "Paws & Care is a multi page website for a fictional pet adoption organization that helps animals find loving homes. The site covers everything a visitor would need to learn about the shelter and take action, including an About Us page, an Adopt hub with Available Animals, Small Animals, and Adoption Process sub pages, plus Volunteer, Donate, and Site Map pages. The goal was to translate a small nonprofit experience into a clean, friendly website that feels approachable without losing structure.",
+      "The project started in Figma with a storyboard and flowchart that mapped out the homepage, every secondary page, and the site map. From there, I built low fidelity wireframes for each page using a consistent blue and white palette, a shared top navigation, hero areas, content grids, and a structured footer with location, hours, adoption hours, and social links. The wireframes were then carried into a fully responsive HTML, CSS, and JavaScript build, paired with a custom paw mark logo, so the final site can scale cleanly from desktop down to tablet and mobile.",
+    ],
+    skills: [
+      "Web Design",
+      "Front end Development",
+      "Wireframing",
+      "Information Architecture",
+      "Branding",
+      "HTML",
+      "CSS",
+      "JavaScript",
+      "Responsive Design",
+    ],
+    iterations: [
+      {
+        label: "Iteration 01",
+        heading: "Brand mark",
+        images: [
+          {
+            src: "/paws-and-care/logo.png",
+            caption: "Paws & Care logo",
+          },
+        ],
+      },
+      {
+        label: "Iteration 02",
+        heading: "Storyboard and flowchart",
+        images: [
+          {
+            src: "/paws-and-care/storyboard.jpg",
+            caption: "Website storyboard and flowchart",
+          },
+        ],
+      },
+      {
+        label: "Iteration 03",
+        heading: "Page wireframes",
+        images: [
+          { src: "/paws-and-care/index.png", caption: "Home" },
+          { src: "/paws-and-care/about-us.png", caption: "About Us" },
+          { src: "/paws-and-care/adopt.png", caption: "Adopt" },
+          { src: "/paws-and-care/available-animals.png", caption: "Available Animals" },
+          { src: "/paws-and-care/small-animals.png", caption: "Small Animals" },
+          { src: "/paws-and-care/adoption-process.png", caption: "Adoption Process" },
+          { src: "/paws-and-care/volunteer.png", caption: "Volunteer" },
+          { src: "/paws-and-care/donate.png", caption: "Donate" },
+          { src: "/paws-and-care/site-map.png", caption: "Site Map" },
+        ],
+      },
+      {
+        label: "Iteration 04",
+        heading: "Final mockup",
+        images: [
+          {
+            src: "/paws-and-care/mockup.jpg",
+            caption: "Final website mockup across desktop, laptop, tablet, and mobile",
+          },
+        ],
+      },
+    ],
+    video: {
+      src: "/paws-and-care/demo.mp4",
+      poster: "/paws-and-care/mockup.jpg",
+      caption: "Walking through the live site",
+    },
+  },
   "linking-narratives": {
     slug: "linking-narratives",
     title: "Linking Narratives",
