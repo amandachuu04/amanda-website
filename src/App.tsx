@@ -13,7 +13,7 @@ import Footer from "./sections/Footer";
 import ProjectsPage from "./sections/ProjectsPage";
 import WorkDetailPage from "./sections/WorkDetailPage";
 import ProjectDetailPage from "./sections/ProjectDetailPage";
-import { useRoute } from "./lib/route";
+import { navigate, useRoute } from "./lib/route";
 import { getCaseStudy, getProjectPage } from "./lib/site";
 
 const DEFAULT_TITLE = "Amanda Chu | Portfolio";
@@ -35,20 +35,51 @@ export default function App() {
   }, [route]);
 
   useEffect(() => {
-    if (route.name === "home") {
-      const id = window.location.hash.replace("#", "");
-      if (!id) return;
-      const tryScroll = (attempt = 0) => {
-        const el = document.getElementById(id);
-        if (el) {
-          el.scrollIntoView({ behavior: "instant" as ScrollBehavior, block: "start" });
-        } else if (attempt < 10) {
-          setTimeout(() => tryScroll(attempt + 1), 50);
-        }
-      };
-      requestAnimationFrame(() => tryScroll());
-    }
+    if (route.name !== "home") return;
+    const id = window.location.hash.replace("#", "");
+    if (!id) return;
+    const tryScroll = (attempt = 0) => {
+      const el = document.getElementById(id);
+      if (el) {
+        el.scrollIntoView({ behavior: "instant" as ScrollBehavior, block: "start" });
+      } else if (attempt < 10) {
+        setTimeout(() => tryScroll(attempt + 1), 50);
+      }
+    };
+    requestAnimationFrame(() => tryScroll());
   }, [route]);
+
+  useEffect(() => {
+    const onClick = (e: MouseEvent) => {
+      if (e.defaultPrevented) return;
+      if (e.button !== 0) return;
+      if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+
+      const anchor = (e.target as HTMLElement | null)?.closest("a");
+      if (!anchor) return;
+      if (anchor.target && anchor.target !== "_self") return;
+      if (anchor.hasAttribute("download")) return;
+
+      const hrefAttr = anchor.getAttribute("href");
+      if (!hrefAttr) return;
+
+      if (hrefAttr.startsWith("#")) {
+        if (window.location.pathname === "/") return;
+        e.preventDefault();
+        navigate("/" + hrefAttr);
+        return;
+      }
+
+      if (!hrefAttr.startsWith("/") || hrefAttr.startsWith("//")) return;
+
+      e.preventDefault();
+      navigate(hrefAttr);
+      window.scrollTo({ top: 0, behavior: "auto" });
+    };
+
+    document.addEventListener("click", onClick);
+    return () => document.removeEventListener("click", onClick);
+  }, []);
 
   return (
     <div className="relative min-h-screen overflow-x-clip bg-cream-100">

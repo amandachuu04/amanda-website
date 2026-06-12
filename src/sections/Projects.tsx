@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 import SectionHeader from "../components/SectionHeader";
 import { projects } from "../lib/site";
-import { workHref } from "../lib/route";
+import { projectsHref, workHref } from "../lib/route";
 
 export default function Projects() {
   return (
@@ -22,7 +22,7 @@ export default function Projects() {
             intro="A growing collection of my latest projects. More on the way."
           />
           <motion.a
-            href="#/projects"
+            href={projectsHref()}
             whileHover={{ y: -2 }}
             whileTap={{ scale: 0.97 }}
             transition={{ type: "spring", stiffness: 320, damping: 18 }}

@@ -7,7 +7,7 @@ import {
   type Project,
   type ProjectFolder as Folder,
 } from "../lib/site";
-import { projectsHref, workHref } from "../lib/route";
+import { navigate, projectsHref, workHref } from "../lib/route";
 import ProjectFolder from "../components/ProjectFolder";
 
 type Slug = Folder["slug"];
@@ -28,9 +28,9 @@ export default function ProjectsPage({ initialSlug }: { initialSlug: Slug }) {
 
   const onSelect = (slug: Slug) => {
     setActive(slug);
-    const newHash = projectsHref(slug);
-    if (window.location.hash !== newHash) {
-      window.history.replaceState({}, "", newHash);
+    const newPath = projectsHref(slug);
+    if (window.location.pathname !== newPath) {
+      window.history.replaceState({}, "", newPath);
     }
     const target = document.getElementById("filtered-projects");
     if (target) {
@@ -54,11 +54,10 @@ export default function ProjectsPage({ initialSlug }: { initialSlug: Slug }) {
         <div className="flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between">
           <div className="max-w-3xl">
             <motion.a
-              href="#projects"
+              href="/#projects"
               onClick={(e) => {
                 e.preventDefault();
-                window.history.pushState({}, "", "#projects");
-                window.dispatchEvent(new HashChangeEvent("hashchange"));
+                navigate("/#projects");
               }}
               initial={{ opacity: 0, x: -8 }}
               animate={{ opacity: 1, x: 0 }}
