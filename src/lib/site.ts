@@ -907,16 +907,6 @@ export const projectPages: Record<string, ProjectPage> = {
     iterations: [
       {
         label: "Iteration 01",
-        heading: "Brand mark",
-        images: [
-          {
-            src: "/paws-and-care/logo.png",
-            caption: "Paws & Care logo",
-          },
-        ],
-      },
-      {
-        label: "Iteration 02",
         heading: "Flow chart",
         images: [
           {
@@ -926,7 +916,7 @@ export const projectPages: Record<string, ProjectPage> = {
         ],
       },
       {
-        label: "Iteration 03",
+        label: "Iteration 02",
         heading: "Storyboard and page wireframes",
         images: [
           { src: "/paws-and-care/index.png", caption: "Home" },
@@ -938,6 +928,16 @@ export const projectPages: Record<string, ProjectPage> = {
           { src: "/paws-and-care/volunteer.png", caption: "Volunteer" },
           { src: "/paws-and-care/donate.png", caption: "Donate" },
           { src: "/paws-and-care/site-map.png", caption: "Site Map" },
+        ],
+      },
+      {
+        label: "Iteration 03",
+        heading: "Brand mark",
+        images: [
+          {
+            src: "/paws-and-care/logo.png",
+            caption: "Paws & Care logo",
+          },
         ],
       },
       {
