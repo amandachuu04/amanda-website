@@ -889,6 +889,10 @@ export const projectPages: Record<string, ProjectPage> = {
       tools: "Figma, HTML, CSS, JavaScript",
       language: "HTML, CSS, JavaScript",
     },
+    externalLink: {
+      href: "https://mason.gmu.edu/~achu4/Project5/index.html",
+      label: "View Website",
+    },
     description: [
       "Paws & Care is a multi page website for a fictional pet adoption organization that helps animals find loving homes. The site covers everything a visitor would need to learn about the shelter and take action, including an About Us page, an Adopt hub with Available Animals, Small Animals, and Adoption Process sub pages, plus Volunteer, Donate, and Site Map pages. The goal was to translate a small nonprofit experience into a clean, friendly website that feels approachable without losing structure.",
       "The project started in Figma with a storyboard and flowchart that mapped out the homepage, every secondary page, and the site map. From there, I built low fidelity wireframes for each page using a consistent blue and white palette, a shared top navigation, hero areas, content grids, and a structured footer with location, hours, adoption hours, and social links. The wireframes were then carried into a fully responsive HTML, CSS, and JavaScript build, paired with a custom paw mark logo, so the final site can scale cleanly from desktop down to tablet and mobile.",
