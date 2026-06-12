@@ -917,17 +917,17 @@ export const projectPages: Record<string, ProjectPage> = {
       },
       {
         label: "Iteration 02",
-        heading: "Storyboard and flowchart",
+        heading: "Flow chart",
         images: [
           {
             src: "/paws-and-care/storyboard.jpg",
-            caption: "Website storyboard and flowchart",
+            caption: "Website flow chart",
           },
         ],
       },
       {
         label: "Iteration 03",
-        heading: "Page wireframes",
+        heading: "Storyboard and page wireframes",
         images: [
           { src: "/paws-and-care/index.png", caption: "Home" },
           { src: "/paws-and-care/about-us.png", caption: "About Us" },
