@@ -901,7 +901,6 @@ export const projectPages: Record<string, ProjectPage> = {
       "Web Design",
       "Front end Development",
       "Wireframing",
-      "Information Architecture",
       "Branding",
       "HTML",
       "CSS",
