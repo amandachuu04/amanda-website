@@ -879,7 +879,7 @@ export const projectPages: Record<string, ProjectPage> = {
     slug: "paws-and-care",
     title: "Paws & Care",
     tagline:
-      "A multi page pet adoption website for a fictional shelter, built from a Figma storyboard and wireframes into a static HTML, CSS, and JavaScript site that lets visitors browse animals, learn about adoption, volunteer, and donate.",
+      "A pet adoption website for a fictional shelter, built from a Figma storyboard and wireframes into a static HTML, CSS, and JavaScript site that lets visitors browse animals, learn about adoption, volunteer, and donate.",
     cover: "/paws-and-care/mockup.jpg",
     category: "both",
     meta: {
