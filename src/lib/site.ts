@@ -1473,9 +1473,9 @@ export const experiences: Experience[] = [
     location: "Woodbridge, VA / Remote",
     dates: "Nov 2025 — Present",
     bullets: [
-      "Designed visual assets (logos, social graphics, branding materials) aligned with client goals, brand identity, and target audiences.",
-      "Collaborated with clients to iterate on designs through feedback, revisions, and refinement, ensuring clarity, consistency, and usability.",
-      "Managed multiple design projects simultaneously while meeting deadlines and maintaining high visual and brand standards.",
+      "Designed logos, social graphics, and branding materials aligned with client goals, brand identity, and target audiences.",
+      "Partnered with clients through feedback and revision cycles to refine designs for clarity, consistency, and usability.",
+      "Managed multiple projects simultaneously under deadline while maintaining high visual and brand standards.",
     ],
   },
   {
@@ -1484,9 +1484,9 @@ export const experiences: Experience[] = [
     location: "Fairfax, VA / Remote",
     dates: "Sep 2025 — May 2026",
     bullets: [
-      "Designed and delivered personalized one-on-one lessons using Self-Regulated Learning (SRL) strategies, goal-setting, performance monitoring, reflection.",
-      "Adapted instruction to individual skill levels through interactive activities, targeted practice, and structured routines to improve mastery.",
-      "Implemented motivation and engagement strategies (voice and choice, reward systems, ongoing feedback) while tracking student progress.",
+      "Designed and delivered personalized one-on-one lessons using Self-Regulated Learning strategies including goal-setting, performance monitoring, and reflection.",
+      "Adapted instruction to individual skill levels through interactive activities and structured practice to build mastery.",
+      "Applied motivation and engagement strategies (voice and choice, reward systems, ongoing feedback) while tracking progress to support continuous improvement.",
     ],
   },
   {
@@ -1508,7 +1508,7 @@ export const education = [
     school: "George Mason University",
     location: "Fairfax, VA",
     dates: "2022 — Expected Dec 2027",
-    note: "Minor in Computer Science & Design Thinking · GPA 3.65",
+    note: "Minor in Computer Science & Design Thinking · GPA 3.66",
   },
   {
     degree: "Advanced Diploma",
@@ -1527,7 +1527,7 @@ export const certifications = [
 export const toolGroups = [
   {
     title: "Programming",
-    items: ["Python", "Java", "C", "SQL", "HTML", "CSS"],
+    items: ["HTML", "CSS", "JavaScript", "Python", "Java", "C", "SQL"],
   },
   {
     title: "Design",
