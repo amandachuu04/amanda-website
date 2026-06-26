@@ -73,48 +73,55 @@ export default function BubbleCursor() {
         ctx.globalAlpha = alpha;
 
         const r = b.size / 2;
-        const hue = (b.hueOffset + now * 0.06) % 360;
+        const hue = (b.hueOffset + now * 0.04) % 360;
 
+        // --- iridescent rim via thick stroked arc ---
         ctx.beginPath();
         ctx.arc(b.x, b.y, r, 0, Math.PI * 2);
-        ctx.clip();
 
-        // iridescent film layer — conic gradient rotated by time+hueOffset
-        const conic = ctx.createConicGradient(
-          (hue * Math.PI) / 180,
-          b.x,
-          b.y
+        // thin pastel rim gradient (pink → lavender → sky blue)
+        const rimGrad = ctx.createLinearGradient(
+          b.x - r, b.y - r, b.x + r, b.y + r
         );
-        conic.addColorStop(0,    `hsla(${hue},       100%, 75%, 0.55)`);
-        conic.addColorStop(0.2,  `hsla(${hue + 60},  100%, 70%, 0.5)`);
-        conic.addColorStop(0.4,  `hsla(${hue + 140}, 100%, 80%, 0.5)`);
-        conic.addColorStop(0.6,  `hsla(${hue + 200}, 100%, 72%, 0.5)`);
-        conic.addColorStop(0.8,  `hsla(${hue + 280}, 100%, 78%, 0.5)`);
-        conic.addColorStop(1,    `hsla(${hue},       100%, 75%, 0.55)`);
-        ctx.fillStyle = conic;
-        ctx.fillRect(b.x - r, b.y - r, b.size, b.size);
+        rimGrad.addColorStop(0,    `hsla(${hue},       60%, 85%, 0.9)`);
+        rimGrad.addColorStop(0.33, `hsla(${hue + 60},  55%, 88%, 0.85)`);
+        rimGrad.addColorStop(0.66, `hsla(${hue + 160}, 65%, 90%, 0.85)`);
+        rimGrad.addColorStop(1,    `hsla(${hue + 240}, 60%, 85%, 0.9)`);
+        ctx.strokeStyle = rimGrad;
+        ctx.lineWidth = Math.max(1.5, r * 0.18);
+        ctx.stroke();
 
-        // glassy inner highlight
-        const shine = ctx.createRadialGradient(
-          b.x - r * 0.3, b.y - r * 0.35, r * 0.05,
+        // --- very faint transparent interior fill ---
+        const innerFill = ctx.createRadialGradient(
+          b.x, b.y, 0,
           b.x, b.y, r
         );
-        shine.addColorStop(0, "rgba(255,255,255,0.6)");
-        shine.addColorStop(0.4, "rgba(255,255,255,0.08)");
-        shine.addColorStop(1, "rgba(255,255,255,0)");
+        innerFill.addColorStop(0,   "rgba(255,255,255,0.0)");
+        innerFill.addColorStop(0.7, `hsla(${hue + 180}, 60%, 95%, 0.04)`);
+        innerFill.addColorStop(1,   `hsla(${hue},       60%, 90%, 0.08)`);
+        ctx.fillStyle = innerFill;
+        ctx.fill();
+
+        // --- bright specular highlight (upper-left) ---
+        const shine = ctx.createRadialGradient(
+          b.x - r * 0.32, b.y - r * 0.38, r * 0.02,
+          b.x - r * 0.2,  b.y - r * 0.2,  r * 0.55
+        );
+        shine.addColorStop(0,   "rgba(255,255,255,0.75)");
+        shine.addColorStop(0.4, "rgba(255,255,255,0.15)");
+        shine.addColorStop(1,   "rgba(255,255,255,0)");
         ctx.fillStyle = shine;
-        ctx.fillRect(b.x - r, b.y - r, b.size, b.size);
+        ctx.fill();
 
-        ctx.restore();
-
-        // border drawn outside the clip so it isn't swallowed
-        ctx.save();
-        ctx.globalAlpha = alpha;
-        ctx.beginPath();
-        ctx.arc(b.x, b.y, r, 0, Math.PI * 2);
-        ctx.strokeStyle = `hsla(${hue + 90}, 100%, 85%, 0.7)`;
-        ctx.lineWidth = 1.2;
-        ctx.stroke();
+        // --- small secondary highlight (lower-right) ---
+        const shine2 = ctx.createRadialGradient(
+          b.x + r * 0.35, b.y + r * 0.35, r * 0.01,
+          b.x + r * 0.35, b.y + r * 0.35, r * 0.3
+        );
+        shine2.addColorStop(0,   "rgba(255,255,255,0.3)");
+        shine2.addColorStop(1,   "rgba(255,255,255,0)");
+        ctx.fillStyle = shine2;
+        ctx.fill();
 
         ctx.restore();
         return true;
