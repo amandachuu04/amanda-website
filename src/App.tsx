@@ -15,6 +15,7 @@ import WorkDetailPage from "./sections/WorkDetailPage";
 import ProjectDetailPage from "./sections/ProjectDetailPage";
 import { navigate, useRoute } from "./lib/route";
 import { getCaseStudy, getProjectPage } from "./lib/site";
+import BubbleCursor from "./components/BubbleCursor";
 
 const DEFAULT_TITLE = "Amanda Chu | Portfolio";
 
@@ -83,6 +84,7 @@ export default function App() {
 
   return (
     <div className="relative min-h-screen overflow-x-clip bg-cream-100">
+      <BubbleCursor />
       <Nav />
       <BackToTop />
       {route.name === "projects" ? (
