@@ -1471,7 +1471,7 @@ export const experiences: Experience[] = [
     company: "Running Name LLC",
     role: "Graphic Design Intern",
     location: "Woodbridge, VA / Remote",
-    dates: "Nov 2025 — Present",
+    dates: "Nov 2025 — May 2026",
     bullets: [
       "Designed logos, social graphics, and branding materials aligned with client goals, brand identity, and target audiences.",
       "Partnered with clients through feedback and revision cycles to refine designs for clarity, consistency, and usability.",
