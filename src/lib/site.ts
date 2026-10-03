@@ -1515,6 +1515,13 @@ export const experiences: Experience[] = [
 
 export const education = [
   {
+    degree: "M.S. Applied Information Technology — Human-Computer Interaction",
+    school: "George Mason University",
+    location: "Fairfax, VA",
+    dates: "Expected Fall 2028",
+    note: "Bachelor's/Accelerated Master's (BAM) Program",
+  },
+  {
     degree: "B.S. Information Technology — WADV Concentration",
     school: "George Mason University",
     location: "Fairfax, VA",
