@@ -1519,7 +1519,7 @@ export const education = [
     school: "George Mason University",
     location: "Fairfax, VA",
     dates: "2022 — Expected Dec 2027",
-    note: "Minor in Computer Science & Design Thinking · GPA 3.66",
+    note: "Minor in Computer Science & Design Thinking · GPA 3.68",
   },
   {
     degree: "Advanced Diploma",
