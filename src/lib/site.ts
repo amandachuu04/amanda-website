@@ -1468,6 +1468,17 @@ export type Experience = {
 
 export const experiences: Experience[] = [
   {
+    company: "Nexus 8 International, LLC",
+    role: "UI/UX Designer Intern",
+    location: "Remote",
+    dates: "Aug 2026 — Present",
+    bullets: [
+      "Improved content organization and navigation on the HIPPRA website by evaluating an existing multi-column page layout and proposing a more scalable interaction pattern for adding new content sections.",
+      "Enhanced content discoverability and usability by collaborating with the UX/UI team to evolve an initial dropdown concept into a tab-based navigation system, allowing users to immediately see and access available sections.",
+      "Contributed to the ongoing HIPPRA website redesign by reviewing existing user interfaces, identifying UX improvement opportunities, and implementing new design features that improve the clarity and structure of individual pages.",
+    ],
+  },
+  {
     company: "Running Name LLC",
     role: "Graphic Design Intern",
     location: "Woodbridge, VA / Remote",
