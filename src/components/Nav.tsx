@@ -43,7 +43,7 @@ export default function Nav() {
           scrolled || open ? "border-taupe-200/60" : "border-transparent"
         }`}
       >
-        <nav aria-label="Primary" className="mx-auto flex h-[4.5rem] w-full max-w-[1400px] items-center justify-between px-4 sm:px-8 lg:px-12">
+        <nav aria-label="Primary" className="flex h-[4.5rem] w-full items-center justify-between px-4 sm:px-6 lg:px-8">
           <motion.a
             href="#hero"
             className="flex items-center"
@@ -104,7 +104,7 @@ export default function Nav() {
               transition={{ duration: 0.25, ease: "easeOut" }}
               className="overflow-hidden lg:hidden"
             >
-              <ul className="flex flex-col gap-1 px-4 pb-6 pt-2 sm:px-8">
+              <ul className="flex flex-col gap-1 px-4 pb-6 pt-2 sm:px-6">
                 {navLinks.map((l) => (
                   <li key={l.label}>
                     <a
