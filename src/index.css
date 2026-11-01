@@ -22,7 +22,6 @@
 
   body {
     @apply bg-cream-100 text-ink font-sans antialiased;
-    font-feature-settings: "ss01", "cv11";
   }
 
   ::selection {
