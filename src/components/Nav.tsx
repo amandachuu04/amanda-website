@@ -1,8 +1,17 @@
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { navLinks, site } from "../lib/site";
+import { Route, useRoute } from "../lib/route";
+
+function isActive(label: string, route: Route) {
+  if (label === "Home") return route.name === "home";
+  if (label === "About") return route.name === "about";
+  if (label === "Projects") return route.name === "projects" || route.name === "work";
+  return false;
+}
 
 export default function Nav() {
+  const route = useRoute();
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
 
@@ -12,6 +21,10 @@ export default function Nav() {
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
+
+  useEffect(() => {
+    setOpen(false);
+  }, [route]);
 
   return (
     <>
@@ -26,70 +39,58 @@ export default function Nav() {
         initial={{ y: -40, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.6, ease: "easeOut" }}
-        className="fixed left-0 right-0 top-0 z-40 px-4 pt-4 sm:px-6 sm:pt-6"
+        className={`fixed left-0 right-0 top-0 z-40 border-b bg-cream-100 transition-colors ${
+          scrolled || open ? "border-taupe-200/60" : "border-transparent"
+        }`}
       >
-        <nav
-          aria-label="Primary"
-          className={`mx-auto flex max-w-7xl items-center justify-between rounded-pill border border-taupe-200/50 px-3 py-2 transition-all sm:px-5 ${
-            scrolled
-              ? "bg-cream-50/85 backdrop-blur-md shadow-soft"
-              : "bg-cream-50/55 backdrop-blur"
-          }`}
-        >
+        <nav aria-label="Primary" className="mx-auto flex h-[4.5rem] w-full max-w-[1400px] items-center justify-between px-4 sm:px-8 lg:px-12">
           <motion.a
             href="#hero"
-            className="flex items-center gap-2 whitespace-nowrap rounded-pill px-3 py-1.5 font-display text-lg font-bold text-ink"
+            className="flex items-center"
             aria-label="Home"
             whileHover={{ rotate: [0, -8, 8, -5, 5, 0] }}
             whileTap={{ scale: 0.95 }}
             transition={{ duration: 0.55, ease: "easeInOut" }}
           >
-            <img
-              src="/amanda-chu-logo.png"
-              alt=""
-              aria-hidden
-              className="h-6 w-auto sm:h-7"
-            />
+            <img src="/amanda-chu-logo.png" alt="" aria-hidden className="h-8 w-auto sm:h-9" />
           </motion.a>
 
-          <ul className="hidden items-center gap-1 lg:flex">
-            {navLinks.map((l) => (
-              <li key={l.label}>
-                <a
-                  href={l.href}
-                  className="rounded-pill px-4 py-2 text-sm font-medium text-taupe-500 transition-colors duration-300 hover:bg-blush-100 hover:text-ink focus-visible:bg-blush-100 focus-visible:text-ink"
-                >
-                  {l.label}
-                </a>
-              </li>
-            ))}
-          </ul>
-
-          <motion.a
-            href={site.cvFile}
-            download
-            whileHover={{ y: -2 }}
-            whileTap={{ y: 0, scale: 0.97 }}
-            transition={{ type: "spring", stiffness: 320, damping: 18 }}
-            className="relative hidden whitespace-nowrap rounded-pill bg-taupe-400 px-4 py-2 text-sm font-semibold text-cream-100 transition-colors hover:bg-taupe-500 lg:inline-flex"
-          >
-            Download CV
-          </motion.a>
+          <div className="hidden items-center gap-9 lg:flex">
+            <ul className="flex items-center gap-8">
+              {navLinks.map((l) => {
+                const active = isActive(l.label, route);
+                return (
+                  <li key={l.label}>
+                    <a
+                      href={l.href}
+                      aria-current={active ? "page" : undefined}
+                      className={`relative block py-2 text-base font-semibold transition-colors hover:text-ink ${active ? "text-ink" : "text-taupe-500"}`}
+                    >
+                      {l.label}
+                      {active && <motion.span layoutId="nav-underline" aria-hidden className="absolute -bottom-0.5 left-0 right-0 h-[3px] rounded-full bg-blush-300" />}
+                    </a>
+                  </li>
+                );
+              })}
+            </ul>
+            <a
+              href={site.cvFile}
+              download
+              className="whitespace-nowrap rounded-pill bg-blush-100 px-5 py-2.5 text-sm font-semibold text-ink transition-colors hover:bg-blush-200"
+            >
+              Download CV
+            </a>
+          </div>
 
           <button
             onClick={() => setOpen((v) => !v)}
             aria-label={open ? "Close menu" : "Open menu"}
             aria-expanded={open}
-            className="inline-flex h-10 w-10 items-center justify-center rounded-pill border border-taupe-200/60 bg-cream-50 text-taupe-500 lg:hidden"
+            className="inline-flex h-10 w-10 items-center justify-center text-ink lg:hidden"
           >
             <span className="sr-only">Menu</span>
-            <svg width="18" height="14" viewBox="0 0 18 14" fill="none" aria-hidden>
-              <path
-                d={open ? "M3 3 L15 11 M15 3 L3 11" : "M2 2 H16 M2 7 H16 M2 12 H10"}
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-              />
+            <svg width="20" height="14" viewBox="0 0 18 14" fill="none" aria-hidden>
+              <path d={open ? "M3 2 L15 12 M15 2 L3 12" : "M2 2 H16 M2 7 H16 M2 12 H16"} stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
             </svg>
           </button>
         </nav>
@@ -97,30 +98,30 @@ export default function Nav() {
         <AnimatePresence>
           {open && (
             <motion.div
-              initial={{ opacity: 0, y: -8 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -8 }}
-              transition={{ duration: 0.2 }}
-              className="mx-auto mt-2 max-w-7xl overflow-hidden rounded-3xl border border-taupe-200/50 bg-cream-50/95 p-3 shadow-soft backdrop-blur lg:hidden"
+              initial={{ height: 0 }}
+              animate={{ height: "auto" }}
+              exit={{ height: 0 }}
+              transition={{ duration: 0.25, ease: "easeOut" }}
+              className="overflow-hidden lg:hidden"
             >
-              <ul className="flex flex-col">
+              <ul className="flex flex-col gap-1 px-4 pb-6 pt-2 sm:px-8">
                 {navLinks.map((l) => (
                   <li key={l.label}>
                     <a
                       onClick={() => setOpen(false)}
                       href={l.href}
-                      className="block rounded-2xl px-4 py-3 text-center text-base font-medium text-taupe-500 hover:bg-blush-100 hover:text-ink"
+                      className={`block py-2 font-display text-3xl font-bold ${isActive(l.label, route) ? "text-ink" : "text-taupe-500"}`}
                     >
                       {l.label}
                     </a>
                   </li>
                 ))}
-                <li>
+                <li className="mt-3">
                   <a
                     onClick={() => setOpen(false)}
                     href={site.cvFile}
                     download
-                    className="mt-1 block rounded-2xl bg-taupe-400 px-4 py-3 text-center text-base font-semibold text-cream-100"
+                    className="inline-block rounded-pill bg-blush-100 px-5 py-2.5 text-sm font-semibold text-ink"
                   >
                     Download CV
                   </a>
