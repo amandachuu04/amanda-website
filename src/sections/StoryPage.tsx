@@ -119,7 +119,7 @@ export function ScreensBand({
 }
 
 type Props = {
-  study: Pick<CaseStudy, "title" | "tagline" | "meta" | "skills" | "externalLink">;
+  study: Pick<CaseStudy, "title" | "tagline" | "category" | "meta" | "skills" | "externalLink">;
   media: StoryMedia[];
   band?: ReactNode;
   after?: ReactNode;
@@ -127,26 +127,29 @@ type Props = {
   children: ReactNode;
 };
 
-function factList(meta: CaseStudy["meta"]) {
-  const showLanguage = meta.language && !meta.tools.includes(meta.language);
-  const fontLabel = meta.fonts && /[,&]/.test(meta.fonts) ? "Fonts" : "Font";
-  const facts: [string, string | undefined][] = [
-    ["Role", meta.role],
-    ["Timeline", meta.timeline],
-    ["Duration", meta.duration],
-    ["Tools", meta.tools],
-    ["Language", showLanguage ? meta.language : undefined],
-    ["Variations", meta.variations],
-    [fontLabel, meta.fonts],
-    ["Size", meta.size],
-  ];
+function factList({ meta, category }: Props["study"]) {
+  const facts: [string, string | undefined][] =
+    category === "design"
+      ? [
+          ["Variation(s)", meta.variations],
+          ["Font(s)", meta.fonts],
+          ["Size", meta.size],
+          ["Duration", meta.duration],
+          ["Timeline", meta.timeline],
+          ["Tool(s)", meta.tools],
+        ]
+      : [
+          ["Language", meta.language ?? meta.tools],
+          ["Duration", meta.duration],
+          ["Timeline", meta.timeline],
+        ];
   return facts.filter((f): f is [string, string] => Boolean(f[1]));
 }
 
 export default function StoryPage({ study, media, band, after, brand, children }: Props) {
   const [zoomed, setZoomed] = useState<LightboxItem | null>(null);
   const zoom = useMemo(() => (item: LightboxItem) => setZoomed(item), []);
-  const facts = factList(study.meta);
+  const facts = factList(study);
   const rowWidth = Math.min(1400, media.reduce((sum, m) => sum + m.ratio, 0) * 1000);
 
   return (
