@@ -1,4 +1,5 @@
-import StoryPage, { Section, StoryMedia, Zoomable, body } from "./StoryPage";
+import { motion } from "framer-motion";
+import StoryPage, { Eyebrow, Section, StoryMedia, Wrap, Zoomable, body, reveal } from "./StoryPage";
 import { ProjectPage } from "../lib/site";
 
 const COVER_RATIOS: Record<string, number> = {
@@ -20,7 +21,36 @@ const VIDEO_RATIOS: Record<string, number> = {
   "linking-narratives": 1920 / 958,
 };
 
+// Tall single-image steps that read better side by side: [first index, count].
+const ROWS: Record<string, [number, number]> = {
+  "modular-grid": [0, 3],
+  "banana-bread-recipe": [0, 4],
+  "choco-cake-recipe": [0, 4],
+};
+
+type Iteration = NonNullable<ProjectPage["iterations"]>[number];
+
+function IterationRow({ items }: { items: Iteration[] }) {
+  return (
+    <Wrap className="relative">
+      <div className={`grid grid-cols-1 gap-x-5 gap-y-12 border-t border-taupe-200/60 py-16 sm:grid-cols-2 sm:py-20 ${items.length === 3 ? "lg:grid-cols-3" : "lg:grid-cols-4"}`}>
+        {items.map((it) => (
+          <motion.div key={it.label} {...reveal} className="flex flex-col">
+            <Eyebrow>{it.label}</Eyebrow>
+            <h3 className="mb-5 mt-3 font-display text-2xl font-bold leading-tight text-ink">{it.heading}</h3>
+            <div className="mt-auto">
+              <Zoomable src={it.images[0].src} alt={it.heading} className="block h-auto w-full rounded-[1.5rem] shadow-card" />
+            </div>
+          </motion.div>
+        ))}
+      </div>
+    </Wrap>
+  );
+}
+
 export default function ProjectStoryPage({ project }: { project: ProjectPage }) {
+  const iterations = project.iterations ?? [];
+  const row = ROWS[project.slug];
   const media: StoryMedia[] = [{ src: project.cover, ratio: COVER_RATIOS[project.slug] ?? 3 / 2, alt: `${project.title} cover` }];
   if (project.video) {
     media.push({
@@ -42,7 +72,9 @@ export default function ProjectStoryPage({ project }: { project: ProjectPage }) 
         </div>
       </Section>
 
-      {project.iterations?.map((it, i) => (
+      {row && <IterationRow items={iterations.slice(row[0], row[0] + row[1])} />}
+
+      {iterations.map((it, i) => (row && i >= row[0] && i < row[0] + row[1] ? null : (
         <Section key={`${it.label}-${i}`} eyebrow={it.label} title={it.heading ?? it.label}>
           {it.images.length === 1 ? (
             <figure className="m-0 w-fit max-w-full">
@@ -65,7 +97,7 @@ export default function ProjectStoryPage({ project }: { project: ProjectPage }) 
             </div>
           )}
         </Section>
-      ))}
+      )))}
     </StoryPage>
   );
 }

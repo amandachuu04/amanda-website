@@ -11,7 +11,7 @@ export const reveal = {
   transition: { duration: 0.6, ease: "easeOut" as const },
 };
 
-function Eyebrow({ children }: { children: ReactNode }) {
+export function Eyebrow({ children }: { children: ReactNode }) {
   return (
     <span className="section-eyebrow">
       <span aria-hidden className="inline-block h-1.5 w-6 rounded-full bg-blush-300" />
@@ -20,7 +20,7 @@ function Eyebrow({ children }: { children: ReactNode }) {
   );
 }
 
-function Wrap({ className = "", children }: { className?: string; children: ReactNode }) {
+export function Wrap({ className = "", children }: { className?: string; children: ReactNode }) {
   return <div className={`mx-auto w-full max-w-[1560px] px-4 sm:px-8 lg:px-10 ${className}`}>{children}</div>;
 }
 

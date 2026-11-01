@@ -1399,17 +1399,17 @@ export const projectPages: Record<string, ProjectPage> = {
       {
         label: "Variation 01",
         heading: "Black and white",
-        images: [{ src: "/modular-grid/01-bw.avif" }],
+        images: [{ src: "/modular-grid/01-bw.webp" }],
       },
       {
         label: "Variation 02",
         heading: "Two color",
-        images: [{ src: "/modular-grid/02-purple.avif" }],
+        images: [{ src: "/modular-grid/02-purple.webp" }],
       },
       {
         label: "Variation 03",
         heading: "Image based",
-        images: [{ src: "/modular-grid/03-mountain.avif" }],
+        images: [{ src: "/modular-grid/03-mountain.webp" }],
       },
       {
         label: "Mockup",
