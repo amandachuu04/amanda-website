@@ -91,9 +91,10 @@ export default function HomeBento() {
       {/* ---------- at-a-glance bento ---------- */}
       <section id="hero" className="relative w-full bg-cream-100 pb-16 pt-28 sm:pt-32">
         <div aria-hidden className="absolute inset-0 grain opacity-60" />
-        <div className="relative mx-auto grid w-full max-w-[1400px] grid-cols-1 gap-4 px-4 sm:grid-cols-2 sm:px-8 lg:grid-cols-4 lg:gap-5 lg:px-12">
+        <div className="relative mx-auto w-full max-w-[1400px] space-y-4 px-4 sm:px-8 lg:space-y-5 lg:px-12">
+        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-[minmax(0,1.45fr)_minmax(0,1.3fr)_minmax(0,1fr)] xl:grid-cols-[minmax(0,1.75fr)_minmax(0,1.2fr)_minmax(0,1fr)] lg:gap-5">
           {/* intro */}
-          <Tile className="flex flex-col justify-center gap-7 p-7 sm:col-span-2 sm:p-9 lg:row-span-2">
+          <Tile className="flex flex-col justify-center gap-7 p-7 sm:col-span-2 sm:p-9 lg:col-span-1 lg:row-span-2">
             <div className="flex flex-wrap items-center gap-2">
               <span className="pill">
                 <span className="relative flex h-2 w-2">
@@ -105,7 +106,7 @@ export default function HomeBento() {
               <span className="pill">UX/UI · Web Dev</span>
             </div>
             <div>
-              <h1 className="font-display text-[clamp(2.4rem,4.6vw,4rem)] font-bold leading-[1.02] tracking-tight text-ink">
+              <h1 className="font-display text-[clamp(2.3rem,3.9vw,4rem)] font-bold leading-[1.02] tracking-tight text-ink">
                 Hi, I&apos;m Amanda.
                 <br />
                 <span className="text-taupe-500">I design &amp;</span>{" "}
@@ -129,7 +130,7 @@ export default function HomeBento() {
 
           {/* avatar */}
           <Tile delay={0.05} className="min-h-[340px] bg-blush-100 lg:row-span-2">
-            <img src={site.avatar} alt="Illustrated portrait of Amanda Chu" className="absolute inset-x-0 bottom-0 top-3 h-[calc(100%-0.75rem)] w-full object-contain object-bottom transition-transform duration-700 group-hover:scale-[1.04]" />
+            <img src={site.avatar} alt="Illustrated portrait of Amanda Chu" className="absolute inset-x-0 bottom-0 top-12 h-[calc(100%-3rem)] w-full object-contain object-bottom transition-transform duration-700 group-hover:scale-[1.04]" />
             <span className="absolute left-4 top-4 rounded-pill bg-cream-50/90 px-3 py-1.5 font-display text-sm italic text-taupe-500 backdrop-blur">
               hi, that&apos;s me ☻
             </span>
@@ -172,6 +173,9 @@ export default function HomeBento() {
             </div>
           </Tile>
 
+        </div>
+
+        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4 lg:gap-5">
           {/* interests */}
           <Tile delay={0.1} className="flex flex-col justify-between gap-5 p-6">
             <Eyebrow>Interests ♡</Eyebrow>
@@ -222,6 +226,7 @@ export default function HomeBento() {
               <p className="mt-3 text-xs leading-relaxed text-cream-100/75">Open to internships, freelance design, and collaborative projects.</p>
             </div>
           </Tile>
+        </div>
         </div>
 
         {/* tools marquee */}
