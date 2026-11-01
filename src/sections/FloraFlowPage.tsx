@@ -74,7 +74,8 @@ export default function FloraFlowPage() {
               </div>
             ))}
           </dl>
-          <div className="mt-8 flex flex-wrap gap-2">
+          <p className="mt-8 text-[10px] font-semibold uppercase tracking-[0.2em] text-taupe-400">Skills applied</p>
+          <div className="mt-2 flex flex-wrap gap-2">
             {study.skills.map((t) => (
               <span key={t} className="rounded-pill border border-taupe-200/60 px-4 py-2 text-sm font-medium text-taupe-600">{t}</span>
             ))}

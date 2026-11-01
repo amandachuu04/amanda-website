@@ -14,14 +14,6 @@ function isActive(label: string, route: Route) {
 export default function Nav() {
   const route = useRoute();
   const [open, setOpen] = useState(false);
-  const [scrolled, setScrolled] = useState(false);
-
-  useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 24);
-    onScroll();
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
 
   useEffect(() => {
     setOpen(false);
@@ -40,9 +32,7 @@ export default function Nav() {
         initial={{ y: -40, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.6, ease: "easeOut" }}
-        className={`fixed left-0 right-0 top-0 z-40 border-b bg-cream-100 transition-colors ${
-          scrolled || open ? "border-taupe-200/60" : "border-transparent"
-        }`}
+        className="fixed left-0 right-0 top-0 z-40 border-b border-taupe-200/60 bg-cream-100"
       >
         <nav aria-label="Primary" className="flex h-[4.5rem] w-full items-center justify-between px-4 sm:px-6 lg:px-8">
           <motion.a
