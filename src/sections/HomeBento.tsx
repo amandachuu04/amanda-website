@@ -1,6 +1,6 @@
 import { ReactNode, useEffect, useState } from "react";
 import { motion } from "framer-motion";
-import { experiences, projects, site, toolGroups } from "../lib/site";
+import { experiences, projects, site, toolGroups, type Project } from "../lib/site";
 import { projectsHref, workHref } from "../lib/route";
 
 const spring = { type: "spring" as const, stiffness: 260, damping: 22 };
@@ -78,6 +78,61 @@ function BigClock() {
       </span>
       <span className="text-lg text-taupe-400">{get("dayPeriod")}</span>
     </p>
+  );
+}
+
+/** Image width ÷ height, so each card can match its picture exactly. */
+const RATIOS: Record<string, number> = {
+  "/paws-and-care.jpg": 3000 / 2000,
+  "/nextrip.png": 1600 / 1200,
+  "/floraflow.avif": 1987 / 2048,
+  "/magtracker.avif": 433 / 461,
+};
+const ratioOf = (p: Project) => (p.image && RATIOS[p.image]) || 4 / 3;
+
+/** Pair the widest image with the narrowest so both rows end up a similar height. */
+function projectRows(list: Project[]): Project[][] {
+  const sorted = [...list].sort((a, b) => ratioOf(b) - ratioOf(a));
+  const rows: Project[][] = [];
+  while (sorted.length) rows.push(sorted.length > 1 ? [sorted.shift()!, sorted.pop()!] : [sorted.shift()!]);
+  return rows;
+}
+
+function ProjectCard({ p, delay }: { p: Project; delay: number }) {
+  const ratio = ratioOf(p);
+  return (
+    <motion.a
+      href={p.slug ? workHref(p.slug) : p.href ?? "#"}
+      aria-label={`Open ${p.title}`}
+      initial={{ opacity: 0, y: 24 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: "-60px" }}
+      transition={{ duration: 0.55, ease: "easeOut", delay }}
+      whileHover={{ y: -4, transition: spring }}
+      className="group relative flex min-w-0 flex-col overflow-hidden rounded-[1.75rem] border border-taupe-200/40 bg-cream-50 shadow-card transition-shadow hover:shadow-soft"
+      style={{ flex: `${ratio} 1 0%` }}
+    >
+      <div className={`relative w-full overflow-hidden bg-gradient-to-br ${p.swatch}`} style={{ aspectRatio: String(ratio) }}>
+        {p.image && (
+          <img
+            src={p.image}
+            alt={`${p.title} project preview`}
+            loading="lazy"
+            className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 group-hover:scale-[1.03]"
+          />
+        )}
+        <div className="absolute inset-x-0 top-0 flex items-start justify-between p-4">
+          <span className="mr-2 rounded-xl bg-cream-50/90 px-3 py-1 text-[10px] font-semibold uppercase leading-relaxed tracking-[0.14em] text-taupe-500 backdrop-blur">
+            {p.kind}
+          </span>
+          <Arrow />
+        </div>
+      </div>
+      <div className="px-5 pb-5 pt-4">
+        <h3 className="font-display text-2xl font-bold text-ink transition-colors group-hover:text-taupe-500">{p.title}</h3>
+        {p.meta && <p className="mt-1 text-xs text-taupe-400">{p.meta}</p>}
+      </div>
+    </motion.a>
   );
 }
 
@@ -264,45 +319,14 @@ export default function HomeBento() {
             <a href={projectsHref()} className="btn-secondary">View all →</a>
           </div>
 
-          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4 lg:grid-rows-[minmax(300px,auto)_minmax(300px,auto)] lg:gap-5">
-            {latest.map((p, i) => {
-              const size =
-                i === 0
-                  ? "sm:col-span-2 lg:row-span-2 min-h-[420px]"
-                  : i === 1
-                  ? "sm:col-span-2 min-h-[260px]"
-                  : "min-h-[300px]";
-              return (
-                <Tile
-                  key={p.title}
-                  delay={0.06 * i}
-                  href={p.slug ? workHref(p.slug) : p.href ?? "#"}
-                  label={`Open ${p.title}`}
-                  className={`${size} flex flex-col p-3`}
-                >
-                  <div className={`relative min-h-[200px] flex-1 overflow-hidden rounded-[1.25rem] bg-gradient-to-br ${p.swatch}`}>
-                    {p.image && (
-                      <img
-                        src={p.image}
-                        alt={`${p.title} project preview`}
-                        loading="lazy"
-                        className="absolute inset-0 h-full w-full object-contain p-4 transition-transform duration-700 group-hover:scale-[1.04]"
-                      />
-                    )}
-                    <div className="absolute inset-x-0 top-0 flex items-start justify-between p-3">
-                      <span className="mr-2 rounded-xl bg-cream-50/90 px-3 py-1 text-[10px] font-semibold uppercase leading-relaxed tracking-[0.14em] text-taupe-500 backdrop-blur">
-                        {p.kind}
-                      </span>
-                      <Arrow />
-                    </div>
-                  </div>
-                  <div className="px-2 pb-1 pt-4">
-                    <h3 className={`font-display font-bold text-ink transition-colors group-hover:text-taupe-500 ${i === 0 ? "text-3xl" : "text-2xl"}`}>{p.title}</h3>
-                    {p.meta && <p className="mt-1 text-xs text-taupe-400">{p.meta}</p>}
-                  </div>
-                </Tile>
-              );
-            })}
+          <div className="flex flex-col gap-4 lg:gap-5">
+            {projectRows(latest).map((row, r) => (
+              <div key={r} className="flex flex-col gap-4 sm:flex-row lg:gap-5">
+                {row.map((p, k) => (
+                  <ProjectCard key={p.title} p={p} delay={0.06 * (r * 2 + k)} />
+                ))}
+              </div>
+            ))}
           </div>
         </div>
       </section>
