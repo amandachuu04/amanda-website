@@ -18,13 +18,10 @@ export const site = {
 };
 
 export const navLinks = [
-  { id: "hero", label: "Home" },
-  { id: "about", label: "About" },
-  { id: "projects", label: "Projects" },
-  { id: "experience", label: "Experience" },
-  { id: "education", label: "Education" },
-  { id: "tools", label: "Tools" },
-  { id: "contact", label: "Contact" },
+  { label: "Home", href: "#hero" },
+  { label: "About", href: "/about" },
+  { label: "Projects", href: "#projects" },
+  { label: "Contact", href: "#contact" },
 ];
 
 export type ProjectCategory = "design" | "programming" | "both";

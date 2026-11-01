@@ -54,9 +54,9 @@ export default function Nav() {
 
           <ul className="hidden items-center gap-1 lg:flex">
             {navLinks.map((l) => (
-              <li key={l.id}>
+              <li key={l.label}>
                 <a
-                  href={`#${l.id}`}
+                  href={l.href}
                   className="rounded-pill px-4 py-2 text-sm font-medium text-taupe-500 transition-colors duration-300 hover:bg-blush-100 hover:text-ink focus-visible:bg-blush-100 focus-visible:text-ink"
                 >
                   {l.label}
@@ -105,10 +105,10 @@ export default function Nav() {
             >
               <ul className="flex flex-col">
                 {navLinks.map((l) => (
-                  <li key={l.id}>
+                  <li key={l.label}>
                     <a
                       onClick={() => setOpen(false)}
-                      href={`#${l.id}`}
+                      href={l.href}
                       className="block rounded-2xl px-4 py-3 text-center text-base font-medium text-taupe-500 hover:bg-blush-100 hover:text-ink"
                     >
                       {l.label}

@@ -25,6 +25,8 @@ export default function App() {
   useEffect(() => {
     if (route.name === "projects") {
       document.title = "Projects";
+    } else if (route.name === "about") {
+      document.title = "About | Amanda Chu";
     } else if (route.name === "work") {
       document.title =
         getCaseStudy(route.slug)?.title ??
@@ -36,7 +38,7 @@ export default function App() {
   }, [route]);
 
   useEffect(() => {
-    if (route.name !== "home") return;
+    if (route.name !== "home" && route.name !== "about") return;
     const id = window.location.hash.replace("#", "");
     if (!id) return;
     const tryScroll = (attempt = 0) => {
@@ -65,7 +67,11 @@ export default function App() {
       if (!hrefAttr) return;
 
       if (hrefAttr.startsWith("#")) {
-        if (window.location.pathname === "/") return;
+        if (
+          window.location.pathname === "/" ||
+          document.getElementById(hrefAttr.slice(1))
+        )
+          return;
         e.preventDefault();
         navigate("/" + hrefAttr);
         return;
@@ -102,16 +108,22 @@ export default function App() {
           </main>
           <Footer />
         </>
+      ) : route.name === "about" ? (
+        <>
+          <main id="main">
+            <About />
+            <Experience />
+            <Education />
+            <Tools />
+          </main>
+          <Footer />
+        </>
       ) : (
         <>
           <main id="main">
             <Hero />
-            <About />
             <Projects />
-            <Experience />
-            <Education />
             <Certifications />
-            <Tools />
             <Contact />
           </main>
           <Footer />

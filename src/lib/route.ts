@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 
 export type Route =
   | { name: "home" }
+  | { name: "about" }
   | { name: "projects"; slug: "all" | "design" | "programming" | "both" }
   | { name: "work"; slug: string };
 
@@ -10,6 +11,7 @@ const VALID_SLUGS = ["all", "design", "programming", "both"] as const;
 function parse(pathname: string): Route {
   const path = pathname.replace(/\/+$/, "") || "/";
   if (path === "/" || path === "") return { name: "home" };
+  if (path === "/about") return { name: "about" };
 
   if (path.startsWith("/work/")) {
     const slug = path.slice("/work/".length);
