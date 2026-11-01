@@ -109,7 +109,7 @@ export default function HomeBento() {
 
           {/* avatar */}
           <Tile delay={0.05} className="min-h-[300px] bg-blush-100 sm:min-h-[340px] lg:row-span-2">
-            <img src={site.avatar} alt="Illustrated portrait of Amanda Chu" className="absolute inset-0 h-full w-full object-cover object-[50%_20%] transition-transform duration-700 group-hover:scale-[1.04]" />
+            <img src={site.avatar} alt="Illustrated portrait of Amanda Chu" className="absolute inset-0 h-full w-full object-contain px-6 pb-14 pt-6 transition-transform duration-700 group-hover:scale-[1.04]" />
             <span className="absolute bottom-4 left-4 rounded-pill bg-cream-50/90 px-3 py-1.5 font-display text-sm italic text-taupe-500 backdrop-blur">
               hi, that&apos;s me ☻
             </span>
@@ -142,32 +142,39 @@ export default function HomeBento() {
           </Tile>
 
           {/* interests */}
-          <Tile delay={0.1} className="min-h-[220px]">
-            <img src="/polaroid-interests.png" alt="Flat lay of things I love: music, boba and photos" className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 group-hover:scale-105" />
-            <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-ink/70 to-transparent p-5 pt-12 text-cream-50">
-              <p className="font-display text-lg font-bold">interests ♡</p>
-              <p className="text-xs text-cream-100/85">Boba, concerts, shopping, music</p>
-            </div>
+          <Tile delay={0.1} className="flex flex-col justify-between p-6">
+            <Eyebrow>Interests ♡</Eyebrow>
+            <ul className="mt-6 flex flex-wrap gap-2">
+              {["Boba", "Concerts", "Shopping", "Music"].map((x, i) => (
+                <motion.li
+                  key={x}
+                  whileHover={{ y: -3, rotate: i % 2 ? 3 : -3 }}
+                  className="rounded-pill border border-taupe-200/60 bg-blush-100 px-3.5 py-1.5 font-display text-sm font-bold text-taupe-500"
+                >
+                  {x}
+                </motion.li>
+              ))}
+            </ul>
           </Tile>
 
           {/* design -> implementation */}
-          <Tile delay={0.15} className="p-5 sm:col-span-2">
+          <Tile delay={0.15} className="flex flex-col justify-between p-6 sm:col-span-2">
             <div className="flex items-center justify-between">
               <Eyebrow>How I work</Eyebrow>
               <span className="text-xs text-taupe-400">From Figma to code</span>
             </div>
-            <div className="mt-4 grid grid-cols-[1fr_auto_1fr] items-center gap-3">
-              <figure className="overflow-hidden rounded-2xl">
-                <img src="/polaroid-design.jpg" alt="My design setup" className="aspect-[4/3] w-full object-cover transition-transform duration-700 group-hover:scale-105" />
-                <figcaption className="mt-2 text-center font-display text-sm italic text-taupe-500">design</figcaption>
-              </figure>
+            <div className="mt-6 grid grid-cols-[1fr_auto_1fr] items-center gap-3">
+              <div className="rounded-2xl bg-blush-100 p-5">
+                <p className="font-display text-2xl font-bold italic text-taupe-500">design</p>
+                <p className="mt-1 text-xs text-taupe-500">Research, wireframes &amp; high-fidelity screens in Figma</p>
+              </div>
               <motion.span aria-hidden className="text-2xl text-taupe-300" animate={{ x: [0, 4, 0] }} transition={{ duration: 1.8, repeat: Infinity }}>
                 →
               </motion.span>
-              <figure className="overflow-hidden rounded-2xl">
-                <img src="/polaroid-uxui.png" alt="A coded interface" className="aspect-[4/3] w-full object-cover transition-transform duration-700 group-hover:scale-105" />
-                <figcaption className="mt-2 text-center font-display text-sm italic text-taupe-500">implementation</figcaption>
-              </figure>
+              <div className="rounded-2xl bg-taupe-50 p-5">
+                <p className="font-display text-2xl font-bold italic text-taupe-500">implementation</p>
+                <p className="mt-1 text-xs text-taupe-500">Responsive, accessible builds in HTML, CSS &amp; JavaScript</p>
+              </div>
             </div>
           </Tile>
 
@@ -218,39 +225,41 @@ export default function HomeBento() {
             <a href={projectsHref()} className="btn-secondary">View all →</a>
           </div>
 
-          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4 lg:grid-rows-[minmax(240px,auto)_minmax(240px,auto)] lg:gap-5">
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4 lg:grid-rows-[minmax(300px,auto)_minmax(300px,auto)] lg:gap-5">
             {latest.map((p, i) => {
               const size =
                 i === 0
-                  ? "sm:col-span-2 lg:row-span-2 min-h-[340px]"
+                  ? "sm:col-span-2 lg:row-span-2 min-h-[420px]"
                   : i === 1
                   ? "sm:col-span-2 min-h-[260px]"
-                  : "min-h-[260px]";
+                  : "min-h-[300px]";
               return (
                 <Tile
                   key={p.title}
                   delay={0.06 * i}
                   href={p.slug ? workHref(p.slug) : p.href ?? "#"}
                   label={`Open ${p.title}`}
-                  className={`${size} bg-gradient-to-br ${p.swatch}`}
+                  className={`${size} flex flex-col p-3`}
                 >
-                  {p.image && (
-                    <img
-                      src={p.image}
-                      alt={`${p.title} project preview`}
-                      loading="lazy"
-                      className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 group-hover:scale-[1.05]"
-                    />
-                  )}
-                  <div className="absolute inset-x-0 top-0 flex items-start justify-between p-4">
-                    <span className="rounded-pill bg-cream-50/90 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.18em] text-taupe-500 backdrop-blur">
-                      {p.kind}
-                    </span>
-                    <Arrow />
+                  <div className={`relative min-h-[200px] flex-1 overflow-hidden rounded-[1.25rem] bg-gradient-to-br ${p.swatch}`}>
+                    {p.image && (
+                      <img
+                        src={p.image}
+                        alt={`${p.title} project preview`}
+                        loading="lazy"
+                        className="absolute inset-0 h-full w-full object-contain p-4 transition-transform duration-700 group-hover:scale-[1.04]"
+                      />
+                    )}
+                    <div className="absolute inset-x-0 top-0 flex items-start justify-between p-3">
+                      <span className="mr-2 rounded-xl bg-cream-50/90 px-3 py-1 text-[10px] font-semibold uppercase leading-relaxed tracking-[0.14em] text-taupe-500 backdrop-blur">
+                        {p.kind}
+                      </span>
+                      <Arrow />
+                    </div>
                   </div>
-                  <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-ink/75 via-ink/30 to-transparent p-5 pt-16 text-cream-50">
-                    <h3 className={`font-display font-bold ${i === 0 ? "text-3xl" : "text-2xl"}`}>{p.title}</h3>
-                    {p.meta && <p className="mt-1 text-xs text-cream-100/85">{p.meta}</p>}
+                  <div className="px-2 pb-1 pt-4">
+                    <h3 className={`font-display font-bold text-ink transition-colors group-hover:text-taupe-500 ${i === 0 ? "text-3xl" : "text-2xl"}`}>{p.title}</h3>
+                    {p.meta && <p className="mt-1 text-xs text-taupe-400">{p.meta}</p>}
                   </div>
                 </Tile>
               );
