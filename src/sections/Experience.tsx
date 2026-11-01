@@ -58,10 +58,10 @@ export default function Experience() {
                   viewport={{ once: true, margin: "-80px" }}
                   transition={{ duration: 0.6, delay: 0.05 * i + 0.1, ease: "easeOut" }}
                 />
-                <p className="font-display text-sm font-semibold uppercase tracking-[0.2em] text-taupe-400">
+                <p className="font-display text-sm font-bold uppercase tracking-[0.2em] text-taupe-400">
                   {e.dates}
                 </p>
-                <p className="mt-2 font-display text-xl font-medium text-ink">
+                <p className="mt-2 font-display text-xl font-bold text-ink">
                   {e.role}
                 </p>
                 <p className="mt-1 text-sm text-taupe-500">{e.location}</p>
@@ -73,7 +73,7 @@ export default function Experience() {
                 className="relative rounded-3xl border border-taupe-200/40 bg-cream-50 p-6 shadow-card transition-shadow hover:shadow-soft sm:p-7 lg:col-span-8 lg:p-8"
               >
                 <header className="flex flex-wrap items-baseline justify-between gap-2">
-                  <h3 className="font-display text-2xl font-medium text-ink">
+                  <h3 className="font-display text-2xl font-bold text-ink">
                     {e.company}
                   </h3>
                 </header>

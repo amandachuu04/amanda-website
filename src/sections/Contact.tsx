@@ -84,7 +84,7 @@ export default function Contact() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-80px" }}
             transition={{ duration: 0.6, delay: 0.05 }}
-            className="mt-4 font-display text-display-md font-medium text-ink"
+            className="mt-4 font-display text-display-md font-bold text-ink"
           >
             Let&apos;s{" "}
             <span className="italic text-taupe-500">talk.</span>

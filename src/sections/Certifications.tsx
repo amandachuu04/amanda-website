@@ -28,7 +28,7 @@ export default function Certifications() {
                 />
                 Certifications
               </motion.span>
-              <h2 className="mt-3 font-display text-3xl font-medium text-ink sm:text-4xl">
+              <h2 className="mt-3 font-display text-3xl font-bold text-ink sm:text-4xl">
                 Officially{" "}
                 <span className="italic text-taupe-500">certified.</span>
               </h2>
@@ -46,7 +46,7 @@ export default function Certifications() {
                   className="group flex items-center justify-between gap-3 rounded-2xl border border-taupe-200/40 bg-cream-50/90 px-5 py-4 shadow-sm backdrop-blur transition-colors hover:border-blush-300/60 hover:bg-cream-50"
                 >
                   <div>
-                    <p className="font-display text-base font-medium text-ink">
+                    <p className="font-display text-base font-bold text-ink">
                       {c.name}
                     </p>
                     <p className="text-xs text-taupe-400">{c.year}</p>

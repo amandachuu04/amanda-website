@@ -70,7 +70,7 @@ export default function ProjectsPage({ initialSlug }: { initialSlug: Slug }) {
               initial={{ opacity: 0, y: 14 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.05 }}
-              className="mt-4 font-display text-display-md font-medium text-ink"
+              className="mt-4 font-display text-display-md font-bold text-ink"
             >
               Projects
             </motion.h1>
@@ -130,7 +130,7 @@ export default function ProjectsPage({ initialSlug }: { initialSlug: Slug }) {
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -6 }}
                 transition={{ duration: 0.3 }}
-                className="font-display text-2xl font-medium text-ink sm:text-3xl"
+                className="font-display text-2xl font-bold text-ink sm:text-3xl"
               >
                 {activeFolder.label}
               </motion.h2>
@@ -234,7 +234,7 @@ function ProjectCard({ project: p, index }: { project: Project; index: number })
 
       <div className="flex items-end justify-between gap-4 p-4 pt-5">
         <div>
-          <h3 className="font-display text-2xl font-medium text-ink transition-colors duration-300 group-hover:text-taupe-500">
+          <h3 className="font-display text-2xl font-bold text-ink transition-colors duration-300 group-hover:text-taupe-500">
             {p.title}
           </h3>
           {p.meta && <p className="mt-1 text-xs text-taupe-400">{p.meta}</p>}

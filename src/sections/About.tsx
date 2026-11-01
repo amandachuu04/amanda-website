@@ -70,7 +70,7 @@ export default function About() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-100px" }}
             transition={{ duration: 0.6 }}
-            className="mt-4 font-display text-display-md font-medium text-ink"
+            className="mt-4 font-display text-display-md font-bold text-ink"
           >
             A{" "}
             <span className="italic text-taupe-500">designer-developer</span>
@@ -129,7 +129,7 @@ function Fact({ label, value, dot }: { label: string; value: string; dot?: boole
       <dt className="text-[10px] font-semibold uppercase tracking-[0.18em] text-taupe-400">
         {label}
       </dt>
-      <dd className="mt-1 inline-flex items-center gap-2 font-display text-base font-medium text-ink">
+      <dd className="mt-1 inline-flex items-center gap-2 font-display text-base font-bold text-ink">
         {dot && (
           <span className="relative flex h-2 w-2">
             <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-blush-300 opacity-75" />

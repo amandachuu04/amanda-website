@@ -38,7 +38,7 @@ export default function Nav() {
         >
           <motion.a
             href="#hero"
-            className="flex items-center gap-2 whitespace-nowrap rounded-pill px-3 py-1.5 font-display text-lg font-semibold text-ink"
+            className="flex items-center gap-2 whitespace-nowrap rounded-pill px-3 py-1.5 font-display text-lg font-bold text-ink"
             aria-label="Home"
             whileHover={{ rotate: [0, -8, 8, -5, 5, 0] }}
             whileTap={{ scale: 0.95 }}

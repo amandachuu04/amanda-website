@@ -31,8 +31,8 @@ export default {
         ink: "#2A211C",
       },
       fontFamily: {
-        display: ['"Urbanist"', "ui-sans-serif", "system-ui", "sans-serif"],
-        sans: ['"Figtree"', "ui-sans-serif", "system-ui", "sans-serif"],
+        display: ['"Quicksand"', "ui-rounded", "ui-sans-serif", "system-ui", "sans-serif"],
+        sans: ['"Nunito Sans"', "ui-sans-serif", "system-ui", "sans-serif"],
       },
       fontSize: {
         "display-xl": ["clamp(2.25rem, 5vw, 4.5rem)", { lineHeight: "1.0", letterSpacing: "-0.02em" }],

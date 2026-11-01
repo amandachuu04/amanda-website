@@ -24,6 +24,11 @@
     @apply bg-cream-100 text-ink font-sans antialiased;
   }
 
+  /* Quicksand headings default to bold; weight utilities still override */
+  .font-display {
+    font-weight: 700;
+  }
+
   ::selection {
     background: #f8c8c8;
     color: #2a211c;

@@ -61,7 +61,7 @@ export default function Hero() {
             initial={{ opacity: 0, y: 24 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.05 }}
-            className="mt-6 font-display text-display-xl font-medium text-ink"
+            className="mt-6 font-display text-display-xl font-bold text-ink"
           >
             Hi, I&apos;m Amanda
             <br />

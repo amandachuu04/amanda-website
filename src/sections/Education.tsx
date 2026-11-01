@@ -31,7 +31,7 @@ export default function Education() {
               className="group relative overflow-hidden rounded-3xl border border-taupe-200/40 bg-blush-100 p-7 shadow-card transition-shadow hover:shadow-soft sm:p-9"
             >
               <span className="section-eyebrow">{e.dates}</span>
-              <h3 className="mt-4 font-display text-2xl font-medium text-ink sm:text-3xl">
+              <h3 className="mt-4 font-display text-2xl font-bold text-ink sm:text-3xl">
                 {e.degree}
               </h3>
               <p className="mt-2 text-base text-taupe-500">

@@ -159,7 +159,7 @@ export default function WorkDetailPage({ slug }: { slug: string }) {
           initial={{ opacity: 0, y: 18 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, delay: 0.05 }}
-          className="mt-10 font-display text-[clamp(2.5rem,7vw,5.5rem)] font-medium leading-[1.02] tracking-[-0.02em] text-ink"
+          className="mt-10 font-display text-[clamp(2.5rem,7vw,5.5rem)] font-bold leading-[1.02] tracking-[-0.02em] text-ink"
         >
           {study.title}
         </motion.h1>
@@ -272,7 +272,7 @@ export default function WorkDetailPage({ slug }: { slug: string }) {
                       onClick={() => scrollToId(sectionIds[i])}
                       className="group flex w-full items-baseline gap-3 text-left transition-colors hover:text-ink"
                     >
-                      <span className="font-mono text-[0.7rem] tracking-wider text-taupe-400 transition-colors group-hover:text-blush-500">
+                      <span className="font-sans text-[0.7rem] tracking-wider text-taupe-400 transition-colors group-hover:text-blush-500">
                         {String(i + 1).padStart(2, "0")}
                       </span>
                       <span className="leading-snug transition-transform duration-300 group-hover:translate-x-1">{s.heading}</span>
@@ -286,7 +286,7 @@ export default function WorkDetailPage({ slug }: { slug: string }) {
                       onClick={() => scrollToId("final-screens")}
                       className="group flex w-full items-baseline gap-3 text-left transition-colors hover:text-ink"
                     >
-                      <span className="font-mono text-[0.7rem] tracking-wider text-taupe-400 transition-colors group-hover:text-blush-500">
+                      <span className="font-sans text-[0.7rem] tracking-wider text-taupe-400 transition-colors group-hover:text-blush-500">
                         {String(study.sections.length + 1).padStart(2, "0")}
                       </span>
                       <span className="leading-snug transition-transform duration-300 group-hover:translate-x-1">Final screens</span>
@@ -303,7 +303,7 @@ export default function WorkDetailPage({ slug }: { slug: string }) {
                         onClick={() => scrollToId(endSectionIds[i])}
                         className="group flex w-full items-baseline gap-3 text-left transition-colors hover:text-ink"
                       >
-                        <span className="font-mono text-[0.7rem] tracking-wider text-taupe-400 transition-colors group-hover:text-blush-500">
+                        <span className="font-sans text-[0.7rem] tracking-wider text-taupe-400 transition-colors group-hover:text-blush-500">
                           {String(number).padStart(2, "0")}
                         </span>
                         <span className="leading-snug transition-transform duration-300 group-hover:translate-x-1">
@@ -497,7 +497,7 @@ function SectionBlock({
           whileInView={{ opacity: 1, scale: 1 }}
           viewport={{ once: true, amount: 0.15 }}
           transition={{ type: "spring", stiffness: 220, damping: 14, delay: 0.1 }}
-          className="font-display text-5xl font-medium leading-none text-blush-300 sm:text-6xl"
+          className="font-display text-5xl font-bold leading-none text-blush-300 sm:text-6xl"
         >
           {String(index + 1).padStart(2, "0")}
         </motion.span>
@@ -506,7 +506,7 @@ function SectionBlock({
         </span>
       </div>
 
-      <h2 className="mt-6 font-display text-[2rem] font-medium leading-[1.15] text-ink sm:text-[2.6rem]">
+      <h2 className="mt-6 font-display text-[2rem] font-bold leading-[1.15] text-ink sm:text-[2.6rem]">
         {heading}
       </h2>
 
@@ -543,7 +543,7 @@ function SectionBlock({
               transition={{ type: "spring", stiffness: 260, damping: 18 }}
               className="relative rounded-2xl border border-taupe-200/50 bg-cream-50 p-5 transition-shadow hover:shadow-soft"
             >
-              <span className="font-mono text-[0.7rem] tracking-wider text-blush-500">
+              <span className="font-sans text-[0.7rem] tracking-wider text-blush-500">
                 {String(i + 1).padStart(2, "0")}
               </span>
               <p className="mt-2 text-[0.95rem] leading-relaxed text-ink">{b}</p>
@@ -849,7 +849,7 @@ function GallerySection({
       <div className="flex items-baseline gap-4">
         <span
           aria-hidden
-          className="font-display text-5xl font-medium leading-none text-blush-300 sm:text-6xl"
+          className="font-display text-5xl font-bold leading-none text-blush-300 sm:text-6xl"
         >
           {String(number).padStart(2, "0")}
         </span>
@@ -857,7 +857,7 @@ function GallerySection({
           Final screens
         </span>
       </div>
-      <h2 className="mt-6 font-display text-[2rem] font-medium leading-[1.15] text-ink sm:text-[2.6rem]">
+      <h2 className="mt-6 font-display text-[2rem] font-bold leading-[1.15] text-ink sm:text-[2.6rem]">
         {heading}
       </h2>
       {note && (
@@ -1165,7 +1165,7 @@ function Lightbox({
       className="fixed inset-0 z-[100] flex flex-col bg-ink/90 backdrop-blur-sm"
     >
       <div className="flex items-center justify-between p-5 text-cream-50">
-        <span className="font-mono text-xs tracking-[0.22em] text-cream-50/70">
+        <span className="font-sans text-xs tracking-[0.22em] text-cream-50/70">
           {String(index + 1).padStart(2, "0")} / {String(items.length).padStart(2, "0")}
         </span>
         <motion.button

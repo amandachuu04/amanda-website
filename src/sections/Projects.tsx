@@ -98,7 +98,7 @@ export default function Projects() {
 
               <div className="flex items-end justify-between gap-4 p-4 pt-5">
                 <div>
-                  <h3 className="font-display text-2xl font-medium text-ink transition-colors duration-300 group-hover:text-taupe-500">
+                  <h3 className="font-display text-2xl font-bold text-ink transition-colors duration-300 group-hover:text-taupe-500">
                     {p.title}
                   </h3>
                   {p.meta && (

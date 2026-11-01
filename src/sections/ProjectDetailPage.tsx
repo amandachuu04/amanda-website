@@ -154,7 +154,7 @@ function Header({ project }: { project: ProjectPage }) {
         initial={{ opacity: 0, y: 18 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.7, delay: 0.05 }}
-        className="mt-10 font-display text-[clamp(2.5rem,7vw,5.5rem)] font-medium leading-[1.02] tracking-[-0.02em] text-ink"
+        className="mt-10 font-display text-[clamp(2.5rem,7vw,5.5rem)] font-bold leading-[1.02] tracking-[-0.02em] text-ink"
       >
         {project.title}
       </motion.h1>
@@ -309,7 +309,7 @@ function IterationsSection({
             {it.label}
           </p>
           {it.heading && (
-            <h2 className="mt-3 font-display text-[clamp(1.5rem,3.5vw,2.25rem)] font-medium leading-tight tracking-[-0.01em] text-ink">
+            <h2 className="mt-3 font-display text-[clamp(1.5rem,3.5vw,2.25rem)] font-bold leading-tight tracking-[-0.01em] text-ink">
               {it.heading}
             </h2>
           )}
@@ -566,7 +566,7 @@ function Lightbox({
       className="fixed inset-0 z-[100] flex flex-col bg-ink/90 backdrop-blur-sm"
     >
       <div className="flex items-center justify-between p-5 text-cream-50">
-        <span className="font-mono text-xs tracking-[0.22em] text-cream-50/70">
+        <span className="font-sans text-xs tracking-[0.22em] text-cream-50/70">
           {String(index + 1).padStart(2, "0")} /{" "}
           {String(items.length).padStart(2, "0")}
         </span>
