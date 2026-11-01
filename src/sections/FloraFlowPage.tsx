@@ -25,6 +25,22 @@ function Wrap({ className = "", children }: { className?: string; children: Reac
   return <div className={`mx-auto w-full max-w-[1560px] px-4 sm:px-8 lg:px-10 ${className}`}>{children}</div>;
 }
 
+const body = "text-base leading-relaxed text-taupe-600 sm:text-lg";
+
+function Section({ eyebrow, title, children }: { eyebrow: string; title: ReactNode; children: ReactNode }) {
+  return (
+    <Wrap className="relative">
+      <div className="border-t border-taupe-200/60 py-16 sm:py-20">
+        <motion.div {...reveal}>
+          <Eyebrow>{eyebrow}</Eyebrow>
+          <h2 className="mb-6 mt-4 font-display text-[clamp(2.2rem,4.6vw,3.8rem)] font-bold leading-[1.05] text-ink">{title}</h2>
+          {children}
+        </motion.div>
+      </div>
+    </Wrap>
+  );
+}
+
 export default function FloraFlowPage() {
   const [problem, opportunity, ideate, audience, research] = study.sections;
   const brand = study.gallery[0];
@@ -48,13 +64,8 @@ export default function FloraFlowPage() {
           <a href={projectsHref()} className="text-xs font-semibold uppercase tracking-[0.18em] text-taupe-400 hover:text-taupe-500">
             ← All projects
           </a>
-          <img
-            src={brand.src}
-            alt="FloraFlow brand mark"
-            className="mt-6 h-16 w-16 rounded-2xl bg-white object-contain p-1.5 shadow-card sm:h-20 sm:w-20"
-          />
-          <h1 className="mt-5 font-display text-[clamp(3.6rem,12vw,10rem)] font-bold leading-[0.9] tracking-tight text-ink">FloraFlow</h1>
-          <p className="mt-6 max-w-2xl text-lg text-taupe-500 sm:text-xl">{study.tagline}</p>
+          <h1 className="mt-6 font-display text-[clamp(3.6rem,12vw,10rem)] font-bold leading-[0.9] tracking-tight text-ink">FloraFlow</h1>
+          <p className="mt-6 text-lg text-taupe-500 sm:text-xl">{study.tagline}</p>
           <dl className="mt-8 flex max-w-4xl flex-wrap gap-x-8 gap-y-4">
             {facts.filter(([, v]) => v).map(([k, v]) => (
               <div key={k}>
@@ -77,7 +88,7 @@ export default function FloraFlowPage() {
       </Wrap>
 
       {/* ---------- lamp photo + demo video, same height, nothing cropped ---------- */}
-      <Wrap className="relative mt-14 sm:mt-20">
+      <Wrap className="relative mb-16 mt-14 sm:mb-20 sm:mt-20">
         <motion.div
           initial={{ opacity: 0, y: 40 }}
           animate={{ opacity: 1, y: 0 }}
@@ -96,35 +107,20 @@ export default function FloraFlowPage() {
         {video?.caption && <p className="mt-4 font-display text-sm italic text-taupe-400">{video.caption}</p>}
       </Wrap>
 
+
       {/* ---------- problem ---------- */}
-      <Wrap className="relative mt-24 sm:mt-32">
-        <motion.div {...reveal} className="grid grid-cols-1 gap-6 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] lg:gap-16">
-          <div>
-            <Eyebrow>The problem</Eyebrow>
-            <h2 className="mt-4 font-display text-[clamp(2.2rem,4.6vw,3.8rem)] font-bold leading-[1.05] text-ink">{problem.heading}</h2>
-          </div>
-          <p className="text-base leading-relaxed text-taupe-600 sm:text-lg lg:pt-10">{problem.body}</p>
-        </motion.div>
-      </Wrap>
+      <Section title={problem.heading} eyebrow="The problem">
+        <p className={body}>{problem.body}</p>
+      </Section>
 
       {/* ---------- opportunity ---------- */}
-      <Wrap className="relative mt-24 sm:mt-32">
-        <motion.div {...reveal} className="grid grid-cols-1 gap-6 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] lg:gap-16">
-          <div>
-            <Eyebrow>The opportunity</Eyebrow>
-            <h2 className="mt-4 font-display text-[clamp(2.2rem,4.6vw,3.8rem)] font-bold leading-[1.05] text-ink">{opportunity.heading}</h2>
-          </div>
-          <p className="text-base leading-relaxed text-taupe-600 sm:text-lg lg:pt-10">{opportunity.body}</p>
-        </motion.div>
-      </Wrap>
+      <Section title={opportunity.heading} eyebrow="The opportunity">
+        <p className={body}>{opportunity.body}</p>
+      </Section>
 
       {/* ---------- key features ---------- */}
-      <Wrap className="relative mt-24 sm:mt-32">
-        <motion.div {...reveal} className="max-w-3xl">
-          <Eyebrow>Ideate</Eyebrow>
-          <h2 className="mt-4 font-display text-[clamp(2.2rem,4.6vw,3.8rem)] font-bold leading-tight text-ink">{ideate.heading}</h2>
-          <p className="mt-4 text-base text-taupe-500 sm:text-lg">{ideate.body}</p>
-        </motion.div>
+      <Section title={ideate.heading} eyebrow="Ideate">
+        <p className={body}>{ideate.body}</p>
         <ol className="mt-12 grid grid-cols-1 gap-x-10 gap-y-10 sm:grid-cols-2 lg:grid-cols-3">
           {ideate.bullets?.map((b, i) => (
             <motion.li key={b} {...reveal} transition={{ ...reveal.transition, delay: 0.06 * i }} className="border-t-2 border-blush-200 pt-5">
@@ -133,49 +129,45 @@ export default function FloraFlowPage() {
             </motion.li>
           ))}
         </ol>
-      </Wrap>
+      </Section>
 
       {/* ---------- research stat ---------- */}
-      <Wrap className="relative mt-24 sm:mt-32">
-        <motion.div {...reveal} className="grid grid-cols-1 items-center gap-8 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.1fr)] lg:gap-16">
-          <div>
-            <Eyebrow>{research.heading}</Eyebrow>
-            <p className="mt-4 font-display whitespace-nowrap text-[clamp(4rem,10vw,8.5rem)] font-bold leading-[0.85] tracking-tight text-ink">
-              20–30
-              <span className="ml-2 align-baseline text-[0.3em] italic text-taupe-500">min</span>
-            </p>
-            <p className="mt-4 max-w-sm font-display text-lg font-bold text-taupe-500">
-              is how long most students said they stay focused before getting distracted.
-            </p>
-          </div>
-          <div>
-            <p className="text-base leading-relaxed text-taupe-600 sm:text-lg">{research.body}</p>
-            <div className="mt-6 flex flex-wrap gap-2">
-              {["Notion", "Google Calendar", "Todoist", "Quizlet"].map((t) => (
-                <span key={t} className="rounded-pill bg-blush-100 px-4 py-1.5 text-sm font-semibold text-taupe-500">{t}</span>
-              ))}
-            </div>
-          </div>
-        </motion.div>
-      </Wrap>
+      <Section
+        eyebrow={research.heading}
+        title={
+          <span className="whitespace-nowrap text-[clamp(4rem,10vw,8.5rem)] leading-[0.85] tracking-tight">
+            20–30
+            <span className="ml-2 align-baseline text-[0.3em] italic text-taupe-500">min</span>
+          </span>
+        }
+      >
+        <p className="mb-6 font-display text-lg font-bold text-taupe-500">
+          is how long most students said they stay focused before getting distracted.
+        </p>
+        <p className={body}>{research.body}</p>
+        <div className="mt-6 flex flex-wrap gap-2">
+          {["Notion", "Google Calendar", "Todoist", "Quizlet"].map((t) => (
+            <span key={t} className="rounded-pill bg-blush-100 px-4 py-1.5 text-sm font-semibold text-taupe-500">{t}</span>
+          ))}
+        </div>
+      </Section>
 
       {/* ---------- audience ---------- */}
-      <Wrap className="relative mt-24 sm:mt-32">
-        <motion.div {...reveal} className="grid grid-cols-1 gap-6 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] lg:gap-16">
-          <div>
-            <Eyebrow>{audience.heading}</Eyebrow>
-            <h2 className="mt-4 font-display text-[clamp(2.2rem,4.6vw,3.8rem)] font-bold leading-[1.05] text-ink">
-              Students &amp; early career learners, <span className="italic text-taupe-500">ages 16–30.</span>
-            </h2>
-          </div>
-          <p className="text-base leading-relaxed text-taupe-600 sm:text-lg lg:pt-10">{audience.body}</p>
-        </motion.div>
-      </Wrap>
+      <Section
+        eyebrow={audience.heading}
+        title={
+          <>
+            Students &amp; early career learners, <span className="italic text-taupe-500">ages 16–30.</span>
+          </>
+        }
+      >
+        <p className={body}>{audience.body}</p>
+      </Section>
 
       {/* ---------- final screens band ---------- */}
-      <section className="relative mt-24 bg-blush-100 pb-24 pt-20 sm:mt-32 sm:pb-32 sm:pt-28">
+      <section className="relative bg-blush-100 py-16 sm:py-20">
         <Wrap>
-          <motion.div {...reveal} className="max-w-2xl">
+          <motion.div {...reveal}>
             <Eyebrow>Final screens</Eyebrow>
             <h2 className="mt-4 font-display text-[clamp(2.2rem,4.6vw,3.8rem)] font-bold leading-tight text-ink">
               The companion <span className="italic text-taupe-500">app</span>
@@ -205,25 +197,15 @@ export default function FloraFlowPage() {
         </Wrap>
       </section>
 
-      {/* ---------- brand + skills + next ---------- */}
-      <Wrap className="relative py-20 sm:py-24">
+      {/* ---------- brand mark ---------- */}
+      <Wrap className="relative py-16 sm:py-20">
         <motion.div {...reveal} className="flex flex-col items-start gap-6 sm:flex-row sm:items-center">
           <img src={brand.src} alt="FloraFlow brand mark" className="h-24 w-24 shrink-0 rounded-3xl bg-white object-contain p-2 shadow-card" />
-          <div>
+          <div className="min-w-0 flex-1">
             <p className="font-display text-xl font-bold text-ink">Brand mark</p>
-            <p className="mt-1 max-w-xl text-base text-taupe-600">{study.featuredNote}</p>
+            <p className="mt-1 text-base text-taupe-600 sm:text-lg">{study.featuredNote}</p>
           </div>
         </motion.div>
-        <div className="mt-16 flex flex-col items-start justify-between gap-6 border-t border-taupe-200/50 pt-10 sm:flex-row sm:items-center">
-          <a href={projectsHref()} className="group font-display text-[clamp(1.8rem,4vw,3rem)] font-bold text-ink">
-            ← <span className="italic text-taupe-500 group-hover:text-ink">All projects</span>
-          </a>
-          {study.externalLink && (
-            <a href={study.externalLink.href} target="_blank" rel="noopener noreferrer" className="btn-primary">
-              {study.externalLink.label} ↗
-            </a>
-          )}
-        </div>
       </Wrap>
     </div>
   );
