@@ -53,13 +53,6 @@ export default function Contact() {
       id="contact"
       className="relative w-full overflow-hidden bg-cream-100 py-24 sm:py-32"
     >
-      <div aria-hidden className="pointer-events-none absolute inset-0">
-        <div
-          className="absolute left-1/2 top-1/3 h-[36rem] w-[36rem] -translate-x-1/2 rounded-full opacity-40 blur-3xl"
-          style={{ background: "radial-gradient(circle, #F8C8C8 0%, transparent 70%)" }}
-        />
-      </div>
-
       <div className="relative mx-auto w-full max-w-[1400px] px-4 sm:px-8 lg:px-12">
         <motion.div
           initial={{ opacity: 0, y: 24 }}
@@ -69,7 +62,6 @@ export default function Contact() {
           className="grid overflow-hidden rounded-[2rem] border border-taupe-200/40 shadow-soft lg:grid-cols-[minmax(0,1fr)_minmax(0,1.25fr)]"
         >
           <div className="relative flex flex-col bg-blush-100 p-7 text-ink sm:p-10 lg:p-12">
-            <div aria-hidden className="pointer-events-none absolute -right-24 -top-24 h-72 w-72 rounded-full bg-blush-300/50 blur-2xl" />
             <span className="inline-flex w-fit items-center gap-2 rounded-pill border border-taupe-200/70 bg-cream-50/70 px-3 py-1.5 text-xs font-semibold text-taupe-500">
               <span className="relative flex h-2 w-2">
                 <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-blush-300 opacity-75" />
