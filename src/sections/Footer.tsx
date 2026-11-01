@@ -8,13 +8,13 @@ const link = "transition-colors hover:text-ink";
 export default function Footer() {
   const [pet, setPet] = useState(0);
   return (
-    <footer className="relative w-full bg-cream-100 px-4 pb-6 sm:px-8 lg:px-12">
-      <div className="mx-auto grid w-full max-w-[1304px] grid-cols-1 gap-8 rounded-[1.75rem] border border-taupe-200/40 bg-blush-100 p-7 text-taupe-500 shadow-card sm:p-10 md:grid-cols-[minmax(0,1fr)_auto_auto] md:gap-14">
+    <footer className="relative w-full bg-blush-100 text-taupe-500">
+      <div className="mx-auto grid w-full max-w-[1400px] grid-cols-1 gap-8 px-4 py-12 sm:px-8 sm:py-14 md:grid-cols-[minmax(0,1fr)_auto_auto] md:gap-14 lg:px-12 lg:pr-24">
         <div className="flex items-center gap-5">
           <img src={site.avatar} alt="" className="h-20 w-20 shrink-0 object-contain sm:h-24 sm:w-24" />
           <div>
             <p className="font-display text-[clamp(1.6rem,3vw,2.3rem)] font-bold leading-tight text-ink">
-              Thanks for <span className="italic text-taupe-500">stopping by!</span>
+              Thanks for stopping by!
             </p>
             <p className="mt-1 text-sm">Designed by Amanda Chu · © 2026</p>
           </div>

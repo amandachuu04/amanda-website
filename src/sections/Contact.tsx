@@ -51,7 +51,7 @@ export default function Contact() {
   return (
     <section
       id="contact"
-      className="relative w-full overflow-hidden bg-cream-100 pb-5 pt-24 sm:pt-32"
+      className="relative w-full overflow-hidden bg-cream-100 py-24 sm:py-32"
     >
       <div className="relative mx-auto w-full max-w-[1400px] px-4 sm:px-8 lg:px-12">
         <motion.div
