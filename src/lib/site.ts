@@ -1023,24 +1023,24 @@ export const projectPages: Record<string, ProjectPage> = {
         label: "Iteration 01",
         heading: "Helvetica and Baskerville",
         images: [
-          { src: "/name-logo-design/img-1.avif" },
-          { src: "/name-logo-design/img-2.avif" },
+          { src: "/name-logo-design/img-1.webp" },
+          { src: "/name-logo-design/img-2.webp" },
         ],
       },
       {
         label: "Iteration 02",
         heading: "Full name designs",
         images: [
-          { src: "/name-logo-design/img-3.avif" },
-          { src: "/name-logo-design/img-4.avif" },
-          { src: "/name-logo-design/img-5.avif" },
-          { src: "/name-logo-design/img-6.avif" },
+          { src: "/name-logo-design/img-3.webp" },
+          { src: "/name-logo-design/img-4.webp" },
+          { src: "/name-logo-design/img-5.webp" },
+          { src: "/name-logo-design/img-6.webp" },
         ],
       },
       {
         label: "Iteration 03",
         heading: "Initials logo designs",
-        images: [{ src: "/name-logo-design/img-7.avif" }],
+        images: [{ src: "/name-logo-design/img-7.webp" }],
       },
       {
         label: "Iteration 04",

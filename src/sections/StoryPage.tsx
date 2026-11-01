@@ -186,6 +186,8 @@ export default function StoryPage({ study, media, band, after, brand, children }
       </Wrap>
 
       {/* ---------- photos + demo video, same height, nothing cropped ---------- */}
+      {media.length === 0 && <div className="h-12 sm:h-16" />}
+      {media.length > 0 && (
       <Wrap className="relative mb-16 mt-14 sm:mb-20 sm:mt-20">
         <motion.div
           initial={{ opacity: 0, y: 40 }}
@@ -212,6 +214,7 @@ export default function StoryPage({ study, media, band, after, brand, children }
           ))}
         </motion.div>
       </Wrap>
+      )}
 
       {children}
 
