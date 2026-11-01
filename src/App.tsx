@@ -6,6 +6,7 @@ import AboutSplit from "./sections/AboutSplit";
 import Contact from "./sections/Contact";
 import Footer from "./sections/Footer";
 import ProjectsPage from "./sections/ProjectsPage";
+import MagTrackerPage from "./sections/MagTrackerPage";
 import WorkDetailPage from "./sections/WorkDetailPage";
 import FloraFlowPage from "./sections/FloraFlowPage";
 import ProjectDetailPage from "./sections/ProjectDetailPage";
@@ -98,7 +99,9 @@ export default function App() {
       ) : route.name === "work" ? (
         <>
           <main id="main">
-            {route.slug === "floraflow" ? (
+            {route.slug === "magtracker" ? (
+              <MagTrackerPage />
+            ) : route.slug === "floraflow" ? (
               <FloraFlowPage />
             ) : getCaseStudy(route.slug) ? (
               <WorkDetailPage slug={route.slug} />
