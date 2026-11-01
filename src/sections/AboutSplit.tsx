@@ -73,7 +73,7 @@ export default function AboutSplit() {
             className="rounded-[1.75rem] border border-taupe-200/40 bg-cream-50 p-5 shadow-card"
           >
             <div className="flex items-center gap-4 lg:block">
-              <div className="h-24 w-24 shrink-0 overflow-hidden rounded-2xl bg-blush-100 lg:aspect-[16/9] lg:h-auto lg:w-full">
+              <div className="h-24 w-24 shrink-0 overflow-hidden rounded-2xl lg:aspect-[16/9] lg:h-auto lg:w-full">
                 <img src={site.avatar} alt="Avatar of Amanda Chu" className="h-full w-full object-contain p-2" />
               </div>
               <div className="lg:mt-5">
