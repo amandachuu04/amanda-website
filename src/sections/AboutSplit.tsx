@@ -137,11 +137,9 @@ export default function AboutSplit() {
               </>
             }
           >
-            <div className="max-w-2xl space-y-5 text-base text-taupe-600 sm:text-lg">
+            <div className="space-y-5 text-base text-taupe-600 sm:text-lg">
               {site.about.map((p, i) => (
-                <p key={i} className={i === 0 ? "text-lg text-ink sm:text-xl" : ""}>
-                  {p}
-                </p>
+                <p key={i}>{p}</p>
               ))}
             </div>
           </Block>
