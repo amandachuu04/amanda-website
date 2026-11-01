@@ -1,4 +1,4 @@
-import StoryPage, { FeatureList, Section, body } from "./StoryPage";
+import StoryPage, { FeatureList, ScreensBand, Section, body } from "./StoryPage";
 import { caseStudies } from "../lib/site";
 
 const study = caseStudies.floraflow;
@@ -11,8 +11,15 @@ export default function FloraFlowPage() {
   return (
     <StoryPage
       study={study}
-      screens={screens}
-      screensGrid="lg:grid-cols-6"
+      brand={{ src: study.gallery[0].src, note: study.featuredNote }}
+      band={
+        <ScreensBand
+          title={<>The companion <span className="italic text-taupe-500">app</span></>}
+          note={study.galleryNote}
+          groups={[{ items: screens }]}
+          grid="lg:grid-cols-6"
+        />
+      }
       media={[
         { src: study.cover, ratio: 3208 / 3306, alt: "The FloraFlow lamp, a glowing flower on a 3D printed base" },
         ...(video?.kind === "video" ? [{ src: video.src, ratio: 430 / 888, video: true, poster: video.poster, caption: video.caption }] : []),

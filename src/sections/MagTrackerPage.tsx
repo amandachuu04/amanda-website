@@ -1,4 +1,4 @@
-import StoryPage, { FeatureList, Section, body } from "./StoryPage";
+import StoryPage, { FeatureList, ScreensBand, Section, body } from "./StoryPage";
 import { caseStudies } from "../lib/site";
 
 const study = caseStudies.magtracker;
@@ -13,8 +13,15 @@ export default function MagTrackerPage() {
   return (
     <StoryPage
       study={study}
-      screens={screens}
-      screensGrid="lg:grid-cols-5"
+      brand={{ src: study.gallery[0].src, note: study.featuredNote }}
+      band={
+        <ScreensBand
+          title={<>The companion <span className="italic text-taupe-500">app</span></>}
+          note={study.galleryNote}
+          groups={[{ items: screens }]}
+          grid="lg:grid-cols-5"
+        />
+      }
       media={[
         { src: study.cover, ratio: 433 / 461, alt: "MagTracker QR code tags on clips" },
         { src: bottle!.src, ratio: 3 / 4, alt: "MagTracker tag clipped to a water bottle", caption: "Water bottle" },

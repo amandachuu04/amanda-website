@@ -7,7 +7,8 @@ import Contact from "./sections/Contact";
 import Footer from "./sections/Footer";
 import ProjectsPage from "./sections/ProjectsPage";
 import MagTrackerPage from "./sections/MagTrackerPage";
-import WorkDetailPage from "./sections/WorkDetailPage";
+import NexTripPage from "./sections/NexTripPage";
+import ProjectStoryPage from "./sections/ProjectStoryPage";
 import FloraFlowPage from "./sections/FloraFlowPage";
 import ProjectDetailPage from "./sections/ProjectDetailPage";
 import { navigate, useRoute } from "./lib/route";
@@ -103,8 +104,10 @@ export default function App() {
               <MagTrackerPage />
             ) : route.slug === "floraflow" ? (
               <FloraFlowPage />
-            ) : getCaseStudy(route.slug) ? (
-              <WorkDetailPage slug={route.slug} />
+            ) : route.slug === "nextrip" ? (
+              <NexTripPage />
+            ) : getProjectPage(route.slug) ? (
+              <ProjectStoryPage project={getProjectPage(route.slug)!} />
             ) : (
               <ProjectDetailPage slug={route.slug} />
             )}
