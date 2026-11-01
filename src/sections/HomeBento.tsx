@@ -177,16 +177,17 @@ export default function HomeBento() {
 
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4 lg:gap-5">
           {/* interests */}
-          <Tile delay={0.1} className="flex flex-col justify-between gap-5 p-6">
+          <Tile delay={0.1} className="flex flex-col gap-4 p-6">
             <Eyebrow>Interests ♡</Eyebrow>
-            <ul className="flex flex-wrap gap-2">
-              {[["🧋", "Boba"], ["🎤", "Concerts"], ["🛍️", "Shopping"], ["🎧", "Music"]].map(([icon, x], i) => (
+            <ul className="grid flex-1 auto-rows-fr grid-cols-2 gap-2">
+              {["Boba", "Concerts", "Shopping", "Music"].map((x, i) => (
                 <motion.li
                   key={x}
-                  whileHover={{ y: -3, rotate: i % 2 ? 3 : -3 }}
-                  className="flex items-center gap-1.5 rounded-2xl border border-taupe-200/60 bg-blush-100 px-3 py-2 font-display text-sm font-bold text-taupe-500"
+                  whileHover={{ y: -3, rotate: i % 2 ? 2 : -2 }}
+                  className={`flex min-h-[3rem] items-center justify-center rounded-2xl px-2 text-center font-display text-base font-bold text-taupe-500 ${
+                    i === 0 || i === 3 ? "bg-blush-100" : "bg-taupe-50"
+                  }`}
                 >
-                  <span aria-hidden className="text-lg">{icon}</span>
                   {x}
                 </motion.li>
               ))}
