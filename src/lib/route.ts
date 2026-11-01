@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 export type Route =
   | { name: "home" }
   | { name: "about" }
+  | { name: "contact" }
   | { name: "projects"; slug: "all" | "design" | "programming" | "both" }
   | { name: "work"; slug: string };
 
@@ -12,6 +13,7 @@ function parse(pathname: string): Route {
   const path = pathname.replace(/\/+$/, "") || "/";
   if (path === "/" || path === "") return { name: "home" };
   if (path === "/about") return { name: "about" };
+  if (path === "/contact") return { name: "contact" };
 
   if (path.startsWith("/work/")) {
     const slug = path.slice("/work/".length);

@@ -6,6 +6,7 @@ import { Route, useRoute } from "../lib/route";
 function isActive(label: string, route: Route) {
   if (label === "Home") return route.name === "home";
   if (label === "About") return route.name === "about";
+  if (label === "Contact") return route.name === "contact";
   if (label === "Projects") return route.name === "projects" || route.name === "work";
   return false;
 }

@@ -23,6 +23,8 @@ export default function App() {
       document.title = "Projects";
     } else if (route.name === "about") {
       document.title = "About | Amanda Chu";
+    } else if (route.name === "contact") {
+      document.title = "Contact | Amanda Chu";
     } else if (route.name === "work") {
       document.title =
         getCaseStudy(route.slug)?.title ??
@@ -103,6 +105,13 @@ export default function App() {
             ) : (
               <ProjectDetailPage slug={route.slug} />
             )}
+          </main>
+          <Footer />
+        </>
+      ) : route.name === "contact" ? (
+        <>
+          <main id="main">
+            <Contact />
           </main>
           <Footer />
         </>

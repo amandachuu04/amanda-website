@@ -21,7 +21,7 @@ export const navLinks = [
   { label: "Home", href: "#hero" },
   { label: "About", href: "/about" },
   { label: "Projects", href: "/projects" },
-  { label: "Contact", href: "#contact" },
+  { label: "Contact", href: "/contact" },
 ];
 
 export type ProjectCategory = "design" | "programming" | "both";
