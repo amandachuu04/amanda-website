@@ -114,7 +114,9 @@ export default function App() {
             <About />
             <Experience />
             <Education />
+            <Certifications />
             <Tools />
+            <Contact />
           </main>
           <Footer />
         </>
@@ -123,7 +125,6 @@ export default function App() {
           <main id="main">
             <Hero />
             <Projects />
-            <Certifications />
             <Contact />
           </main>
           <Footer />
