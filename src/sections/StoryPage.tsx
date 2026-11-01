@@ -147,7 +147,6 @@ export default function StoryPage({ study, media, band, after, brand, children }
   const [zoomed, setZoomed] = useState<LightboxItem | null>(null);
   const zoom = useMemo(() => (item: LightboxItem) => setZoomed(item), []);
   const facts = factList(study.meta);
-  const spread = facts.length <= 5 && facts.every(([, v]) => v.length <= 40);
   const rowWidth = Math.min(1400, media.reduce((sum, m) => sum + m.ratio, 0) * 1000);
 
   return (
@@ -163,12 +162,12 @@ export default function StoryPage({ study, media, band, after, brand, children }
           </a>
           <h1 className={`mt-6 font-display ${study.title.length > 14 ? "text-[clamp(2.8rem,8vw,6.5rem)]" : "text-[clamp(3.6rem,12vw,10rem)]"} font-bold leading-[0.95] tracking-tight text-ink`}>{study.title}</h1>
           <p className="mt-6 text-lg text-taupe-500 sm:text-xl">{study.tagline}</p>
-          <dl className={`mt-8 grid grid-cols-2 gap-x-8 gap-y-4 ${spread ? "md:flex md:justify-between" : "lg:grid-cols-4"}`}>
+          <dl className="mt-8 grid grid-cols-2 gap-x-8 gap-y-4 md:grid-cols-3 lg:flex lg:justify-between">
             {facts.map(([k, v]) => (
-              <div key={k} className={v.length > 60 ? "col-span-full" : ""}>
+              <div key={k} className="min-w-0">
                 <dt className="text-[10px] font-semibold uppercase tracking-[0.2em] text-taupe-400">{k}</dt>
                 {v.length > 60 ? (
-                  <dd className="mt-1">
+                  <dd className="mt-0.5">
                     <ul className="font-display text-base font-bold text-ink">
                       {v.split(", ").map((item) => (
                         <li key={item} className="py-0.5">{item}</li>
