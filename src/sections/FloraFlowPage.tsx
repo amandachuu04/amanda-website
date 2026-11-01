@@ -1,60 +1,31 @@
-import { ReactNode, useEffect, useState } from "react";
+import { ReactNode } from "react";
 import { motion } from "framer-motion";
 import { caseStudies } from "../lib/site";
 import { projectsHref } from "../lib/route";
 
 const study = caseStudies.floraflow;
 
-const SECTIONS = [
-  { id: "overview", label: "Overview" },
-  { id: "problem", label: "Problem" },
-  { id: "opportunity", label: "Opportunity" },
-  { id: "features", label: "Key features" },
-  { id: "audience", label: "Audience" },
-  { id: "research", label: "Research" },
-  { id: "demo", label: "The lamp" },
-  { id: "screens", label: "Final screens" },
-];
+const reveal = {
+  initial: { opacity: 0, y: 28 },
+  whileInView: { opacity: 1, y: 0 },
+  viewport: { once: true, margin: "-60px" },
+  transition: { duration: 0.6, ease: "easeOut" as const },
+};
 
-function useActiveSection() {
-  const [active, setActive] = useState(SECTIONS[0].id);
-  useEffect(() => {
-    const els = SECTIONS.map((s) => document.getElementById(s.id)).filter(Boolean) as HTMLElement[];
-    const io = new IntersectionObserver(
-      (entries) => {
-        const visible = entries.filter((e) => e.isIntersecting).sort((a, b) => a.boundingClientRect.top - b.boundingClientRect.top);
-        if (visible[0]) setActive(visible[0].target.id);
-      },
-      { rootMargin: "-35% 0px -55% 0px" }
-    );
-    els.forEach((el) => io.observe(el));
-    return () => io.disconnect();
-  }, []);
-  return active;
-}
-
-function Block({ id, eyebrow, title, children }: { id: string; eyebrow: string; title: ReactNode; children: ReactNode }) {
+function Eyebrow({ children }: { children: ReactNode }) {
   return (
-    <section id={id} className="scroll-mt-28 border-t border-taupe-200/50 py-14 first:border-t-0 first:pt-0 sm:py-16">
-      <motion.div
-        initial={{ opacity: 0, y: 16 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, margin: "-80px" }}
-        transition={{ duration: 0.5 }}
-      >
-        <span className="section-eyebrow">
-          <span aria-hidden className="inline-block h-1.5 w-6 rounded-full bg-blush-300" />
-          {eyebrow}
-        </span>
-        <h2 className="mt-3 font-display text-[clamp(1.9rem,3.4vw,2.8rem)] font-bold leading-tight text-ink">{title}</h2>
-      </motion.div>
-      <div className="mt-8">{children}</div>
-    </section>
+    <span className="section-eyebrow">
+      <span aria-hidden className="inline-block h-1.5 w-6 rounded-full bg-blush-300" />
+      {children}
+    </span>
   );
 }
 
+function Wrap({ className = "", children }: { className?: string; children: ReactNode }) {
+  return <div className={`mx-auto w-full max-w-[1280px] px-4 sm:px-8 lg:px-12 ${className}`}>{children}</div>;
+}
+
 export default function FloraFlowPage() {
-  const active = useActiveSection();
   const [problem, opportunity, ideate, audience, research] = study.sections;
   const brand = study.gallery[0];
   const screens = study.gallery.filter((g) => g.aspect === "phone" && g.kind !== "video");
@@ -68,185 +39,193 @@ export default function FloraFlowPage() {
   ];
 
   return (
-    <div className="relative w-full bg-cream-100 pb-16 pt-28 sm:pt-32">
+    <div className="relative w-full overflow-hidden bg-cream-100 pt-28 sm:pt-32">
       <div aria-hidden className="pointer-events-none absolute inset-0 grain opacity-50" />
-      <div className="relative mx-auto grid w-full max-w-[1400px] grid-cols-1 gap-10 px-4 sm:px-8 lg:grid-cols-[360px_minmax(0,1fr)] lg:gap-16 lg:px-12">
-        {/* ---------- sticky project card ---------- */}
-        <aside className="lg:sticky lg:top-28 lg:max-h-[calc(100vh-8rem)] lg:self-start lg:overflow-y-auto lg:rounded-[1.75rem]">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            className="rounded-[1.75rem] border border-taupe-200/40 bg-cream-50 p-5 shadow-card"
-          >
-            <a href={projectsHref()} className="text-[10px] font-semibold uppercase tracking-[0.18em] text-taupe-400 hover:text-taupe-500">
-              ← All projects
-            </a>
-            <div className="mt-4 flex items-center gap-4">
-              <img src={brand.src} alt="FloraFlow brand mark" className="h-16 w-16 shrink-0 rounded-2xl border border-taupe-200/40 bg-white object-contain p-1.5" />
-              <div>
-                <p className="font-display text-2xl font-bold text-ink">
-                  Flora<span className="italic text-taupe-500">Flow</span>
-                </p>
-                <p className="mt-0.5 text-sm text-taupe-500">UX/UI &amp; Branding</p>
+
+      {/* ---------- hero ---------- */}
+      <Wrap className="relative text-center">
+        <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }}>
+          <a href={projectsHref()} className="text-xs font-semibold uppercase tracking-[0.18em] text-taupe-400 hover:text-taupe-500">
+            ← All projects
+          </a>
+          <h1 className="mt-6 font-display text-[clamp(3.6rem,12vw,10rem)] font-bold leading-[0.9] tracking-tight text-ink">
+            Flora<span className="italic text-taupe-500">Flow</span>
+          </h1>
+          <p className="mx-auto mt-6 max-w-2xl text-lg text-taupe-500 sm:text-xl">{study.tagline}</p>
+          <dl className="mx-auto mt-8 flex max-w-4xl flex-wrap justify-center gap-x-8 gap-y-4">
+            {facts.filter(([, v]) => v).map(([k, v]) => (
+              <div key={k}>
+                <dt className="text-[10px] font-semibold uppercase tracking-[0.2em] text-taupe-400">{k}</dt>
+                <dd className="mt-1 font-display text-base font-bold text-ink">{v}</dd>
               </div>
-            </div>
+            ))}
+          </dl>
+          {study.externalLink && (
+            <a href={study.externalLink.href} target="_blank" rel="noopener noreferrer" className="btn-primary mt-8">
+              {study.externalLink.label} ↗
+            </a>
+          )}
+        </motion.div>
+      </Wrap>
 
-            <dl className="mt-5 grid grid-cols-2 gap-x-4 gap-y-3 border-t border-taupe-200/50 pt-5">
-              {facts.filter(([, v]) => v).map(([k, v]) => (
-                <div key={k} className={k === "Role" || k === "Tools" ? "col-span-2" : ""}>
-                  <dt className="text-[10px] font-semibold uppercase tracking-[0.18em] text-taupe-400">{k}</dt>
-                  <dd className="mt-0.5 font-display text-sm font-bold text-ink">{v}</dd>
-                </div>
-              ))}
-            </dl>
-
-            <nav aria-label="On this page" className="mt-5 hidden border-t border-taupe-200/50 pt-4 lg:block">
-              <ul className="space-y-0.5">
-                {SECTIONS.map((s) => (
-                  <li key={s.id}>
-                    <a
-                      href={`#${s.id}`}
-                      className={`flex items-center gap-3 rounded-xl px-3 py-1.5 text-sm transition-colors ${
-                        active === s.id ? "bg-blush-100 font-semibold text-ink" : "text-taupe-500 hover:bg-cream-100"
-                      }`}
-                    >
-                      <span
-                        aria-hidden
-                        className={`h-1.5 rounded-full transition-all duration-300 ${active === s.id ? "w-5 bg-blush-400" : "w-1.5 bg-taupe-200"}`}
-                      />
-                      {s.label}
-                    </a>
-                  </li>
-                ))}
-              </ul>
-            </nav>
-
-            {study.externalLink && (
-              <a href={study.externalLink.href} target="_blank" rel="noopener noreferrer" className="btn-primary mt-5 w-full">
-                {study.externalLink.label} ↗
-              </a>
-            )}
-          </motion.div>
-        </aside>
-
-        {/* ---------- scrolling story ---------- */}
-        <div className="min-w-0 pb-8">
-          <Block
-            id="overview"
-            eyebrow="Overview"
-            title={
-              <>
-                A calming, <span className="italic text-taupe-500">screen free</span> focus system.
-              </>
-            }
-          >
-            <p className="max-w-2xl text-lg text-ink sm:text-xl">{study.intro}</p>
-            <figure className="mt-8 overflow-hidden rounded-[1.75rem] border border-taupe-200/40 shadow-card" style={{ aspectRatio: "3208 / 3306", maxWidth: "36rem" }}>
-              <img src={study.cover} alt="The FloraFlow lamp, a glowing purple flower on a 3D printed base" className="h-full w-full object-cover" />
+      {/* ---------- lamp photo + demo video, same height, nothing cropped ---------- */}
+      <Wrap className="relative mt-14 sm:mt-20">
+        <motion.div
+          initial={{ opacity: 0, y: 40 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.15, ease: "easeOut" }}
+          className="flex flex-col gap-4 md:flex-row lg:gap-5"
+        >
+          <figure className="m-0 overflow-hidden rounded-[2rem] shadow-soft md:flex-[970_1_0%]" style={{ aspectRatio: "3208 / 3306" }}>
+            <img src={study.cover} alt="The FloraFlow lamp, a glowing flower on a 3D printed base" className="h-full w-full object-cover" />
+          </figure>
+          {video && video.kind === "video" && (
+            <figure className="mx-auto m-0 w-full max-w-[320px] overflow-hidden rounded-[2rem] bg-ink shadow-soft md:max-w-none md:flex-[484_1_0%]" style={{ aspectRatio: "430 / 888" }}>
+              <video src={video.src} poster={video.poster} controls muted loop playsInline preload="metadata" className="h-full w-full object-cover" />
             </figure>
-            <div className="mt-6 flex flex-wrap gap-2">
-              {study.skills.map((s) => (
-                <span key={s} className="rounded-pill border border-taupe-200/60 bg-cream-50 px-4 py-2 text-sm font-medium text-taupe-600">
-                  {s}
-                </span>
-              ))}
-            </div>
-          </Block>
+          )}
+        </motion.div>
+        {video?.caption && <p className="mt-4 text-center font-display text-sm italic text-taupe-400">{video.caption}</p>}
+      </Wrap>
 
-          <Block id="problem" eyebrow="Problem" title={problem.heading}>
-            <p className="max-w-2xl text-base leading-relaxed text-taupe-600 sm:text-lg">{problem.body}</p>
-          </Block>
+      {/* ---------- problem ---------- */}
+      <Wrap className="relative mt-24 sm:mt-32">
+        <motion.div {...reveal} className="grid grid-cols-1 gap-6 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] lg:gap-16">
+          <div>
+            <Eyebrow>The problem</Eyebrow>
+            <h2 className="mt-4 font-display text-[clamp(2.2rem,4.6vw,3.8rem)] font-bold leading-[1.05] text-ink">{problem.heading}</h2>
+          </div>
+          <p className="text-base leading-relaxed text-taupe-600 sm:text-lg lg:pt-10">{problem.body}</p>
+        </motion.div>
+      </Wrap>
 
-          <Block id="opportunity" eyebrow="Opportunity" title={<>Plan once. <span className="italic text-taupe-500">Then look away.</span></>}>
-            <p className="max-w-2xl text-base leading-relaxed text-taupe-600 sm:text-lg">{opportunity.body}</p>
-          </Block>
+      {/* ---------- opportunity band ---------- */}
+      <section className="relative mt-24 bg-blush-100 py-20 sm:mt-32 sm:py-28">
+        <Wrap className="text-center">
+          <motion.div {...reveal}>
+            <Eyebrow>The opportunity</Eyebrow>
+            <h2 className="mt-5 font-display text-[clamp(2.8rem,8vw,6.5rem)] font-bold leading-[0.95] text-ink">
+              Plan once.
+              <br />
+              <span className="italic text-taupe-500">Then look away.</span>
+            </h2>
+            <p className="mx-auto mt-8 max-w-2xl text-base leading-relaxed text-taupe-600 sm:text-lg">{opportunity.body}</p>
+          </motion.div>
+        </Wrap>
+      </section>
 
-          <Block id="features" eyebrow="Ideate" title={ideate.heading}>
-            {ideate.body && <p className="-mt-2 mb-6 max-w-2xl text-base text-taupe-500">{ideate.body}</p>}
-            <ol className="grid grid-cols-1 gap-3 md:grid-cols-2">
-              {ideate.bullets?.map((b, i) => (
-                <li key={b} className="flex gap-4 rounded-3xl border border-taupe-200/40 bg-cream-50 p-5 shadow-card">
-                  <span className="font-display text-2xl font-bold leading-none text-blush-300">{String(i + 1).padStart(2, "0")}</span>
-                  <span className="text-sm text-taupe-600 sm:text-base">{b}</span>
-                </li>
-              ))}
-            </ol>
-          </Block>
+      {/* ---------- key features ---------- */}
+      <Wrap className="relative mt-24 sm:mt-32">
+        <motion.div {...reveal} className="max-w-3xl">
+          <Eyebrow>Ideate</Eyebrow>
+          <h2 className="mt-4 font-display text-[clamp(2.2rem,4.6vw,3.8rem)] font-bold leading-tight text-ink">{ideate.heading}</h2>
+          <p className="mt-4 text-base text-taupe-500 sm:text-lg">{ideate.body}</p>
+        </motion.div>
+        <ol className="mt-12 grid grid-cols-1 gap-x-10 gap-y-10 sm:grid-cols-2 lg:grid-cols-3">
+          {ideate.bullets?.map((b, i) => (
+            <motion.li key={b} {...reveal} transition={{ ...reveal.transition, delay: 0.06 * i }} className="border-t-2 border-blush-200 pt-5">
+              <span className="font-display text-5xl font-bold leading-none text-blush-300">{String(i + 1).padStart(2, "0")}</span>
+              <p className="mt-4 text-base leading-relaxed text-ink sm:text-lg">{b}</p>
+            </motion.li>
+          ))}
+        </ol>
+      </Wrap>
 
-          <Block id="audience" eyebrow="Audience" title={audience.heading}>
-            <p className="mb-5 inline-flex rounded-pill bg-blush-100 px-4 py-1.5 font-display text-sm font-bold text-taupe-500">
-              Students &amp; early career learners · ages 16–30
+      {/* ---------- research stat ---------- */}
+      <Wrap className="relative mt-24 sm:mt-32">
+        <motion.div {...reveal} className="grid grid-cols-1 items-center gap-8 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.1fr)] lg:gap-16">
+          <div>
+            <Eyebrow>{research.heading}</Eyebrow>
+            <p className="mt-4 font-display whitespace-nowrap text-[clamp(4rem,10vw,8.5rem)] font-bold leading-[0.85] tracking-tight text-ink">
+              20–30
+              <span className="ml-2 align-baseline text-[0.3em] italic text-taupe-500">min</span>
             </p>
-            <p className="max-w-2xl text-base leading-relaxed text-taupe-600 sm:text-lg">{audience.body}</p>
-          </Block>
-
-          <Block id="research" eyebrow="Research" title={research.heading}>
-            <div className="mb-6 grid grid-cols-1 gap-3 sm:grid-cols-2">
-              <div className="rounded-3xl bg-blush-100 p-6">
-                <p className="font-display text-5xl font-bold leading-none text-ink">
-                  20–30<span className="text-2xl text-taupe-400"> min</span>
-                </p>
-                <p className="mt-2 text-sm text-taupe-500">How long most respondents stay focused before getting distracted</p>
-              </div>
-              <div className="rounded-3xl border border-taupe-200/40 bg-cream-50 p-6">
-                <p className="text-[10px] font-semibold uppercase tracking-[0.18em] text-taupe-400">Tools students already use</p>
-                <div className="mt-3 flex flex-wrap gap-2">
-                  {["Notion", "Google Calendar", "Todoist", "Quizlet"].map((t) => (
-                    <span key={t} className="rounded-pill border border-taupe-200/60 px-3 py-1 text-sm text-taupe-600">{t}</span>
-                  ))}
-                </div>
-              </div>
-            </div>
-            <p className="max-w-2xl text-base leading-relaxed text-taupe-600 sm:text-lg">{research.body}</p>
-          </Block>
-
-          <Block id="demo" eyebrow="The lamp" title={<>See it <span className="italic text-taupe-500">in action</span></>}>
-            <div className="grid grid-cols-1 items-start gap-6 md:grid-cols-[minmax(0,280px)_minmax(0,1fr)]">
-              {video && video.kind === "video" && (
-                <figure className="mx-auto w-full max-w-[280px] overflow-hidden rounded-[1.75rem] border border-taupe-200/40 bg-cream-50 shadow-card">
-                  <video
-                    src={video.src}
-                    poster={video.poster}
-                    controls
-                    muted
-                    loop
-                    playsInline
-                    preload="metadata"
-                    className="block w-full bg-ink object-cover"
-                    style={{ aspectRatio: "430 / 888" }}
-                  />
-                  <figcaption className="px-5 py-3 text-center font-display text-sm italic text-taupe-500">{video.caption}</figcaption>
-                </figure>
-              )}
-              <div className="flex flex-col gap-4 rounded-3xl border border-taupe-200/40 bg-cream-50 p-6 shadow-card sm:flex-row sm:items-center">
-                <img src={brand.src} alt="FloraFlow brand mark" className="h-28 w-28 shrink-0 rounded-2xl border border-taupe-200/40 bg-white object-contain p-2" />
-                <div>
-                  <p className="font-display text-xl font-bold text-ink">Brand mark</p>
-                  <p className="mt-1 text-base text-taupe-600">{study.featuredNote}</p>
-                </div>
-              </div>
-            </div>
-          </Block>
-
-          <Block id="screens" eyebrow="Final screens" title={<>The companion <span className="italic text-taupe-500">app</span></>}>
-            {study.galleryNote && <p className="-mt-2 mb-6 max-w-2xl text-base text-taupe-500">{study.galleryNote}</p>}
-            <div className="grid grid-cols-2 gap-4 sm:grid-cols-3">
-              {screens.map((g) => (
-                <figure key={g.src} className="m-0">
-                  <div className="overflow-hidden rounded-[1.6rem] border border-taupe-200/40 bg-cream-50 p-1.5 shadow-card">
-                    <img src={g.src} alt={g.caption ?? ""} loading="lazy" className="block w-full rounded-[1.2rem]" style={{ aspectRatio: "440 / 956" }} />
-                  </div>
-                  <figcaption className="mt-3 text-center text-[10px] font-semibold uppercase tracking-[0.18em] text-taupe-400">{g.caption}</figcaption>
-                </figure>
+            <p className="mt-4 max-w-sm font-display text-lg font-bold text-taupe-500">
+              is how long most students said they stay focused before getting distracted.
+            </p>
+          </div>
+          <div>
+            <p className="text-base leading-relaxed text-taupe-600 sm:text-lg">{research.body}</p>
+            <div className="mt-6 flex flex-wrap gap-2">
+              {["Notion", "Google Calendar", "Todoist", "Quizlet"].map((t) => (
+                <span key={t} className="rounded-pill bg-blush-100 px-4 py-1.5 text-sm font-semibold text-taupe-500">{t}</span>
               ))}
             </div>
-            <a href={projectsHref()} className="btn-secondary mt-10">
-              ← Back to all projects
-            </a>
-          </Block>
+          </div>
+        </motion.div>
+      </Wrap>
+
+      {/* ---------- audience ---------- */}
+      <Wrap className="relative mt-24 sm:mt-32">
+        <motion.div {...reveal} className="grid grid-cols-1 gap-6 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] lg:gap-16">
+          <div>
+            <Eyebrow>{audience.heading}</Eyebrow>
+            <h2 className="mt-4 font-display text-[clamp(2.2rem,4.6vw,3.8rem)] font-bold leading-[1.05] text-ink">
+              Students &amp; early career learners, <span className="italic text-taupe-500">ages 16–30.</span>
+            </h2>
+          </div>
+          <p className="text-base leading-relaxed text-taupe-600 sm:text-lg lg:pt-10">{audience.body}</p>
+        </motion.div>
+      </Wrap>
+
+      {/* ---------- final screens band ---------- */}
+      <section className="relative mt-24 bg-blush-100 pb-24 pt-20 sm:mt-32 sm:pb-32 sm:pt-28">
+        <Wrap>
+          <motion.div {...reveal} className="mx-auto max-w-2xl text-center">
+            <Eyebrow>Final screens</Eyebrow>
+            <h2 className="mt-4 font-display text-[clamp(2.2rem,4.6vw,3.8rem)] font-bold leading-tight text-ink">
+              The companion <span className="italic text-taupe-500">app</span>
+            </h2>
+            <p className="mt-4 text-base text-taupe-600 sm:text-lg">{study.galleryNote}</p>
+          </motion.div>
+          <div className="mt-14 grid grid-cols-3 gap-3 sm:gap-5 lg:grid-cols-6">
+            {screens.map((g, i) => (
+              <motion.figure
+                key={g.src}
+                {...reveal}
+                transition={{ ...reveal.transition, delay: 0.07 * i }}
+                whileHover={{ y: -10, rotate: i % 2 ? 2 : -2 }}
+                className={`m-0 ${i % 2 ? "lg:mt-12" : ""}`}
+              >
+                <img
+                  src={g.src}
+                  alt={g.caption ?? ""}
+                  loading="lazy"
+                  className="block w-full rounded-[1.4rem] shadow-soft"
+                  style={{ aspectRatio: "440 / 956" }}
+                />
+                <figcaption className="mt-3 text-center text-[10px] font-semibold uppercase tracking-[0.16em] text-taupe-500">{g.caption}</figcaption>
+              </motion.figure>
+            ))}
+          </div>
+        </Wrap>
+      </section>
+
+      {/* ---------- brand + skills + next ---------- */}
+      <Wrap className="relative py-20 sm:py-24">
+        <motion.div {...reveal} className="flex flex-col items-center gap-6 text-center sm:flex-row sm:text-left">
+          <img src={brand.src} alt="FloraFlow brand mark" className="h-24 w-24 shrink-0 rounded-3xl bg-white object-contain p-2 shadow-card" />
+          <div>
+            <p className="font-display text-xl font-bold text-ink">Brand mark</p>
+            <p className="mt-1 max-w-xl text-base text-taupe-600">{study.featuredNote}</p>
+          </div>
+        </motion.div>
+        <div className="mt-10 flex flex-wrap justify-center gap-2 sm:justify-start">
+          {study.skills.map((s) => (
+            <span key={s} className="rounded-pill border border-taupe-200/60 px-4 py-2 text-sm font-medium text-taupe-600">{s}</span>
+          ))}
         </div>
-      </div>
+        <div className="mt-16 flex flex-col items-center justify-between gap-6 border-t border-taupe-200/50 pt-10 sm:flex-row">
+          <a href={projectsHref()} className="group font-display text-[clamp(1.8rem,4vw,3rem)] font-bold text-ink">
+            ← <span className="italic text-taupe-500 group-hover:text-ink">All projects</span>
+          </a>
+          {study.externalLink && (
+            <a href={study.externalLink.href} target="_blank" rel="noopener noreferrer" className="btn-primary">
+              {study.externalLink.label} ↗
+            </a>
+          )}
+        </div>
+      </Wrap>
     </div>
   );
 }
