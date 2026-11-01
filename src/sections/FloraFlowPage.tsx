@@ -201,7 +201,7 @@ export default function FloraFlowPage() {
       {/* ---------- brand mark ---------- */}
       <Wrap className="relative py-16 sm:py-20">
         <motion.div {...reveal} className="flex flex-col items-start gap-6 sm:flex-row sm:items-center">
-          <img src={brand.src} alt="FloraFlow brand mark" className="h-24 w-24 shrink-0 rounded-3xl bg-white object-contain p-2 shadow-card" />
+          <img src={brand.src} alt="FloraFlow brand mark" className="h-24 w-24 shrink-0 object-contain" />
           <div className="min-w-0 flex-1">
             <p className="font-display text-xl font-bold text-ink">Brand mark</p>
             <p className="mt-1 text-base text-taupe-600 sm:text-lg">{study.featuredNote}</p>
