@@ -48,16 +48,12 @@ export default function FloraFlowPage() {
           <a href={projectsHref()} className="text-xs font-semibold uppercase tracking-[0.18em] text-taupe-400 hover:text-taupe-500">
             ← All projects
           </a>
-          <div className="mt-6 flex items-center gap-4 sm:gap-6">
-            <img
-              src={brand.src}
-              alt="FloraFlow brand mark"
-              className="h-16 w-16 shrink-0 rounded-2xl bg-white object-contain p-1.5 shadow-card sm:h-24 sm:w-24 sm:rounded-3xl lg:h-32 lg:w-32"
-            />
-            <h1 className="font-display text-[clamp(3.6rem,12vw,10rem)] font-bold leading-[0.9] tracking-tight text-ink">
-              Flora<span className="italic text-taupe-500">Flow</span>
-            </h1>
-          </div>
+          <img
+            src={brand.src}
+            alt="FloraFlow brand mark"
+            className="mt-6 h-16 w-16 rounded-2xl bg-white object-contain p-1.5 shadow-card sm:h-20 sm:w-20"
+          />
+          <h1 className="mt-5 font-display text-[clamp(3.6rem,12vw,10rem)] font-bold leading-[0.9] tracking-tight text-ink">FloraFlow</h1>
           <p className="mt-6 max-w-2xl text-lg text-taupe-500 sm:text-xl">{study.tagline}</p>
           <dl className="mt-8 flex max-w-4xl flex-wrap gap-x-8 gap-y-4">
             {facts.filter(([, v]) => v).map(([k, v]) => (
@@ -67,6 +63,11 @@ export default function FloraFlowPage() {
               </div>
             ))}
           </dl>
+          <div className="mt-8 flex flex-wrap gap-2">
+            {study.skills.map((t) => (
+              <span key={t} className="rounded-pill border border-taupe-200/60 px-4 py-2 text-sm font-medium text-taupe-600">{t}</span>
+            ))}
+          </div>
           {study.externalLink && (
             <a href={study.externalLink.href} target="_blank" rel="noopener noreferrer" className="btn-primary mt-8">
               {study.externalLink.label} ↗
@@ -106,20 +107,16 @@ export default function FloraFlowPage() {
         </motion.div>
       </Wrap>
 
-      {/* ---------- opportunity band ---------- */}
-      <section className="relative mt-24 bg-blush-100 py-20 sm:mt-32 sm:py-28">
-        <Wrap>
-          <motion.div {...reveal}>
+      {/* ---------- opportunity ---------- */}
+      <Wrap className="relative mt-24 sm:mt-32">
+        <motion.div {...reveal} className="grid grid-cols-1 gap-6 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] lg:gap-16">
+          <div>
             <Eyebrow>The opportunity</Eyebrow>
-            <h2 className="mt-5 font-display text-[clamp(2.8rem,8vw,6.5rem)] font-bold leading-[0.95] text-ink">
-              Plan once.
-              <br />
-              <span className="italic text-taupe-500">Then look away.</span>
-            </h2>
-            <p className="mt-8 max-w-2xl text-base leading-relaxed text-taupe-600 sm:text-lg">{opportunity.body}</p>
-          </motion.div>
-        </Wrap>
-      </section>
+            <h2 className="mt-4 font-display text-[clamp(2.2rem,4.6vw,3.8rem)] font-bold leading-[1.05] text-ink">{opportunity.heading}</h2>
+          </div>
+          <p className="text-base leading-relaxed text-taupe-600 sm:text-lg lg:pt-10">{opportunity.body}</p>
+        </motion.div>
+      </Wrap>
 
       {/* ---------- key features ---------- */}
       <Wrap className="relative mt-24 sm:mt-32">
@@ -217,11 +214,6 @@ export default function FloraFlowPage() {
             <p className="mt-1 max-w-xl text-base text-taupe-600">{study.featuredNote}</p>
           </div>
         </motion.div>
-        <div className="mt-10 flex flex-wrap gap-2">
-          {study.skills.map((s) => (
-            <span key={s} className="rounded-pill border border-taupe-200/60 px-4 py-2 text-sm font-medium text-taupe-600">{s}</span>
-          ))}
-        </div>
         <div className="mt-16 flex flex-col items-start justify-between gap-6 border-t border-taupe-200/50 pt-10 sm:flex-row sm:items-center">
           <a href={projectsHref()} className="group font-display text-[clamp(1.8rem,4vw,3rem)] font-bold text-ink">
             ← <span className="italic text-taupe-500 group-hover:text-ink">All projects</span>
