@@ -21,13 +21,16 @@ export default function Lightbox({
   const [zoomOrigin, setZoomOrigin] = useState({ x: 50, y: 50 });
 
   useEffect(() => {
-    const prevBody = document.body.style.overflow;
-    const prevHtml = document.documentElement.style.overflow;
-    document.body.style.overflow = "hidden";
-    document.documentElement.style.overflow = "hidden";
+    // Pin the page in place so opening and closing keeps the scroll position.
+    const y = window.scrollY;
+    const { style } = document.body;
+    const prev = { position: style.position, top: style.top, width: style.width };
+    style.position = "fixed";
+    style.top = `-${y}px`;
+    style.width = "100%";
     return () => {
-      document.body.style.overflow = prevBody;
-      document.documentElement.style.overflow = prevHtml;
+      Object.assign(style, prev);
+      window.scrollTo({ top: y, behavior: "instant" });
     };
   }, []);
 
