@@ -1,6 +1,5 @@
-import { ReactNode } from "react";
+import { ReactNode, useEffect, useState } from "react";
 import { motion } from "framer-motion";
-import LocalClock from "../components/LocalClock";
 import { experiences, projects, site, toolGroups } from "../lib/site";
 import { projectsHref, workHref } from "../lib/route";
 
@@ -61,6 +60,27 @@ function Arrow() {
   );
 }
 
+function BigClock() {
+  const fmt = () =>
+    new Intl.DateTimeFormat("en-US", { timeZone: "America/New_York", hour: "numeric", minute: "2-digit", hour12: true }).formatToParts(new Date());
+  const [parts, setParts] = useState(fmt);
+  useEffect(() => {
+    const id = setInterval(() => setParts(fmt()), 10000);
+    return () => clearInterval(id);
+  }, []);
+  const get = (t: string) => parts.find((p) => p.type === t)?.value ?? "";
+  return (
+    <p className="my-3 flex items-baseline gap-2 font-display font-bold text-ink tabular-nums">
+      <span className="text-[clamp(2.6rem,4vw,3.4rem)] leading-none">
+        {get("hour")}
+        <motion.span animate={{ opacity: [1, 0.2, 1] }} transition={{ duration: 2, repeat: Infinity }}>:</motion.span>
+        {get("minute")}
+      </span>
+      <span className="text-lg text-taupe-400">{get("dayPeriod")}</span>
+    </p>
+  );
+}
+
 export default function HomeBento() {
   const now = experiences[0];
   const latest = projects.slice(0, 4);
@@ -73,7 +93,7 @@ export default function HomeBento() {
         <div aria-hidden className="absolute inset-0 grain opacity-60" />
         <div className="relative mx-auto grid w-full max-w-[1400px] grid-cols-1 gap-4 px-4 sm:grid-cols-2 sm:px-8 lg:grid-cols-4 lg:gap-5 lg:px-12">
           {/* intro */}
-          <Tile className="flex flex-col justify-between p-7 sm:col-span-2 sm:p-9 lg:row-span-2">
+          <Tile className="flex flex-col justify-center gap-7 p-7 sm:col-span-2 sm:p-9 lg:row-span-2">
             <div className="flex flex-wrap items-center gap-2">
               <span className="pill">
                 <span className="relative flex h-2 w-2">
@@ -84,8 +104,8 @@ export default function HomeBento() {
               </span>
               <span className="pill">UX/UI · Web Dev</span>
             </div>
-            <div className="mt-10">
-              <h1 className="font-display text-[clamp(2.4rem,5.2vw,4.4rem)] font-bold leading-[1.02] tracking-tight text-ink">
+            <div>
+              <h1 className="font-display text-[clamp(2.4rem,4.6vw,4rem)] font-bold leading-[1.02] tracking-tight text-ink">
                 Hi, I&apos;m Amanda.
                 <br />
                 <span className="text-taupe-500">I design &amp;</span>{" "}
@@ -94,7 +114,7 @@ export default function HomeBento() {
               <p className="mt-5 max-w-lg text-base text-taupe-500 sm:text-lg">
                 Designing thoughtful digital experiences through code, creativity, and user-centered thinking.
               </p>
-              <div className="mt-8 flex flex-wrap gap-3">
+              <div className="mt-7 flex flex-wrap gap-3">
                 <a href={site.cvFile} download className="btn-primary">
                   <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden>
                     <path d="M12 4v12m0 0 4-4m-4 4-4-4" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
@@ -108,9 +128,9 @@ export default function HomeBento() {
           </Tile>
 
           {/* avatar */}
-          <Tile delay={0.05} className="min-h-[300px] bg-blush-100 sm:min-h-[340px] lg:row-span-2">
-            <img src={site.avatar} alt="Illustrated portrait of Amanda Chu" className="absolute inset-0 h-full w-full object-contain px-6 pb-14 pt-6 transition-transform duration-700 group-hover:scale-[1.04]" />
-            <span className="absolute bottom-4 left-4 rounded-pill bg-cream-50/90 px-3 py-1.5 font-display text-sm italic text-taupe-500 backdrop-blur">
+          <Tile delay={0.05} className="min-h-[340px] bg-blush-100 lg:row-span-2">
+            <img src={site.avatar} alt="Illustrated portrait of Amanda Chu" className="absolute inset-x-0 bottom-0 top-3 h-[calc(100%-0.75rem)] w-full object-contain object-bottom transition-transform duration-700 group-hover:scale-[1.04]" />
+            <span className="absolute left-4 top-4 rounded-pill bg-cream-50/90 px-3 py-1.5 font-display text-sm italic text-taupe-500 backdrop-blur">
               hi, that&apos;s me ☻
             </span>
           </Tile>
@@ -124,33 +144,45 @@ export default function HomeBento() {
                 <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-blush-400" />
               </span>
             </div>
-            <div className="mt-6">
+            <div className="mt-4">
               <p className="font-display text-xl font-bold leading-tight text-ink">{now.role}</p>
               <p className="mt-1 text-sm text-taupe-500">{now.company}</p>
-              <p className="mt-3 text-xs text-taupe-400">{now.dates} · {now.location}</p>
+              <p className="mt-3 text-sm leading-snug text-taupe-600">
+                Redesigning the HIPPRA website, turning a dropdown concept into tab-based navigation.
+              </p>
+              <p className="mt-3 flex items-center justify-between text-xs text-taupe-400">
+                <span>{now.dates}</span>
+                <span className="font-semibold text-taupe-500 transition-transform group-hover:translate-x-1">See experience →</span>
+              </p>
             </div>
           </Tile>
 
           {/* location + clock */}
           <Tile delay={0.15} className="flex flex-col justify-between p-6">
-            <Eyebrow>Based in</Eyebrow>
-            <div className="mt-6">
-              <p className="font-display text-xl font-bold text-ink">{site.location}</p>
-              <p className="mt-2 text-sm text-taupe-500"><LocalClock /></p>
-              <p className="mt-2 text-xs text-taupe-400">Speaks EN · 粵 · 中</p>
+            <div className="flex items-center justify-between">
+              <Eyebrow>Based in</Eyebrow>
+              <span className="text-xs font-semibold text-taupe-500">{site.location} · local time</span>
+            </div>
+            <BigClock />
+            <div className="flex flex-wrap items-center gap-1.5">
+              <span className="mr-1 text-xs text-taupe-400">Speaks</span>
+              {["English", "Cantonese", "Mandarin"].map((l) => (
+                <span key={l} className="rounded-pill bg-cream-100 px-2.5 py-1 text-xs font-semibold text-taupe-500">{l}</span>
+              ))}
             </div>
           </Tile>
 
           {/* interests */}
-          <Tile delay={0.1} className="flex flex-col justify-between p-6">
+          <Tile delay={0.1} className="flex flex-col justify-between gap-5 p-6">
             <Eyebrow>Interests ♡</Eyebrow>
-            <ul className="mt-6 flex flex-wrap gap-2">
-              {["Boba", "Concerts", "Shopping", "Music"].map((x, i) => (
+            <ul className="flex flex-wrap gap-2">
+              {[["🧋", "Boba"], ["🎤", "Concerts"], ["🛍️", "Shopping"], ["🎧", "Music"]].map(([icon, x], i) => (
                 <motion.li
                   key={x}
                   whileHover={{ y: -3, rotate: i % 2 ? 3 : -3 }}
-                  className="rounded-pill border border-taupe-200/60 bg-blush-100 px-3.5 py-1.5 font-display text-sm font-bold text-taupe-500"
+                  className="flex items-center gap-1.5 rounded-2xl border border-taupe-200/60 bg-blush-100 px-3 py-2 font-display text-sm font-bold text-taupe-500"
                 >
+                  <span aria-hidden className="text-lg">{icon}</span>
                   {x}
                 </motion.li>
               ))}
@@ -158,21 +190,21 @@ export default function HomeBento() {
           </Tile>
 
           {/* design -> implementation */}
-          <Tile delay={0.15} className="flex flex-col justify-between p-6 sm:col-span-2">
+          <Tile delay={0.15} className="flex flex-col justify-center gap-6 p-6 sm:col-span-2">
             <div className="flex items-center justify-between">
               <Eyebrow>How I work</Eyebrow>
               <span className="text-xs text-taupe-400">From Figma to code</span>
             </div>
-            <div className="mt-6 grid grid-cols-[1fr_auto_1fr] items-center gap-3">
-              <div className="rounded-2xl bg-blush-100 p-5">
-                <p className="font-display text-2xl font-bold italic text-taupe-500">design</p>
+            <div className="grid grid-cols-1 items-center gap-3 sm:grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)]">
+              <div className="rounded-2xl bg-blush-100 p-4 lg:p-5">
+                <p className="font-display text-[clamp(1.3rem,1.9vw,1.6rem)] font-bold italic text-taupe-500">design</p>
                 <p className="mt-1 text-xs text-taupe-500">Research, wireframes &amp; high-fidelity screens in Figma</p>
               </div>
-              <motion.span aria-hidden className="text-2xl text-taupe-300" animate={{ x: [0, 4, 0] }} transition={{ duration: 1.8, repeat: Infinity }}>
-                →
+              <motion.span aria-hidden className="justify-self-center text-2xl text-taupe-300" animate={{ x: [0, 4, 0] }} transition={{ duration: 1.8, repeat: Infinity }}>
+                <span className="inline-block rotate-90 sm:rotate-0">→</span>
               </motion.span>
-              <div className="rounded-2xl bg-taupe-50 p-5">
-                <p className="font-display text-2xl font-bold italic text-taupe-500">implementation</p>
+              <div className="rounded-2xl bg-taupe-50 p-4 lg:p-5">
+                <p className="font-display text-[clamp(1.3rem,1.9vw,1.6rem)] font-bold italic text-taupe-500">implementation</p>
                 <p className="mt-1 text-xs text-taupe-500">Responsive, accessible builds in HTML, CSS &amp; JavaScript</p>
               </div>
             </div>
@@ -187,6 +219,7 @@ export default function HomeBento() {
             <div className="mt-6">
               <p className="font-display text-2xl font-bold">Let&apos;s talk.</p>
               <p className="mt-1 break-all text-sm text-cream-100/85">{site.email}</p>
+              <p className="mt-3 text-xs leading-relaxed text-cream-100/75">Open to internships, freelance design, and collaborative projects.</p>
             </div>
           </Tile>
         </div>
