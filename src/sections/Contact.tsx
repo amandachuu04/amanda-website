@@ -61,40 +61,46 @@ export default function Contact() {
       </div>
 
       <div className="relative mx-auto w-full max-w-[1400px] px-4 sm:px-8 lg:px-12">
-        <div className="mx-auto max-w-2xl text-center">
-          <span className="section-eyebrow justify-center">
-            <span aria-hidden className="inline-block h-1.5 w-6 rounded-full bg-blush-300" />
-            Contact
-          </span>
-          <motion.h2
-            initial={{ opacity: 0, y: 12 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-80px" }}
-            transition={{ duration: 0.6 }}
-            className="mt-4 font-display text-[clamp(3rem,9vw,6.5rem)] font-bold leading-none text-ink"
-          >
-            Let&apos;s <span className="italic text-taupe-500">talk.</span>
-          </motion.h2>
-          <p className="mt-5 text-base text-taupe-500 sm:text-lg">
-            Open to internships, freelance design, and collaborative projects.
-          </p>
-          <p className="mt-3 text-sm text-taupe-500">
-            <LocalClock />
-          </p>
-        </div>
-
-        <motion.dl
-          initial="hidden"
-          whileInView="show"
+        <motion.div
+          initial={{ opacity: 0, y: 24 }}
+          whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-80px" }}
-          variants={{ hidden: {}, show: { transition: { staggerChildren: 0.06 } } }}
-          className="mx-auto mt-10 grid max-w-5xl grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-4"
+          transition={{ duration: 0.6 }}
+          className="grid overflow-hidden rounded-[2rem] border border-taupe-200/40 shadow-soft lg:grid-cols-[minmax(0,1fr)_minmax(0,1.25fr)]"
         >
-          <ContactRow label="Email" value={site.email} href={`mailto:${site.email}`} />
-          <ContactRow label="Phone" value={site.phone} href={`tel:${site.phone.replace(/-/g, "")}`} />
-          <ContactRow label="GitHub" value="@amandachuu04" href={site.github} />
-          <ContactRow label="LinkedIn" value="amandaachu" href={site.linkedin} />
-        </motion.dl>
+          <div className="relative flex flex-col bg-taupe-400 p-7 text-cream-100 sm:p-10 lg:p-12">
+            <div aria-hidden className="pointer-events-none absolute -right-24 -top-24 h-72 w-72 rounded-full bg-blush-300/20 blur-2xl" />
+            <span className="inline-flex w-fit items-center gap-2 rounded-pill border border-cream-100/30 px-3 py-1.5 text-xs font-semibold">
+              <span className="relative flex h-2 w-2">
+                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-blush-300 opacity-75" />
+                <span className="relative inline-flex h-2 w-2 rounded-full bg-blush-300" />
+              </span>
+              Available for work
+            </span>
+            <h2 className="mt-8 font-display text-[clamp(3rem,7vw,5.5rem)] font-bold leading-[0.95]">
+              Let&apos;s <span className="italic text-blush-200">talk.</span>
+            </h2>
+            <p className="mt-5 max-w-sm text-base text-cream-100/85 sm:text-lg">
+              Open to internships, freelance design, and collaborative projects.
+            </p>
+
+            <motion.dl
+              initial="hidden"
+              whileInView="show"
+              viewport={{ once: true, margin: "-80px" }}
+              variants={{ hidden: {}, show: { transition: { staggerChildren: 0.06 } } }}
+              className="mt-10 divide-y divide-cream-100/20 border-y border-cream-100/20"
+            >
+              <ContactRow label="Email" value={site.email} href={`mailto:${site.email}`} />
+              <ContactRow label="Phone" value={site.phone} href={`tel:${site.phone.replace(/-/g, "")}`} />
+              <ContactRow label="GitHub" value="@amandachuu04" href={site.github} />
+              <ContactRow label="LinkedIn" value="amandaachu" href={site.linkedin} />
+            </motion.dl>
+
+            <p className="mt-auto pt-8 text-sm text-cream-100/85 [&_.text-taupe-400]:text-cream-100/60">
+              <LocalClock />
+            </p>
+          </div>
 
         <motion.form
           initial={{ opacity: 0, y: 24 }}
@@ -102,9 +108,11 @@ export default function Contact() {
           viewport={{ once: true, margin: "-80px" }}
           transition={{ duration: 0.6 }}
           onSubmit={onSubmit}
-          className="relative mx-auto mt-10 w-full max-w-3xl"
+          className="relative flex flex-col bg-cream-50 p-7 sm:p-10 lg:p-12"
         >
-          <div className="rounded-[2rem] border border-taupe-200/40 bg-cream-50 p-7 shadow-card sm:p-10">
+          <div className="flex flex-1 flex-col">
+            <p className="section-eyebrow">Send a message</p>
+            <p className="mb-8 mt-3 font-display text-2xl font-bold text-ink sm:text-3xl">Tell me what you&apos;re working on.</p>
             <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
               <Field label="Name" id="name">
                 <input
@@ -137,7 +145,7 @@ export default function Contact() {
                   value={message}
                   onChange={(e) => setMessage(e.target.value)}
                   placeholder="Tell me about your project, role, or idea…"
-                  className="input-soft w-full resize-none rounded-2xl border border-taupe-200/60 bg-cream-100 px-4 py-3 text-base text-ink placeholder:text-taupe-300 focus:border-taupe-400 focus:outline-none"
+                  className="input-soft w-full resize-none rounded-2xl lg:min-h-[17rem] border border-taupe-200/60 bg-cream-100 px-4 py-3 text-base text-ink placeholder:text-taupe-300 focus:border-taupe-400 focus:outline-none"
                 />
               </Field>
             </div>
@@ -186,6 +194,7 @@ export default function Contact() {
             </div>
           </div>
         </motion.form>
+        </motion.div>
       </div>
     </section>
   );
@@ -203,19 +212,14 @@ function ContactRow({
   return (
     <motion.div
       variants={{
-        hidden: { opacity: 0, y: 8 },
-        show: { opacity: 1, y: 0, transition: { duration: 0.45 } },
+        hidden: { opacity: 0, x: -8 },
+        show: { opacity: 1, x: 0, transition: { duration: 0.45 } },
       }}
     >
-      <a
-        href={href}
-        className="group flex h-full flex-col justify-between gap-3 rounded-3xl border border-taupe-200/40 bg-cream-50 p-5 shadow-card transition-all hover:-translate-y-1 hover:shadow-soft"
-      >
-        <dt className="flex items-center justify-between text-[10px] font-semibold uppercase tracking-[0.2em] text-taupe-400">
-          {label}
-          <span aria-hidden className="transition-transform duration-300 group-hover:rotate-45">↗</span>
-        </dt>
-        <dd className="break-all font-display text-lg text-ink transition-colors group-hover:text-taupe-500">{value}</dd>
+      <a href={href} className="group grid grid-cols-[minmax(0,1fr)_auto] items-center gap-x-4 gap-y-1 py-4 transition-colors hover:text-blush-200 sm:grid-cols-[5rem_minmax(0,1fr)_auto]">
+        <dt className="col-span-2 text-[10px] sm:col-span-1 font-semibold uppercase tracking-[0.2em] text-cream-100/60">{label}</dt>
+        <dd className="min-w-0 break-words font-display text-lg">{value}</dd>
+        <span aria-hidden className="transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1">↗</span>
       </a>
     </motion.div>
   );
