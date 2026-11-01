@@ -9,7 +9,7 @@ export default function Footer() {
   const [pet, setPet] = useState(0);
   return (
     <footer className="relative w-full bg-blush-100 text-taupe-500">
-      <div className="mx-auto grid w-full max-w-[1400px] grid-cols-1 gap-8 px-4 py-12 sm:px-8 sm:py-14 md:grid-cols-[minmax(0,1fr)_auto_auto] md:gap-14 lg:px-12 lg:pr-24">
+      <div className="mx-auto grid w-full max-w-[1800px] grid-cols-1 gap-8 px-4 py-12 sm:px-6 sm:py-14 md:grid-cols-[minmax(0,1fr)_auto_auto] md:gap-14 lg:pl-8 lg:pr-24">
         <div className="flex items-center gap-5">
           <img src={site.avatar} alt="" className="h-20 w-20 shrink-0 object-contain sm:h-24 sm:w-24" />
           <div>

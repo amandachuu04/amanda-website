@@ -144,7 +144,7 @@ export default function WorkDetailPage({ slug }: { slug: string }) {
       />
 
       {/* COMPACT LEFT-ALIGNED HEADER */}
-      <header className="relative mx-auto w-full max-w-[1500px] px-6 pt-28 sm:px-10 sm:pt-32 lg:px-14 xl:px-24">
+      <header className="relative mx-auto w-full max-w-[1800px] px-6 pt-28 sm:px-10 sm:pt-32 lg:px-14 xl:px-24">
         <motion.a
           href={projectsHref()}
           initial={{ opacity: 0, x: -8 }}
@@ -257,7 +257,7 @@ export default function WorkDetailPage({ slug }: { slug: string }) {
       </header>
 
       {/* MAIN — two column with sticky TOC */}
-      <div className="relative mx-auto mt-20 w-full max-w-[1500px] px-6 sm:px-10 lg:px-14 xl:px-24">
+      <div className="relative mx-auto mt-20 w-full max-w-[1800px] px-4 sm:px-6 lg:px-8">
         <div className="grid gap-12 lg:grid-cols-[220px_1fr] lg:gap-20">
           <aside className="hidden lg:block">
             <div className="sticky top-28">

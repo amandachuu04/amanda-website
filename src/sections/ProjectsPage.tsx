@@ -50,7 +50,7 @@ export default function ProjectsPage({ initialSlug }: { initialSlug: Slug }) {
         className="pointer-events-none absolute right-[-10%] top-[40%] -z-0 h-96 w-96 rounded-full bg-taupe-100/50 blur-3xl"
       />
 
-      <div className="relative mx-auto w-full max-w-[1500px] px-6 sm:px-10 lg:px-14 xl:px-24">
+      <div className="relative mx-auto w-full max-w-[1800px] px-4 sm:px-6 lg:px-8">
         <div className="flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between">
           <div className="max-w-3xl">
             <motion.a

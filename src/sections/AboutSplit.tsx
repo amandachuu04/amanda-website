@@ -63,7 +63,7 @@ export default function AboutSplit() {
   return (
     <div className="relative w-full bg-cream-100 pt-28 sm:pt-32">
       <div aria-hidden className="pointer-events-none absolute inset-0 grain opacity-50" />
-      <div className="relative mx-auto grid w-full max-w-[1400px] grid-cols-1 gap-10 px-4 sm:px-8 lg:grid-cols-[360px_minmax(0,1fr)] lg:gap-16 lg:px-12">
+      <div className="relative mx-auto grid w-full max-w-[1800px] grid-cols-1 gap-10 px-4 sm:px-8 lg:grid-cols-[360px_minmax(0,1fr)] lg:gap-16 lg:px-12">
         {/* ---------- sticky profile card ---------- */}
         <aside className="lg:sticky lg:top-28 lg:max-h-[calc(100vh-8rem)] lg:self-start lg:overflow-y-auto lg:rounded-[1.75rem]">
           <motion.div

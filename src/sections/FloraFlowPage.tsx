@@ -22,7 +22,7 @@ function Eyebrow({ children }: { children: ReactNode }) {
 }
 
 function Wrap({ className = "", children }: { className?: string; children: ReactNode }) {
-  return <div className={`mx-auto w-full max-w-[1280px] px-4 sm:px-8 lg:px-12 ${className}`}>{children}</div>;
+  return <div className={`mx-auto w-full max-w-[1800px] px-4 sm:px-6 lg:px-8 ${className}`}>{children}</div>;
 }
 
 export default function FloraFlowPage() {
@@ -81,7 +81,7 @@ export default function FloraFlowPage() {
           initial={{ opacity: 0, y: 40 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.15, ease: "easeOut" }}
-          className="flex flex-col gap-4 md:flex-row lg:gap-5"
+          className="mx-auto flex max-w-[1600px] flex-col gap-4 md:flex-row lg:gap-5"
         >
           <figure className="m-0 overflow-hidden rounded-[2rem] shadow-soft md:flex-[970_1_0%]" style={{ aspectRatio: "3208 / 3306" }}>
             <img src={study.cover} alt="The FloraFlow lamp, a glowing flower on a 3D printed base" className="h-full w-full object-cover" />
