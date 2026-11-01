@@ -105,7 +105,12 @@ export default function FloraFlowPage() {
             </figure>
           )}
         </motion.div>
-        {video?.caption && <p className="mt-4 font-display text-sm italic text-taupe-400">{video.caption}</p>}
+        {video?.caption && (
+          <div className="mx-auto mt-3 flex max-w-[1400px] gap-4 lg:gap-5">
+            <span aria-hidden className="hidden md:block md:flex-[970_1_0%]" />
+            <p className="w-full text-center text-[10px] font-semibold uppercase tracking-[0.16em] text-taupe-500 md:w-auto md:flex-[484_1_0%]">{video.caption}</p>
+          </div>
+        )}
       </Wrap>
 
 
