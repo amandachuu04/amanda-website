@@ -146,7 +146,7 @@ export default function HomeBento() {
       {/* ---------- at-a-glance bento ---------- */}
       <section id="hero" className="relative w-full bg-cream-100 pb-16 pt-28 sm:pt-32">
         <div aria-hidden className="absolute inset-0 grain opacity-60" />
-        <div className="relative mx-auto w-full max-w-[1800px] space-y-4 px-4 sm:px-8 lg:space-y-5 lg:px-12">
+        <div className="relative mx-auto w-full max-w-[1560px] space-y-4 px-4 sm:px-8 lg:space-y-5 lg:px-12">
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-[minmax(0,1.45fr)_minmax(0,1.3fr)_minmax(0,1fr)] xl:grid-cols-[minmax(0,1.75fr)_minmax(0,1.2fr)_minmax(0,1fr)] lg:gap-5">
           {/* intro */}
           <Tile className="flex flex-col justify-center gap-7 p-7 sm:col-span-2 sm:p-9 lg:col-span-1 lg:row-span-2">
@@ -304,7 +304,7 @@ export default function HomeBento() {
 
       {/* ---------- projects bento ---------- */}
       <section id="projects" className="relative w-full scroll-mt-24 bg-cream-100 pb-24 sm:pb-32">
-        <div className="mx-auto w-full max-w-[1800px] px-4 sm:px-6 lg:px-8">
+        <div className="mx-auto w-full max-w-[1560px] px-4 sm:px-8 lg:px-10">
           <div className="flex flex-wrap items-end justify-between gap-6 pb-8 pt-8">
             <div>
               <span className="section-eyebrow">

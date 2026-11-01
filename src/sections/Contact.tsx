@@ -53,7 +53,7 @@ export default function Contact() {
       id="contact"
       className="relative w-full overflow-hidden bg-cream-100 py-24 sm:py-32"
     >
-      <div className="relative mx-auto w-full max-w-[1800px] px-4 sm:px-6 lg:px-8">
+      <div className="relative mx-auto w-full max-w-[1560px] px-4 sm:px-8 lg:px-10">
         <motion.div
           initial={{ opacity: 0, y: 24 }}
           whileInView={{ opacity: 1, y: 0 }}

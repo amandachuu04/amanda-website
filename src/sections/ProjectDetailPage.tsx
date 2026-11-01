@@ -139,7 +139,7 @@ export default function ProjectDetailPage({ slug }: { slug: string }) {
 
 function Header({ project }: { project: ProjectPage }) {
   return (
-    <header className="relative mx-auto w-full max-w-[1800px] px-6 pt-28 sm:px-10 sm:pt-32 lg:px-14 xl:px-24">
+    <header className="relative mx-auto w-full max-w-[1560px] px-6 pt-28 sm:px-10 sm:pt-32 lg:px-14 xl:px-24">
       <motion.a
         href={projectsHref()}
         initial={{ opacity: 0, x: -8 }}
@@ -267,7 +267,7 @@ function ClickableCover({
       initial={{ opacity: 0, y: 24 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.6 }}
-      className="relative mx-auto mt-16 w-full max-w-[1800px] px-6 sm:mt-20 sm:px-10 lg:px-14 xl:px-24"
+      className="relative mx-auto mt-16 w-full max-w-[1560px] px-6 sm:mt-20 sm:px-10 lg:px-14 xl:px-24"
     >
       <motion.button
         type="button"
@@ -296,7 +296,7 @@ function IterationsSection({
   onOpen: (iterationIndex: number, imageIndex: number) => void;
 }) {
   return (
-    <div className="relative mx-auto mt-20 flex w-full max-w-[1800px] flex-col gap-20 px-6 sm:mt-24 sm:gap-24 sm:px-10 lg:px-14 xl:px-24">
+    <div className="relative mx-auto mt-20 flex w-full max-w-[1560px] flex-col gap-20 px-6 sm:mt-24 sm:gap-24 sm:px-10 lg:px-14 xl:px-24">
       {iterations.map((it, i) => (
         <motion.section
           key={`${it.label}-${i}`}
@@ -356,7 +356,7 @@ function Description({ description }: { description: string[] }) {
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-80px" }}
       transition={{ duration: 0.55 }}
-      className="relative mx-auto mt-20 w-full max-w-[1800px] px-6 sm:mt-24 sm:px-10 lg:px-14 xl:px-24"
+      className="relative mx-auto mt-20 w-full max-w-[1560px] px-6 sm:mt-24 sm:px-10 lg:px-14 xl:px-24"
     >
       <p className="text-[0.7rem] font-semibold uppercase tracking-[0.28em] text-taupe-400">
         About the project
@@ -400,7 +400,7 @@ function ClickableVideo({
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, amount: 0.2 }}
       transition={{ duration: 0.6 }}
-      className="relative mx-auto mt-20 w-full max-w-[1800px] px-6 sm:mt-24 sm:px-10 lg:px-14 xl:px-24"
+      className="relative mx-auto mt-20 w-full max-w-[1560px] px-6 sm:mt-24 sm:px-10 lg:px-14 xl:px-24"
     >
       <motion.button
         type="button"
