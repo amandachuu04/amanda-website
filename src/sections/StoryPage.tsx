@@ -169,9 +169,9 @@ export default function StoryPage({ study, media, band, after, brand, children }
                 <dt className="text-[10px] font-semibold uppercase tracking-[0.2em] text-taupe-400">{k}</dt>
                 {v.length > 60 ? (
                   <dd className="mt-1">
-                    <ul className="columns-2 gap-x-8 font-display text-base font-bold text-ink lg:columns-4">
+                    <ul className="font-display text-base font-bold text-ink">
                       {v.split(", ").map((item) => (
-                        <li key={item} className="break-inside-avoid py-0.5">{item}</li>
+                        <li key={item} className="py-0.5">{item}</li>
                       ))}
                     </ul>
                   </dd>
