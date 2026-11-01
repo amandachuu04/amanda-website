@@ -104,7 +104,7 @@ function PhotoFill({ kind, image }: { kind: Polaroid["kind"]; image?: string }) 
       className="relative flex h-full w-full items-end justify-center pb-3"
       style={{
         background:
-          "linear-gradient(180deg, #FDF3EA 0%, #FBDADA 60%, #F8C8C8 100%)",
+          "linear-gradient(180deg, #F4EEFB 0%, #ECDDFB 60%, #DCC6F7 100%)",
       }}
     >
       <span className="text-6xl drop-shadow-sm">🧋</span>
@@ -124,9 +124,9 @@ function Tape({ side }: { side: "left" | "right" }) {
       className={`absolute top-[-10px] ${pos} h-5 w-14 rounded-[2px]`}
       style={{
         background:
-          "linear-gradient(180deg, rgba(252, 220, 220, 0.65), rgba(252, 220, 220, 0.45))",
+          "linear-gradient(180deg, rgba(236, 221, 251, 0.65), rgba(236, 221, 251, 0.45))",
         transform: `rotate(${rot}deg)`,
-        boxShadow: "0 1px 2px rgba(139,111,92,0.15)",
+        boxShadow: "0 1px 2px rgba(101,76,140,0.15)",
       }}
     />
   );
@@ -205,7 +205,7 @@ function PolaroidItem({
   // drop shadow slides opposite the tilt so the card feels lifted
   const shadowX = useTransform(smx, (v) => -v * 46 * p.depth);
   const shadowY = useTransform(smy, (v) => 20 - v * 34 * p.depth);
-  const boxShadow = useMotionTemplate`${shadowX}px ${shadowY}px 46px -16px rgba(139, 111, 92, 0.42), 0 4px 12px -6px rgba(139, 111, 92, 0.2)`;
+  const boxShadow = useMotionTemplate`${shadowX}px ${shadowY}px 46px -16px rgba(101, 76, 140, 0.42), 0 4px 12px -6px rgba(101, 76, 140, 0.2)`;
 
   // glare highlight tracks the cursor across the photo
   const shineX = useTransform(smx, (v) => `${50 + v * 80}%`);
@@ -249,7 +249,7 @@ function PolaroidItem({
         className="relative rounded-[6px] bg-cream-50 pb-10 pt-3 shadow-soft"
         style={{
           boxShadow: reduce
-            ? "0 18px 40px -18px rgba(139, 111, 92, 0.35), 0 4px 10px -4px rgba(139, 111, 92, 0.18)"
+            ? "0 18px 40px -18px rgba(101, 76, 140, 0.35), 0 4px 10px -4px rgba(101, 76, 140, 0.18)"
             : boxShadow,
           padding: "12px 12px 44px 12px",
         }}

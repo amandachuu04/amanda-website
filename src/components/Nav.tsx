@@ -49,6 +49,7 @@ export default function Nav() {
               alt=""
               aria-hidden
               className="h-6 w-auto sm:h-7"
+              style={{ filter: "hue-rotate(-55deg) saturate(1.8) brightness(0.8) contrast(1.4)" }}
             />
           </motion.a>
 

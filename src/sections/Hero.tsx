@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 import Blobs from "../components/Blobs";
-import Polaroids from "../components/Polaroids";
+import Desk from "../components/Desk";
 import { site } from "../lib/site";
 
 export default function Hero() {
@@ -76,8 +76,9 @@ export default function Hero() {
             transition={{ duration: 0.6, delay: 0.15 }}
             className="mt-7 max-w-xl text-base text-taupe-500 sm:text-lg"
           >
-            Designing thoughtful digital experiences through code, creativity,
-            and user-centered thinking.
+            UX/UI designer &amp; developer who loves purple, boba, and making
+            digital things feel friendly, from the first user interview to the
+            final line of code.
           </motion.p>
 
           <motion.div
@@ -133,7 +134,7 @@ export default function Hero() {
         </div>
 
         <div className="relative">
-          <Polaroids />
+          <Desk />
         </div>
       </div>
     </section>

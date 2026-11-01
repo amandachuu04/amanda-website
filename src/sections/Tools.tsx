@@ -53,7 +53,7 @@ export default function Tools() {
                       hidden: { opacity: 0, x: -8 },
                       show: { opacity: 1, x: 0, transition: { duration: 0.35 } },
                     }}
-                    whileHover={{ x: 4, color: "#2A211C" }}
+                    whileHover={{ x: 4, color: "#241A30" }}
                     transition={{ type: "spring", stiffness: 320, damping: 20 }}
                     className="flex items-center gap-3 text-sm font-medium text-taupe-600"
                   >

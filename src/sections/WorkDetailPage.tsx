@@ -1018,7 +1018,7 @@ function GalleryStrip({
       <div
         ref={scrollerRef}
         className="flex snap-x snap-mandatory gap-5 overflow-x-auto pb-6"
-        style={{ scrollbarColor: "rgba(139,111,92,0.35) transparent" }}
+        style={{ scrollbarColor: "rgba(101,76,140,0.35) transparent" }}
       >
         {items.map((g, i) => (
           <GalleryThumb

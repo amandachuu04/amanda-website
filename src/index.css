@@ -4,10 +4,10 @@
 
 @layer base {
   :root {
-    --blush: #f8c8c8;
-    --taupe: #8b6f5c;
-    --cream: #fffaf5;
-    --ink: #2a211c;
+    --blush: #dcc6f7;
+    --taupe: #7e63a8;
+    --cream: #fbf8fe;
+    --ink: #241a30;
   }
 
   html {
@@ -30,8 +30,8 @@
   }
 
   ::selection {
-    background: #f8c8c8;
-    color: #2a211c;
+    background: #dcc6f7;
+    color: #241a30;
   }
 
   :focus-visible {
@@ -76,21 +76,21 @@
     right: 0;
     bottom: -0.15em;
     height: 0.45em;
-    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 80 12'><path d='M0 6 Q 10 0 20 6 T 40 6 T 60 6 T 80 6' fill='none' stroke='%23F8C8C8' stroke-width='3' stroke-linecap='round'/></svg>");
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 80 12'><path d='M0 6 Q 10 0 20 6 T 40 6 T 60 6 T 80 6' fill='none' stroke='%23DCC6F7' stroke-width='3' stroke-linecap='round'/></svg>");
     background-repeat: repeat-x;
     background-size: 80px 12px;
     pointer-events: none;
   }
 
   .grain {
-    background-image: radial-gradient(circle at 1px 1px, rgba(139, 111, 92, 0.08) 1px, transparent 0);
+    background-image: radial-gradient(circle at 1px 1px, rgba(101, 76, 140, 0.08) 1px, transparent 0);
     background-size: 22px 22px;
   }
 
   .grid-paper {
     background-image:
-      linear-gradient(to right, rgba(139, 111, 92, 0.06) 1px, transparent 1px),
-      linear-gradient(to bottom, rgba(139, 111, 92, 0.06) 1px, transparent 1px);
+      linear-gradient(to right, rgba(101, 76, 140, 0.06) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(101, 76, 140, 0.06) 1px, transparent 1px);
     background-size: 48px 48px;
   }
 
@@ -99,7 +99,7 @@
     transition: border-color 0.2s ease, box-shadow 0.25s ease, background-color 0.2s ease;
   }
   .input-soft:focus {
-    box-shadow: 0 0 0 4px rgba(248, 200, 200, 0.35);
+    box-shadow: 0 0 0 4px rgba(220, 198, 247, 0.35);
   }
 }
 

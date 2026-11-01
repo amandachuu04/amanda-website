@@ -56,7 +56,7 @@ export default function Contact() {
       <div aria-hidden className="pointer-events-none absolute inset-0">
         <div
           className="absolute left-1/2 top-1/3 h-[36rem] w-[36rem] -translate-x-1/2 rounded-full opacity-40 blur-3xl"
-          style={{ background: "radial-gradient(circle, #F8C8C8 0%, transparent 70%)" }}
+          style={{ background: "radial-gradient(circle, #DCC6F7 0%, transparent 70%)" }}
         />
       </div>
 

@@ -4,31 +4,32 @@ export default {
   theme: {
     extend: {
       colors: {
-        // Pink Champagne palette
+        // Lavender Desk palette
         blush: {
-          50: "#FFFAF5",
-          100: "#FDEDED",
-          200: "#FBDADA",
-          300: "#F8C8C8", // primary baby pink
-          400: "#EFAEAE",
-          500: "#E08F8F",
+          50: "#FDFAFF",
+          100: "#F6EEFD",
+          200: "#ECDDFB",
+          300: "#DCC6F7", // primary lilac
+          400: "#C7A8F0",
+          500: "#A987E3",
         },
         taupe: {
-          50: "#F4EEE8",
-          100: "#E5D8CC",
-          200: "#C9B5A4",
-          300: "#A88D78",
-          400: "#8B6F5C", // primary warm taupe
-          500: "#6E5544",
-          600: "#523F33",
-          700: "#3A2C24",
+          50: "#F3EFF8",
+          100: "#E4DCEF",
+          200: "#CBBCE0",
+          300: "#A893C7",
+          400: "#7E63A8", // primary purple
+          500: "#654C8C",
+          600: "#4D3A6B",
+          700: "#362848",
         },
         cream: {
-          50: "#FFFDF9",
-          100: "#FFFAF5", // primary cream
-          200: "#FDF3EA",
+          50: "#FFFEFF",
+          100: "#FBF8FE", // primary background
+          200: "#F4EEFB",
         },
-        ink: "#2A211C",
+        pop: "#F49AC1",
+        ink: "#241A30",
       },
       fontFamily: {
         display: ['"Quicksand"', "ui-rounded", "ui-sans-serif", "system-ui", "sans-serif"],
@@ -43,9 +44,9 @@ export default {
         pill: "9999px",
       },
       boxShadow: {
-        sticker: "0 8px 24px -8px rgba(139, 111, 92, 0.35), 0 2px 6px -2px rgba(139, 111, 92, 0.2)",
-        soft: "0 10px 30px -12px rgba(139, 111, 92, 0.25)",
-        card: "0 1px 0 rgba(139, 111, 92, 0.06), 0 12px 28px -16px rgba(139, 111, 92, 0.2)",
+        sticker: "0 8px 24px -8px rgba(101, 76, 140, 0.35), 0 2px 6px -2px rgba(101, 76, 140, 0.2)",
+        soft: "0 10px 30px -12px rgba(101, 76, 140, 0.25)",
+        card: "0 1px 0 rgba(101, 76, 140, 0.06), 0 12px 28px -16px rgba(101, 76, 140, 0.2)",
       },
       keyframes: {
         "blob-drift": {
