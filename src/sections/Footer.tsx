@@ -2,36 +2,49 @@ import { useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { site } from "../lib/site";
 
+const label = "text-[10px] font-semibold uppercase tracking-[0.2em] text-taupe-400";
 const link = "transition-colors hover:text-ink";
 
 export default function Footer() {
   const [pet, setPet] = useState(0);
   return (
-    <footer className="relative w-full bg-cream-100 text-taupe-500">
-      <div className="mx-auto w-full max-w-[1400px] px-4 sm:px-8 lg:px-12">
-        <div className="flex flex-col gap-6 border-t border-taupe-200/50 py-8 lg:flex-row lg:items-center lg:justify-between">
-          <p className="font-display text-base text-ink">
-            Designed by <span className="italic text-taupe-500">Amanda Chu</span> · © 2026
-          </p>
+    <footer className="relative w-full bg-cream-100 px-4 pb-6 sm:px-8 lg:px-12">
+      <div className="mx-auto grid w-full max-w-[1304px] grid-cols-1 gap-8 rounded-[1.75rem] border border-taupe-200/40 bg-blush-100 p-7 text-taupe-500 shadow-card sm:p-10 md:grid-cols-[minmax(0,1fr)_auto_auto] md:gap-14">
+        <div className="flex items-center gap-5">
+          <img src={site.avatar} alt="" className="h-20 w-20 shrink-0 object-contain sm:h-24 sm:w-24" />
+          <div>
+            <p className="font-display text-[clamp(1.6rem,3vw,2.3rem)] font-bold leading-tight text-ink">
+              Thanks for <span className="italic text-taupe-500">stopping by!</span>
+            </p>
+            <p className="mt-1 text-sm">Designed by Amanda Chu · © 2026</p>
+          </div>
+        </div>
 
-          <nav aria-label="Footer" className="flex flex-wrap gap-x-6 gap-y-2 text-sm">
-            <a href="/" className={link}>Home</a>
-            <a href="/about" className={link}>About</a>
-            <a href="/projects" className={link}>Projects</a>
-            <a href="#contact" className={link}>Contact</a>
-            <a href={site.linkedin} target="_blank" rel="noopener noreferrer" className={link}>LinkedIn ↗</a>
-            <a href={site.github} target="_blank" rel="noopener noreferrer" className={link}>GitHub ↗</a>
-            <a href={site.cvFile} download className={link}>Download CV</a>
-          </nav>
+        <div>
+          <p className={label}>Pages</p>
+          <ul className="mt-3 space-y-1.5 text-sm">
+            <li><a href="/" className={link}>Home</a></li>
+            <li><a href="/about" className={link}>About</a></li>
+            <li><a href="/projects" className={link}>Projects</a></li>
+            <li><a href="#contact" className={link}>Contact</a></li>
+          </ul>
+        </div>
 
-          <div className="text-sm lg:mr-16">
-        <motion.button
+        <div>
+          <p className={label}>Elsewhere</p>
+          <ul className="mt-3 space-y-1.5 text-sm">
+            <li><a href={site.linkedin} target="_blank" rel="noopener noreferrer" className={link}>LinkedIn ↗</a></li>
+            <li><a href={site.github} target="_blank" rel="noopener noreferrer" className={link}>GitHub ↗</a></li>
+            <li><a href={site.cvFile} download className={link}>Download CV</a></li>
+          </ul>
+          <div className="mt-4 text-sm">
+            <motion.button
           type="button"
           onClick={() => setPet((p) => p + 1)}
           aria-label="Pet the flower"
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
-          className="group relative inline-flex items-center gap-2 rounded-pill border border-taupe-200/60 px-3 py-1.5 transition-colors hover:bg-blush-100"
+          className="group relative inline-flex items-center gap-2 rounded-pill border border-taupe-200/60 px-3 py-1.5 transition-colors hover:bg-cream-50"
         >
           <motion.span
             className="relative inline-block"
