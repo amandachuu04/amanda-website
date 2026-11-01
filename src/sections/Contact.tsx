@@ -68,19 +68,19 @@ export default function Contact() {
           transition={{ duration: 0.6 }}
           className="grid overflow-hidden rounded-[2rem] border border-taupe-200/40 shadow-soft lg:grid-cols-[minmax(0,1fr)_minmax(0,1.25fr)]"
         >
-          <div className="relative flex flex-col bg-taupe-400 p-7 text-cream-100 sm:p-10 lg:p-12">
-            <div aria-hidden className="pointer-events-none absolute -right-24 -top-24 h-72 w-72 rounded-full bg-blush-300/20 blur-2xl" />
-            <span className="inline-flex w-fit items-center gap-2 rounded-pill border border-cream-100/30 px-3 py-1.5 text-xs font-semibold">
+          <div className="relative flex flex-col bg-blush-100 p-7 text-ink sm:p-10 lg:p-12">
+            <div aria-hidden className="pointer-events-none absolute -right-24 -top-24 h-72 w-72 rounded-full bg-blush-300/50 blur-2xl" />
+            <span className="inline-flex w-fit items-center gap-2 rounded-pill border border-taupe-200/70 bg-cream-50/70 px-3 py-1.5 text-xs font-semibold text-taupe-500">
               <span className="relative flex h-2 w-2">
                 <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-blush-300 opacity-75" />
-                <span className="relative inline-flex h-2 w-2 rounded-full bg-blush-300" />
+                <span className="relative inline-flex h-2 w-2 rounded-full bg-blush-400" />
               </span>
               Available for work
             </span>
             <h2 className="mt-8 font-display text-[clamp(3rem,7vw,5.5rem)] font-bold leading-[0.95]">
-              Let&apos;s <span className="italic text-blush-200">talk.</span>
+              Let&apos;s <span className="italic text-taupe-500">talk.</span>
             </h2>
-            <p className="mt-5 max-w-sm text-base text-cream-100/85 sm:text-lg">
+            <p className="mt-5 max-w-sm text-base text-taupe-500 sm:text-lg">
               Open to internships, freelance design, and collaborative projects.
             </p>
 
@@ -89,7 +89,7 @@ export default function Contact() {
               whileInView="show"
               viewport={{ once: true, margin: "-80px" }}
               variants={{ hidden: {}, show: { transition: { staggerChildren: 0.06 } } }}
-              className="mt-10 divide-y divide-cream-100/20 border-y border-cream-100/20"
+              className="mt-10 divide-y divide-taupe-200/60 border-y border-taupe-200/60"
             >
               <ContactRow label="Email" value={site.email} href={`mailto:${site.email}`} />
               <ContactRow label="Phone" value={site.phone} href={`tel:${site.phone.replace(/-/g, "")}`} />
@@ -97,7 +97,7 @@ export default function Contact() {
               <ContactRow label="LinkedIn" value="amandaachu" href={site.linkedin} />
             </motion.dl>
 
-            <p className="mt-auto pt-8 text-sm text-cream-100/85 [&_.text-taupe-400]:text-cream-100/60">
+            <p className="mt-auto pt-8 text-sm text-taupe-500">
               <LocalClock />
             </p>
           </div>
@@ -216,8 +216,8 @@ function ContactRow({
         show: { opacity: 1, x: 0, transition: { duration: 0.45 } },
       }}
     >
-      <a href={href} className="group grid grid-cols-[minmax(0,1fr)_auto] items-center gap-x-4 gap-y-1 py-4 transition-colors hover:text-blush-200 sm:grid-cols-[5rem_minmax(0,1fr)_auto]">
-        <dt className="col-span-2 text-[10px] sm:col-span-1 font-semibold uppercase tracking-[0.2em] text-cream-100/60">{label}</dt>
+      <a href={href} className="group grid grid-cols-[minmax(0,1fr)_auto] items-center gap-x-4 gap-y-1 py-4 transition-colors hover:text-taupe-500 sm:grid-cols-[5rem_minmax(0,1fr)_auto]">
+        <dt className="col-span-2 text-[10px] sm:col-span-1 font-semibold uppercase tracking-[0.2em] text-taupe-400">{label}</dt>
         <dd className="min-w-0 break-words font-display text-lg">{value}</dd>
         <span aria-hidden className="transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1">↗</span>
       </a>
