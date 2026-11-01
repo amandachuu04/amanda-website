@@ -169,7 +169,7 @@ export default function StoryPage({ study, media, band, after, brand, children }
             {facts.map(([k, v]) => (
               <div key={k} className={v.length <= 12 ? "whitespace-nowrap" : ""}>
                 <dt className="text-[10px] font-semibold uppercase tracking-[0.2em] text-taupe-400">{k}</dt>
-                {v.length > 60 ? (
+                {v.length > 60 || k === "Variation(s)" ? (
                   <dd className="mt-0.5">
                     <ul className="font-display text-base font-bold text-ink">
                       {v.split(", ").map((item) => (
