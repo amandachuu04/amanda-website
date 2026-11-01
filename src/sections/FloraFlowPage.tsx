@@ -43,16 +43,23 @@ export default function FloraFlowPage() {
       <div aria-hidden className="pointer-events-none absolute inset-0 grain opacity-50" />
 
       {/* ---------- hero ---------- */}
-      <Wrap className="relative text-center">
+      <Wrap className="relative">
         <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }}>
           <a href={projectsHref()} className="text-xs font-semibold uppercase tracking-[0.18em] text-taupe-400 hover:text-taupe-500">
             ← All projects
           </a>
-          <h1 className="mt-6 font-display text-[clamp(3.6rem,12vw,10rem)] font-bold leading-[0.9] tracking-tight text-ink">
-            Flora<span className="italic text-taupe-500">Flow</span>
-          </h1>
-          <p className="mx-auto mt-6 max-w-2xl text-lg text-taupe-500 sm:text-xl">{study.tagline}</p>
-          <dl className="mx-auto mt-8 flex max-w-4xl flex-wrap justify-center gap-x-8 gap-y-4">
+          <div className="mt-6 flex items-center gap-4 sm:gap-6">
+            <img
+              src={brand.src}
+              alt="FloraFlow brand mark"
+              className="h-16 w-16 shrink-0 rounded-2xl bg-white object-contain p-1.5 shadow-card sm:h-24 sm:w-24 sm:rounded-3xl lg:h-32 lg:w-32"
+            />
+            <h1 className="font-display text-[clamp(3.6rem,12vw,10rem)] font-bold leading-[0.9] tracking-tight text-ink">
+              Flora<span className="italic text-taupe-500">Flow</span>
+            </h1>
+          </div>
+          <p className="mt-6 max-w-2xl text-lg text-taupe-500 sm:text-xl">{study.tagline}</p>
+          <dl className="mt-8 flex max-w-4xl flex-wrap gap-x-8 gap-y-4">
             {facts.filter(([, v]) => v).map(([k, v]) => (
               <div key={k}>
                 <dt className="text-[10px] font-semibold uppercase tracking-[0.2em] text-taupe-400">{k}</dt>
@@ -85,7 +92,7 @@ export default function FloraFlowPage() {
             </figure>
           )}
         </motion.div>
-        {video?.caption && <p className="mt-4 text-center font-display text-sm italic text-taupe-400">{video.caption}</p>}
+        {video?.caption && <p className="mt-4 font-display text-sm italic text-taupe-400">{video.caption}</p>}
       </Wrap>
 
       {/* ---------- problem ---------- */}
@@ -101,7 +108,7 @@ export default function FloraFlowPage() {
 
       {/* ---------- opportunity band ---------- */}
       <section className="relative mt-24 bg-blush-100 py-20 sm:mt-32 sm:py-28">
-        <Wrap className="text-center">
+        <Wrap>
           <motion.div {...reveal}>
             <Eyebrow>The opportunity</Eyebrow>
             <h2 className="mt-5 font-display text-[clamp(2.8rem,8vw,6.5rem)] font-bold leading-[0.95] text-ink">
@@ -109,7 +116,7 @@ export default function FloraFlowPage() {
               <br />
               <span className="italic text-taupe-500">Then look away.</span>
             </h2>
-            <p className="mx-auto mt-8 max-w-2xl text-base leading-relaxed text-taupe-600 sm:text-lg">{opportunity.body}</p>
+            <p className="mt-8 max-w-2xl text-base leading-relaxed text-taupe-600 sm:text-lg">{opportunity.body}</p>
           </motion.div>
         </Wrap>
       </section>
@@ -171,7 +178,7 @@ export default function FloraFlowPage() {
       {/* ---------- final screens band ---------- */}
       <section className="relative mt-24 bg-blush-100 pb-24 pt-20 sm:mt-32 sm:pb-32 sm:pt-28">
         <Wrap>
-          <motion.div {...reveal} className="mx-auto max-w-2xl text-center">
+          <motion.div {...reveal} className="max-w-2xl">
             <Eyebrow>Final screens</Eyebrow>
             <h2 className="mt-4 font-display text-[clamp(2.2rem,4.6vw,3.8rem)] font-bold leading-tight text-ink">
               The companion <span className="italic text-taupe-500">app</span>
@@ -203,19 +210,19 @@ export default function FloraFlowPage() {
 
       {/* ---------- brand + skills + next ---------- */}
       <Wrap className="relative py-20 sm:py-24">
-        <motion.div {...reveal} className="flex flex-col items-center gap-6 text-center sm:flex-row sm:text-left">
+        <motion.div {...reveal} className="flex flex-col items-start gap-6 sm:flex-row sm:items-center">
           <img src={brand.src} alt="FloraFlow brand mark" className="h-24 w-24 shrink-0 rounded-3xl bg-white object-contain p-2 shadow-card" />
           <div>
             <p className="font-display text-xl font-bold text-ink">Brand mark</p>
             <p className="mt-1 max-w-xl text-base text-taupe-600">{study.featuredNote}</p>
           </div>
         </motion.div>
-        <div className="mt-10 flex flex-wrap justify-center gap-2 sm:justify-start">
+        <div className="mt-10 flex flex-wrap gap-2">
           {study.skills.map((s) => (
             <span key={s} className="rounded-pill border border-taupe-200/60 px-4 py-2 text-sm font-medium text-taupe-600">{s}</span>
           ))}
         </div>
-        <div className="mt-16 flex flex-col items-center justify-between gap-6 border-t border-taupe-200/50 pt-10 sm:flex-row">
+        <div className="mt-16 flex flex-col items-start justify-between gap-6 border-t border-taupe-200/50 pt-10 sm:flex-row sm:items-center">
           <a href={projectsHref()} className="group font-display text-[clamp(1.8rem,4vw,3rem)] font-bold text-ink">
             ← <span className="italic text-taupe-500 group-hover:text-ink">All projects</span>
           </a>
