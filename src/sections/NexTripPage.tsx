@@ -23,7 +23,7 @@ function Tile({ item }: { item: SectionMediaItem }) {
       ) : (
         <Zoomable src={item.src} alt={item.alt ?? item.caption} caption={item.caption} className="block h-auto w-full rounded-[1.5rem] shadow-card" />
       )}
-      {item.caption && <figcaption className={caption}>{item.caption}</figcaption>}
+      {item.caption && <figcaption className={`${caption} ${item.kind === "video" ? "text-center" : ""}`}>{item.caption}</figcaption>}
     </figure>
   );
 }
@@ -41,7 +41,7 @@ function Media({ media }: { media: SectionMedia }) {
   }
   const phones = media.frame === "iphone";
   return (
-    <div className={`grid grid-cols-1 gap-5 ${COLS[media.cols ?? 2]} ${phones ? "max-w-[680px]" : ""}`}>
+    <div className={`grid grid-cols-1 gap-5 ${COLS[media.cols ?? 2]} ${phones ? "mx-auto max-w-[680px]" : ""}`}>
       {media.items.map((item) => (
         <Tile key={item.src} item={item} />
       ))}
