@@ -66,7 +66,7 @@ export default function FloraFlowPage() {
           </a>
           <h1 className="mt-6 font-display text-[clamp(3.6rem,12vw,10rem)] font-bold leading-[0.9] tracking-tight text-ink">FloraFlow</h1>
           <p className="mt-6 text-lg text-taupe-500 sm:text-xl">{study.tagline}</p>
-          <dl className="mt-8 flex max-w-4xl flex-wrap gap-x-8 gap-y-4">
+          <dl className="mt-8 grid grid-cols-2 gap-x-8 gap-y-4 md:flex md:justify-between">
             {facts.filter(([, v]) => v).map(([k, v]) => (
               <div key={k}>
                 <dt className="text-[10px] font-semibold uppercase tracking-[0.2em] text-taupe-400">{k}</dt>
