@@ -1,13 +1,8 @@
 import { useEffect } from "react";
 import Nav from "./components/Nav";
 import BackToTop from "./components/BackToTop";
-import Hero from "./sections/Hero";
-import About from "./sections/About";
-import Projects from "./sections/Projects";
-import Experience from "./sections/Experience";
-import Education from "./sections/Education";
-import Certifications from "./sections/Certifications";
-import Tools from "./sections/Tools";
+import HomeBento from "./sections/HomeBento";
+import AboutSplit from "./sections/AboutSplit";
 import Contact from "./sections/Contact";
 import Footer from "./sections/Footer";
 import ProjectsPage from "./sections/ProjectsPage";
@@ -111,11 +106,7 @@ export default function App() {
       ) : route.name === "about" ? (
         <>
           <main id="main">
-            <About />
-            <Experience />
-            <Education />
-            <Certifications />
-            <Tools />
+            <AboutSplit />
             <Contact />
           </main>
           <Footer />
@@ -123,8 +114,7 @@ export default function App() {
       ) : (
         <>
           <main id="main">
-            <Hero />
-            <Projects />
+            <HomeBento />
             <Contact />
           </main>
           <Footer />

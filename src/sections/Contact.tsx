@@ -60,70 +60,41 @@ export default function Contact() {
         />
       </div>
 
-      <div className="relative mx-auto grid w-full max-w-[1500px] grid-cols-1 gap-12 px-6 sm:px-10 lg:grid-cols-12 lg:gap-16 lg:px-14 xl:px-24">
-        <div className="lg:col-span-5">
-          <motion.span
-            initial={{ opacity: 0, x: -10 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true, margin: "-80px" }}
-            transition={{ duration: 0.5 }}
-            className="section-eyebrow"
-          >
-            <motion.span
-              aria-hidden
-              className="inline-block h-1.5 rounded-full bg-blush-300"
-              initial={{ width: 0 }}
-              whileInView={{ width: "1.5rem" }}
-              viewport={{ once: true, margin: "-80px" }}
-              transition={{ duration: 0.6, delay: 0.15, ease: "easeOut" }}
-            />
+      <div className="relative mx-auto w-full max-w-[1400px] px-4 sm:px-8 lg:px-12">
+        <div className="mx-auto max-w-2xl text-center">
+          <span className="section-eyebrow justify-center">
+            <span aria-hidden className="inline-block h-1.5 w-6 rounded-full bg-blush-300" />
             Contact
-          </motion.span>
+          </span>
           <motion.h2
             initial={{ opacity: 0, y: 12 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-80px" }}
-            transition={{ duration: 0.6, delay: 0.05 }}
-            className="mt-4 font-display text-display-md font-bold text-ink"
+            transition={{ duration: 0.6 }}
+            className="mt-4 font-display text-[clamp(3rem,9vw,6.5rem)] font-bold leading-none text-ink"
           >
-            Let&apos;s{" "}
-            <span className="italic text-taupe-500">talk.</span>
+            Let&apos;s <span className="italic text-taupe-500">talk.</span>
           </motion.h2>
-          <motion.p
-            initial={{ opacity: 0, y: 8 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-80px" }}
-            transition={{ duration: 0.6, delay: 0.1 }}
-            className="mt-5 max-w-md text-base text-taupe-500 sm:text-lg"
-          >
+          <p className="mt-5 text-base text-taupe-500 sm:text-lg">
             Open to internships, freelance design, and collaborative projects.
-          </motion.p>
-
-          <motion.dl
-            initial="hidden"
-            whileInView="show"
-            viewport={{ once: true, margin: "-80px" }}
-            variants={{
-              hidden: {},
-              show: { transition: { staggerChildren: 0.06, delayChildren: 0.15 } },
-            }}
-            className="mt-10 space-y-5 text-sm"
-          >
-            <ContactRow label="Email" value={site.email} href={`mailto:${site.email}`} />
-            <ContactRow label="Phone" value={site.phone} href={`tel:${site.phone.replace(/-/g, "")}`} />
-            <ContactRow label="GitHub" value="@amandachuu04" href={site.github} />
-            <ContactRow label="LinkedIn" value="amandaachu" href={site.linkedin} />
-            <motion.div
-              variants={{
-                hidden: { opacity: 0, y: 8 },
-                show: { opacity: 1, y: 0, transition: { duration: 0.45 } },
-              }}
-              className="border-t border-taupe-200/50 pt-5 text-sm text-taupe-500"
-            >
-              <LocalClock />
-            </motion.div>
-          </motion.dl>
+          </p>
+          <p className="mt-3 text-sm text-taupe-500">
+            <LocalClock />
+          </p>
         </div>
+
+        <motion.dl
+          initial="hidden"
+          whileInView="show"
+          viewport={{ once: true, margin: "-80px" }}
+          variants={{ hidden: {}, show: { transition: { staggerChildren: 0.06 } } }}
+          className="mx-auto mt-10 grid max-w-5xl grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-4"
+        >
+          <ContactRow label="Email" value={site.email} href={`mailto:${site.email}`} />
+          <ContactRow label="Phone" value={site.phone} href={`tel:${site.phone.replace(/-/g, "")}`} />
+          <ContactRow label="GitHub" value="@amandachuu04" href={site.github} />
+          <ContactRow label="LinkedIn" value="amandaachu" href={site.linkedin} />
+        </motion.dl>
 
         <motion.form
           initial={{ opacity: 0, y: 24 }}
@@ -131,7 +102,7 @@ export default function Contact() {
           viewport={{ once: true, margin: "-80px" }}
           transition={{ duration: 0.6 }}
           onSubmit={onSubmit}
-          className="relative lg:col-span-7"
+          className="relative mx-auto mt-10 w-full max-w-3xl"
         >
           <div className="rounded-[2rem] border border-taupe-200/40 bg-cream-50 p-7 shadow-card sm:p-10">
             <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
@@ -235,25 +206,17 @@ function ContactRow({
         hidden: { opacity: 0, y: 8 },
         show: { opacity: 1, y: 0, transition: { duration: 0.45 } },
       }}
-      className="flex items-center gap-6"
     >
-      <dt className="w-20 text-[10px] font-semibold uppercase tracking-[0.2em] text-taupe-400">
-        {label}
-      </dt>
-      <dd className="flex-1">
-        <a
-          href={href}
-          className="group inline-flex items-center gap-2 font-display text-lg text-ink transition-colors hover:text-taupe-500"
-        >
-          {value}
-          <span
-            aria-hidden
-            className="-translate-x-1 opacity-0 transition-all duration-300 group-hover:translate-x-1 group-hover:opacity-100"
-          >
-            ↗
-          </span>
-        </a>
-      </dd>
+      <a
+        href={href}
+        className="group flex h-full flex-col justify-between gap-3 rounded-3xl border border-taupe-200/40 bg-cream-50 p-5 shadow-card transition-all hover:-translate-y-1 hover:shadow-soft"
+      >
+        <dt className="flex items-center justify-between text-[10px] font-semibold uppercase tracking-[0.2em] text-taupe-400">
+          {label}
+          <span aria-hidden className="transition-transform duration-300 group-hover:rotate-45">↗</span>
+        </dt>
+        <dd className="break-all font-display text-lg text-ink transition-colors group-hover:text-taupe-500">{value}</dd>
+      </a>
     </motion.div>
   );
 }

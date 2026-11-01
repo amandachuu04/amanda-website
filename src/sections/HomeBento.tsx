@@ -1,0 +1,263 @@
+import { ReactNode } from "react";
+import { motion } from "framer-motion";
+import LocalClock from "../components/LocalClock";
+import { experiences, projects, site, toolGroups } from "../lib/site";
+import { projectsHref, workHref } from "../lib/route";
+
+const spring = { type: "spring" as const, stiffness: 260, damping: 22 };
+
+function Tile({
+  className = "",
+  delay = 0,
+  children,
+  href,
+  label,
+}: {
+  className?: string;
+  delay?: number;
+  children: ReactNode;
+  href?: string;
+  label?: string;
+}) {
+  const base =
+    "group relative overflow-hidden rounded-[1.75rem] border border-taupe-200/40 bg-cream-50 shadow-card transition-shadow hover:shadow-soft";
+  const motionProps = {
+    initial: { opacity: 0, y: 24, scale: 0.98 },
+    whileInView: { opacity: 1, y: 0, scale: 1 },
+    viewport: { once: true, margin: "-60px" },
+    transition: { duration: 0.55, ease: "easeOut" as const, delay },
+    whileHover: { y: -4, transition: spring },
+  };
+  return href ? (
+    <motion.a href={href} aria-label={label} className={`${base} block ${className}`} {...motionProps}>
+      {children}
+    </motion.a>
+  ) : (
+    <motion.div className={`${base} ${className}`} {...motionProps}>
+      {children}
+    </motion.div>
+  );
+}
+
+function Eyebrow({ children, light }: { children: ReactNode; light?: boolean }) {
+  return (
+    <span
+      className={`text-[10px] font-semibold uppercase tracking-[0.2em] ${
+        light ? "text-cream-100/70" : "text-taupe-400"
+      }`}
+    >
+      {children}
+    </span>
+  );
+}
+
+function Arrow() {
+  return (
+    <span className="inline-flex h-9 w-9 items-center justify-center rounded-full bg-cream-50/85 text-taupe-500 backdrop-blur transition-all duration-300 group-hover:rotate-45 group-hover:bg-taupe-400 group-hover:text-cream-50">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden>
+        <path d="M7 17 17 7M9 7h8v8" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+      </svg>
+    </span>
+  );
+}
+
+export default function HomeBento() {
+  const now = experiences[0];
+  const latest = projects.slice(0, 4);
+  const tools = toolGroups.flatMap((g) => g.items);
+
+  return (
+    <>
+      {/* ---------- at-a-glance bento ---------- */}
+      <section id="hero" className="relative w-full bg-cream-100 pb-16 pt-28 sm:pt-32">
+        <div aria-hidden className="absolute inset-0 grain opacity-60" />
+        <div className="relative mx-auto grid w-full max-w-[1400px] grid-cols-1 gap-4 px-4 sm:grid-cols-2 sm:px-8 lg:grid-cols-4 lg:gap-5 lg:px-12">
+          {/* intro */}
+          <Tile className="flex flex-col justify-between p-7 sm:col-span-2 sm:p-9 lg:row-span-2">
+            <div className="flex flex-wrap items-center gap-2">
+              <span className="pill">
+                <span className="relative flex h-2 w-2">
+                  <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-blush-300 opacity-75" />
+                  <span className="relative inline-flex h-2 w-2 rounded-full bg-blush-400" />
+                </span>
+                Available for work
+              </span>
+              <span className="pill">UX/UI · Web Dev</span>
+            </div>
+            <div className="mt-10">
+              <h1 className="font-display text-[clamp(2.4rem,5.2vw,4.4rem)] font-bold leading-[1.02] tracking-tight text-ink">
+                Hi, I&apos;m Amanda.
+                <br />
+                <span className="text-taupe-500">I design &amp;</span>{" "}
+                <span className="italic text-taupe-500">build things.</span>
+              </h1>
+              <p className="mt-5 max-w-lg text-base text-taupe-500 sm:text-lg">
+                Designing thoughtful digital experiences through code, creativity, and user-centered thinking.
+              </p>
+              <div className="mt-8 flex flex-wrap gap-3">
+                <a href={site.cvFile} download className="btn-primary">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden>
+                    <path d="M12 4v12m0 0 4-4m-4 4-4-4" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                    <path d="M4 20h16" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+                  </svg>
+                  Download CV
+                </a>
+                <a href="#contact" className="btn-secondary">Let&apos;s talk →</a>
+              </div>
+            </div>
+          </Tile>
+
+          {/* avatar */}
+          <Tile delay={0.05} className="min-h-[300px] bg-blush-100 sm:min-h-[340px] lg:row-span-2">
+            <img src={site.avatar} alt="Illustrated portrait of Amanda Chu" className="absolute inset-0 h-full w-full object-cover object-[50%_20%] transition-transform duration-700 group-hover:scale-[1.04]" />
+            <span className="absolute bottom-4 left-4 rounded-pill bg-cream-50/90 px-3 py-1.5 font-display text-sm italic text-taupe-500 backdrop-blur">
+              hi, that&apos;s me ☻
+            </span>
+          </Tile>
+
+          {/* now */}
+          <Tile delay={0.1} href="/about#experience" label="See my experience" className="flex flex-col justify-between bg-blush-100 p-6">
+            <div className="flex items-center justify-between">
+              <Eyebrow>Right now</Eyebrow>
+              <span className="relative flex h-2.5 w-2.5">
+                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-blush-300 opacity-75" />
+                <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-blush-400" />
+              </span>
+            </div>
+            <div className="mt-6">
+              <p className="font-display text-xl font-bold leading-tight text-ink">{now.role}</p>
+              <p className="mt-1 text-sm text-taupe-500">{now.company}</p>
+              <p className="mt-3 text-xs text-taupe-400">{now.dates} · {now.location}</p>
+            </div>
+          </Tile>
+
+          {/* location + clock */}
+          <Tile delay={0.15} className="flex flex-col justify-between p-6">
+            <Eyebrow>Based in</Eyebrow>
+            <div className="mt-6">
+              <p className="font-display text-xl font-bold text-ink">{site.location}</p>
+              <p className="mt-2 text-sm text-taupe-500"><LocalClock /></p>
+              <p className="mt-2 text-xs text-taupe-400">Speaks EN · 粵 · 中</p>
+            </div>
+          </Tile>
+
+          {/* interests */}
+          <Tile delay={0.1} className="min-h-[220px]">
+            <img src="/polaroid-interests.png" alt="Flat lay of things I love: music, boba and photos" className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 group-hover:scale-105" />
+            <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-ink/70 to-transparent p-5 pt-12 text-cream-50">
+              <p className="font-display text-lg font-bold">interests ♡</p>
+              <p className="text-xs text-cream-100/85">Boba, concerts, shopping, music</p>
+            </div>
+          </Tile>
+
+          {/* design -> implementation */}
+          <Tile delay={0.15} className="p-5 sm:col-span-2">
+            <div className="flex items-center justify-between">
+              <Eyebrow>How I work</Eyebrow>
+              <span className="text-xs text-taupe-400">From Figma to code</span>
+            </div>
+            <div className="mt-4 grid grid-cols-[1fr_auto_1fr] items-center gap-3">
+              <figure className="overflow-hidden rounded-2xl">
+                <img src="/polaroid-design.jpg" alt="My design setup" className="aspect-[4/3] w-full object-cover transition-transform duration-700 group-hover:scale-105" />
+                <figcaption className="mt-2 text-center font-display text-sm italic text-taupe-500">design</figcaption>
+              </figure>
+              <motion.span aria-hidden className="text-2xl text-taupe-300" animate={{ x: [0, 4, 0] }} transition={{ duration: 1.8, repeat: Infinity }}>
+                →
+              </motion.span>
+              <figure className="overflow-hidden rounded-2xl">
+                <img src="/polaroid-uxui.png" alt="A coded interface" className="aspect-[4/3] w-full object-cover transition-transform duration-700 group-hover:scale-105" />
+                <figcaption className="mt-2 text-center font-display text-sm italic text-taupe-500">implementation</figcaption>
+              </figure>
+            </div>
+          </Tile>
+
+          {/* contact */}
+          <Tile delay={0.2} href="#contact" label="Contact me" className="flex flex-col justify-between bg-taupe-400 p-6 text-cream-100">
+            <div className="flex items-start justify-between">
+              <Eyebrow light>Say hello</Eyebrow>
+              <Arrow />
+            </div>
+            <div className="mt-6">
+              <p className="font-display text-2xl font-bold">Let&apos;s talk.</p>
+              <p className="mt-1 break-all text-sm text-cream-100/85">{site.email}</p>
+            </div>
+          </Tile>
+        </div>
+
+        {/* tools marquee */}
+        <div className="relative mt-10 overflow-hidden border-y border-taupe-200/40 bg-cream-50/60 py-4" aria-label="Tools I use">
+          <motion.div
+            className="flex w-max gap-10 whitespace-nowrap font-display text-lg text-taupe-400"
+            animate={{ x: ["0%", "-50%"] }}
+            transition={{ duration: 40, repeat: Infinity, ease: "linear" }}
+          >
+            {[...tools, ...tools].map((t, i) => (
+              <span key={i} className="inline-flex items-center gap-10">
+                {t}
+                <span aria-hidden className="text-blush-300">✦</span>
+              </span>
+            ))}
+          </motion.div>
+        </div>
+      </section>
+
+      {/* ---------- projects bento ---------- */}
+      <section id="projects" className="relative w-full scroll-mt-24 bg-cream-100 pb-24 sm:pb-32">
+        <div className="mx-auto w-full max-w-[1400px] px-4 sm:px-8 lg:px-12">
+          <div className="flex flex-wrap items-end justify-between gap-6 pb-8 pt-8">
+            <div>
+              <span className="section-eyebrow">
+                <span aria-hidden className="inline-block h-1.5 w-6 rounded-full bg-blush-300" />
+                Latest projects
+              </span>
+              <h2 className="mt-3 font-display text-display-md font-bold text-ink">
+                Things I&apos;ve <span className="italic text-taupe-500">made lately</span>
+              </h2>
+              <p className="mt-3 text-base text-taupe-500">A growing collection of my latest projects. More on the way.</p>
+            </div>
+            <a href={projectsHref()} className="btn-secondary">View all →</a>
+          </div>
+
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4 lg:grid-rows-[minmax(240px,auto)_minmax(240px,auto)] lg:gap-5">
+            {latest.map((p, i) => {
+              const size =
+                i === 0
+                  ? "sm:col-span-2 lg:row-span-2 min-h-[340px]"
+                  : i === 1
+                  ? "sm:col-span-2 min-h-[260px]"
+                  : "min-h-[260px]";
+              return (
+                <Tile
+                  key={p.title}
+                  delay={0.06 * i}
+                  href={p.slug ? workHref(p.slug) : p.href ?? "#"}
+                  label={`Open ${p.title}`}
+                  className={`${size} bg-gradient-to-br ${p.swatch}`}
+                >
+                  {p.image && (
+                    <img
+                      src={p.image}
+                      alt={`${p.title} project preview`}
+                      loading="lazy"
+                      className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 group-hover:scale-[1.05]"
+                    />
+                  )}
+                  <div className="absolute inset-x-0 top-0 flex items-start justify-between p-4">
+                    <span className="rounded-pill bg-cream-50/90 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.18em] text-taupe-500 backdrop-blur">
+                      {p.kind}
+                    </span>
+                    <Arrow />
+                  </div>
+                  <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-ink/75 via-ink/30 to-transparent p-5 pt-16 text-cream-50">
+                    <h3 className={`font-display font-bold ${i === 0 ? "text-3xl" : "text-2xl"}`}>{p.title}</h3>
+                    {p.meta && <p className="mt-1 text-xs text-cream-100/85">{p.meta}</p>}
+                  </div>
+                </Tile>
+              );
+            })}
+          </div>
+        </div>
+      </section>
+    </>
+  );
+}
