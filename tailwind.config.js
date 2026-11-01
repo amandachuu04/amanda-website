@@ -31,8 +31,8 @@ export default {
         ink: "#2A211C",
       },
       fontFamily: {
-        display: ['"Playfair Display"', "ui-serif", "Georgia", "serif"],
-        sans: ['"DM Sans"', "ui-sans-serif", "system-ui", "sans-serif"],
+        display: ['"Cormorant Garamond"', "ui-serif", "Georgia", "serif"],
+        sans: ['"Plus Jakarta Sans"', "ui-sans-serif", "system-ui", "sans-serif"],
       },
       fontSize: {
         "display-xl": ["clamp(2.25rem, 5vw, 4.5rem)", { lineHeight: "1.0", letterSpacing: "-0.02em" }],
