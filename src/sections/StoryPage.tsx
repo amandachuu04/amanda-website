@@ -164,7 +164,7 @@ export default function StoryPage({ study, media, band, after, brand, children }
           <p className="mt-6 text-lg text-taupe-500 sm:text-xl">{study.tagline}</p>
           <dl className="mt-8 grid grid-cols-2 gap-x-8 gap-y-4 md:grid-cols-3 lg:flex lg:justify-between">
             {facts.map(([k, v]) => (
-              <div key={k} className="min-w-0">
+              <div key={k} className={v.length <= 12 ? "whitespace-nowrap" : ""}>
                 <dt className="text-[10px] font-semibold uppercase tracking-[0.2em] text-taupe-400">{k}</dt>
                 {v.length > 60 ? (
                   <dd className="mt-0.5">
