@@ -169,15 +169,15 @@ export function EggWelcome() {
           animate={{ x: 0 }}
           exit={{ x: "110%" }}
           transition={{ type: "spring", stiffness: 170, damping: 20 }}
-          className="pointer-events-none fixed bottom-0 right-0 z-40 flex max-w-full items-end pl-3"
+          className="pointer-events-none fixed right-3 top-[5.25rem] z-30 flex max-w-[calc(100%-1.5rem)] items-center sm:right-6"
         >
           <motion.div
             role="status"
             initial={{ opacity: 0, scale: 0.7 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ type: "spring", stiffness: 300, damping: 22, delay: 0.45 }}
-            style={{ transformOrigin: "100% 100%" }}
-            className="pointer-events-auto relative mb-24 mr-3 w-[min(250px,calc(100vw-9.5rem))] rounded-3xl border border-taupe-200/60 bg-cream-50 py-4 pl-5 pr-8 shadow-soft sm:mb-32"
+            style={{ transformOrigin: "100% 50%" }}
+            className="pointer-events-auto relative mr-3 w-[min(240px,calc(100vw-8rem))] rounded-3xl border border-taupe-200/60 bg-cream-50 py-4 pl-5 pr-8 shadow-soft sm:mb-32"
           >
             <button type="button" aria-label="Close" onClick={() => setOpen(false)} className="absolute right-3.5 top-2 text-lg leading-none text-taupe-400 transition-colors hover:text-ink">
               ×
@@ -185,9 +185,9 @@ export function EggWelcome() {
             <p className="text-sm leading-relaxed text-ink">
               Psst! I hid {EGG_COUNT} flower Easter eggs around my site. Can you find them all?
             </p>
-            <span aria-hidden className="absolute -right-[8px] bottom-6 h-3.5 w-3.5 rotate-45 border-r border-t border-taupe-200/60 bg-cream-50" />
+            <span aria-hidden className="absolute -right-[8px] top-1/2 -mt-[7px] h-3.5 w-3.5 rotate-45 border-r border-t border-taupe-200/60 bg-cream-50" />
           </motion.div>
-          <img src={site.avatar} alt="" className="h-36 w-auto shrink-0 object-contain sm:h-52" />
+          <img src={site.avatar} alt="" className="h-20 w-20 shrink-0 rounded-full border border-taupe-200/60 bg-cream-50 object-contain p-1 shadow-soft sm:h-28 sm:w-28" />
         </motion.div>
       )}
     </AnimatePresence>
