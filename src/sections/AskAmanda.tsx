@@ -216,7 +216,7 @@ export default function AskAmanda() {
           <aside className="hidden w-[280px] shrink-0 flex-col bg-blush-100 p-4 lg:flex">
             <div className="flex items-center gap-3 px-2 py-1">
               <Avatar />
-              <span className="font-display text-lg font-bold text-ink">Chu Chat</span>
+              <span className="font-display text-lg font-bold text-ink">Ask Amanda</span>
             </div>
             <button type="button" disabled={busy} onClick={() => setMessages([])} className="mt-4 rounded-2xl px-3 py-2.5 text-left text-sm font-semibold text-ink transition-colors hover:bg-blush-200">
               + New chat
@@ -242,7 +242,7 @@ export default function AskAmanda() {
 
           <div className="flex min-w-0 flex-1 flex-col">
             <div className="flex items-center justify-between border-b border-taupe-200/50 px-5 py-3.5">
-              <h2 className="font-display text-lg font-bold text-ink">Chu Chat</h2>
+              <h2 className="font-display text-lg font-bold text-ink">Ask Amanda</h2>
               {messages.length > 0 && (
                 <button type="button" disabled={busy} onClick={() => setMessages([])} className="text-sm font-semibold text-taupe-500 transition-colors hover:text-ink lg:hidden">
                   + New chat
@@ -285,7 +285,7 @@ export default function AskAmanda() {
 
             <div className="px-4 pb-3 sm:px-8">
               <form onSubmit={submit} className="mx-auto max-w-[760px]">
-                <label htmlFor="ask-amanda" className="sr-only">Ask Chu Chat a question</label>
+                <label htmlFor="ask-amanda" className="sr-only">Ask Amanda a question</label>
                 <div className="flex items-center gap-2 rounded-3xl border border-taupe-200/70 bg-cream-100 py-2 pl-5 pr-2 shadow-card transition-shadow focus-within:shadow-soft">
                   <input
                     id="ask-amanda"
