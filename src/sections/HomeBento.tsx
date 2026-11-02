@@ -144,7 +144,7 @@ function CarouselButton({ dir, onClick }: { dir: "Previous" | "Next"; onClick: (
   );
 }
 
-const AUTO_SPEED = 40; // px per second
+const AUTO_SPEED = 70; // px per second
 const RESUME_AFTER = 3000; // ms to wait after someone uses the arrows or swipes
 
 /** Scrolls on its own and loops over a doubled card list, pausing while someone is using it. */
