@@ -1,6 +1,6 @@
 import { FormEvent, useEffect, useMemo, useRef, useState } from "react";
 import { useReducedMotion } from "framer-motion";
-import { caseStudies, certifications, education, experiences, projectPages, projects, site, toolGroups } from "../lib/site";
+import { caseStudies, certifications, education, experiences, projectPages, projects, site, toolGroups, type Experience } from "../lib/site";
 import { workHref } from "../lib/route";
 
 type Tab = "Skills" | "Education" | "Experience" | "Projects" | "About";
@@ -20,7 +20,7 @@ const CARDS = [
   { title: "Experience", question: "What experience do you have?" },
   { title: "Projects", question: "What projects have you made?" },
 ];
-const TRY_ASKING = ["When do you graduate?", "What's your GPA?", "Do you know Figma?", "What languages do you speak?", "How can I contact you?"];
+const TRY_ASKING = ["What do you do at Nexus 8?", "When do you graduate?", "What's your GPA?", "Do you know Figma?", "What languages do you speak?", "How can I contact you?"];
 const IGNORED = new Set(["a", "about", "amanda", "amandas", "an", "and", "are", "chu", "did", "do", "does", "for", "go", "has", "have", "her", "how", "i", "in", "is", "know", "me", "my", "of", "on", "she", "tell", "the", "to", "what", "where", "which", "who", "with", "you", "your"]);
 
 function buildIndex(): Result[] {
@@ -105,9 +105,28 @@ function snippetOf(text: string, terms: string[]) {
 }
 
 type Item = { title: string; href: string; note?: string };
-type Message = { role: "user" | "amanda"; text: string; items?: Item[] };
+type Message = { role: "user" | "amanda"; text: string; bullets?: string[]; items?: Item[] };
 
 const PROJECT_WORDS = new Set(["best", "built", "created", "favorite", "have", "latest", "made", "portfolio", "project", "projects", "recent", "show"]);
+
+// How people might refer to each job, by company or by position.
+const JOB_NAMES: Record<string, RegExp> = {
+  "Nexus 8 International, LLC": /\bnexus\b|\bu[ix]([\s/&-]+(and\s+)?u[ix])?\s+(designer|design intern|intern)\b/,
+  "Running Name LLC": /running name|graphic designer|graphic design intern/,
+  "George Mason University": /\btutor(ing)?\b|\b(mason|gmu)\b.*\b(work|job|role|position|responsib|do at|did at|doing at|do for|did for)|\b(work|job|role|position|do at|did at|doing at|do for|did for)\b.*\b(mason|gmu)\b/,
+  "PCCI Inc.": /\bpcci\b/,
+};
+
+function jobReply(job: Experience): Message {
+  const current = job.dates.includes("Present");
+  const article = /^[aeio]/i.test(job.role) || job.role.startsWith("Intern") ? "an" : "a";
+  return {
+    role: "amanda",
+    text: `At ${job.company}, ${current ? "I'm" : "I was"} ${article} ${job.role} (${job.dates}, ${job.location}). Here's what ${current ? "I do" : "I did"}:`,
+    bullets: job.bullets,
+    items: [{ title: "See all my experience", href: "/about#experience" }],
+  };
+}
 
 /** Answers from the site's own info; there is no AI model behind this. */
 function reply(question: string, index: Result[]): Message {
@@ -116,6 +135,10 @@ function reply(question: string, index: Result[]): Message {
   const items = (tab: Tab, n = 6) => index.filter((r) => r.tab === tab).slice(0, n).map(({ title, href }) => ({ title, href }));
   const answer = (text: string, list?: Item[]): Message => ({ role: "amanda", text, items: list });
   const [masters, bachelors] = education;
+
+  const job = experiences.find((e) => JOB_NAMES[e.company]?.test(q));
+  if (job && !/\b(stud(y|ied|ying)|major|degree|gpa|graduat)/.test(q)) return jobReply(job);
+  if (/\bcurrent(ly)? (job|role|position)|\bdo(ing)? (right )?now\b/.test(q)) return jobReply(experiences[0]);
 
   if (/\b(gpa|grades?)\b/.test(q)) return answer(`My GPA is ${bachelors.note?.match(/GPA ([\d.]+)/)?.[1]}.`, items("Education", 2));
   if (/graduat/.test(q)) return answer(`I'm expected to finish my B.S. in ${bachelors.dates.split("Expected ")[1]} and my M.S. in ${masters.dates.split("Expected ")[1]}, through George Mason's accelerated master's program.`, items("Education", 2));
@@ -152,6 +175,13 @@ function AmandaMessage({ message, shown }: { message: Message; shown: number }) 
       <Avatar />
       <div className="min-w-0 flex-1 pt-1">
         <p className="text-base leading-relaxed text-ink">{words.slice(0, shown).join(" ")}</p>
+        {done && message.bullets && (
+          <ul className="mt-3 list-disc space-y-2 pl-5 text-base leading-relaxed text-ink marker:text-blush-400">
+            {message.bullets.map((b) => (
+              <li key={b}>{b}</li>
+            ))}
+          </ul>
+        )}
         {done && message.items && (
           <ul className="mt-3 space-y-2">
             {message.items.map((item) => (
