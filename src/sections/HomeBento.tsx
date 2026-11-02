@@ -131,13 +131,14 @@ function ProjectCard({ p, copy }: { p: Project; copy?: boolean }) {
   );
 }
 
-function CarouselButton({ dir, onClick }: { dir: "Previous" | "Next"; onClick: () => void }) {
+function CarouselButton({ dir, disabled, onClick }: { dir: "Previous" | "Next"; disabled: boolean; onClick: () => void }) {
   return (
     <button
       type="button"
       aria-label={`${dir} project`}
+      disabled={disabled}
       onClick={onClick}
-      className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-taupe-200/60 bg-cream-50 text-taupe-500 transition-colors hover:bg-blush-100"
+      className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-taupe-200/60 bg-cream-50 text-taupe-500 transition-colors hover:bg-blush-100 disabled:opacity-40 disabled:hover:bg-cream-50"
     >
       {dir === "Previous" ? "←" : "→"}
     </button>
@@ -153,22 +154,28 @@ function useCarousel(count: number) {
   const reduced = useReducedMotion();
   const paused = useRef(false);
   const holdUntil = useRef(0);
+  const [ends, setEnds] = useState({ latest: true, oldest: false });
 
   const hold = () => {
     holdUntil.current = performance.now() + RESUME_AFTER;
   };
   const loopWidth = (el: HTMLDivElement) => (el.children[count] as HTMLElement).offsetLeft - (el.children[0] as HTMLElement).offsetLeft;
+  /** Where each real project sits, leaving out the looped copies. */
+  const stops = (el: HTMLDivElement) => {
+    const pad = (el.children[0] as HTMLElement).offsetLeft;
+    return Array.from(el.children).slice(0, count).map((c) => (c as HTMLElement).offsetLeft - pad);
+  };
 
   useEffect(() => {
     const el = track.current;
-    if (!el || reduced) return;
+    if (!el) return;
     let frame = 0;
     let last = performance.now();
     let pos = el.scrollLeft;
     const tick = (now: number) => {
       const dt = Math.min(now - last, 50);
       last = now;
-      if (paused.current || now < holdUntil.current) {
+      if (reduced || paused.current || now < holdUntil.current) {
         pos = el.scrollLeft;
       } else {
         pos += (AUTO_SPEED * dt) / 1000;
@@ -176,6 +183,10 @@ function useCarousel(count: number) {
         if (pos >= width) pos -= width;
         el.scrollLeft = pos;
       }
+      const at = el.scrollLeft % loopWidth(el);
+      const latest = at < 8;
+      const oldest = at >= stops(el)[count - 1] - 8;
+      setEnds((e) => (e.latest === latest && e.oldest === oldest ? e : { latest, oldest }));
       frame = requestAnimationFrame(tick);
     };
     frame = requestAnimationFrame(tick);
@@ -187,10 +198,8 @@ function useCarousel(count: number) {
     if (!el) return;
     hold();
     const width = loopWidth(el);
-    if (step > 0 && el.scrollLeft >= width) el.scrollLeft -= width;
-    if (step < 0 && el.scrollLeft < 8) el.scrollLeft += width;
-    const pad = (el.children[0] as HTMLElement).offsetLeft;
-    const lefts = Array.from(el.children, (c) => (c as HTMLElement).offsetLeft - pad);
+    if (el.scrollLeft >= width) el.scrollLeft -= width;
+    const lefts = stops(el);
     const target = step > 0 ? lefts.find((l) => l > el.scrollLeft + 8) : [...lefts].reverse().find((l) => l < el.scrollLeft - 8);
     if (target !== undefined) el.scrollTo({ left: target, behavior: "smooth" });
   };
@@ -204,7 +213,7 @@ function useCarousel(count: number) {
     onTouchEnd: () => { paused.current = false; hold(); },
   };
 
-  return { track, go, handlers };
+  return { track, go, handlers, ends };
 }
 
 export default function HomeBento() {
@@ -388,8 +397,8 @@ export default function HomeBento() {
               <p className="mt-3 text-base text-taupe-500">A growing collection of my latest projects. More on the way.</p>
             </div>
             <div className="flex items-center gap-3">
-              <CarouselButton dir="Previous" onClick={() => carousel.go(-1)} />
-              <CarouselButton dir="Next" onClick={() => carousel.go(1)} />
+              <CarouselButton dir="Previous" disabled={carousel.ends.latest} onClick={() => carousel.go(-1)} />
+              <CarouselButton dir="Next" disabled={carousel.ends.oldest} onClick={() => carousel.go(1)} />
               <a href={projectsHref()} className="btn-secondary">View all →</a>
             </div>
           </div>
