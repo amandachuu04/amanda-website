@@ -164,7 +164,7 @@ function reply(question: string, index: Result[]): Message {
 }
 
 function Avatar({ size = "h-8 w-8" }: { size?: string }) {
-  return <img src={site.avatar} alt="" className={`${size} shrink-0 rounded-full border-2 border-blush-300 bg-cream-50 object-contain p-0.5`} />;
+  return <img src={site.avatar} alt="" className={`${size} shrink-0 rounded-full border-2 border-taupe-300 bg-cream-50 object-contain p-0.5`} />;
 }
 
 function AmandaMessage({ message, shown }: { message: Message; shown: number }) {
