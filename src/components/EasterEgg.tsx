@@ -10,20 +10,10 @@ const EGGS: Record<string, string> = {
 };
 export const EGG_COUNT = Object.keys(EGGS).length;
 
-const STORAGE_KEY = "hidden-flowers";
-
-function loadFound(): string[] {
-  try {
-    const saved: string[] = JSON.parse(localStorage.getItem(STORAGE_KEY) ?? "[]");
-    return Object.keys(EGGS).filter((id) => saved.includes(id));
-  } catch {
-    return [];
-  }
-}
-
 type EggState = { found: string[]; open: string | null; anchor: HTMLElement | null };
 
-let state: EggState = { found: loadFound(), open: null, anchor: null };
+// Lives in memory only, so finding flowers starts over on refresh.
+let state: EggState = { found: [], open: null, anchor: null };
 const listeners = new Set<() => void>();
 
 function setState(next: EggState) {
@@ -44,11 +34,6 @@ export function useEggs() {
 function discover(id: string, anchor: HTMLElement) {
   const found = state.found.includes(id) ? state.found : [...state.found, id];
   const finished = found.length === EGG_COUNT && state.found.length < EGG_COUNT;
-  try {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(found));
-  } catch {
-    // Progress just won't carry over to the next visit.
-  }
   setState({ found, open: finished ? "all" : id, anchor });
   const box = anchor.getBoundingClientRect();
   window.dispatchEvent(new CustomEvent("flower-burst", { detail: { x: box.left + box.width / 2, y: box.top + box.height / 2, count: finished ? 40 : 14 } }));
