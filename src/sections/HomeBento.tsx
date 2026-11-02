@@ -248,7 +248,7 @@ export default function HomeBento() {
         >
           <p>
             <span aria-hidden className="mr-2 text-blush-500">✿</span>
-            I hid {EGG_COUNT} flower Easter eggs around my site. Can you find them all?
+            Psst! There are {EGG_COUNT} Easter eggs hiding around my site. Keep an eye out for tiny flowers and see if you can find them all!
           </p>
           {found.length > 0 && (
             <p className="font-semibold text-ink">
