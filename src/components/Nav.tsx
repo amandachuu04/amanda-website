@@ -35,16 +35,18 @@ export default function Nav() {
         className="fixed left-0 right-0 top-0 z-40 border-b border-taupe-200/60 bg-cream-100"
       >
         <nav aria-label="Primary" className="flex h-[4.5rem] w-full items-center justify-between px-4 sm:px-6 lg:px-8">
-          <motion.a
-            href="#hero"
-            className="flex items-center"
-            aria-label="Home"
-            whileHover={{ rotate: [0, -8, 8, -5, 5, 0] }}
-            whileTap={{ scale: 0.95 }}
-            transition={{ duration: 0.55, ease: "easeInOut" }}
-          >
-            <img src="/amanda-chu-logo.png" alt="" aria-hidden className="h-8 w-auto sm:h-9" />
-          </motion.a>
+          <a href="#hero" className="flex items-center gap-3" aria-label="Home">
+            <motion.img
+              src="/amanda-chu-logo.png"
+              alt=""
+              aria-hidden
+              className="h-8 w-auto sm:h-9"
+              whileHover={{ rotate: [0, -8, 8, -5, 5, 0] }}
+              whileTap={{ scale: 0.95 }}
+              transition={{ duration: 0.55, ease: "easeInOut" }}
+            />
+            <span className="whitespace-nowrap font-display text-lg font-bold text-ink">{site.name}</span>
+          </a>
 
           <div className="hidden items-center gap-9 lg:flex">
             <ul className="flex items-center gap-8">
