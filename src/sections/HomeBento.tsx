@@ -251,10 +251,10 @@ export default function HomeBento() {
             </div>
             <div>
               <h1 className="font-display text-[clamp(2.3rem,3.9vw,4rem)] font-bold leading-[1.02] tracking-tight text-ink">
-                Hi, I&apos;m Amanda.
+                Hi, I&apos;m Amanda!
                 <br />
                 <span className="text-taupe-500">I design &amp;</span>{" "}
-                <span className="italic text-taupe-500">build things.</span>
+                <span className="italic text-taupe-500">build things :)</span>
               </h1>
               <p className="mt-5 max-w-lg text-base text-taupe-500 sm:text-lg">
                 Designing thoughtful digital experiences through code, creativity, and user-centered thinking.
