@@ -184,7 +184,7 @@ export default function StoryPage({ study, media, band, after, brand, children }
           <a href={projectsHref()} className="text-xs font-semibold uppercase tracking-[0.18em] text-taupe-400 hover:text-taupe-500">
             ← All projects
           </a>
-          <h1 ref={titleRef} className={`mt-6 font-display ${study.title.length > 14 ? "text-[clamp(2.8rem,8vw,6.5rem)]" : "text-[clamp(3.6rem,12vw,10rem)]"} font-bold leading-[0.95] tracking-tight text-ink`}>{study.title}</h1>
+          <h1 ref={titleRef} className={`mt-6 font-display ${study.title.length > 14 ? "text-[clamp(2.6rem,6.5vw,5.25rem)]" : "text-[clamp(3.2rem,9vw,7rem)]"} font-bold leading-[0.95] tracking-tight text-ink`}>{study.title}</h1>
           <p className="mt-6 text-lg text-taupe-500 sm:text-xl">{study.tagline}</p>
           <dl className="mt-8 grid grid-cols-2 gap-x-8 gap-y-4 md:grid-cols-3 lg:flex lg:justify-between">
             {facts.map(([k, v]) => (

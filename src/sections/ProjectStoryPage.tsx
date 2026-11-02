@@ -113,7 +113,7 @@ export default function ProjectStoryPage({ project }: { project: ProjectPage }) 
 
   return (
     <StoryPage study={project} media={media}>
-      <Section eyebrow="Overview" title="About the project">
+      <Section eyebrow="Overview" title="About the Project">
         <div className="space-y-5">
           {project.description.map((p) => (
             <p key={p} className={body}>{p}</p>
