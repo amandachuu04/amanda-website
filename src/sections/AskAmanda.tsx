@@ -20,7 +20,7 @@ const CARDS = [
   { title: "Experience", question: "What experience do you have?" },
   { title: "Projects", question: "What projects have you made?" },
 ];
-const TRY_ASKING = ["What do you do at Nexus 8?", "When do you graduate?", "What's your GPA?", "Do you know Figma?", "What languages do you speak?", "How can I contact you?"];
+const TRY_ASKING = ["What do you do at Nexus 8?", "What is FloraFlow?", "When do you graduate?", "What's your GPA?", "Do you know Figma?", "What languages do you speak?", "How can I contact you?"];
 const IGNORED = new Set(["a", "about", "amanda", "amandas", "an", "and", "are", "chu", "did", "do", "does", "for", "go", "has", "have", "her", "how", "i", "in", "is", "know", "me", "my", "of", "on", "she", "tell", "the", "to", "what", "where", "which", "who", "with", "you", "your"]);
 
 function buildIndex(): Result[] {
@@ -117,6 +117,39 @@ const JOB_NAMES: Record<string, RegExp> = {
   "PCCI Inc.": /\bpcci\b/,
 };
 
+// Shorter names people might use for a project, on top of its full title.
+const PROJECT_NAMES: Record<string, string[]> = {
+  "paws-and-care": ["paws"],
+  "linking-narratives": ["linking", "sweetdreams"],
+  "name-logo-design": ["namelogo"],
+  "dungeon-cube-caesar": ["dungeon", "caesar"],
+  "grade-management-system": ["gradeprocessing", "grademanagement"],
+  "lane-scheduling-system": ["lanescheduling", "parkinglane"],
+  "federicos-menu": ["federico"],
+  "choco-cake-recipe": ["chococake", "chocolatecake"],
+  "banana-bread-recipe": ["bananabread"],
+  "hierarchy-ad": ["hierarchy"],
+  "modular-grid": ["modular"],
+};
+
+const compact = (text: string) => text.toLowerCase().replace(/[^a-z0-9]/g, "");
+
+function projectReply(question: string): Message | undefined {
+  const q = compact(question);
+  const project = projects.find((p) => p.slug && [compact(p.title), ...(PROJECT_NAMES[p.slug] ?? [])].some((name) => q.includes(name)));
+  if (!project?.slug) return undefined;
+  const { tagline } = caseStudies[project.slug] ?? projectPages[project.slug];
+  const from = tagline.match(/(?:^|\. )(An? .*)/)?.[1] ?? `a ${tagline.replace(/^\w+ \w+/, (w) => w.toLowerCase())}`;
+  const sentence = (from.match(/^.*?[.!?](?=\s|$)/)?.[0] ?? from).replace(/[.!?]$/, "");
+  // Keeps the core idea and drops the extra detail after it.
+  const short = sentence.split(/: |, (?:letting|built|then|assigns|with|treating) | to show /)[0];
+  return {
+    role: "amanda",
+    text: `${project.title} is ${short.replace(/^A/, "a")}.`,
+    items: [{ title: `See ${project.title}`, href: workHref(project.slug) }],
+  };
+}
+
 function jobReply(job: Experience): Message {
   const current = job.dates.includes("Present");
   const article = /^[aeio]/i.test(job.role) || job.role.startsWith("Intern") ? "an" : "a";
@@ -135,6 +168,9 @@ function reply(question: string, index: Result[]): Message {
   const items = (tab: Tab, n = 6) => index.filter((r) => r.tab === tab).slice(0, n).map(({ title, href }) => ({ title, href }));
   const answer = (text: string, list?: Item[]): Message => ({ role: "amanda", text, items: list });
   const [masters, bachelors] = education;
+
+  const project = projectReply(question);
+  if (project) return project;
 
   const job = experiences.find((e) => JOB_NAMES[e.company]?.test(q));
   if (job && !/\b(stud(y|ied|ying)|major|degree|gpa|graduat)/.test(q)) return jobReply(job);
