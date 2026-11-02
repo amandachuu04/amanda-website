@@ -10,10 +10,10 @@ const EGGS: Record<string, string> = {
 };
 export const EGG_COUNT = Object.keys(EGGS).length;
 
-type EggState = { found: string[]; open: string | null; anchor: HTMLElement | null };
+type EggState = { found: string[]; open: string | null; anchor: HTMLElement | null; openedAt: number };
 
 // Lives in memory only, so finding flowers starts over on refresh.
-let state: EggState = { found: [], open: null, anchor: null };
+let state: EggState = { found: [], open: null, anchor: null, openedAt: 0 };
 const listeners = new Set<() => void>();
 
 function setState(next: EggState) {
@@ -34,7 +34,7 @@ export function useEggs() {
 function discover(id: string, anchor: HTMLElement) {
   const found = state.found.includes(id) ? state.found : [...state.found, id];
   const finished = found.length === EGG_COUNT && state.found.length < EGG_COUNT;
-  setState({ found, open: finished ? "all" : id, anchor });
+  setState({ found, open: finished ? "all" : id, anchor, openedAt: performance.now() });
   const box = anchor.getBoundingClientRect();
   window.dispatchEvent(new CustomEvent("flower-burst", { detail: { x: box.left + box.width / 2, y: box.top + box.height / 2, count: finished ? 40 : 14 } }));
 }
@@ -57,23 +57,24 @@ export function EasterEgg({ id, className = "" }: { id: keyof typeof EGGS; class
   );
 }
 
+const NOTE_SECONDS = 5;
 const NOTE_GAP = 14; // px between the flower and the note
 const NAV_HEIGHT = 84;
 const EDGE = 12;
 
 /** The note that pops out of a flower when it's found. */
 export function EggNote() {
-  const { found, open, anchor } = useEggs();
+  const { found, open, anchor, openedAt } = useEggs();
   const all = open === "all";
   const note = useRef<HTMLDivElement>(null);
   const [spot, setSpot] = useState<{ left: number; top: number; pointer: number; below: boolean } | null>(null);
   const close = () => setState({ ...state, open: null, anchor: null });
 
   useEffect(() => {
-    if (!open || all) return;
-    const id = setTimeout(close, 8000);
+    if (!open) return;
+    const id = setTimeout(close, NOTE_SECONDS * 1000);
     return () => clearTimeout(id);
-  }, [open, all]);
+  }, [open, openedAt]);
 
   useLayoutEffect(() => {
     if (!open || !anchor) return;
