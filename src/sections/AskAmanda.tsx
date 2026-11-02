@@ -181,6 +181,7 @@ function reply(question: string, index: Result[]): Message {
   const items = (tab: Tab, n = 6) => index.filter((r) => r.tab === tab).slice(0, n).map(({ title, href }) => ({ title, href }));
   const answer = (text: string, list?: Item[]): Message => ({ role: "amanda", text, items: list });
   const [masters, bachelors] = education;
+  const schools = education.map((e) => ({ title: e.degree, href: "/about#education", note: e.school }));
 
   const project = projectReply(question);
   if (project) return project;
@@ -189,10 +190,10 @@ function reply(question: string, index: Result[]): Message {
   if (job && !/\b(stud(y|ied|ying)|major|degree|gpa|graduat)/.test(q)) return jobReply(job);
   if (/\bcurrent(ly)? (job|role|position)|\bdo(ing)? (right )?now\b/.test(q)) return jobReply(experiences[0]);
 
-  if (/\b(gpa|grades?)\b/.test(q)) return answer(`My GPA is ${bachelors.note?.match(/GPA ([\d.]+)/)?.[1]}.`, items("Education", 2));
-  if (/graduat/.test(q)) return answer(`I'm expected to finish my B.S. in ${bachelors.dates.split("Expected ")[1]} and my M.S. in ${masters.dates.split("Expected ")[1]}, through George Mason's accelerated master's program.`, items("Education", 2));
+  if (/\b(gpa|grades?)\b/.test(q)) return answer(`My GPA is ${bachelors.note?.match(/GPA ([\d.]+)/)?.[1]}.`, schools.slice(0, 2));
+  if (/graduat/.test(q)) return answer(`I'm expected to finish my B.S. in ${bachelors.dates.split("Expected ")[1]} and my M.S. in ${masters.dates.split("Expected ")[1]}, through George Mason's accelerated master's program.`, schools.slice(0, 2));
   if (/\bspeak\b|\blanguages?\b/.test(q) && !/program|cod(e|ing)/.test(q)) return answer("I speak English, Cantonese, and Mandarin.");
-  if (/educat|school|college|university|degree|major|minor|stud(y|ied|ying)|attend|master|bachelor/.test(q)) return answer(`I'm at ${bachelors.school} in ${bachelors.location}, working on a ${bachelors.degree.replace(" — ", " with a ")}. ${bachelors.note?.split(" · ")[0].replace("Minor in", "I'm minoring in")}, and I'm in the accelerated program for an ${masters.degree.replace(" — ", " focused on ")}.`, items("Education"));
+  if (/educat|school|college|university|degree|major|minor|stud(y|ied|ying)|attend|master|bachelor/.test(q)) return answer(`I'm at ${bachelors.school} in ${bachelors.location}, working on a ${bachelors.degree.replace(" — ", " with a ")}. ${bachelors.note?.split(" · ")[0].replace("Minor in", "I'm minoring in")}, and I'm in the accelerated program for an ${masters.degree.replace(" — ", " focused on ")}.`, schools);
   if (/experience|\bjobs?\b|intern|worked|career|employ/.test(q)) return answer(`Right now I'm a ${experiences[0].role} at ${experiences[0].company}. Here's where I've worked so far:`, experiences.map((e) => ({ title: `${e.role} at ${e.company}`, href: "/about#experience", note: e.dates })));
   if (/skills?\b|tools?\b|software|good at|programming|cod(e|ing)/.test(q)) return answer("Here's what I work with, from design to code:", toolGroups.map((g) => ({ title: g.title, href: "/about#tools", note: g.items.join(", ") })));
   if (terms.length && terms.every((t) => PROJECT_WORDS.has(t))) return answer(`I have ${projects.length} projects across design and programming. Here are the most recent ones:`, items("Projects"));
