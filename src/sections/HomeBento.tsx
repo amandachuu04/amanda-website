@@ -4,7 +4,7 @@ import { experiences, projects, site, toolGroups, type Project } from "../lib/si
 import { projectsHref, workHref } from "../lib/route";
 import AskAmanda from "./AskAmanda";
 import Reveal from "../components/Reveal";
-import { EasterEgg } from "../components/EasterEgg";
+import { EGG_COUNT, EasterEgg, useEggs } from "../components/EasterEgg";
 
 const spring = { type: "spring" as const, stiffness: 260, damping: 22 };
 
@@ -231,6 +231,7 @@ function useCarousel(count: number) {
 export default function HomeBento() {
   const now = experiences[0];
   const carousel = useCarousel(projects.length);
+  const { found } = useEggs();
   const tools = toolGroups.flatMap((g) => g.items);
 
   return (
@@ -239,6 +240,23 @@ export default function HomeBento() {
       <section id="hero" className="relative w-full bg-cream-100 pb-16 pt-28 sm:pt-32">
         <div aria-hidden className="absolute inset-0 grain opacity-60" />
         <div className="relative mx-auto w-full max-w-[1560px] space-y-4 px-4 sm:px-8 lg:space-y-5 lg:px-12">
+        <motion.div
+          initial={{ opacity: 0, y: -10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, ease: "easeOut" }}
+          className="flex flex-wrap items-center justify-between gap-x-4 gap-y-1 rounded-2xl bg-blush-100 px-5 py-3 text-sm text-taupe-600"
+        >
+          <p>
+            <span aria-hidden className="mr-2 text-blush-500">✿</span>
+            I hid {EGG_COUNT} flower Easter eggs around my site. Can you find them all?
+          </p>
+          {found.length > 0 && (
+            <p className="font-semibold text-ink">
+              {found.length === EGG_COUNT ? "You found them all!" : `${found.length} of ${EGG_COUNT} found`}
+            </p>
+          )}
+        </motion.div>
+
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-[minmax(0,1.45fr)_minmax(0,1.3fr)_minmax(0,1fr)] xl:grid-cols-[minmax(0,1.75fr)_minmax(0,1.2fr)_minmax(0,1fr)] lg:gap-5">
           {/* intro */}
           <Tile className="flex flex-col justify-center gap-7 p-7 sm:col-span-2 sm:p-9 lg:col-span-1 lg:row-span-2">
