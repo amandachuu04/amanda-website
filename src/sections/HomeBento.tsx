@@ -1,5 +1,5 @@
 import { CSSProperties, ReactNode, useEffect, useRef, useState } from "react";
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 import { experiences, projects, site, toolGroups, type Project } from "../lib/site";
 import { projectsHref, workHref } from "../lib/route";
 
@@ -95,14 +95,16 @@ const RATIOS: Record<string, number> = {
 };
 const ratioOf = (p: Project) => (p.image && RATIOS[p.image]) || 4 / 3;
 
-function ProjectCard({ p }: { p: Project }) {
+function ProjectCard({ p, copy }: { p: Project; copy?: boolean }) {
   const ratio = ratioOf(p);
   return (
     <motion.a
       href={p.slug ? workHref(p.slug) : p.href ?? "#"}
       aria-label={`Open ${p.title}`}
+      aria-hidden={copy}
+      tabIndex={copy ? -1 : undefined}
       whileHover={{ y: -4, transition: spring }}
-      className="group relative flex shrink-0 snap-start flex-col overflow-hidden rounded-[1.75rem] border border-taupe-200/40 bg-cream-50 shadow-card transition-shadow hover:shadow-soft"
+      className="group relative flex shrink-0 flex-col overflow-hidden rounded-[1.75rem] border border-taupe-200/40 bg-cream-50 shadow-card transition-shadow hover:shadow-soft"
       style={{ width: `min(calc(var(--h) * ${ratio}), 82vw)` }}
     >
       <div className={`relative w-full overflow-hidden bg-gradient-to-br ${p.swatch}`} style={{ aspectRatio: String(ratio) }}>
@@ -129,46 +131,85 @@ function ProjectCard({ p }: { p: Project }) {
   );
 }
 
-function CarouselButton({ dir, disabled, onClick }: { dir: "Previous" | "Next"; disabled: boolean; onClick: () => void }) {
+function CarouselButton({ dir, onClick }: { dir: "Previous" | "Next"; onClick: () => void }) {
   return (
     <button
       type="button"
       aria-label={`${dir} project`}
-      disabled={disabled}
       onClick={onClick}
-      className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-taupe-200/60 bg-cream-50 text-taupe-500 transition-colors hover:bg-blush-100 disabled:opacity-40 disabled:hover:bg-cream-50"
+      className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-taupe-200/60 bg-cream-50 text-taupe-500 transition-colors hover:bg-blush-100"
     >
       {dir === "Previous" ? "←" : "→"}
     </button>
   );
 }
 
-function useCarousel() {
-  const track = useRef<HTMLDivElement>(null);
-  const [state, setState] = useState({ at: 0, shown: 0, start: true, end: false });
+const AUTO_SPEED = 40; // px per second
+const RESUME_AFTER = 3000; // ms to wait after someone uses the arrows or swipes
 
-  const update = () => {
+/** Scrolls on its own and loops over a doubled card list, pausing while someone is using it. */
+function useCarousel(count: number) {
+  const track = useRef<HTMLDivElement>(null);
+  const reduced = useReducedMotion();
+  const paused = useRef(false);
+  const holdUntil = useRef(0);
+
+  const hold = () => {
+    holdUntil.current = performance.now() + RESUME_AFTER;
+  };
+  const loopWidth = (el: HTMLDivElement) => (el.children[count] as HTMLElement).offsetLeft - (el.children[0] as HTMLElement).offsetLeft;
+
+  useEffect(() => {
+    const el = track.current;
+    if (!el || reduced) return;
+    let frame = 0;
+    let last = performance.now();
+    let pos = el.scrollLeft;
+    const tick = (now: number) => {
+      const dt = Math.min(now - last, 50);
+      last = now;
+      if (paused.current || now < holdUntil.current) {
+        pos = el.scrollLeft;
+      } else {
+        pos += (AUTO_SPEED * dt) / 1000;
+        const width = loopWidth(el);
+        if (pos >= width) pos -= width;
+        el.scrollLeft = pos;
+      }
+      frame = requestAnimationFrame(tick);
+    };
+    frame = requestAnimationFrame(tick);
+    return () => cancelAnimationFrame(frame);
+  }, [count, reduced]);
+
+  const go = (step: 1 | -1) => {
     const el = track.current;
     if (!el) return;
-    const left = el.getBoundingClientRect().left + parseFloat(getComputedStyle(el).paddingLeft);
-    const cards = Array.from(el.children);
-    const gaps = cards.map((c) => Math.abs(c.getBoundingClientRect().left - left));
-    const end = el.scrollLeft + el.clientWidth >= el.scrollWidth - 4;
-    const at = gaps.indexOf(Math.min(...gaps));
-    setState({ at, shown: end ? cards.length - 1 : at, start: el.scrollLeft <= 4, end });
+    hold();
+    const width = loopWidth(el);
+    if (step > 0 && el.scrollLeft >= width) el.scrollLeft -= width;
+    if (step < 0 && el.scrollLeft < 8) el.scrollLeft += width;
+    const pad = (el.children[0] as HTMLElement).offsetLeft;
+    const lefts = Array.from(el.children, (c) => (c as HTMLElement).offsetLeft - pad);
+    const target = step > 0 ? lefts.find((l) => l > el.scrollLeft + 8) : [...lefts].reverse().find((l) => l < el.scrollLeft - 8);
+    if (target !== undefined) el.scrollTo({ left: target, behavior: "smooth" });
   };
 
-  const go = (step: number) => {
-    const card = track.current?.children[state.at + step];
-    card?.scrollIntoView({ behavior: "smooth", inline: "start", block: "nearest" });
+  const handlers = {
+    onMouseEnter: () => { paused.current = true; },
+    onMouseLeave: () => { paused.current = false; },
+    onFocus: () => { paused.current = true; },
+    onBlur: () => { paused.current = false; },
+    onTouchStart: () => { paused.current = true; },
+    onTouchEnd: () => { paused.current = false; hold(); },
   };
 
-  return { track, update, go, ...state };
+  return { track, go, handlers };
 }
 
 export default function HomeBento() {
   const now = experiences[0];
-  const carousel = useCarousel();
+  const carousel = useCarousel(projects.length);
   const tools = toolGroups.flatMap((g) => g.items);
 
   return (
@@ -347,23 +388,23 @@ export default function HomeBento() {
               <p className="mt-3 text-base text-taupe-500">A growing collection of my latest projects. More on the way.</p>
             </div>
             <div className="flex items-center gap-3">
-              <span className="text-sm tabular-nums text-taupe-400">{carousel.shown + 1} / {projects.length}</span>
-              <CarouselButton dir="Previous" disabled={carousel.start} onClick={() => carousel.go(-1)} />
-              <CarouselButton dir="Next" disabled={carousel.end} onClick={() => carousel.go(1)} />
+              <CarouselButton dir="Previous" onClick={() => carousel.go(-1)} />
+              <CarouselButton dir="Next" onClick={() => carousel.go(1)} />
               <a href={projectsHref()} className="btn-secondary">View all →</a>
             </div>
           </div>
 
-          <div
-            ref={carousel.track}
-            onScroll={carousel.update}
-            className="relative -mx-4 flex snap-x snap-mandatory scroll-px-4 items-start gap-4 overflow-x-auto px-4 pb-8 pt-2 [scrollbar-width:none] sm:-mx-8 sm:scroll-px-8 sm:px-8 lg:-mx-10 lg:scroll-px-10 lg:gap-5 lg:px-10 [&::-webkit-scrollbar]:hidden"
-            style={{ "--h": "clamp(15rem, 30vw, 27rem)" } as CSSProperties}
-          >
-            {projects.map((p) => (
-              <ProjectCard key={p.title} p={p} />
-            ))}
-          </div>
+        </div>
+
+        <div
+          ref={carousel.track}
+          {...carousel.handlers}
+          className="relative flex items-start gap-4 overflow-x-auto px-4 pb-8 pt-2 [scrollbar-width:none] sm:px-8 lg:gap-5 lg:px-10 [&::-webkit-scrollbar]:hidden"
+          style={{ "--h": "clamp(15rem, 30vw, 27rem)" } as CSSProperties}
+        >
+          {[...projects, ...projects].map((p, i) => (
+            <ProjectCard key={i} p={p} copy={i >= projects.length} />
+          ))}
         </div>
       </section>
     </>
