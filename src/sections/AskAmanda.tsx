@@ -1,5 +1,6 @@
 import { FormEvent, useEffect, useMemo, useRef, useState } from "react";
 import { useReducedMotion } from "framer-motion";
+import Reveal from "../components/Reveal";
 import { caseStudies, certifications, education, experiences, projectPages, projects, site, toolGroups, type Experience } from "../lib/site";
 import { workHref } from "../lib/route";
 
@@ -292,7 +293,7 @@ export default function AskAmanda() {
   return (
     <section id="ask" className="relative w-full scroll-mt-24 bg-cream-100 pb-12 sm:pb-16">
       <div className="mx-auto w-full max-w-[1560px] px-4 sm:px-8 lg:px-10">
-        <div className="pb-8">
+        <Reveal className="pb-8">
           <span className="section-eyebrow">
             <span aria-hidden className="inline-block h-1.5 w-6 rounded-full bg-blush-300" />
             Ask Amanda
@@ -301,8 +302,9 @@ export default function AskAmanda() {
             Get to know <span className="italic text-taupe-500">me</span>
           </h2>
           <p className="mt-3 text-base text-taupe-500">Curious about my skills, education, or experience? Ask here and get an answer right away.</p>
-        </div>
+        </Reveal>
 
+        <Reveal y={60} scale={0.96} delay={0.1}>
         <div className="flex h-[720px] max-h-[calc(100vh-16.5rem)] min-h-[560px] overflow-hidden rounded-[1.75rem] border border-taupe-200/60 bg-cream-50 shadow-soft">
           <aside className="hidden w-[280px] shrink-0 flex-col bg-blush-100 p-4 lg:flex">
             <div className="flex items-center gap-3 px-2 py-1">
@@ -395,6 +397,7 @@ export default function AskAmanda() {
             </div>
           </div>
         </div>
+        </Reveal>
       </div>
     </section>
   );

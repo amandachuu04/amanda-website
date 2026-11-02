@@ -3,6 +3,7 @@ import { motion, useReducedMotion } from "framer-motion";
 import { experiences, projects, site, toolGroups, type Project } from "../lib/site";
 import { projectsHref, workHref } from "../lib/route";
 import AskAmanda from "./AskAmanda";
+import Reveal from "../components/Reveal";
 
 const spring = { type: "spring" as const, stiffness: 260, damping: 22 };
 
@@ -376,6 +377,7 @@ export default function HomeBento() {
         </div>
 
         {/* tools marquee */}
+        <Reveal y={24}>
         <div className="relative mt-10 overflow-hidden border-y border-taupe-200/40 bg-cream-50/60 py-4" aria-label="Tools I use">
           <motion.div
             className="flex w-max gap-10 whitespace-nowrap font-display text-lg text-taupe-400"
@@ -390,14 +392,15 @@ export default function HomeBento() {
             ))}
           </motion.div>
         </div>
+        </Reveal>
       </section>
 
       <AskAmanda />
 
       {/* ---------- projects bento ---------- */}
-      <section id="projects" className="relative w-full scroll-mt-24 bg-cream-100 pb-7 pt-[4.25rem] sm:pb-9 sm:pt-[5.75rem]">
+      <section id="projects" className="relative w-full scroll-mt-24 overflow-hidden bg-cream-100 pb-7 pt-[4.25rem] sm:pb-9 sm:pt-[5.75rem]">
         <div className="mx-auto w-full max-w-[1560px] px-4 sm:px-8 lg:px-10">
-          <div className="flex flex-wrap items-end justify-between gap-6 pb-8 pt-8">
+          <Reveal className="flex flex-wrap items-end justify-between gap-6 pb-8 pt-8">
             <div>
               <span className="section-eyebrow">
                 <span aria-hidden className="inline-block h-1.5 w-6 rounded-full bg-blush-300" />
@@ -413,10 +416,11 @@ export default function HomeBento() {
               <CarouselButton dir="Next" disabled={carousel.ends.oldest} onClick={() => carousel.go(1)} />
               <a href={projectsHref()} className="btn-secondary">View all →</a>
             </div>
-          </div>
+          </Reveal>
 
         </div>
 
+        <Reveal x={120} y={0} delay={0.15}>
         <div
           ref={carousel.track}
           {...carousel.handlers}
@@ -427,6 +431,7 @@ export default function HomeBento() {
             <ProjectCard key={i} p={p} copy={i >= projects.length} />
           ))}
         </div>
+        </Reveal>
       </section>
     </>
   );
