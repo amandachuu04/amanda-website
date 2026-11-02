@@ -4,7 +4,7 @@ import { experiences, projects, site, toolGroups, type Project } from "../lib/si
 import { projectsHref, workHref } from "../lib/route";
 import AskAmanda from "./AskAmanda";
 import Reveal from "../components/Reveal";
-import { EGG_COUNT, EasterEgg, useEggs } from "../components/EasterEgg";
+import { EasterEgg } from "../components/EasterEgg";
 
 const spring = { type: "spring" as const, stiffness: 260, damping: 22 };
 
@@ -231,7 +231,6 @@ function useCarousel(count: number) {
 export default function HomeBento() {
   const now = experiences[0];
   const carousel = useCarousel(projects.length);
-  const { found } = useEggs();
   const tools = toolGroups.flatMap((g) => g.items);
 
   return (
@@ -273,17 +272,6 @@ export default function HomeBento() {
                 </a>
                 <a href="#contact" className="btn-secondary">Let&apos;s talk →</a>
               </div>
-            </div>
-            <div className="flex flex-wrap items-center justify-between gap-x-4 gap-y-1 border-t border-taupe-200/50 pt-5 text-sm text-taupe-500">
-              <p>
-                <span aria-hidden className="mr-2 text-blush-500">✿</span>
-                I hid {EGG_COUNT} flower Easter eggs around my site. Can you find them all?
-              </p>
-              {found.length > 0 && (
-                <p className="font-semibold text-ink">
-                  {found.length === EGG_COUNT ? "You found them all!" : `${found.length} of ${EGG_COUNT} found`}
-                </p>
-              )}
             </div>
           </Tile>
 

@@ -14,7 +14,7 @@ import ProjectDetailPage from "./sections/ProjectDetailPage";
 import { navigate, useRoute } from "./lib/route";
 import { getCaseStudy, getProjectPage } from "./lib/site";
 import FlowerCursor from "./components/FlowerCursor";
-import { EggNote } from "./components/EasterEgg";
+import { EggNote, EggWelcome } from "./components/EasterEgg";
 
 const DEFAULT_TITLE = "Amanda Chu | Portfolio";
 
@@ -95,6 +95,7 @@ export default function App() {
       <Nav />
       <BackToTop />
       <EggNote />
+      <EggWelcome />
       {route.name === "projects" ? (
         <>
           <main id="main">
