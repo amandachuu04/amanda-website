@@ -14,7 +14,8 @@ const STORAGE_KEY = "hidden-flowers";
 
 function loadFound(): string[] {
   try {
-    return JSON.parse(localStorage.getItem(STORAGE_KEY) ?? "[]");
+    const saved: string[] = JSON.parse(localStorage.getItem(STORAGE_KEY) ?? "[]");
+    return Object.keys(EGGS).filter((id) => saved.includes(id));
   } catch {
     return [];
   }

@@ -95,6 +95,7 @@ export default function AboutSplit() {
                       </span>
                     )}
                     {v}
+                    {k === "Languages" && <EasterEgg id="about" className="-my-1" />}
                   </dd>
                 </div>
               ))}
@@ -124,9 +125,6 @@ export default function AboutSplit() {
             <a href={site.cvFile} download className="btn-primary mt-5 w-full">
               Download CV
             </a>
-            <div className="mt-2 flex justify-end">
-              <EasterEgg id="about" />
-            </div>
           </motion.div>
         </aside>
 
