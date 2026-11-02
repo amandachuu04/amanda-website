@@ -146,60 +146,48 @@ export function EggNote() {
 }
 
 const WELCOME_DELAY = 800; // ms after arriving on the site
+const WELCOME_STAY = 8000; // ms before the avatar slides back out
 
-/** Tells visitors about the flowers once when they arrive; a refresh counts as a new arrival. */
+/** The avatar slides in once on arrival to mention the flowers; a refresh counts as a new arrival. */
 export function EggWelcome() {
   const [open, setOpen] = useState(false);
-  const button = useRef<HTMLButtonElement>(null);
 
   useEffect(() => {
-    const id = setTimeout(() => setOpen(true), WELCOME_DELAY);
-    return () => clearTimeout(id);
-  }, []);
-
-  useEffect(() => {
-    if (!open) return;
-    button.current?.focus();
-    const onKey = (e: KeyboardEvent) => {
-      if (e.key === "Escape") setOpen(false);
+    const show = setTimeout(() => setOpen(true), WELCOME_DELAY);
+    const hide = setTimeout(() => setOpen(false), WELCOME_DELAY + WELCOME_STAY);
+    return () => {
+      clearTimeout(show);
+      clearTimeout(hide);
     };
-    window.addEventListener("keydown", onKey);
-    return () => window.removeEventListener("keydown", onKey);
-  }, [open]);
+  }, []);
 
   return (
     <AnimatePresence>
       {open && (
         <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-          onClick={() => setOpen(false)}
-          className="fixed inset-0 z-50 flex items-center justify-center bg-taupe-700/30 p-4 backdrop-blur-sm"
+          initial={{ x: "110%" }}
+          animate={{ x: 0 }}
+          exit={{ x: "110%" }}
+          transition={{ type: "spring", stiffness: 170, damping: 20 }}
+          className="pointer-events-none fixed bottom-0 right-0 z-40 flex max-w-full items-end pl-3"
         >
           <motion.div
-            role="dialog"
-            aria-modal="true"
-            aria-labelledby="egg-welcome-title"
-            initial={{ opacity: 0, y: 20, scale: 0.92 }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, y: 10, scale: 0.96 }}
-            transition={{ type: "spring", stiffness: 300, damping: 24 }}
-            onClick={(e) => e.stopPropagation()}
-            className="relative w-full max-w-[400px] rounded-[1.75rem] border border-taupe-200/60 bg-cream-50 p-8 text-center shadow-soft"
+            role="status"
+            initial={{ opacity: 0, scale: 0.7 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ type: "spring", stiffness: 300, damping: 22, delay: 0.45 }}
+            style={{ transformOrigin: "100% 100%" }}
+            className="pointer-events-auto relative mb-24 mr-3 w-[min(250px,calc(100vw-9.5rem))] rounded-3xl border border-taupe-200/60 bg-cream-50 py-4 pl-5 pr-8 shadow-soft sm:mb-32"
           >
-            <button type="button" aria-label="Close" onClick={() => setOpen(false)} className="absolute right-5 top-4 text-xl leading-none text-taupe-400 transition-colors hover:text-ink">
+            <button type="button" aria-label="Close" onClick={() => setOpen(false)} className="absolute right-3.5 top-2 text-lg leading-none text-taupe-400 transition-colors hover:text-ink">
               ×
             </button>
-            <img src={site.avatar} alt="" className="mx-auto h-20 w-20 rounded-full border border-taupe-200/60 bg-cream-100 object-contain p-0.5" />
-            <p id="egg-welcome-title" className="mt-4 font-display text-2xl font-bold text-ink">Psst! ✿</p>
-            <p className="mt-2 text-base leading-relaxed text-taupe-500">
-              I hid {EGG_COUNT} flower Easter eggs around my site. Can you find them all?
+            <p className="text-sm leading-relaxed text-ink">
+              Psst! I hid {EGG_COUNT} flower Easter eggs around my site. Can you find them all?
             </p>
-            <button ref={button} type="button" onClick={() => setOpen(false)} className="mt-6 rounded-pill bg-blush-100 px-6 py-2.5 text-sm font-semibold text-ink transition-colors hover:bg-blush-200">
-              Start looking
-            </button>
+            <span aria-hidden className="absolute -right-[8px] bottom-6 h-3.5 w-3.5 rotate-45 border-r border-t border-taupe-200/60 bg-cream-50" />
           </motion.div>
+          <img src={site.avatar} alt="" className="h-36 w-auto shrink-0 object-contain sm:h-52" />
         </motion.div>
       )}
     </AnimatePresence>
