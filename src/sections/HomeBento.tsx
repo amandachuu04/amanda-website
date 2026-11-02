@@ -154,6 +154,7 @@ function useCarousel(count: number) {
   const reduced = useReducedMotion();
   const paused = useRef(false);
   const holdUntil = useRef(0);
+  const aim = useRef<number | null>(null); // where an arrow click is headed, so quick clicks add up
   const [ends, setEnds] = useState({ latest: true, oldest: false });
 
   const hold = () => {
@@ -183,9 +184,10 @@ function useCarousel(count: number) {
         if (pos >= width) pos -= width;
         el.scrollLeft = pos;
       }
-      const at = el.scrollLeft % loopWidth(el);
+      if (aim.current !== null && (now >= holdUntil.current || Math.abs(el.scrollLeft - aim.current) < 2)) aim.current = null;
+      const at = (aim.current ?? el.scrollLeft) % loopWidth(el);
       const latest = at < 8;
-      const oldest = at >= stops(el)[count - 1] - 8;
+      const oldest = Math.abs(at - stops(el)[count - 1]) < 8;
       setEnds((e) => (e.latest === latest && e.oldest === oldest ? e : { latest, oldest }));
       frame = requestAnimationFrame(tick);
     };
@@ -198,10 +200,14 @@ function useCarousel(count: number) {
     if (!el) return;
     hold();
     const width = loopWidth(el);
-    if (el.scrollLeft >= width) el.scrollLeft -= width;
+    if (aim.current === null && el.scrollLeft >= width) el.scrollLeft -= width;
+    const from = aim.current ?? el.scrollLeft;
     const lefts = stops(el);
-    const target = step > 0 ? lefts.find((l) => l > el.scrollLeft + 8) : [...lefts].reverse().find((l) => l < el.scrollLeft - 8);
-    if (target !== undefined) el.scrollTo({ left: target, behavior: "smooth" });
+    const last = lefts[count - 1];
+    const target = step > 0 ? lefts.find((l) => l > from + 8) ?? (from > last + 8 ? last : undefined) : [...lefts].reverse().find((l) => l < from - 8);
+    if (target === undefined) return;
+    aim.current = target;
+    el.scrollTo({ left: target, behavior: "smooth" });
   };
 
   const handlers = {
