@@ -134,7 +134,7 @@ export default function FlowerCursor() {
   return (
     <canvas
       ref={canvasRef}
-      className="pointer-events-none fixed inset-0 z-50 h-full w-full"
+      className="pointer-events-none fixed inset-0 z-30 h-full w-full"
       aria-hidden="true"
     />
   );
