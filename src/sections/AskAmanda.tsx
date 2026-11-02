@@ -50,7 +50,7 @@ function buildIndex(): Result[] {
   const certs = certifications.map((c) => ({
     title: `${c.name} certification`,
     where: "Certifications",
-    tab: "Education" as Tab,
+    tab: "About" as Tab,
     href: "/about#certifications",
     text: `Certified in ${c.name}, ${c.year}.`,
     tags: "certifications certificate certified license",
