@@ -161,10 +161,13 @@ function useCarousel(count: number) {
     holdUntil.current = performance.now() + RESUME_AFTER;
   };
   const loopWidth = (el: HTMLDivElement) => (el.children[count] as HTMLElement).offsetLeft - (el.children[0] as HTMLElement).offsetLeft;
-  /** Where each real project sits, leaving out the looped copies. */
+  /** Arrow stops, ending with the oldest project at the right edge and the looped copies out of view. */
   const stops = (el: HTMLDivElement) => {
     const pad = (el.children[0] as HTMLElement).offsetLeft;
-    return Array.from(el.children).slice(0, count).map((c) => (c as HTMLElement).offsetLeft - pad);
+    const cards = Array.from(el.children).slice(0, count) as HTMLElement[];
+    const oldest = cards[count - 1];
+    const end = oldest.offsetLeft + oldest.offsetWidth + parseFloat(getComputedStyle(el).columnGap) - el.clientWidth;
+    return [...cards.map((c) => c.offsetLeft - pad).filter((l) => l < end - 8), end];
   };
 
   useEffect(() => {
@@ -187,7 +190,7 @@ function useCarousel(count: number) {
       if (aim.current !== null && (now >= holdUntil.current || Math.abs(el.scrollLeft - aim.current) < 2)) aim.current = null;
       const at = (aim.current ?? el.scrollLeft) % loopWidth(el);
       const latest = at < 8;
-      const oldest = Math.abs(at - stops(el)[count - 1]) < 8;
+      const oldest = Math.abs(at - stops(el).slice(-1)[0]) < 8;
       setEnds((e) => (e.latest === latest && e.oldest === oldest ? e : { latest, oldest }));
       frame = requestAnimationFrame(tick);
     };
@@ -203,8 +206,8 @@ function useCarousel(count: number) {
     if (aim.current === null && el.scrollLeft >= width) el.scrollLeft -= width;
     const from = aim.current ?? el.scrollLeft;
     const lefts = stops(el);
-    const last = lefts[count - 1];
-    const target = step > 0 ? lefts.find((l) => l > from + 8) ?? (from > last + 8 ? last : undefined) : [...lefts].reverse().find((l) => l < from - 8);
+    const last = lefts[lefts.length - 1];
+    const target = step > 0 ? lefts.find((l) => l > from + 8) ?? (from > last + 8 ? last : undefined) : [...lefts].reverse().find((l) => l < Math.min(from, last) - 8);
     if (target === undefined) return;
     aim.current = target;
     el.scrollTo({ left: target, behavior: "smooth" });
