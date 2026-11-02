@@ -398,12 +398,12 @@ export default function HomeBento() {
             <div>
               <span className="section-eyebrow">
                 <span aria-hidden className="inline-block h-1.5 w-6 rounded-full bg-blush-300" />
-                Latest projects
+                All projects
               </span>
               <h2 className="mt-3 font-display text-display-md font-bold text-ink">
-                Things I&apos;ve <span className="italic text-taupe-500">made lately</span>
+                Things I&apos;ve <span className="italic text-taupe-500">made so far</span>
               </h2>
-              <p className="mt-3 text-base text-taupe-500">A growing collection of my latest projects. More on the way.</p>
+              <p className="mt-3 text-base text-taupe-500">A growing collection of my projects, from newest to oldest. More on the way.</p>
             </div>
             <div className="flex items-center gap-3">
               <CarouselButton dir="Previous" disabled={carousel.ends.latest} onClick={() => carousel.go(-1)} />
