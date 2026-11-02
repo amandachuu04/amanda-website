@@ -2,6 +2,7 @@ import { CSSProperties, ReactNode, useEffect, useRef, useState } from "react";
 import { motion, useReducedMotion } from "framer-motion";
 import { experiences, projects, site, toolGroups, type Project } from "../lib/site";
 import { projectsHref, workHref } from "../lib/route";
+import AskAmanda from "./AskAmanda";
 
 const spring = { type: "spring" as const, stiffness: 260, damping: 22 };
 
@@ -390,6 +391,8 @@ export default function HomeBento() {
           </motion.div>
         </div>
       </section>
+
+      <AskAmanda />
 
       {/* ---------- projects bento ---------- */}
       <section id="projects" className="relative w-full scroll-mt-24 bg-cream-100 pb-24 sm:pb-32">

@@ -2,7 +2,6 @@ import { useEffect } from "react";
 import Nav from "./components/Nav";
 import BackToTop from "./components/BackToTop";
 import HomeBento from "./sections/HomeBento";
-import AskAmanda from "./sections/AskAmanda";
 import AboutSplit from "./sections/AboutSplit";
 import Contact from "./sections/Contact";
 import Footer from "./sections/Footer";
@@ -134,7 +133,6 @@ export default function App() {
         <>
           <main id="main">
             <HomeBento />
-            <AskAmanda />
             <Contact />
           </main>
           <Footer />
