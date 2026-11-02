@@ -13,7 +13,7 @@ import FloraFlowPage from "./sections/FloraFlowPage";
 import ProjectDetailPage from "./sections/ProjectDetailPage";
 import { navigate, useRoute } from "./lib/route";
 import { getCaseStudy, getProjectPage } from "./lib/site";
-import BubbleCursor from "./components/BubbleCursor";
+import FlowerCursor from "./components/FlowerCursor";
 
 const DEFAULT_TITLE = "Amanda Chu | Portfolio";
 
@@ -90,7 +90,7 @@ export default function App() {
 
   return (
     <div className="relative min-h-screen overflow-x-clip bg-cream-100">
-      <BubbleCursor />
+      <FlowerCursor />
       <Nav />
       <BackToTop />
       {route.name === "projects" ? (
