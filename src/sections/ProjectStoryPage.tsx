@@ -32,6 +32,9 @@ const SHAPES: Record<string, number> = {
   "/name-logo-design/img-6.webp": 1805 / 1721,
   "/name-logo-design/img-7.webp": 1753 / 1705,
   "/name-logo-design.avif": 799 / 1200,
+  "/choco-cake-recipe/img-final-spread.jpg": 1224 / 792,
+  "/choco-cake-recipe/img-mockup.jpg": 2000 / 1333,
+  "/choco-cake-recipe/img-2.png": 5000 / 6429,
 };
 
 // Pages where the cover is shown later instead of above the story.
@@ -55,11 +58,11 @@ function SharedHeightRows({ images, label }: { images: { src: string; caption?: 
 }
 
 // Tall single-image steps that read better side by side: [first index, count].
-const ROWS: Record<string, [number, number]> = {
-  "modular-grid": [0, 3],
-  "banana-bread-recipe": [0, 4],
-  "choco-cake-recipe": [0, 4],
-  "name-logo-design": [2, 2],
+const ROWS: Record<string, [number, number][]> = {
+  "modular-grid": [[0, 3]],
+  "banana-bread-recipe": [[0, 4]],
+  "choco-cake-recipe": [[0, 4], [5, 2]],
+  "name-logo-design": [[2, 2]],
 };
 
 type Iteration = NonNullable<ProjectPage["iterations"]>[number];
@@ -96,7 +99,7 @@ function IterationRow({ items }: { items: Iteration[] }) {
 
 export default function ProjectStoryPage({ project }: { project: ProjectPage }) {
   const iterations = project.iterations ?? [];
-  const row = ROWS[project.slug];
+  const rows = ROWS[project.slug] ?? [];
   const media: StoryMedia[] = NO_TOP_IMAGE.includes(project.slug) ? [] : [{ src: project.cover, ratio: COVER_RATIOS[project.slug] ?? 3 / 2, alt: `${project.title} cover` }];
   if (project.video) {
     media.push({
@@ -118,9 +121,11 @@ export default function ProjectStoryPage({ project }: { project: ProjectPage }) 
         </div>
       </Section>
 
-      {iterations.map((it, i) => (row && i === row[0] ? (
-        <IterationRow key={it.label} items={iterations.slice(row[0], row[0] + row[1])} />
-      ) : row && i > row[0] && i < row[0] + row[1] ? null : (
+      {iterations.map((it, i) => {
+        const row = rows.find(([first]) => first === i);
+        if (row) return <IterationRow key={it.label} items={iterations.slice(row[0], row[0] + row[1])} />;
+        if (rows.some(([first, count]) => i > first && i < first + count)) return null;
+        return (
         <Section key={`${it.label}-${i}`} eyebrow={it.label} title={it.heading ?? it.label}>
           {it.images.every((img) => SHAPES[img.src]) ? (
             <SharedHeightRows images={it.images} label={it.heading ?? it.label} />
@@ -145,7 +150,8 @@ export default function ProjectStoryPage({ project }: { project: ProjectPage }) 
             </div>
           )}
         </Section>
-      )))}
+        );
+      })}
     </StoryPage>
   );
 }
