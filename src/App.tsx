@@ -94,9 +94,12 @@ export default function App() {
       <Nav />
       <BackToTop />
       {route.name === "projects" ? (
-        <main id="main">
-          <ProjectsPage initialSlug={route.slug} />
-        </main>
+        <>
+          <main id="main">
+            <ProjectsPage initialSlug={route.slug} />
+          </main>
+          <Footer />
+        </>
       ) : route.name === "work" ? (
         <>
           <main id="main">
