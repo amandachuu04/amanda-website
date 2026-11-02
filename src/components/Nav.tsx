@@ -45,7 +45,7 @@ export default function Nav() {
               whileTap={{ scale: 0.95 }}
               transition={{ duration: 0.55, ease: "easeInOut" }}
             />
-            <span className="whitespace-nowrap font-display text-lg font-bold text-ink">{site.name}</span>
+            <span className="whitespace-nowrap text-base font-semibold text-taupe-500 transition-colors hover:text-ink">{site.name}</span>
           </a>
 
           <div className="hidden items-center gap-9 lg:flex">

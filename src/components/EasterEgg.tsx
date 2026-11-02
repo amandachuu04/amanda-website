@@ -11,10 +11,10 @@ const EGGS: Record<string, string> = {
 };
 export const EGG_COUNT = Object.keys(EGGS).length;
 
-type EggState = { found: string[]; open: string | null; anchor: HTMLElement | null; openedAt: number };
+type EggState = { found: string[]; open: string | null; anchor: HTMLElement | null; openedAt: number; finalNext: boolean };
 
 // Lives in memory only, so finding flowers starts over on refresh.
-let state: EggState = { found: [], open: null, anchor: null, openedAt: 0 };
+let state: EggState = { found: [], open: null, anchor: null, openedAt: 0, finalNext: false };
 const listeners = new Set<() => void>();
 
 function setState(next: EggState) {
@@ -32,12 +32,29 @@ export function useEggs() {
   );
 }
 
+function burst(anchor: HTMLElement, count: number) {
+  const box = anchor.getBoundingClientRect();
+  const x = anchor.isConnected ? box.left + box.width / 2 : window.innerWidth / 2;
+  const y = anchor.isConnected ? box.top + box.height / 2 : window.innerHeight / 2;
+  window.dispatchEvent(new CustomEvent("flower-burst", { detail: { x, y, count } }));
+}
+
 function discover(id: string, anchor: HTMLElement) {
   const found = state.found.includes(id) ? state.found : [...state.found, id];
   const finished = found.length === EGG_COUNT && state.found.length < EGG_COUNT;
-  setState({ found, open: finished ? "all" : id, anchor, openedAt: performance.now() });
-  const box = anchor.getBoundingClientRect();
-  window.dispatchEvent(new CustomEvent("flower-burst", { detail: { x: box.left + box.width / 2, y: box.top + box.height / 2, count: finished ? 40 : 14 } }));
+  setState({ ...state, found, open: id, anchor, openedAt: performance.now(), finalNext: state.finalNext || finished });
+  burst(anchor, 14);
+}
+
+/** Closes the note, or moves on to the final message after the last flower's fact. */
+function closeNote() {
+  const { anchor, finalNext } = state;
+  if (finalNext && anchor) {
+    setState({ ...state, open: "all", openedAt: performance.now(), finalNext: false });
+    burst(anchor, 40);
+  } else {
+    setState({ ...state, open: null, anchor: null });
+  }
 }
 
 /** A tiny flower hidden on a page. */
@@ -68,12 +85,11 @@ export function EggNote() {
   const { found, open, anchor, openedAt } = useEggs();
   const all = open === "all";
   const note = useRef<HTMLDivElement>(null);
-  const [spot, setSpot] = useState<{ left: number; top: number; pointer: number; below: boolean } | null>(null);
-  const close = () => setState({ ...state, open: null, anchor: null });
+  const [spot, setSpot] = useState<{ left: number; top: number; pointer: number | null; below: boolean } | null>(null);
 
   useEffect(() => {
     if (!open) return;
-    const id = setTimeout(close, NOTE_SECONDS * 1000);
+    const id = setTimeout(closeNote, NOTE_SECONDS * 1000);
     return () => clearTimeout(id);
   }, [open, openedAt]);
 
@@ -81,7 +97,11 @@ export function EggNote() {
     if (!open || !anchor) return;
     const place = () => {
       if (!note.current) return;
-      if (!anchor.isConnected) return close();
+      if (!anchor.isConnected) {
+        // The visitor changed pages, so the note can't point at its flower anymore.
+        if (open !== "all") return closeNote();
+        return setSpot({ left: window.innerWidth - note.current.offsetWidth - EDGE, top: NAV_HEIGHT, pointer: null, below: true });
+      }
       const box = anchor.getBoundingClientRect();
       const { offsetWidth: width, offsetHeight: height } = note.current;
       const center = box.left + box.width / 2;
@@ -114,17 +134,17 @@ export function EggNote() {
             left: spot?.left ?? 0,
             top: spot?.top ?? 0,
             visibility: spot ? "visible" : "hidden",
-            transformOrigin: spot ? `${spot.pointer}px ${spot.below ? "0%" : "100%"}` : undefined,
+            transformOrigin: spot?.pointer != null ? `${spot.pointer}px ${spot.below ? "0%" : "100%"}` : undefined,
           }}
         >
-          {spot && (
+          {spot?.pointer != null && (
             <span
               aria-hidden
               className={`absolute h-3.5 w-3.5 rotate-45 bg-cream-50 ${spot.below ? "-top-[8px] border-l border-t" : "-bottom-[8px] border-b border-r"} border-taupe-200/60`}
               style={{ left: spot.pointer - 7 }}
             />
           )}
-          <button type="button" aria-label="Close" onClick={close} className="absolute right-4 top-3 text-xl leading-none text-taupe-400 transition-colors hover:text-ink">
+          <button type="button" aria-label="Close" onClick={closeNote} className="absolute right-4 top-3 text-xl leading-none text-taupe-400 transition-colors hover:text-ink">
             ×
           </button>
           <p className="text-[10px] font-semibold uppercase tracking-[0.2em] text-taupe-400">
@@ -135,7 +155,7 @@ export function EggNote() {
             {all ? "Thanks for exploring my site so closely. I'd love to hear from you." : EGGS[open]}
           </p>
           {all && (
-            <a href="/contact" onClick={close} className="mt-3 inline-block rounded-pill bg-blush-100 px-4 py-2 text-sm font-semibold text-ink transition-colors hover:bg-blush-200">
+            <a href="/contact" onClick={closeNote} className="mt-3 inline-block rounded-pill bg-blush-100 px-4 py-2 text-sm font-semibold text-ink transition-colors hover:bg-blush-200">
               Say hello →
             </a>
           )}
