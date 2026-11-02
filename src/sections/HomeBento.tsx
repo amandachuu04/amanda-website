@@ -395,7 +395,7 @@ export default function HomeBento() {
       <AskAmanda />
 
       {/* ---------- projects bento ---------- */}
-      <section id="projects" className="relative w-full scroll-mt-24 bg-cream-100 pb-24 sm:pb-32">
+      <section id="projects" className="relative w-full scroll-mt-24 bg-cream-100 pb-7 pt-[4.25rem] sm:pb-9 sm:pt-[5.75rem]">
         <div className="mx-auto w-full max-w-[1560px] px-4 sm:px-8 lg:px-10">
           <div className="flex flex-wrap items-end justify-between gap-6 pb-8 pt-8">
             <div>
