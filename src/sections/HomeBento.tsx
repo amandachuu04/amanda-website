@@ -1,4 +1,4 @@
-import { ReactNode, useEffect, useState } from "react";
+import { CSSProperties, ReactNode, useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
 import { experiences, projects, site, toolGroups, type Project } from "../lib/site";
 import { projectsHref, workHref } from "../lib/route";
@@ -87,30 +87,23 @@ const RATIOS: Record<string, number> = {
   "/nextrip.png": 1600 / 1200,
   "/floraflow.avif": 1987 / 2048,
   "/magtracker.avif": 433 / 461,
+  "/name-logo-design.avif": 799 / 1200,
+  "/choco-cake-recipe.avif": 6000 / 4000,
+  "/banana-bread-recipe.avif": 1536 / 1024,
+  "/hierarchy-ad.avif": 2560 / 1440,
+  "/modular-grid.avif": 5500 / 3667,
 };
 const ratioOf = (p: Project) => (p.image && RATIOS[p.image]) || 4 / 3;
 
-/** Pair the widest image with the narrowest so both rows end up a similar height. */
-function projectRows(list: Project[]): Project[][] {
-  const sorted = [...list].sort((a, b) => ratioOf(b) - ratioOf(a));
-  const rows: Project[][] = [];
-  while (sorted.length) rows.push(sorted.length > 1 ? [sorted.shift()!, sorted.pop()!] : [sorted.shift()!]);
-  return rows;
-}
-
-function ProjectCard({ p, delay }: { p: Project; delay: number }) {
+function ProjectCard({ p }: { p: Project }) {
   const ratio = ratioOf(p);
   return (
     <motion.a
       href={p.slug ? workHref(p.slug) : p.href ?? "#"}
       aria-label={`Open ${p.title}`}
-      initial={{ opacity: 0, y: 24 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-60px" }}
-      transition={{ duration: 0.55, ease: "easeOut", delay }}
       whileHover={{ y: -4, transition: spring }}
-      className="group relative flex min-w-0 flex-col overflow-hidden rounded-[1.75rem] border border-taupe-200/40 bg-cream-50 shadow-card transition-shadow hover:shadow-soft"
-      style={{ flex: `${ratio} 1 0%` }}
+      className="group relative flex shrink-0 snap-start flex-col overflow-hidden rounded-[1.75rem] border border-taupe-200/40 bg-cream-50 shadow-card transition-shadow hover:shadow-soft"
+      style={{ width: `min(calc(var(--h) * ${ratio}), 82vw)` }}
     >
       <div className={`relative w-full overflow-hidden bg-gradient-to-br ${p.swatch}`} style={{ aspectRatio: String(ratio) }}>
         {p.image && (
@@ -136,9 +129,46 @@ function ProjectCard({ p, delay }: { p: Project; delay: number }) {
   );
 }
 
+function CarouselButton({ dir, disabled, onClick }: { dir: "Previous" | "Next"; disabled: boolean; onClick: () => void }) {
+  return (
+    <button
+      type="button"
+      aria-label={`${dir} project`}
+      disabled={disabled}
+      onClick={onClick}
+      className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-taupe-200/60 bg-cream-50 text-taupe-500 transition-colors hover:bg-blush-100 disabled:opacity-40 disabled:hover:bg-cream-50"
+    >
+      {dir === "Previous" ? "←" : "→"}
+    </button>
+  );
+}
+
+function useCarousel() {
+  const track = useRef<HTMLDivElement>(null);
+  const [state, setState] = useState({ at: 0, shown: 0, start: true, end: false });
+
+  const update = () => {
+    const el = track.current;
+    if (!el) return;
+    const left = el.getBoundingClientRect().left + parseFloat(getComputedStyle(el).paddingLeft);
+    const cards = Array.from(el.children);
+    const gaps = cards.map((c) => Math.abs(c.getBoundingClientRect().left - left));
+    const end = el.scrollLeft + el.clientWidth >= el.scrollWidth - 4;
+    const at = gaps.indexOf(Math.min(...gaps));
+    setState({ at, shown: end ? cards.length - 1 : at, start: el.scrollLeft <= 4, end });
+  };
+
+  const go = (step: number) => {
+    const card = track.current?.children[state.at + step];
+    card?.scrollIntoView({ behavior: "smooth", inline: "start", block: "nearest" });
+  };
+
+  return { track, update, go, ...state };
+}
+
 export default function HomeBento() {
   const now = experiences[0];
-  const latest = projects.slice(0, 4);
+  const carousel = useCarousel();
   const tools = toolGroups.flatMap((g) => g.items);
 
   return (
@@ -316,16 +346,22 @@ export default function HomeBento() {
               </h2>
               <p className="mt-3 text-base text-taupe-500">A growing collection of my latest projects. More on the way.</p>
             </div>
-            <a href={projectsHref()} className="btn-secondary">View all →</a>
+            <div className="flex items-center gap-3">
+              <span className="text-sm tabular-nums text-taupe-400">{carousel.shown + 1} / {projects.length}</span>
+              <CarouselButton dir="Previous" disabled={carousel.start} onClick={() => carousel.go(-1)} />
+              <CarouselButton dir="Next" disabled={carousel.end} onClick={() => carousel.go(1)} />
+              <a href={projectsHref()} className="btn-secondary">View all →</a>
+            </div>
           </div>
 
-          <div className="flex flex-col gap-4 lg:gap-5">
-            {projectRows(latest).map((row, r) => (
-              <div key={r} className="flex flex-col gap-4 sm:flex-row lg:gap-5">
-                {row.map((p, k) => (
-                  <ProjectCard key={p.title} p={p} delay={0.06 * (r * 2 + k)} />
-                ))}
-              </div>
+          <div
+            ref={carousel.track}
+            onScroll={carousel.update}
+            className="relative -mx-4 flex snap-x snap-mandatory scroll-px-4 items-start gap-4 overflow-x-auto px-4 pb-8 pt-2 [scrollbar-width:none] sm:-mx-8 sm:scroll-px-8 sm:px-8 lg:-mx-10 lg:scroll-px-10 lg:gap-5 lg:px-10 [&::-webkit-scrollbar]:hidden"
+            style={{ "--h": "clamp(15rem, 30vw, 27rem)" } as CSSProperties}
+          >
+            {projects.map((p) => (
+              <ProjectCard key={p.title} p={p} />
             ))}
           </div>
         </div>
