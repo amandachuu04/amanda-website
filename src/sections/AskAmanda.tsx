@@ -184,6 +184,8 @@ function reply(question: string, index: Result[]): Message {
   const [masters, bachelors] = education;
   const schools = education.map((e) => ({ title: e.degree, href: "/about#education", note: e.school }));
 
+  if (/easter|hidden|secret/.test(q)) return answer("There are 5 tiny flowers hidden around this site, and clicking one shares a little fact about me. Try looking on the Home, About, Projects, and Contact pages, and on the project with a flower in it.");
+
   const project = projectReply(question);
   if (project) return project;
 

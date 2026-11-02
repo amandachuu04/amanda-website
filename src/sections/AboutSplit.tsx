@@ -1,6 +1,7 @@
 import { ReactNode, useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { certifications, education, experiences, site, toolGroups } from "../lib/site";
+import { EasterEgg } from "../components/EasterEgg";
 
 const SECTIONS = [
   { id: "about", label: "About me" },
@@ -123,6 +124,9 @@ export default function AboutSplit() {
             <a href={site.cvFile} download className="btn-primary mt-5 w-full">
               Download CV
             </a>
+            <div className="mt-2 flex justify-end">
+              <EasterEgg id="about" />
+            </div>
           </motion.div>
         </aside>
 

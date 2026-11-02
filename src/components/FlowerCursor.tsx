@@ -76,6 +76,29 @@ export default function FlowerCursor() {
     };
     window.addEventListener("mousemove", onMouseMove);
 
+    const onBurst = (e: Event) => {
+      const { x, y, count } = (e as CustomEvent<{ x: number; y: number; count: number }>).detail;
+      if (reduced) return;
+      const now = performance.now();
+      for (let i = 0; i < count; i++) {
+        const angle = Math.random() * Math.PI * 2;
+        const speed = 1 + Math.random() * 3;
+        flowersRef.current.push({
+          x,
+          y,
+          size: 14 + Math.random() * 14,
+          angle,
+          spin: (Math.random() - 0.5) * 0.08,
+          vx: Math.cos(angle) * speed,
+          vy: Math.sin(angle) * speed,
+          born: now,
+          lifetime: 1100 + Math.random() * 900,
+          petal: PETALS[Math.floor(Math.random() * PETALS.length)],
+        });
+      }
+    };
+    window.addEventListener("flower-burst", onBurst);
+
     const draw = (now: number) => {
       ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
 
@@ -103,6 +126,7 @@ export default function FlowerCursor() {
     return () => {
       window.removeEventListener("resize", resize);
       window.removeEventListener("mousemove", onMouseMove);
+      window.removeEventListener("flower-burst", onBurst);
       cancelAnimationFrame(rafRef.current);
     };
   }, []);

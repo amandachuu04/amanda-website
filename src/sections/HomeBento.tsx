@@ -4,6 +4,7 @@ import { experiences, projects, site, toolGroups, type Project } from "../lib/si
 import { projectsHref, workHref } from "../lib/route";
 import AskAmanda from "./AskAmanda";
 import Reveal from "../components/Reveal";
+import { EasterEgg } from "../components/EasterEgg";
 
 const spring = { type: "spring" as const, stiffness: 260, damping: 22 };
 
@@ -280,6 +281,7 @@ export default function HomeBento() {
             <span className="absolute left-4 top-4 rounded-pill bg-cream-50/90 px-3 py-1.5 font-display text-sm italic text-taupe-500 backdrop-blur">
               hi, that&apos;s me ☻
             </span>
+            <EasterEgg id="home" className="absolute bottom-3 right-3" />
           </Tile>
 
           {/* now */}

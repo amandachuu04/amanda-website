@@ -3,6 +3,7 @@ import { motion } from "framer-motion";
 import { CaseStudy } from "../lib/site";
 import { projectsHref } from "../lib/route";
 import Lightbox, { LightboxItem } from "../components/Lightbox";
+import { EasterEgg } from "../components/EasterEgg";
 
 export const reveal = {
   initial: { opacity: 0, y: 28 },
@@ -209,6 +210,7 @@ export default function StoryPage({ study, media, band, after, brand, children }
             {study.skills.map((t) => (
               <span key={t} className="rounded-pill border border-taupe-200/60 px-4 py-2 text-sm font-medium text-taupe-600">{t}</span>
             ))}
+            {study.title === "FloraFlow" && <EasterEgg id="floraflow" className="self-center" />}
           </div>
           {study.externalLink && (
             <a href={study.externalLink.href} target="_blank" rel="noopener noreferrer" className="btn-primary mt-8">

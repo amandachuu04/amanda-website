@@ -9,6 +9,7 @@ import {
 } from "../lib/site";
 import { navigate, projectsHref, workHref } from "../lib/route";
 import ProjectFolder from "../components/ProjectFolder";
+import { EasterEgg } from "../components/EasterEgg";
 
 type Slug = Folder["slug"];
 
@@ -91,6 +92,7 @@ export default function ProjectsPage({ initialSlug }: { initialSlug: Slug }) {
             className="text-sm text-taupe-400"
           >
             {allProjects.length} project{allProjects.length === 1 ? "" : "s"} total
+            <EasterEgg id="projects" className="ml-1 align-middle" />
           </motion.p>
         </div>
 

@@ -2,6 +2,7 @@ import { FormEvent, useState } from "react";
 import { motion } from "framer-motion";
 import LocalClock from "../components/LocalClock";
 import { site } from "../lib/site";
+import { EasterEgg } from "../components/EasterEgg";
 
 const WEB3FORMS_ACCESS_KEY = "8deecd1c-a55c-486d-80d2-fc6dbb91ee66";
 
@@ -92,6 +93,7 @@ export default function Contact() {
             <p className="mt-auto pt-8 text-sm text-taupe-500">
               <LocalClock />
             </p>
+            <EasterEgg id="contact" className="absolute bottom-5 right-5" />
           </div>
 
         <motion.form

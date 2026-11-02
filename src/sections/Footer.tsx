@@ -1,12 +1,14 @@
 import { useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { site } from "../lib/site";
+import { EGG_COUNT, useEggs } from "../components/EasterEgg";
 
 const label = "text-[10px] font-semibold uppercase tracking-[0.2em] text-taupe-400";
 const link = "transition-colors hover:text-ink";
 
 export default function Footer() {
   const [pet, setPet] = useState(0);
+  const { found } = useEggs();
   return (
     <footer className="relative w-full bg-blush-100 text-taupe-500">
       <div className="mx-auto grid w-full max-w-[1560px] grid-cols-1 gap-8 px-4 py-12 sm:px-8 sm:py-14 md:grid-cols-[minmax(0,1fr)_auto_auto] md:gap-14 lg:pl-10 lg:pr-24">
@@ -17,6 +19,7 @@ export default function Footer() {
               Thanks for stopping by!
             </p>
             <p className="mt-1 text-sm">Designed by Amanda Chu · © 2026</p>
+            {found.length > 0 && <p className="mt-1 text-xs text-taupe-400">✿ {found.length} of {EGG_COUNT} hidden flowers found</p>}
           </div>
         </div>
 
