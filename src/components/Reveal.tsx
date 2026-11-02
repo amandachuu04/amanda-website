@@ -1,5 +1,5 @@
 import { ReactNode } from "react";
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 
 /** Fades content in once as it scrolls into view. */
 export default function Reveal({
@@ -17,10 +17,11 @@ export default function Reveal({
   scale?: number;
   delay?: number;
 }) {
+  const reduced = useReducedMotion();
   return (
     <motion.div
       className={className}
-      initial={{ opacity: 0, x, y, scale }}
+      initial={reduced ? { opacity: 0 } : { opacity: 0, x, y, scale }}
       whileInView={{ opacity: 1, x: 0, y: 0, scale: 1 }}
       viewport={{ once: true, margin: "-80px" }}
       transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1], delay }}
