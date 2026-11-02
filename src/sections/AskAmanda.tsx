@@ -132,20 +132,33 @@ const PROJECT_NAMES: Record<string, string[]> = {
   "modular-grid": ["modular"],
 };
 
+// Short chat summaries, written from each project's page. New projects fall back to their tagline.
+const PROJECT_SUMMARIES: Record<string, string> = {
+  "paws-and-care": "Paws & Care is a multi page website I designed and built for a fictional pet adoption organization. I started in Figma with a storyboard, flowchart, and wireframes, then built it as a responsive HTML, CSS, and JavaScript site. Visitors can browse animals, learn about adoption, volunteer, and donate.",
+  nextrip: "NexTrip is a travel planning app that builds personalized itineraries from a trip's length, budget, schedule, and travel preferences. I based the design on three user interviews and a survey with 21 responses, which showed that planning felt time-consuming and overwhelming. The app organizes everything into a customizable daily schedule so planning feels less stressful.",
+  floraflow: "FloraFlow is a calming, screen free focus system for students and early career learners. It pairs an ambient flower inspired lamp with a minimal companion app, so you can plan a session and then step away from your screen. I designed it after research showed that phones, laptops, and even study tools often add to the distraction.",
+  magtracker: "MagTracker is a simple, affordable way to keep track of everyday items like water bottles, wallets, and backpacks. Instead of GPS, it uses a QR based system that works without batteries or pairing. If someone finds a lost item and scans it, a companion app handles permission based sharing.",
+  "linking-narratives": "Linking Narratives is a multi page web experience that turns the lyrics of “Sweet Dreams” by J-Hope and Miguel into a guided story. Each lyric line has its own page with a full-screen cloud illustration, and one highlighted word links to the next page. I sketched it in Adobe XD, then built all eleven pages with HTML and CSS.",
+  "dungeon-cube-caesar": "Dungeon Cube Caesar is a turn-based command-line game I wrote in C, where a player competes against a computer bot. Dice rolls reveal letters of a hidden five-letter word, and whoever reveals their full word first loses. The loser's word is then encrypted with a Caesar cipher.",
+  "grade-management-system": "Grade Management System is a Java grade calculator that works out a student's overall course grade from weighted category scores. It handles category averages, drops the lowest scores when the policy allows, and assigns a final letter grade. It can check one student interactively or report the minimum, maximum, median, and average for a full class.",
+  "name-logo-design": "Name Logo Design is a typography-based project where I created a logo using only my name. I explored full-name and initial designs with different fonts, cases, colors, shapes, and minimal illustrations. The strongest ideas were then refined into a final personal logo.",
+  "federicos-menu": "Federico's Menu is a menu layout design focused on hierarchy, typography, and readability. I created two versions for the same restaurant, one in black and white and one in blue and cream, each with its own font pairing. Both were designed in Adobe InDesign, with imagery prepared in Adobe Photoshop.",
+  "choco-cake-recipe": "Choco Cake Recipe is a recipe layout design focused on hierarchy, typography, and grid layout. I turned one chocolate cake recipe into three text-only layouts with different color palettes and type pairings, all on a 12-column grid. The strongest direction became a final 17 by 11 inch spread paired with chocolate cake imagery.",
+  "banana-bread-recipe": "Banana Bread Recipe is a recipe layout design focused on hierarchy, typography, and grid layout. I turned one banana chocolate chip bread recipe into three text only layouts with different color palettes and type pairings. The strongest direction became a final 16 by 11.5 inch spread paired with banana bread imagery.",
+  "hierarchy-ad": "Hierarchy AD is a card layout design that explores how typographic hierarchy is built. Using one event ad, I created eight versions and changed only one element at a time, including size, style, alignment, weight, case, and color. The final composition layers those decisions into an intentional hierarchy in a 7 by 4 inch print format.",
+  "lane-scheduling-system": "Lane Scheduling System is a Python module that models a small parking lane. It can check whether the lane is empty or full, park and retrieve cars, and verify whether a specific car is there. It also generates the exact sequence of moves needed to bring a car to the front.",
+  "modular-grid": "Modular Grid is a poster design exploration built on a 10 by 10 grid. The composition works like a piece of classical music, with squares of varying heights creating visual rhythm across the grid. I made three variations, black and white, two color, and image based, to compare how each treatment changes the same layout.",
+};
+
 const compact = (text: string) => text.toLowerCase().replace(/[^a-z0-9]/g, "");
 
 function projectReply(question: string): Message | undefined {
   const q = compact(question);
   const project = projects.find((p) => p.slug && [compact(p.title), ...(PROJECT_NAMES[p.slug] ?? [])].some((name) => q.includes(name)));
   if (!project?.slug) return undefined;
-  const { tagline } = caseStudies[project.slug] ?? projectPages[project.slug];
-  const from = tagline.match(/(?:^|\. )(An? .*)/)?.[1] ?? `a ${tagline.replace(/^\w+ \w+/, (w) => w.toLowerCase())}`;
-  const sentence = (from.match(/^.*?[.!?](?=\s|$)/)?.[0] ?? from).replace(/[.!?]$/, "");
-  // Keeps the core idea and drops the extra detail after it.
-  const short = sentence.split(/: |, (?:letting|built|then|assigns|with|treating) | to show /)[0];
   return {
     role: "amanda",
-    text: `${project.title} is ${short.replace(/^A/, "a")}.`,
+    text: PROJECT_SUMMARIES[project.slug] ?? (caseStudies[project.slug] ?? projectPages[project.slug]).tagline,
     items: [{ title: `See ${project.title}`, href: workHref(project.slug) }],
   };
 }
