@@ -66,7 +66,7 @@ const BRAND_COLORS: Record<string, [string, string][]> = {
 };
 
 // Single images that sit centered instead of on the left.
-const CENTERED_IMAGES = ["/modular-grid.avif"];
+const CENTERED_IMAGES = ["/modular-grid.avif", "/federicos-menu/04-bw-spread.jpg", "/federicos-menu.avif"];
 
 // How many shared-height images sit in each row; pairs unless listed.
 const PER_ROW: Record<string, number> = { "paws-and-care": 3 };
