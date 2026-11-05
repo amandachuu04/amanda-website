@@ -356,7 +356,7 @@ function Description({ description }: { description: string[] }) {
       className="relative mx-auto mt-20 w-full max-w-[1560px] px-6 sm:mt-24 sm:px-10 lg:px-14 xl:px-24"
     >
       <p className="text-[0.7rem] font-semibold uppercase tracking-[0.28em] text-taupe-400">
-        About the Project
+        About The Project
       </p>
       <motion.div
         initial="hidden"
