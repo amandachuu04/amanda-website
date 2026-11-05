@@ -52,8 +52,8 @@ const NO_TOP_IMAGE = ["name-logo-design", "paws-and-care"];
 
 // Small images that sit centered in a full-width panel instead of leaving empty space beside them.
 const PANEL_IMAGES: Record<string, string> = {
-  "/paws-and-care/storyboard.jpg": "max-h-[70vh] w-auto max-w-full",
-  "/paws-and-care/logo.png": "h-40 w-auto sm:h-56",
+  "/paws-and-care/storyboard.jpg": "h-auto w-full max-w-[792px]",
+  "/paws-and-care/logo.png": "h-40 w-auto sm:h-52",
 };
 
 // How many shared-height images sit in each row; pairs unless listed.
@@ -83,12 +83,14 @@ const ROWS: Record<string, [number, number][]> = {
   "banana-bread-recipe": [[0, 4]],
   "choco-cake-recipe": [[0, 4], [5, 2]],
   "name-logo-design": [[2, 2]],
+  "paws-and-care": [[0, 2]],
 };
 
 type Iteration = NonNullable<ProjectPage["iterations"]>[number];
 
 function IterationRow({ items }: { items: Iteration[] }) {
   const shared = items.every((it) => SHAPES[it.images[0].src]);
+  if (items.every((it) => PANEL_IMAGES[it.images[0].src])) return <PanelRow items={items} />;
   return (
     <Wrap className="relative">
       <div
@@ -112,6 +114,29 @@ function IterationRow({ items }: { items: Iteration[] }) {
             </div>
           </motion.div>
         ))}
+      </div>
+    </Wrap>
+  );
+}
+
+/** Small images side by side, each centered in a white card; the first card is wider. */
+function PanelRow({ items }: { items: Iteration[] }) {
+  return (
+    <Wrap className="relative">
+      <div className="grid grid-cols-1 gap-x-5 gap-y-12 border-t border-taupe-200/60 py-16 sm:py-20 lg:grid-cols-[minmax(0,1.7fr)_minmax(0,1fr)]">
+        {items.map((it) => {
+          const img = it.images[0];
+          return (
+            <motion.figure key={it.label} {...reveal} className="m-0 flex min-w-0 flex-col">
+              <Eyebrow>{it.label}</Eyebrow>
+              <h3 className="mb-5 mt-3 font-display text-2xl font-bold leading-tight text-ink">{it.heading}</h3>
+              <div className="flex flex-1 items-center justify-center rounded-[1.75rem] border border-taupe-200/60 bg-white p-6 shadow-card sm:p-10">
+                <Zoomable src={img.src} alt={img.caption ?? it.heading ?? it.label} caption={img.caption} className={`mx-auto block ${PANEL_IMAGES[img.src]}`} />
+              </div>
+              {img.caption && <figcaption className="mt-3 text-[10px] font-semibold uppercase tracking-[0.16em] text-taupe-500">{img.caption}</figcaption>}
+            </motion.figure>
+          );
+        })}
       </div>
     </Wrap>
   );
