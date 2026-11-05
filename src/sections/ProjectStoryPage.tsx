@@ -41,6 +41,7 @@ const SHAPES: Record<string, number> = {
   "/paws-and-care/volunteer.png": 1440 / 1334,
   "/paws-and-care/donate.png": 1440 / 1736,
   "/paws-and-care/site-map.png": 1440 / 992,
+  "/paws-and-care/mockup.jpg": 3000 / 2000,
   "/choco-cake-recipe/img-final-spread.jpg": 1224 / 792,
   "/choco-cake-recipe/img-mockup.jpg": 2000 / 1333,
   "/choco-cake-recipe/img-2.png": 5000 / 6429,
@@ -48,6 +49,12 @@ const SHAPES: Record<string, number> = {
 
 // Pages where the cover is shown later instead of above the story (Paws & Care's cover is its video poster).
 const NO_TOP_IMAGE = ["name-logo-design", "paws-and-care"];
+
+// Small images that sit centered in a full-width panel instead of leaving empty space beside them.
+const PANEL_IMAGES: Record<string, string> = {
+  "/paws-and-care/storyboard.jpg": "max-h-[70vh] w-auto max-w-full",
+  "/paws-and-care/logo.png": "h-40 w-auto sm:h-56",
+};
 
 // How many shared-height images sit in each row; pairs unless listed.
 const PER_ROW: Record<string, number> = { "paws-and-care": 3 };
@@ -142,6 +149,18 @@ export default function ProjectStoryPage({ project }: { project: ProjectPage }) 
         <Section key={`${it.label}-${i}`} eyebrow={it.label} title={it.heading ?? it.label}>
           {it.images.every((img) => SHAPES[img.src]) ? (
             <SharedHeightRows images={it.images} label={it.heading ?? it.label} perRow={PER_ROW[project.slug]} />
+          ) : it.images.length === 1 && PANEL_IMAGES[it.images[0].src] ? (
+            <figure className="m-0">
+              <div className="flex justify-center rounded-[1.75rem] border border-taupe-200/60 bg-white p-6 shadow-card sm:p-12">
+                <Zoomable
+                  src={it.images[0].src}
+                  alt={it.images[0].caption ?? it.heading ?? it.label}
+                  caption={it.images[0].caption}
+                  className={`mx-auto block rounded-xl ${PANEL_IMAGES[it.images[0].src]}`}
+                />
+              </div>
+              {it.images[0].caption && <figcaption className="mt-3 text-[10px] font-semibold uppercase tracking-[0.16em] text-taupe-500">{it.images[0].caption}</figcaption>}
+            </figure>
           ) : it.images.length === 1 ? (
             <figure className="m-0 w-fit max-w-full">
               <Zoomable
