@@ -65,6 +65,9 @@ const BRAND_COLORS: Record<string, [string, string][]> = {
   ],
 };
 
+// Single images that sit centered instead of on the left.
+const CENTERED_IMAGES = ["/modular-grid.avif"];
+
 // How many shared-height images sit in each row; pairs unless listed.
 const PER_ROW: Record<string, number> = { "paws-and-care": 3 };
 
@@ -207,7 +210,7 @@ export default function ProjectStoryPage({ project }: { project: ProjectPage }) 
               {it.images[0].caption && <figcaption className="mt-3 text-[10px] font-semibold uppercase tracking-[0.16em] text-taupe-500">{it.images[0].caption}</figcaption>}
             </figure>
           ) : it.images.length === 1 ? (
-            <figure className="m-0 w-fit max-w-full">
+            <figure className={`m-0 w-fit max-w-full ${CENTERED_IMAGES.includes(it.images[0].src) ? "mx-auto" : ""}`}>
               <Zoomable
                 src={it.images[0].src}
                 alt={it.images[0].caption ?? it.heading ?? it.label}
