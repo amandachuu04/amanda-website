@@ -32,24 +32,37 @@ const SHAPES: Record<string, number> = {
   "/name-logo-design/img-6.webp": 1805 / 1721,
   "/name-logo-design/img-7.webp": 1753 / 1705,
   "/name-logo-design.avif": 799 / 1200,
+  "/paws-and-care/index.png": 1440 / 1387,
+  "/paws-and-care/about-us.png": 1440 / 1387,
+  "/paws-and-care/adopt.png": 1440 / 973,
+  "/paws-and-care/available-animals.png": 1440 / 1736,
+  "/paws-and-care/small-animals.png": 1440 / 1736,
+  "/paws-and-care/adoption-process.png": 1440 / 1651,
+  "/paws-and-care/volunteer.png": 1440 / 1334,
+  "/paws-and-care/donate.png": 1440 / 1736,
+  "/paws-and-care/site-map.png": 1440 / 992,
   "/choco-cake-recipe/img-final-spread.jpg": 1224 / 792,
   "/choco-cake-recipe/img-mockup.jpg": 2000 / 1333,
   "/choco-cake-recipe/img-2.png": 5000 / 6429,
 };
 
-// Pages where the cover is shown later instead of above the story.
-const NO_TOP_IMAGE = ["name-logo-design"];
+// Pages where the cover is shown later instead of above the story (Paws & Care's cover is its video poster).
+const NO_TOP_IMAGE = ["name-logo-design", "paws-and-care"];
 
-function SharedHeightRows({ images, label }: { images: { src: string; caption?: string }[]; label: string }) {
-  const rows = images.reduce<{ src: string; caption?: string }[][]>((all, img, i) => (i % 2 ? all.slice(0, -1).concat([[...all[all.length - 1], img]]) : [...all, [img]]), []);
+// How many shared-height images sit in each row; pairs unless listed.
+const PER_ROW: Record<string, number> = { "paws-and-care": 3 };
+
+function SharedHeightRows({ images, label, perRow = 2 }: { images: { src: string; caption?: string }[]; label: string; perRow?: number }) {
+  const rows = Array.from({ length: Math.ceil(images.length / perRow) }, (_, i) => images.slice(i * perRow, i * perRow + perRow));
   return (
-    <div className="space-y-5">
+    <div className="space-y-8">
       {rows.map((row) => (
-        <div key={row[0].src} className="flex flex-col gap-5 sm:flex-row">
+        <div key={row[0].src} className="flex flex-col gap-8 sm:flex-row sm:gap-5">
           {row.map((img, i) => (
-            <div key={img.src} className="min-w-0 sm:[flex:var(--f)_1_0%]" style={{ "--f": SHAPES[img.src] } as CSSProperties}>
-              <Zoomable src={img.src} alt={`${label} ${i + 1}`} caption={img.caption} className="block h-auto w-full rounded-[1.5rem] shadow-card" />
-            </div>
+            <figure key={img.src} className="m-0 min-w-0 sm:[flex:var(--f)_1_0%]" style={{ "--f": SHAPES[img.src] } as CSSProperties}>
+              <Zoomable src={img.src} alt={img.caption ?? `${label} ${i + 1}`} caption={img.caption} className="block h-auto w-full rounded-[1.5rem] shadow-card" />
+              {img.caption && <figcaption className="mt-3 text-[10px] font-semibold uppercase tracking-[0.16em] text-taupe-500">{img.caption}</figcaption>}
+            </figure>
           ))}
         </div>
       ))}
@@ -128,7 +141,7 @@ export default function ProjectStoryPage({ project }: { project: ProjectPage }) 
         return (
         <Section key={`${it.label}-${i}`} eyebrow={it.label} title={it.heading ?? it.label}>
           {it.images.every((img) => SHAPES[img.src]) ? (
-            <SharedHeightRows images={it.images} label={it.heading ?? it.label} />
+            <SharedHeightRows images={it.images} label={it.heading ?? it.label} perRow={PER_ROW[project.slug]} />
           ) : it.images.length === 1 ? (
             <figure className="m-0 w-fit max-w-full">
               <Zoomable
