@@ -53,7 +53,16 @@ const NO_TOP_IMAGE = ["name-logo-design", "paws-and-care"];
 // Small images that sit centered in a full-width panel instead of leaving empty space beside them.
 const PANEL_IMAGES: Record<string, string> = {
   "/paws-and-care/storyboard.jpg": "h-auto w-full max-w-[792px]",
-  "/paws-and-care/logo.png": "h-40 w-auto sm:h-52",
+  "/paws-and-care/logo.png": "h-44 w-auto sm:h-60",
+};
+
+// Colors sampled from a logo, shown under it as a palette.
+const BRAND_COLORS: Record<string, [string, string][]> = {
+  "/paws-and-care/logo.png": [
+    ["Sky blue", "#6EA4E0"],
+    ["Navy", "#2F5275"],
+    ["White", "#FFFFFF"],
+  ],
 };
 
 // How many shared-height images sit in each row; pairs unless listed.
@@ -130,8 +139,19 @@ function PanelRow({ items }: { items: Iteration[] }) {
             <motion.figure key={it.label} {...reveal} className="m-0 flex min-w-0 flex-col">
               <Eyebrow>{it.label}</Eyebrow>
               <h3 className="mb-5 mt-3 font-display text-2xl font-bold leading-tight text-ink">{it.heading}</h3>
-              <div className="flex flex-1 items-center justify-center rounded-[1.75rem] border border-taupe-200/60 bg-white p-6 shadow-card sm:p-10">
+              <div className="flex flex-1 flex-col items-center justify-center gap-8 rounded-[1.75rem] border border-taupe-200/60 bg-white p-6 shadow-card sm:p-10">
                 <Zoomable src={img.src} alt={img.caption ?? it.heading ?? it.label} caption={img.caption} className={`mx-auto block ${PANEL_IMAGES[img.src]}`} />
+                {BRAND_COLORS[img.src] && (
+                  <ul className="flex w-full max-w-xs justify-center gap-5 border-t border-taupe-200/50 pt-6">
+                    {BRAND_COLORS[img.src].map(([name, hex]) => (
+                      <li key={hex} className="flex flex-col items-center gap-2 text-center">
+                        <span aria-hidden className="h-12 w-12 rounded-full border border-taupe-200/70 shadow-card" style={{ backgroundColor: hex }} />
+                        <span className="text-xs font-semibold text-ink">{name}</span>
+                        <span className="text-[10px] uppercase tracking-[0.12em] text-taupe-500">{hex}</span>
+                      </li>
+                    ))}
+                  </ul>
+                )}
               </div>
               {img.caption && <figcaption className="mt-3 text-[10px] font-semibold uppercase tracking-[0.16em] text-taupe-500">{img.caption}</figcaption>}
             </motion.figure>
