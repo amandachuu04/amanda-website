@@ -15,7 +15,7 @@ export default function Footer() {
         <div className="flex items-center gap-5">
           <img src={site.avatar} alt="" className="h-20 w-20 shrink-0 object-contain sm:h-24 sm:w-24" />
           <div>
-            <p className="font-display text-[clamp(1.6rem,3vw,2.3rem)] font-bold leading-tight text-ink">
+            <p className="font-display text-[clamp(1.6rem,3vw,2.3rem)] font-bold leading-tight">
               Thanks for stopping by!
             </p>
             <p className="mt-1 text-sm">Designed by Amanda Chu · © 2026</p>
